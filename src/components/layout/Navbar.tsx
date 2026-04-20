@@ -8,9 +8,11 @@ import Image from 'next/image';
 import MagneticButton from '../ui/MagneticButton';
 import { useCursor } from '../ui/CursorProvider';
 
-/* ========================================
-   Navbar — Fixed, scroll-aware, responsive
-   ======================================== */
+/* ==========================================================
+   v7: THE ELITE CHROME — NAVBAR
+   Static global navigation evolved for Onyx & Gold.
+   Architecture: Depth-Glassmorphism, Kinetic Portal Menu.
+   ========================================================== */
 
 const navLinks = [
   { label: 'WORK', href: '/work' },
@@ -37,9 +39,7 @@ export default function Navbar() {
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 80);
-      
-      // Hide on scroll down, show on scroll up
+      setScrolled(currentScrollY > 60);
       if (currentScrollY > lastScrollY && currentScrollY > 400) {
         setHidden(true);
       } else {
@@ -55,49 +55,22 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  const isCaseStudy = pathname.startsWith('/work/') && pathname !== '/work';
-  const isActuallyDark = pathname === '/' || isCaseStudy;
-
-  const navColors = {
-    bgScrolled: isActuallyDark ? 'rgba(10,10,10,0.92)' : 'rgba(248,247,244,0.92)',
-    bgIdle: 'rgba(0,0,0,0)',
-    textActive: isActuallyDark ? 'var(--white)' : 'var(--ink)',
-    textIdle: isActuallyDark ? 'rgba(255,255,255,0.6)' : 'var(--ink-tertiary)',
-    logoInvert: isActuallyDark ? 1 : 0,
-    border: isActuallyDark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,10,0.06)',
-    hamburger: isActuallyDark ? 'var(--white)' : 'var(--ink)',
-  };
-
   return (
     <>
       <motion.nav
-        className="px-4 md:px-6 lg:px-8"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '80px',
-          zIndex: 50,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
+        className="fixed top-0 left-0 right-0 h-20 z-50 px-6 md:px-12 flex items-center justify-between border-b border-transparent transition-all duration-700"
         animate={{
           y: hidden ? '-100%' : '0%',
-          backgroundColor: scrolled ? navColors.bgScrolled : navColors.bgIdle,
+          backgroundColor: scrolled ? 'rgba(10,10,10,0.6)' : 'rgba(0,0,0,0)',
           backdropFilter: scrolled ? 'blur(24px)' : 'blur(0px)',
-          borderBottom: scrolled
-            ? `1px solid ${navColors.border}`
-            : '1px solid rgba(0,0,0,0)',
+          borderColor: scrolled ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0)',
         }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Logo */}
         <Link 
           href="/" 
-          className="flex items-center" 
-          style={{ position: 'relative', width: '60px', height: '60px' }} 
+          className="relative w-12 h-12 flex items-center group"
           onMouseEnter={() => setCursor('link')} 
           onMouseLeave={resetCursor}
         >
@@ -105,25 +78,14 @@ export default function Navbar() {
             src="/dc-logo-big.png" 
             alt="DeepCipher Logo" 
             fill
-            sizes="60px"
+            sizes="48px"
             priority
-            style={{ 
-              objectFit: 'contain', 
-              objectPosition: 'left center',
-              filter: isActuallyDark ? 'none' : 'invert(1) hue-rotate(180deg) contrast(1.2)',
-              transition: 'filter 0.5s ease'
-            }} 
+            className="object-contain group-hover:scale-110 transition-transform duration-700"
           />
         </Link>
 
-        {/* Center nav — desktop */}
-        <div
-          style={{
-            gap: 'min(32px, 2.5vw)',
-            alignItems: 'center',
-          }}
-          className="hidden lg:flex"
-        >
+        {/* Desktop Links */}
+        <div className="hidden lg:flex items-center gap-12">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
             return (
@@ -132,20 +94,7 @@ export default function Navbar() {
                 href={link.href}
                 onMouseEnter={() => setCursor('link')}
                 onMouseLeave={resetCursor}
-                className={`${isActive ? 'nav-link-active' : ''} nav-link-underline`}
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontWeight: 300,
-                  fontSize: '10px',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  color: isActive ? navColors.textActive : navColors.textIdle,
-                  textDecoration: 'none',
-                  position: 'relative',
-                  paddingBottom: '4px',
-                  transition: 'color 0.3s ease',
-                  borderBottom: isActive ? '1px solid var(--accent-warm)' : '1px solid transparent',
-                }}
+                className={`font-mono text-[9px] tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white' : 'text-white/30 hover:text-white'}`}
               >
                 {link.label}
               </Link>
@@ -153,143 +102,72 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right — CTA (desktop) */}
-        <div className="hidden lg:block">
-          {pathname !== '/start-a-project' && (
-            <MagneticButton variant="outline" href="/start-a-project" cursorLabel="START">
-              START A PROJECT
-            </MagneticButton>
-          )}
+        {/* Action HUD */}
+        <div className="hidden lg:flex items-center gap-8">
+           <div className="w-[1px] h-8 bg-white/5" />
+           <MagneticButton variant="ghost" href="/start-a-project" className="text-[10px] font-mono tracking-[0.4em] uppercase">
+             SYS_INIT →
+           </MagneticButton>
         </div>
 
-        {/* Hamburger (mobile) */}
-        <button
-          className="flex lg:hidden flex-col justify-between"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            width: '28px',
-            height: '20px',
-            position: 'relative',
-          }}
-        >
-          <motion.span
-            animate={{
-              rotate: mobileOpen ? 45 : 0,
-              y: mobileOpen ? 9 : 0,
-            }}
-            style={{
-              width: '100%',
-              height: '1.5px',
-              backgroundColor: navColors.hamburger,
-              display: 'block',
-              transformOrigin: 'center',
-            }}
-          />
-          <motion.span
-            animate={{ opacity: mobileOpen ? 0 : 1 }}
-            style={{
-              width: '100%',
-              height: '1.5px',
-              backgroundColor: navColors.hamburger,
-              display: 'block',
-            }}
-          />
-          <motion.span
-            animate={{
-              rotate: mobileOpen ? -45 : 0,
-              y: mobileOpen ? -9 : 0,
-            }}
-            style={{
-              width: '100%',
-              height: '1.5px',
-              backgroundColor: navColors.hamburger,
-              display: 'block',
-              transformOrigin: 'center',
-            }}
-          />
-        </button>
-
-        {/* Scroll progress bar */}
+        {/* Global Progress */}
         <motion.div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '1.5px',
-            backgroundColor: 'var(--accent-warm)',
-            transformOrigin: 'left',
-            scaleX,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: scrolled ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', backgroundColor: 'var(--accent-warm)', transformOrigin: 'left', scaleX }}
+          className="opacity-20"
         />
+
+        {/* Hamburger */}
+        <button
+          className="flex lg:hidden flex-col justify-center gap-1.5 w-8 h-8 group focus:outline-none"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <motion.span animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 4 : 0 }} className="w-full h-px bg-white group-hover:bg-[var(--accent-warm)] transition-colors" />
+          <motion.span animate={{ opacity: mobileOpen ? 0 : 1 }} className="w-full h-px bg-white group-hover:bg-[var(--accent-warm)] transition-colors" />
+          <motion.span animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? -4 : 0 }} className="w-full h-px bg-white group-hover:bg-[var(--accent-warm)] transition-colors" />
+        </button>
       </motion.nav>
 
-      {/* Mobile overlay */}
+      {/* MOBILE PORTAL */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 49,
-              backgroundColor: 'var(--off-white)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'center',
-              gap: '16px',
-            }}
-            className="px-6 md:px-10 lg:px-20"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[49] bg-[#0A0A0A] flex flex-col justify-center px-12 md:px-20"
           >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontWeight: 300,
-                    fontStyle: 'italic',
-                    color: 'var(--ink)',
-                    textDecoration: 'none',
-                    display: 'block',
-                  }}
-                  className="text-5xl sm:text-7xl nav-link-underline"
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              style={{ marginTop: '32px' }}
-            >
-              <MagneticButton variant="filled" href="/start-a-project">
-                START A PROJECT
-              </MagneticButton>
-            </motion.div>
+             {/* Background Decoration */}
+             <div className="absolute inset-x-0 bottom-0 top-0 opacity-[0.02] flex items-center justify-center pointer-events-none select-none">
+                <span className="font-display font-black text-[30vw] uppercase tracking-tighter italic">MENU</span>
+             </div>
+
+             <div className="flex flex-col gap-10 relative z-10">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="font-display font-light italic text-[clamp(44px,12vw,100px)] text-white/40 hover:text-white transition-colors duration-700 tracking-tighter uppercase inline-block"
+                    >
+                      {link.label}.
+                    </Link>
+                  </motion.div>
+                ))}
+             </div>
+
+             <div className="absolute bottom-12 left-12 flex flex-col gap-4">
+                <span className="font-mono text-[9px] text-[var(--accent-warm)] opacity-50 tracking-[0.5em] uppercase">Ready to initialize?</span>
+                <Link href="/start-a-project" onClick={() => setMobileOpen(false)} className="font-mono text-[11px] text-white tracking-[0.4em] uppercase border-b border-white/5 pb-1 select-none">SYSM_START_MISSION →</Link>
+             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
-

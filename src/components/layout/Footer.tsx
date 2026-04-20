@@ -6,41 +6,40 @@ import Link from 'next/link';
 import { useCursor } from '../ui/CursorProvider';
 import MagneticButton from '../ui/MagneticButton';
 
-/* ========================================
-   Footer — Elite 2026 Redesign
-   ======================================== */
+/* ==========================================================
+   v7: THE ELITE CLOSURE — FOOTER
+   A high-fidelity terminal cinematic.
+   Architecture: Massive Asmymmetric Layout, Technical HUD Grids, 1px Precision.
+   ========================================================== */
 
 const footerNav = {
-  STUDIO: [
-    { label: 'About', href: '/about' },
-    { label: 'Team', href: '/about#team' },
-    { label: 'Milestones', href: '/about#awards' },
+  MANIFEST: [
+    { label: 'Studio Portfolio', href: '/work' },
+    { label: 'Capabilities Index', href: '/services' },
+    { label: 'Project Protocol', href: '/process' },
+    { label: 'Digital Heritage', href: '/about' },
   ],
-  WORK: [
-    { label: 'Case Studies', href: '/work' },
-    { label: 'Process', href: '/process' },
-    { label: 'Services', href: '/services' },
-    { label: 'Archive', href: '/work' },
+  CONNECTED: [
+    { label: 'Project Initialize', href: '/start-a-project' },
+    { label: 'Dossier Request', href: '/contact' },
+    { label: 'Direct Sync', href: 'mailto:deepcipherstudio@gmail.com' },
   ],
-  CONTACT: [
-    { label: 'Start a Project', href: '/start-a-project' },
-    { label: 'Book a Call', href: '/contact' },
-    { label: 'deepcipherstudio@gmail.com', href: 'mailto:deepcipherstudio@gmail.com' },
+  NODES: [
+    { label: 'Instagram', href: '#' },
+    { label: 'Twitter / X', href: '#' },
+    { label: 'LinkedIn', href: '#' },
+    { label: 'Behance', href: '#' },
   ],
 };
-
-const socialLinks = ['IG', 'TW', 'LI', 'BE'];
 
 export default function Footer() {
   const { setCursor, resetCursor } = useCursor();
   const footerRef = useRef<HTMLElement>(null);
   
-  // Mouse spotlight values
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+  const springX = useSpring(mouseX, { stiffness: 45, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 45, damping: 20 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -49,7 +48,6 @@ export default function Footer() {
       mouseX.set(e.clientX - rect.left);
       mouseY.set(e.clientY - rect.top);
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
@@ -57,25 +55,20 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="footer-container overflow-hidden" 
-      style={{ 
-        backgroundColor: 'var(--surface-dark)', 
-        color: 'var(--white)', 
-        position: 'relative', 
-        zIndex: 40 
-      }}
+      className="relative bg-[#0A0A0A] text-white pt-44 pb-12 overflow-hidden border-t border-white/5"
+      style={{ zIndex: 40 }}
     >
-      {/* Dynamic Spotlight Glow */}
+      {/* 01. THE ATMOSPHERIC SPOTLIGHT */}
       <motion.div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '800px',
-          height: '800px',
-          background: 'radial-gradient(circle, rgba(184,149,106,0.12) 0%, transparent 70%)',
+          width: '1200px',
+          height: '1200px',
+          background: 'radial-gradient(circle, rgba(184,149,106,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
-          zIndex: 1,
+          zIndex: 0,
           x: springX,
           y: springY,
           translateX: '-50%',
@@ -83,128 +76,105 @@ export default function Footer() {
         }}
       />
 
-      {/* Zone 1: Email Reveal Band */}
-      <section className="footer-zone-1">
-        <div className="email-reveal-wrap">
-          <div className="email-hairline" style={{ background: 'linear-gradient(90deg, transparent, rgba(184,149,106,0.35), transparent)' }} />
-          <motion.a
-            href="mailto:deepcipherstudio@gmail.com"
-            className="email-link"
-            onMouseEnter={() => setCursor('hover', 'HELLO')}
-            onMouseLeave={resetCursor}
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            deepcipherstudio@gmail.com
-          </motion.a>
-          <div className="email-hairline" style={{ background: 'linear-gradient(90deg, transparent, rgba(184,149,106,0.35), transparent)' }} />
-        </div>
-      </section>
+      <div className="relative z-10 px-6 md:px-20 lg:px-40 max-w-[1800px] mx-auto">
+        
+        {/* TOP HUD: MISSION STATUS */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32 border-b border-white/5 pb-12">
+           <div className="flex flex-col gap-4">
+              <span className="font-mono text-[9px] text-[var(--accent-warm)] opacity-50 tracking-[0.5em] uppercase hover:opacity-100 transition-opacity select-none cursor-none overflow-hidden" onMouseEnter={() => setCursor('hover', 'READY')}>SYSTEM_READY_v7.01</span>
+              <h2 className="font-display font-light italic text-[clamp(40px,7vw,110px)] text-white tracking-tighter m-0 uppercase leading-[0.8]">
+                 Ready To <br />
+                 <span className="opacity-35 italic">Launch.</span>
+              </h2>
+           </div>
 
-      {/* Zone 2: Main Footer Grid — Editorial Redesign */}
-      <section className="footer-zone-2">
-        <div className="footer-main-grid">
-          {/* Left Column (45%) */}
-          <div className="footer-left-col">
-            <div className="footer-brand-lockup">
-              <h3 className="footer-wordmark">DEEPCIPHER</h3>
-              <p className="footer-brand-tagline">Web Design & Brand Identity Studio</p>
-            </div>
-
-            <motion.h2 
-              className="footer-hero-headline"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            >
-              Let’s build something <span className="italic" style={{ color: 'var(--accent-warm)' }}>extraordinary.</span>
-            </motion.h2>
-
-            <div className="footer-cta-wrap">
-              <MagneticButton variant="filled" href="/start-a-project" cursorLabel="START">
-                START A PROJECT →
-              </MagneticButton>
-            </div>
-
-            <div className="footer-social-row">
-              {(['IG', 'TW', 'LI', 'BE'] as const).map((s) => (
-                <motion.a
-                  key={s}
-                  href="#"
-                  className="footer-social-item"
-                  onMouseEnter={() => setCursor('hover', s)}
-                  onMouseLeave={resetCursor}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {s}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column (55%) — Asymmetric Grid */}
-          <div className="footer-right-col">
-            {Object.entries(footerNav).map(([heading, links], colIndex) => (
-              <div key={heading} className={`footer-nav-col ${colIndex === 1 ? 'mt-8 md:mt-16' : ''}`}>
-                <h4 className="footer-nav-heading">[ {heading} ]</h4>
-                <ul className="footer-nav-list">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        onMouseEnter={() => setCursor('link')}
-                        onMouseLeave={resetCursor}
-                        className="footer-nav-link nav-link-underline"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+           <div className="flex flex-col gap-8 md:text-right md:items-end">
+              <div className="flex flex-col gap-3">
+                 <span className="font-mono text-[9px] text-white/20 tracking-[0.4em] uppercase">Communication_Line_Sync</span>
+                 <motion.a 
+                    href="mailto:deepcipherstudio@gmail.com"
+                    onMouseEnter={() => setCursor('hover', 'EMAIL')}
+                    onMouseLeave={resetCursor}
+                    className="font-display font-light italic text-4xl text-white hover:text-[var(--accent-warm)] transition-colors duration-700 tracking-tighter uppercase underline decoration-[var(--accent-warm)]/20 underline-offset-8"
+                  >
+                   deepcipherstudio@gmail.com
+                 </motion.a>
               </div>
-            ))}
-          </div>
+           </div>
         </div>
-      </section>
 
-      {/* Zone 3: Full-Width Wordmark Statement */}
-      <section className="footer-zone-3">
-        <div className="watermark-container">
-          <div className="watermark-text-wrap">
-            <motion.h1
-              className="footer-watermark"
-              onMouseEnter={() => setCursor('hover', 'DEEPCIPHER')}
-              onMouseLeave={resetCursor}
-              whileHover={{ letterSpacing: '0.45em', color: 'rgba(255,255,255,0.4)' }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              DEEPCIPHER
-            </motion.h1>
-          </div>
+        {/* MIDDLE: THE ARCHITECTURAL NAV */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-32 mb-44">
+           {/* CTA HUB */}
+           <div className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-16">
+              <p className="font-body font-light text-[18px] md:text-[22px] text-white/30 leading-relaxed italic max-w-[40ch]">
+                 Architecting digital authority for ambitious brands across the neuro-technological landscape.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-start gap-8">
+                 <MagneticButton variant="ghost" href="/start-a-project" className="px-12 py-6 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
+                    Initialize_Mission →
+                 </MagneticButton>
+                 <div className="flex flex-col gap-2 pt-1 sm:pt-0">
+                    <span className="font-mono text-[8px] text-white/10 tracking-[0.3em] uppercase">Operational_Status</span>
+                    <span className="font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.2em] uppercase">● ACTIVE_ON_GRID</span>
+                 </div>
+              </div>
+           </div>
+
+           {/* NAV NODES */}
+           <div className="md:col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-16 md:gap-24">
+              {Object.entries(footerNav).map(([title, links]) => (
+                <div key={title} className="flex flex-col gap-10">
+                   <span className="font-mono text-[9px] text-white/10 tracking-[0.5em] uppercase italic underline decoration-white/5 underline-offset-4">{title}</span>
+                   <ul className="flex flex-col gap-4 m-0 p-0 list-none">
+                      {links.map((link) => (
+                        <li key={link.label}>
+                           <Link 
+                              href={link.href}
+                              onMouseEnter={() => setCursor('link')}
+                              onMouseLeave={resetCursor}
+                              className="font-mono text-[11px] text-white/30 hover:text-white transition-all duration-500 uppercase tracking-[0.2em]"
+                           >
+                             {link.label}
+                           </Link>
+                        </li>
+                      ))}
+                   </ul>
+                </div>
+              ))}
+           </div>
         </div>
-        {/* Amber hairline */}
-        <div className="footer-wordmark-rule" />
-      </section>
 
-      {/* Zone 4: Copyright Bar */}
-      <section className="footer-zone-4">
-        <div className="footer-bottom-bar">
-          <div className="bottom-item bottom-left">
-            INDIA · USA · BERLIN · LONDON · REMOTE
-          </div>
-          <div className="bottom-item bottom-center">
-            © 2026 DEEPCIPHER STUDIO. ALL RIGHTS RESERVED.
-          </div>
-          <div className="bottom-item bottom-right">
-            WEBSITES BUILT WITH <span style={{ color: 'var(--accent-warm)' }}>OBSESSION.</span>
-          </div>
+        {/* FOOTER WATERMARK — Cinematic Expansion */}
+        <div className="relative pt-24 border-t border-white/5 overflow-hidden">
+           <motion.h1 
+             whileHover={{ letterSpacing: '0.45em', filter: 'blur(4px)' }}
+             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+             className="font-display font-black text-[18vw] leading-[0.7] text-white/[0.03] uppercase tracking-tighter m-0 whitespace-nowrap select-none pointer-events-auto cursor-none overflow-hidden"
+             onMouseEnter={() => setCursor('hover', 'TERMINAL')}
+             onMouseLeave={resetCursor}
+           >
+             DEEP_CIPHER®
+           </motion.h1>
+           
+           <div className="flex flex-col md:flex-row justify-between items-end gap-12 mt-12">
+              <div className="flex flex-col gap-2 font-mono text-[8px] text-white/10 tracking-[0.4em] uppercase italic">
+                 <span>Architecture_Protocol_v7.0</span>
+                 <span>Onyx_Gold_Sync_Complete</span>
+              </div>
+              
+              <div className="font-mono text-[10px] text-white/20 tracking-[0.3em] uppercase">
+                 © 2026 DEEPCIPHER STUDIO. ALL RIGHTS RESERVED.
+              </div>
+
+              <div className="font-mono text-[10px] text-white/20 tracking-[0.3em] uppercase md:text-right">
+                 Built with <span className="text-[var(--accent-warm)]">Obsessive_Precision.</span>
+              </div>
+           </div>
         </div>
-      </section>
 
+      </div>
     </footer>
   );
 }

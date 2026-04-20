@@ -1,358 +1,152 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import AnimatedText from '@/components/ui/AnimatedText';
-import RevealLine from '@/components/ui/RevealLine';
-import SectionLabel from '@/components/ui/SectionLabel';
-import MagneticButton from '@/components/ui/MagneticButton';
+import { useCursor } from '@/components/ui/CursorProvider';
 import { services } from '@/lib/services';
+import Noise from '@/components/ui/Noise';
+import MagneticButton from '@/components/ui/MagneticButton';
+import ParallaxImage from '@/components/ui/ParallaxImage';
 
-/* ========================================
-   Services Client Page
-   ======================================== */
+/* ==========================================================
+   v7: THE CAPABILITY HUD — ELITE SERVICES
+   A high-fidelity technical expertise index.
+   Architecture: 1px HUD Grids, Magnetic Detail Cards, Liquid Imagery.
+   ========================================================== */
 
 export default function ServicesClient() {
-  return (
-    <>
-      {/* Header — Creative & Aesthetic */}
-      <section
-        className="relative w-full overflow-hidden px-6 md:px-10 lg:px-20 pt-40 pb-32"
-        style={{ backgroundColor: 'var(--white)' }}
-      >
-        {/* Aesthetic background elements */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] border-[1px] border-[var(--border)] rounded-full -translate-y-1/2 translate-x-1/4 opacity-50 pointer-events-none" />
-        <div className="absolute top-20 right-20 w-[350px] h-[350px] border-[1px] border-[var(--accent-warm)] rounded-full -translate-y-1/2 translate-x-1/4 opacity-20 pointer-events-none" />
-        
-        {/* Subtle geometric grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
-        
-        <div className="relative z-10 max-w-[1400px] mx-auto">
-          <SectionLabel>{'[ 03 — CAPABILITIES ]'}</SectionLabel>
-          
-          <div className="mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-12">
-            <h1 
-              className="font-display italic font-light text-[var(--ink)] leading-[0.85] tracking-tighter"
-              style={{ fontSize: 'clamp(64px, 11vw, 180px)' }}
-            >
-              Shaping<br />
-              <span className="text-[var(--accent-warm)]">futures.</span>
-            </h1>
+  const { setCursor, resetCursor } = useCursor();
 
-            <RevealLine delay={0.3}>
-              <div className="max-w-[420px] pb-4">
-                <p className="font-body font-light text-[18px] md:text-[20px] text-[var(--ink-secondary)] leading-relaxed">
-                  We don&apos;t just design interfaces. We architect digital ecosystems that elevate ambitious brands from industry participants to category leaders.
-                </p>
-                <div className="flex items-center gap-4 mt-10">
-                  <span className="h-[1px] w-12 bg-[var(--ink)]" />
-                  <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--ink)]">
-                    Explore our expertise
-                  </span>
-                </div>
-              </div>
-            </RevealLine>
+  return (
+    <main className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30">
+      <Noise opacity={0.03} />
+      
+      {/* 01. THE TECHNICAL HEADER — Architectural Focus */}
+      <section className="relative pt-44 pb-20 md:pt-64 md:pb-32 px-6 md:px-20 overflow-hidden">
+        {/* Background Ghost Text */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 whitespace-nowrap pointer-events-none opacity-[0.02] select-none">
+          <span className="font-display font-black text-[25vw] uppercase tracking-tighter italic">EXPERTISE</span>
+        </div>
+
+        <div className="max-w-[1800px] mx-auto relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-16">
+          <div className="flex flex-col items-start gap-12">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-px bg-[var(--accent-warm)] opacity-40" />
+              <span className="font-mono text-[9px] tracking-[0.5em] text-[var(--accent-warm)] opacity-60 uppercase">SYSTEM_INDEX_CAP_03</span>
+            </div>
+            
+            <h1 className="text-[clamp(60px,11vw,180px)] font-display font-light italic leading-[0.8] tracking-tighter uppercase m-0">
+              Shaping <br />
+              <span className="text-[var(--accent-warm)] opacity-30">The</span> Futures.
+            </h1>
+          </div>
+
+          <div className="max-w-[450px] border-l border-white/5 pl-12 pb-4">
+             <p className="font-body font-light text-[18px] md:text-[22px] text-white/30 leading-relaxed mb-12 italic">
+               We don&apos;t just design interfaces. We architect digital ecosystems that elevate ambitious brands from industry participants to category leaders.
+             </p>
+             <div className="flex items-center gap-6">
+               <span className="font-mono text-[10px] tracking-[0.4em] text-white/20 uppercase">Core_Specialization.03</span>
+               <div className="flex-1 h-px bg-white/5" />
+             </div>
           </div>
         </div>
       </section>
 
-      {/* Service Sections */}
-      {services.map((service, i) => {
-        const isOdd = i % 2 === 0;
-        return (
-          <section
-            key={service.id}
-            style={{
-              backgroundColor: isOdd ? 'var(--white)' : 'var(--surface-subtle)',
-              paddingTop: 'var(--section-padding)',
-              paddingBottom: 'var(--section-padding)',
-            }}
-            className="px-6 md:px-10 lg:px-20 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center section-standard"
-          >
-            {/* Info side */}
-            <div className={`order-2 ${isOdd ? 'md:order-1 md:col-span-7' : 'md:order-2 md:col-span-5'}`}>
-              <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '9px',
-                  color: 'var(--accent-warm)',
-                  letterSpacing: '0.22em',
-                  display: 'block',
-                  marginBottom: '16px',
-                }}
-              >
-                {service.number}
-              </motion.span>
-
-              <AnimatedText
-                splitBy="word"
-                className="service-title"
-              >
-                {service.title}
-              </AnimatedText>
-
+      {/* 02. CAPABILITY MODULES — Elite HUD Grid */}
+      <section className="relative z-10 pb-44 px-6 md:px-20 lg:px-40">
+        <div className="max-w-[1800px] mx-auto grid grid-cols-1 gap-px bg-white/5 border border-white/5">
+          {services.map((service, i) => {
+            const isOdd = i % 2 !== 0;
+            return (
               <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  width: '48px',
-                  height: '1px',
-                  backgroundColor: 'var(--accent-warm)',
-                  marginTop: '24px',
-                  marginBottom: '24px',
-                  transformOrigin: 'left',
-                }}
-              />
-
-              {service.description.map((para, j) => (
-                <motion.p
-                  key={j}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: j * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  style={{
-                    fontFamily: 'var(--font-body), sans-serif',
-                    fontWeight: 300,
-                    fontSize: '16px',
-                    color: 'var(--ink-secondary)',
-                    lineHeight: 1.85,
-                    maxWidth: '480px',
-                    marginBottom: '20px',
-                  }}
-                  className="service-description"
-                >
-                  {para}
-                </motion.p>
-              ))}
-
-              {/* Deliverables */}
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '12px',
-                  marginTop: '32px',
-                  maxWidth: '480px',
-                }}
-                className="grid-cols-1 sm:grid-cols-2"
-              >
-                {service.deliverables.map((d) => (
-                  <span
-                    key={d}
-                    style={{
-                      fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '9px',
-                      color: 'var(--ink-tertiary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                    }}
-                  >
-                    <span style={{ color: 'var(--accent-warm)' }}>→</span>
-                    {d}
-                  </span>
-                ))}
-              </div>
-
-              {/* Duration + Price */}
-              <div style={{ marginTop: '36px' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontSize: '9px',
-                    color: 'var(--ink-ghost)',
-                    border: '1px solid var(--border)',
-                    padding: '8px 16px',
-                    display: 'inline-block',
-                  }}
-                >
-                  {service.duration}
-                </span>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontWeight: 300,
-                    fontSize: '32px',
-                    color: 'var(--ink)',
-                    marginTop: '12px',
-                  }}
-                >
-                  Starting from {service.startingFrom}
-                </p>
-              </div>
-
-              <div style={{ marginTop: '32px' }}>
-                <MagneticButton 
-                  variant="outline" 
-                  href="/start-a-project" 
-                  cursorLabel="START"
-                  className="service-cta"
-                >
-                  Start this project →
-                </MagneticButton>
-              </div>
-            </div>
-
-            {/* Visual side */}
-            <div className={`order-1 ${isOdd ? 'md:order-2 md:col-span-5' : 'md:order-1 md:col-span-7'}`}>
-              <motion.div
+                key={service.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  height: '480px',
-                  backgroundColor: isOdd ? 'var(--surface-subtle)' : 'var(--white)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative grid grid-cols-1 md:grid-cols-12 bg-[#0A0A0A] overflow-hidden"
               >
-                <motion.div
-                  initial={{ scale: 1.2, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ position: 'absolute', inset: 0 }}
-                >
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      opacity: 0.85,
-                    }}
-                  />
-                </motion.div>
+                {/* Visual Reveal Block */}
+                <div className={`md:col-span-12 lg:col-span-6 relative aspect-[16/9] lg:aspect-auto overflow-hidden border-b lg:border-b-0 ${isOdd ? 'lg:order-2' : 'lg:border-r lg:border-white/5'}`}>
+                   <ParallaxImage 
+                     src={service.image} 
+                     alt={service.title} 
+                     className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] opacity-40 group-hover:opacity-80"
+                     speed={0.05}
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
+                   
+                   {/* Iris Label */}
+                   <div className="absolute top-12 left-12 flex flex-col gap-2">
+                      <span className="font-mono text-[8px] text-[var(--accent-warm)] opacity-50 uppercase tracking-[0.4em]">{service.number}</span>
+                      <div className="w-8 h-px bg-[var(--accent-warm)] opacity-20" />
+                   </div>
+                </div>
 
-                {/* Overlay gradient for depth */}
-                <div 
-                  style={{ 
-                    position: 'absolute', 
-                    inset: 0, 
-                    background: 'linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.05))' 
-                  }} 
-                />
+                {/* Content HUD Block */}
+                <div className={`md:col-span-12 lg:col-span-6 p-12 md:p-20 lg:p-32 flex flex-col gap-16 ${isOdd ? 'lg:order-1' : ''}`}>
+                   <div className="flex flex-col gap-8">
+                     <h2 className="font-display font-light italic text-[clamp(40px,5vw,90px)] text-white tracking-tighter m-0 uppercase group-hover:text-[var(--accent-warm)] transition-colors duration-700 leading-none">
+                       {service.title}
+                     </h2>
+                   </div>
 
-                {/* Corner brackets */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    width: '24px',
-                    height: '24px',
-                    borderTop: '1px solid var(--border-accent)',
-                    borderLeft: '1px solid var(--border-accent)',
-                  }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    right: '16px',
-                    width: '24px',
-                    height: '24px',
-                    borderBottom: '1px solid var(--border-accent)',
-                    borderRight: '1px solid var(--border-accent)',
-                  }}
-                />
+                   <div className="flex flex-col gap-12 border-l border-white/5 pl-12 md:pl-20">
+                     {service.description.map((para, j) => (
+                       <p key={j} className="font-body font-light text-[17px] md:text-[20px] text-white/30 leading-relaxed max-w-[45ch]">
+                         {para}
+                       </p>
+                     ))}
+                   </div>
 
-                {/* Result metric */}
-                <span
-                  style={{
-                    position: 'absolute',
-                    bottom: '24px',
-                    left: '24px',
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontSize: '9px',
-                    color: 'var(--accent-warm)',
-                    letterSpacing: '0.15em',
-                  }}
-                >
-                  {service.number} · {service.shortTitle.toUpperCase()}
-                </span>
+                   {/* Deliverable Tags — HUD Precision */}
+                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-12 border-t border-white/5">
+                      {service.deliverables.slice(0, 6).map((d) => (
+                        <div key={d} className="flex flex-col gap-2">
+                           <span className="font-mono text-[8px] text-white/10 uppercase tracking-[0.3em]">{d}</span>
+                           <div className="w-4 h-[1px] bg-[var(--accent-warm)] opacity-20" />
+                        </div>
+                      ))}
+                   </div>
+
+                   <div className="pt-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-12">
+                      <div className="flex flex-col gap-3">
+                         <span className="font-mono text-[9px] text-white/20 tracking-[0.4em] uppercase underline decoration-[var(--accent-warm)]/40 underline-offset-8">Initialization_Cost</span>
+                         <span className="font-display font-light italic text-4xl text-white tracking-tighter m-0 uppercase">from {service.startingFrom}</span>
+                      </div>
+
+                      <MagneticButton href="/start-a-project" variant="ghost" className="py-6 px-12 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
+                        SYSM_INIT_CONTRACT →
+                      </MagneticButton>
+                   </div>
+                </div>
               </motion.div>
-            </div>
-          </section>
-        );
-      })}
-
-      {/* Pricing Philosophy */}
-      <section
-        style={{
-          backgroundColor: 'var(--surface-dark)',
-          paddingTop: 'var(--section-padding)',
-          paddingBottom: 'var(--section-padding)',
-        }}
-        className="px-6 md:px-10 lg:px-20 text-center section-standard"
-      >
-        <AnimatedText splitBy="word" className="pricing-heading">
-          Every project is priced / on its ambition — not a menu.
-        </AnimatedText>
-        <RevealLine delay={0.3}>
-          <p
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 300,
-              fontSize: '16px',
-              color: 'rgba(255,255,255,0.6)',
-              maxWidth: '672px',
-              margin: '32px auto 0',
-              lineHeight: 1.85,
-            }}
-          >
-            We don’t have a pricing grid because no two projects are the same. Tell us about your
-            goals and we’ll send a clear proposal within 48 hours.
-          </p>
-        </RevealLine>
-        <div style={{ marginTop: '48px' }}>
-          <MagneticButton variant="dark" href="/start-a-project" cursorLabel="START">
-            Tell us about your project
-          </MagneticButton>
+            );
+          })}
         </div>
       </section>
 
-      <style jsx global>{`
-        .service-title {
-           font-family: var(--font-display), serif;
-           font-weight: 300;
-           font-style: italic;
-           font-size: clamp(40px, 4.5vw, 64px);
-           color: var(--ink);
-           line-height: 1.1;
-        }
+      {/* 03. PRICING PHILOSOPHY — High-Fidelity Minimalist */}
+      <section className="relative py-44 md:py-80 px-6 md:px-20 lg:px-40 bg-[#0E0E0E] text-center flex flex-col items-center">
+         <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--accent-warm)]/50 to-transparent mb-16" />
+         
+         <h2 className="font-display font-light italic text-[clamp(40px,6vw,120px)] text-white tracking-tighter m-0 uppercase leading-[1] max-w-[12ch] mb-16">
+           Ambition Is <br /><span className="opacity-30">The Currency.</span>
+         </h2>
 
-        .pricing-heading {
-           font-family: var(--font-display), serif;
-           font-weight: 300;
-           font-style: italic;
-           font-size: clamp(32px, 3.8vw, 56px);
-           color: var(--white);
-           line-height: 1.2;
-           max-width: 900px;
-           margin: 0 auto;
-        }
+         <p className="font-body font-light text-[18px] md:text-[24px] text-white/30 max-w-[45ch] leading-relaxed mb-24 italic">
+            Standard menus are for standard work. We price on the scale of your ambition, the complexity of the challenge, and the impact of the outcome.
+         </p>
 
-        @media (max-width: 768px) {
-          .service-title {
-             margin-bottom: 24px !important;
-          }
-          .service-description {
-             font-size: 15px !important;
-             line-height: 1.7 !important;
-          }
-        }
-      `}</style>
-    </>
+         <MagneticButton href="/start-a-project" variant="ghost" className="px-16 py-8 border border-white/10 text-[11px] font-mono tracking-[0.6em] uppercase hover:bg-[var(--accent-warm)] hover:text-white transition-all">
+           Request Custom Intelligence Node →
+         </MagneticButton>
+      </section>
+
+      {/* Footer Divider */}
+      <section className="py-24 border-t border-white/5 opacity-[0.03] select-none text-center">
+         <span className="font-display font-black text-[12vw] uppercase tracking-tighter italic">CAPABILITY_SYNC</span>
+      </section>
+    </main>
   );
 }

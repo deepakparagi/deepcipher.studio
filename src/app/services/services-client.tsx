@@ -1,124 +1,430 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import { services } from '@/lib/services';
 import Noise from '@/components/ui/Noise';
-import MagneticButton from '@/components/ui/MagneticButton';
 import ParallaxImage from '@/components/ui/ParallaxImage';
+import Link from 'next/link';
 
 /* ==========================================================
-   v7: THE CAPABILITY HUD — ELITE SERVICES
-   A high-fidelity technical expertise index.
-   Architecture: 1px HUD Grids, Magnetic Detail Cards, Liquid Imagery.
+   SERVICES PAGE — Final polish pass
    ========================================================== */
+
+/* ── Inline SVG: SEO & Performance (service 4) ── */
+function SeoVisual() {
+  return (
+    <svg viewBox="0 0 800 900" width="100%" height="100%"
+         preserveAspectRatio="xMidYMid slice"
+         xmlns="http://www.w3.org/2000/svg">
+      <rect width="800" height="900" fill="#0F0F0F"/>
+      <text x="400" y="360" fontFamily="Cormorant Garamond, serif"
+            fontSize="260" fontStyle="italic" fontWeight="300"
+            fill="#B8956A" opacity="0.12" textAnchor="middle">95</text>
+      <text x="400" y="430" fontFamily="DM Mono, monospace"
+            fontSize="11" fill="#6B6560" textAnchor="middle"
+            letterSpacing="5">LIGHTHOUSE SCORE</text>
+      <line x1="160" y1="520" x2="640" y2="520"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.25"/>
+      <line x1="160" y1="560" x2="520" y2="560"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.18"/>
+      <line x1="160" y1="600" x2="580" y2="600"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.12"/>
+      <line x1="160" y1="640" x2="440" y2="640"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.08"/>
+      <text x="160" y="510" fontFamily="DM Mono, monospace"
+            fontSize="9" fill="#6B6560" letterSpacing="3">
+        PERFORMANCE INDEX
+      </text>
+    </svg>
+  );
+}
+
+/* ── Inline SVG: AI & Business Automation (service 5) ── */
+function AiVisual() {
+  return (
+    <svg viewBox="0 0 800 900" width="100%" height="100%"
+         preserveAspectRatio="xMidYMid slice"
+         xmlns="http://www.w3.org/2000/svg">
+      <rect width="800" height="900" fill="#080808"/>
+      <circle cx="400" cy="340" r="5" fill="#B8956A"/>
+      <circle cx="180" cy="200" r="3" fill="#B8956A" opacity="0.5"/>
+      <circle cx="620" cy="200" r="3" fill="#B8956A" opacity="0.5"/>
+      <circle cx="120" cy="420" r="3" fill="#B8956A" opacity="0.4"/>
+      <circle cx="680" cy="420" r="3" fill="#B8956A" opacity="0.4"/>
+      <circle cx="260" cy="560" r="3" fill="#B8956A" opacity="0.35"/>
+      <circle cx="540" cy="560" r="3" fill="#B8956A" opacity="0.35"/>
+      <circle cx="400" cy="640" r="3" fill="#B8956A" opacity="0.3"/>
+      <line x1="400" y1="340" x2="180" y2="200"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.35"/>
+      <line x1="400" y1="340" x2="620" y2="200"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.35"/>
+      <line x1="400" y1="340" x2="120" y2="420"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.25"/>
+      <line x1="400" y1="340" x2="680" y2="420"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.25"/>
+      <line x1="400" y1="340" x2="260" y2="560"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
+      <line x1="400" y1="340" x2="540" y2="560"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
+      <line x1="400" y1="340" x2="400" y2="640"
+            stroke="#B8956A" strokeWidth="0.5" opacity="0.15"/>
+      <text x="400" y="740" fontFamily="DM Mono, monospace"
+            fontSize="9" fill="#6B6560" textAnchor="middle"
+            letterSpacing="4">NEURAL ARCHITECTURE</text>
+    </svg>
+  );
+}
+
+/* SVG services: 4 (SEO) and 5 (AI) */
+function isSvgService(serviceId: number): boolean {
+  return serviceId === 4 || serviceId === 5;
+}
+
+/* Title color: services 1, 3, 5 → cream; services 2, 4 → gold */
+function getTitleColor(serviceId: number): string {
+  return serviceId % 2 === 0 ? '#B8956A' : '#F5F0E8';
+}
+
+/* ── START A PROJECT LINK with hover expansion ── */
+function StartProjectLink() {
+  const [hovered, setHovered] = useState(false);
+  const { setCursor, resetCursor } = useCursor();
+  return (
+    <Link
+      href="/start-a-project"
+      onMouseEnter={() => { setHovered(true); setCursor('link'); }}
+      onMouseLeave={() => { setHovered(false); resetCursor(); }}
+      style={{
+        fontFamily: 'var(--font-mono), monospace',
+        fontSize: '10px',
+        color: '#B8956A',
+        letterSpacing: hovered ? '0.26em' : '0.18em',
+        textDecoration: 'none',
+        textTransform: 'uppercase',
+        transition: 'letter-spacing 0.3s ease',
+        cursor: 'none',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      START A PROJECT →
+    </Link>
+  );
+}
 
 export default function ServicesClient() {
   const { setCursor, resetCursor } = useCursor();
 
   return (
-    <main className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30">
+    <motion.main
+      className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    >
       <Noise opacity={0.03} />
-      
-      {/* 01. THE TECHNICAL HEADER — Architectural Focus */}
-      <section className="relative pt-44 pb-20 md:pt-64 md:pb-32 px-6 md:px-20 overflow-hidden">
-        {/* Background Ghost Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 whitespace-nowrap pointer-events-none opacity-[0.02] select-none">
-          <span className="font-display font-black text-[25vw] uppercase tracking-tighter italic">EXPERTISE</span>
-        </div>
 
-        <div className="max-w-[1800px] mx-auto relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-16">
-          <div className="flex flex-col items-start gap-12">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-px bg-[var(--accent-warm)] opacity-40" />
-              <span className="font-mono text-[9px] tracking-[0.5em] text-[var(--accent-warm)] opacity-60 uppercase">SYSTEM_INDEX_CAP_03</span>
-            </div>
-            
-            <h1 className="text-[clamp(60px,11vw,180px)] font-display font-light italic leading-[0.8] tracking-tighter uppercase m-0">
-              Shaping <br />
-              <span className="text-[var(--accent-warm)] opacity-30">The</span> Futures.
-            </h1>
-          </div>
+      {/* ── 1. HERO SECTION ── */}
+      <section
+        className="relative w-full border-b border-[rgba(245,240,232,0.08)] px-6 overflow-hidden"
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 flex flex-col items-center"
+        >
+          {/* Label */}
+          <span
+            style={{
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '10px',
+              letterSpacing: '0.2em',
+              color: '#6B6560',
+              fontWeight: 300,
+              textTransform: 'uppercase',
+              marginBottom: '16px',
+            }}
+          >
+            [ WHAT WE DO ]
+          </span>
 
-          <div className="max-w-[450px] border-l border-white/5 pl-12 pb-4">
-             <p className="font-body font-light text-[18px] md:text-[22px] text-white/30 leading-relaxed mb-12 italic">
-               We don&apos;t just design interfaces. We architect digital ecosystems that elevate ambitious brands from industry participants to category leaders.
-             </p>
-             <div className="flex items-center gap-6">
-               <span className="font-mono text-[10px] tracking-[0.4em] text-white/20 uppercase">Core_Specialization.03</span>
-               <div className="flex-1 h-px bg-white/5" />
-             </div>
-          </div>
+          {/* Title */}
+          <h1
+            style={{
+              fontFamily: 'var(--font-display), serif',
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: 'clamp(96px, 12vw, 160px)',
+              color: '#F5F0E8',
+              letterSpacing: '-0.02em',
+              lineHeight: 1,
+              margin: 0,
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              userSelect: 'none',
+            }}
+          >
+            Services
+          </h1>
+
+          {/* Tagline */}
+          <span
+            style={{
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '11px',
+              letterSpacing: '0.25em',
+              color: '#B8956A',
+              fontWeight: 300,
+              textTransform: 'uppercase',
+              display: 'block',
+              marginBottom: '20px',
+            }}
+          >
+            DESIGN · DEVELOP · DELIVER
+          </span>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontSize: '14px',
+              color: '#6B6560',
+              fontWeight: 300,
+              maxWidth: '480px',
+              margin: '12px auto 0',
+              lineHeight: '1.6',
+            }}
+          >
+            End-to-end design and development services for ambitious brands.
+            From brand identity to AI-powered automation.
+          </p>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <div
+          className="absolute flex flex-col items-center gap-4 z-20 select-none"
+          style={{ bottom: '48px' }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '9px',
+              color: '#6B6560',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+            }}
+          >
+            SCROLL
+          </span>
+          <motion.div
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+              height: '40px',
+              width: '0.5px',
+              background: '#B8956A',
+            }}
+          />
         </div>
       </section>
 
-      {/* 02. CAPABILITY MODULES — Elite HUD Grid */}
-      <section className="relative z-10 pb-44 px-6 md:px-20 lg:px-40">
-        <div className="max-w-[1800px] mx-auto grid grid-cols-1 gap-px bg-white/5 border border-white/5">
+      {/* ── 2. SERVICE MODULES ── */}
+      <section className="relative z-10 px-6 md:px-20 lg:px-40 pb-0">
+        <div className="max-w-[1800px] mx-auto">
           {services.map((service, i) => {
             const isOdd = i % 2 !== 0;
+            const hasSvg = isSvgService(service.id);
+            const titleColor = getTitleColor(service.id);
             return (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative grid grid-cols-1 md:grid-cols-12 bg-[#0A0A0A] overflow-hidden"
+                className="group relative overflow-hidden"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr',
+                  minHeight: '100vh',
+                  alignItems: 'center',
+                  borderTop: i > 0 ? '0.5px solid rgba(245,240,232,0.06)' : 'none',
+                }}
               >
-                {/* Visual Reveal Block */}
-                <div className={`md:col-span-12 lg:col-span-6 relative aspect-[16/9] lg:aspect-auto overflow-hidden border-b lg:border-b-0 ${isOdd ? 'lg:order-2' : 'lg:border-r lg:border-white/5'}`}>
-                   <ParallaxImage 
-                     src={service.image} 
-                     alt={service.title} 
-                     className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] opacity-40 group-hover:opacity-80"
-                     speed={0.05}
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
-                   
-                   {/* Iris Label */}
-                   <div className="absolute top-12 left-12 flex flex-col gap-2">
-                      <span className="font-mono text-[8px] text-[var(--accent-warm)] opacity-50 uppercase tracking-[0.4em]">{service.number}</span>
-                      <div className="w-8 h-px bg-[var(--accent-warm)] opacity-20" />
-                   </div>
-                </div>
+                {/* Responsive grid: stacks on mobile, side-by-side on lg */}
+                <div
+                  className="grid grid-cols-1 lg:grid-cols-2"
+                  style={{ minHeight: '100vh' }}
+                >
+                  {/* ── IMAGE COLUMN ── */}
+                  <div
+                    className={`relative overflow-hidden ${isOdd ? 'lg:order-2' : ''}`}
+                    style={{ minHeight: '400px' }}
+                  >
+                    {hasSvg ? (
+                      <div className="absolute inset-0">
+                        {service.id === 4 ? <SeoVisual /> : <AiVisual />}
+                      </div>
+                    ) : (
+                      <ParallaxImage
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 opacity-40 group-hover:opacity-80"
+                        speed={0.05}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
 
-                {/* Content HUD Block */}
-                <div className={`md:col-span-12 lg:col-span-6 p-12 md:p-20 lg:p-32 flex flex-col gap-16 ${isOdd ? 'lg:order-1' : ''}`}>
-                   <div className="flex flex-col gap-8">
-                     <h2 className="font-display font-light italic text-[clamp(40px,5vw,90px)] text-white tracking-tighter m-0 uppercase group-hover:text-[var(--accent-warm)] transition-colors duration-700 leading-none">
-                       {service.title}
-                     </h2>
-                   </div>
+                    {/* Service number label */}
+                    <div className="absolute top-12 left-12 flex flex-col gap-2">
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '8px',
+                          color: '#B8956A',
+                          opacity: 0.5,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.4em',
+                        }}
+                      >
+                        {service.number}
+                      </span>
+                      <div style={{ width: '32px', height: '1px', background: '#B8956A', opacity: 0.2 }} />
+                    </div>
+                  </div>
 
-                   <div className="flex flex-col gap-12 border-l border-white/5 pl-12 md:pl-20">
-                     {service.description.map((para, j) => (
-                       <p key={j} className="font-body font-light text-[17px] md:text-[20px] text-white/30 leading-relaxed max-w-[45ch]">
-                         {para}
-                       </p>
-                     ))}
-                   </div>
+                  {/* ── TEXT COLUMN ── */}
+                  <div
+                    className={`flex flex-col justify-center ${isOdd ? 'lg:order-1' : ''}`}
+                    style={{
+                      padding: service.id === 4 
+                        ? 'clamp(80px, 10vw, 120px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 80px)' 
+                        : 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px)',
+                    }}
+                  >
+                    {/* Title */}
+                    <h2
+                      style={{
+                        fontFamily: 'var(--font-display), serif',
+                        fontWeight: 300,
+                        fontStyle: 'italic',
+                        fontSize: 'clamp(48px, 5.5vw, 72px)',
+                        color: titleColor,
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.02em',
+                        margin: 0,
+                        marginBottom: '32px',
+                        textTransform: 'none',
+                      }}
+                    >
+                      {service.title}
+                    </h2>
 
-                   {/* Deliverable Tags — HUD Precision */}
-                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-12 border-t border-white/5">
+                    {/* Body paragraphs — no dividers, just whitespace */}
+                    <div className="flex flex-col">
+                      {service.description.map((para, j) => (
+                        <p
+                          key={j}
+                          style={{
+                            fontFamily: 'var(--font-body), sans-serif',
+                            fontSize: '15px',
+                            fontWeight: 300,
+                            color: '#9A9590',
+                            lineHeight: 1.8,
+                            maxWidth: '520px',
+                            margin: 0,
+                            marginBottom: j < service.description.length - 1 ? '20px' : '0',
+                          }}
+                        >
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+
+                    {/* Feature Tags Grid */}
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        gap: '20px 0',
+                        marginTop: '40px',
+                        borderTop: '0.5px solid rgba(245,240,232,0.06)',
+                        paddingTop: '32px',
+                      }}
+                    >
                       {service.deliverables.slice(0, 6).map((d) => (
-                        <div key={d} className="flex flex-col gap-2">
-                           <span className="font-mono text-[8px] text-white/10 uppercase tracking-[0.3em]">{d}</span>
-                           <div className="w-4 h-[1px] bg-[var(--accent-warm)] opacity-20" />
+                        <div key={d} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono), monospace',
+                              fontSize: '9px',
+                              color: '#9A9590',
+                              letterSpacing: '0.14em',
+                              textTransform: 'uppercase',
+                            }}
+                          >
+                            {d}
+                          </span>
+                          <div style={{ width: '28px', height: '1px', background: '#B8956A', opacity: 0.5 }} />
                         </div>
                       ))}
-                   </div>
+                    </div>
 
-                   <div className="pt-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-12">
-                      <div className="flex flex-col gap-3">
-                         <span className="font-mono text-[9px] text-white/20 tracking-[0.4em] uppercase underline decoration-[var(--accent-warm)]/40 underline-offset-8">Initialization_Cost</span>
-                         <span className="font-display font-light italic text-4xl text-white tracking-tighter m-0 uppercase">from {service.startingFrom}</span>
+                    {/* Pricing Row */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        marginTop: '32px',
+                        borderTop: '0.5px solid rgba(245,240,232,0.08)',
+                        paddingTop: '24px',
+                        flexWrap: 'wrap',
+                        gap: '16px',
+                      }}
+                    >
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono), monospace',
+                            fontSize: '9px',
+                            color: '#6B6560',
+                            letterSpacing: '0.2em',
+                            textTransform: 'uppercase',
+                            display: 'block',
+                          }}
+                        >
+                          STARTING FROM
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-display), serif',
+                            fontWeight: 300,
+                            fontStyle: 'italic',
+                            fontSize: 'clamp(40px, 4vw, 56px)',
+                            color: '#F5F0E8',
+                            letterSpacing: '-0.01em',
+                            margin: 0,
+                            lineHeight: 1,
+                          }}
+                        >
+                          {service.startingFrom}
+                        </span>
                       </div>
 
-                      <MagneticButton href="/start-a-project" variant="ghost" className="py-6 px-12 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
-                        SYSM_INIT_CONTRACT →
-                      </MagneticButton>
-                   </div>
+                      <StartProjectLink />
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -126,27 +432,80 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* 03. PRICING PHILOSOPHY — High-Fidelity Minimalist */}
-      <section className="relative py-44 md:py-80 px-6 md:px-20 lg:px-40 bg-[#0E0E0E] text-center flex flex-col items-center">
-         <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--accent-warm)]/50 to-transparent mb-16" />
-         
-         <h2 className="font-display font-light italic text-[clamp(40px,6vw,120px)] text-white tracking-tighter m-0 uppercase leading-[1] max-w-[12ch] mb-16">
-           Ambition Is <br /><span className="opacity-30">The Currency.</span>
-         </h2>
+      {/* ── 3. "AMBITION IS THE CURRENCY" SECTION ── */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          padding: '80px clamp(24px, 8vw, 120px)',
+          backgroundColor: '#0E0E0E',
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: 'var(--font-display), serif',
+            fontWeight: 300,
+            fontStyle: 'italic',
+            fontSize: 'clamp(56px, 7vw, 96px)',
+            lineHeight: 1,
+            letterSpacing: '-0.03em',
+            margin: 0,
+            marginBottom: '24px',
+          }}
+        >
+          <span style={{ color: '#F5F0E8' }}>Ambition Is</span>
+          <br />
+          <span style={{ color: '#6B6560' }}>The Currency.</span>
+        </h2>
 
-         <p className="font-body font-light text-[18px] md:text-[24px] text-white/30 max-w-[45ch] leading-relaxed mb-24 italic">
-            Standard menus are for standard work. We price on the scale of your ambition, the complexity of the challenge, and the impact of the outcome.
-         </p>
+        <p
+          style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: '16px',
+            color: '#6B6560',
+            fontWeight: 300,
+            fontStyle: 'italic',
+            maxWidth: '560px',
+            margin: '0 auto',
+            lineHeight: 1.8,
+          }}
+        >
+          Standard menus are for standard work. We price on the scale of your ambition, the complexity of the challenge, and the impact of the outcome.
+        </p>
 
-         <MagneticButton href="/start-a-project" variant="ghost" className="px-16 py-8 border border-white/10 text-[11px] font-mono tracking-[0.6em] uppercase hover:bg-[var(--accent-warm)] hover:text-white transition-all">
-           Request Custom Intelligence Node →
-         </MagneticButton>
+        {/* CTA Link */}
+        <div style={{ marginTop: '40px' }}>
+          <StartProjectLink />
+        </div>
+
+        {/* FIVE DISCIPLINES watermark — pinned to bottom */}
+        <span
+          className="select-none"
+          style={{
+            position: 'absolute',
+            bottom: '48px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontFamily: 'var(--font-display), serif',
+            fontWeight: 300,
+            fontStyle: 'italic',
+            fontSize: 'clamp(80px, 10vw, 140px)',
+            letterSpacing: '0.35em',
+            color: '#F5F0E8',
+            opacity: 0.035,
+            pointerEvents: 'none',
+            zIndex: -1,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          FIVE DISCIPLINES
+        </span>
       </section>
-
-      {/* Footer Divider */}
-      <section className="py-24 border-t border-white/5 opacity-[0.03] select-none text-center">
-         <span className="font-display font-black text-[12vw] uppercase tracking-tighter italic">CAPABILITY_SYNC</span>
-      </section>
-    </main>
+    </motion.main>
   );
 }

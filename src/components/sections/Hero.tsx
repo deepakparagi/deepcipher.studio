@@ -307,6 +307,7 @@ function MouseCrosshair() {
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+  const [btnHover, setBtnHover] = useState(false);
   const { scrollYProgress } = useScroll();
   const scrollRotateX = useTransform(scrollYProgress, [0, 0.2], [0, 45]);
   const scrollYOffset = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
@@ -356,17 +357,17 @@ export default function Hero() {
       <div className="hero-hairline hero-hairline--left" />
       <div className="hero-hairline hero-hairline--right" />
 
-
-
       {/* ── 3D Planet DC Badge — right center ── */}
       <motion.div 
-        className="hidden lg:flex absolute z-20 pointer-events-none flex-col items-center"
+        className="hidden lg:flex absolute pointer-events-none flex-col items-center"
         style={{ 
           right: 'clamp(48px, 5vw, 80px)', 
           top: '28%', 
           y: scrollYOffset,
           rotateX: scrollRotateX,
-          transformStyle: 'preserve-3d'
+          transformStyle: 'preserve-3d',
+          opacity: 0.6,
+          zIndex: 0
         }}
         initial={{ opacity: 0, scale: 0.7, y: '50%', rotateX: 60 }}
         animate={{ 
@@ -384,7 +385,7 @@ export default function Hero() {
         {/* 3D Planet container */}
         <div
           className="relative"
-          style={{ width: '240px', height: '240px' }}
+          style={{ width: '192px', height: '192px', pointerEvents: 'none' }}
         >
           {/* Three.js Planet Canvas */}
           {mounted && (
@@ -397,8 +398,9 @@ export default function Hero() {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '300px',
-                height: '300px',
+                width: '240px',
+                height: '240px',
+                pointerEvents: 'none'
               }}
             >
               <ambientLight intensity={0.15} />
@@ -408,7 +410,7 @@ export default function Hero() {
               <DeepcipherCore />
             </Canvas>
           )}
-
+ 
           {/* DC text overlay — positioned strictly centered */}
           <div
             className="absolute flex flex-col items-center justify-center z-10 w-full h-full"
@@ -427,7 +429,7 @@ export default function Hero() {
                 fontFamily: 'var(--dm-sans), sans-serif',
                 fontWeight: 200,
                 fontStyle: 'normal',
-                fontSize: '48px',
+                fontSize: '38px',
                 color: '#ffffff',
                 lineHeight: 1,
                 letterSpacing: '-0.04em',
@@ -447,14 +449,14 @@ export default function Hero() {
                 color: 'rgba(184,149,106,0.8)',
                 letterSpacing: '0.4em',
                 marginRight: '-0.4em', // Fix optical shift
-                marginTop: '10px',
+                marginTop: '8px',
                 textTransform: 'uppercase',
               }}
             >
-              EST. 2025
+              EST. 2024
             </motion.span>
           </div>
-
+ 
           {/* Atmospheric outer glow */}
           <div
             className="absolute w-full h-full"
@@ -468,32 +470,6 @@ export default function Hero() {
             }}
           />
         </div>
-
-        {/* Vertical line below badge */}
-        <div
-          style={{
-            width: '1px',
-            height: '140px',
-            background: 'linear-gradient(to bottom, rgba(184,149,106,0.4), transparent)',
-            marginTop: '20px',
-          }}
-        />
-
-        {/* Studio label */}
-        <span
-          style={{
-            fontFamily: 'var(--dm-mono), monospace',
-            fontSize: '9px',
-            color: 'rgba(255,255,255,0.3)',
-            letterSpacing: '0.35em',
-            writingMode: 'vertical-rl',
-            transform: 'rotate(180deg)',
-            marginTop: '16px',
-            textTransform: 'uppercase',
-          }}
-        >
-          WEB & BRAND STUDIO
-        </span>
       </motion.div>
 
       {/* ── Scroll indicator — bottom right ── */}
@@ -557,10 +533,10 @@ export default function Hero() {
         <h1
           className="m-0"
           style={{
-            fontFamily: 'var(--font-display), serif',
+            fontFamily: "var(--font-display), 'Cormorant Garamond', serif",
             fontWeight: 300,
             fontStyle: 'italic',
-            fontSize: 'clamp(64px, 8vw, 132px)',
+            fontSize: 'clamp(64px, 8vw, 110px)',
             lineHeight: 0.84,
             letterSpacing: '-0.02em',
             color: '#fff',
@@ -604,16 +580,7 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* 1px rule */}
-        <motion.div
-          className="w-full origin-left"
-          style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.1)', marginTop: '32px' }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.6, delay: LOADER_DELAY + 0.6, ease: [0.16, 1, 0.3, 1] }}
-        />
-
-        {/* Subtext */}
+        {/* Subtext (Margin adjusted to exactly 48px to replace the 1px rule) */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -626,7 +593,7 @@ export default function Hero() {
             color: 'rgba(255,255,255,0.55)',
             maxWidth: '520px',
             lineHeight: 1.85,
-            marginTop: '24px',
+            marginTop: '48px',
           }}
         >
           Most businesses have the vision. Few have the digital presence to match it.
@@ -644,50 +611,56 @@ export default function Hero() {
         >
           <Link
             href="/start-a-project"
-            className="block transition-transform duration-200 hover:scale-[0.98] active:scale-[0.96]"
+            onMouseEnter={() => setBtnHover(true)}
+            onMouseLeave={() => setBtnHover(false)}
+            className="block transition-all duration-300 hover:scale-[0.98] active:scale-[0.96]"
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--dm-mono), monospace',
               fontSize: '11px',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              backgroundColor: '#fff',
-              color: '#0A0A0A',
-              padding: '20px 40px',
+              backgroundColor: btnHover ? '#B8956A' : 'transparent',
+              color: btnHover ? '#0A0A0A' : '#B8956A',
+              border: '1px solid #B8956A',
+              padding: '16px 32px',
               textDecoration: 'none',
               cursor: 'pointer',
             }}
           >
-            START YOUR PROJECT →
+            START YOUR PROJECT &rarr;
           </Link>
+          
           <Link
             href="/work"
-            className="hidden sm:inline-block group"
+            className="hidden sm:inline-block group relative pb-1 select-none"
             style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '10px',
-              color: 'rgba(255,255,255,0.45)',
+              fontFamily: 'var(--font-body), sans-serif',
+              fontSize: '13px',
+              color: '#6B6560',
               textDecoration: 'none',
-              borderBottom: '1px solid rgba(255,255,255,0.2)',
-              paddingBottom: '2px',
-              transition: 'color 300ms ease',
+              transition: 'color 0.3s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#B8956A'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#6B6560'; }}
           >
-            Explore our work
+            Explore our work &rarr;
+            <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
           </Link>
         </motion.div>
 
         {/* Stats row */}
         <div
-          className="flex flex-wrap"
-          style={{ gap: 'clamp(24px, 4vw, 56px)', marginTop: '48px' }}
+          className="grid grid-cols-2 md:flex md:flex-wrap items-center select-none gap-y-8 gap-x-6 md:gap-0"
+          style={{ marginTop: '48px' }}
         >
           {HERO_STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="flex flex-col"
-              style={{ gap: '8px' }}
+              className="flex flex-col md:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
+              style={{ 
+                gap: '8px',
+                padding: '0 clamp(16px, 2.5vw, 40px)',
+              }}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: LOADER_DELAY + 1.3 + i * 0.1 }}
@@ -696,8 +669,9 @@ export default function Hero() {
                 style={{
                   fontFamily: 'var(--font-display), serif',
                   fontWeight: 300,
-                  fontSize: 'clamp(36px, 4.5vw, 64px)',
-                  color: '#fff',
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(40px, 5vw, 64px)',
+                  color: '#F5F0E8',
                   lineHeight: 1,
                 }}
               >
@@ -707,8 +681,8 @@ export default function Hero() {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '9px',
-                  color: 'rgba(255,255,255,0.35)',
-                  letterSpacing: '0.18em',
+                  color: '#6B6560',
+                  letterSpacing: '0.2em',
                   textTransform: 'uppercase',
                 }}
               >
@@ -717,6 +691,29 @@ export default function Hero() {
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* ── Vertical Side Text (far right edge, fixed & vertically centered) ── */}
+      <div 
+        className="hidden lg:flex fixed z-30 pointer-events-none items-center justify-center"
+        style={{
+          right: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--dm-mono), monospace',
+            fontSize: '9px',
+            color: 'rgba(245,240,232,0.2)',
+            writingMode: 'vertical-rl',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+          }}
+        >
+          WEB &amp; BRAND STUDIO
+        </span>
       </div>
     </section>
   );

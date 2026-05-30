@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useMotionValue,
@@ -10,16 +10,20 @@ import { useCursor } from './CursorProvider';
 
 /* ========================================
    CustomCursor — Context-aware cursor
+   Starts off-screen at (-100,-100) and only
+   becomes visible after the first real mouse
+   movement. Prevents ghost dot at (0,0).
    ======================================== */
 
 export default function CustomCursor() {
   const { cursor } = useCursor();
+  const [visible, setVisible] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
   const dotX = useSpring(cursorX, { stiffness: 500, damping: 28 });
   const dotY = useSpring(cursorY, { stiffness: 500, damping: 28 });
-  
+
   // Ghost dots (Comet tail)
   const ghost1X = useSpring(cursorX, { stiffness: 120, damping: 24 });
   const ghost1Y = useSpring(cursorY, { stiffness: 120, damping: 24 });
@@ -35,28 +39,28 @@ export default function CustomCursor() {
 
   useEffect(() => {
     isTouchDevice.current = window.matchMedia('(pointer: coarse)').matches;
-
     if (isTouchDevice.current) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      if (!visible) setVisible(true);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, visible]);
 
+  // Don't render anything on touch devices
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
     return null;
   }
 
   const isHover = cursor.type === 'hover';
   const isLink = cursor.type === 'link';
-  const isDark = cursor.type === 'dark';
 
   return (
-    <>
+    <div style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.2s ease' }}>
       {/* Dot */}
       <motion.div
         className="custom-cursor"
@@ -66,20 +70,18 @@ export default function CustomCursor() {
           left: 0,
           x: dotX,
           y: dotY,
-          width: 9,
-          height: 9,
+          width: 8,
+          height: 8,
           borderRadius: '50%',
-          border: `1.5px solid ${isDark ? '#fff' : 'var(--ink)'}`,
-          backgroundColor: 'rgba(0,0,0,0)',
+          backgroundColor: 'var(--accent-warm)',
           pointerEvents: 'none',
           zIndex: 9999,
           translateX: '-50%',
           translateY: '-50%',
-          mixBlendMode: isDark ? 'difference' : 'normal',
         }}
         animate={{
-          scale: isHover ? 0 : isLink ? 0.5 : 1,
-          opacity: isHover ? 0 : 1,
+          scale: isHover || isLink ? 0 : 1,
+          opacity: isHover || isLink ? 0 : 1,
         }}
         transition={{ duration: 0.2 }}
       />
@@ -102,13 +104,17 @@ export default function CustomCursor() {
             width: 6,
             height: 6,
             borderRadius: '50%',
-            backgroundColor: isDark ? '#fff' : 'var(--accent-warm)',
-            opacity: ghost.opacity,
+            backgroundColor: 'var(--accent-warm)',
             pointerEvents: 'none',
             zIndex: 9998 - i,
             translateX: '-50%',
             translateY: '-50%',
           }}
+          animate={{
+            scale: isHover || isLink ? 0 : 1,
+            opacity: isHover || isLink ? 0 : ghost.opacity,
+          }}
+          transition={{ duration: 0.2 }}
         />
       ))}
 
@@ -128,26 +134,23 @@ export default function CustomCursor() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          mixBlendMode: isDark ? 'difference' : 'normal',
         }}
         animate={{
-          width: isHover ? 72 : isLink ? 44 : 0,
-          height: isHover ? 72 : isLink ? 3 : 0,
-          borderRadius: isLink ? '2px' : '50%',
+          width: isHover ? 72 : isLink ? 32 : 0,
+          height: isHover ? 72 : isLink ? 32 : 0,
+          borderRadius: '50%',
           backgroundColor: isHover
-            ? 'rgba(10,10,10,0.06)'
-            : isLink
-              ? 'var(--accent-warm)'
-              : 'rgba(0,0,0,0)',
-          border: isHover
-            ? '1px solid var(--accent-warm)'
+            ? 'var(--accent-warm)'
+            : 'rgba(0,0,0,0)',
+          border: isLink
+            ? '1.5px solid var(--accent-warm)'
             : 'none',
           opacity: isHover || isLink ? 1 : 0,
         }}
         transition={{
           type: 'spring',
-          stiffness: 200,
-          damping: 20,
+          stiffness: 250,
+          damping: 22,
         }}
       >
         {isHover && cursor.label && (
@@ -155,8 +158,9 @@ export default function CustomCursor() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '9px',
+              fontWeight: 500,
               letterSpacing: '0.15em',
-              color: 'var(--ink)',
+              color: '#0A0A0A',
               textTransform: 'uppercase',
             }}
             initial={{ opacity: 0 }}
@@ -167,6 +171,6 @@ export default function CustomCursor() {
           </motion.span>
         )}
       </motion.div>
-    </>
+    </div>
   );
 }

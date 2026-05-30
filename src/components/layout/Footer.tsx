@@ -7,22 +7,22 @@ import { useCursor } from '../ui/CursorProvider';
 import MagneticButton from '../ui/MagneticButton';
 
 /* ==========================================================
-   v7: THE ELITE CLOSURE — FOOTER
-   A high-fidelity terminal cinematic.
-   Architecture: Massive Asmymmetric Layout, Technical HUD Grids, 1px Precision.
+   v8: THE ELITE CLOSURE — FOOTER
+   Architecture: Massive Asymmetric Layout, Technical HUD Grids, 1px Precision.
+   Theme: Onyx & Warm Gold.
    ========================================================== */
 
 const footerNav = {
   MANIFEST: [
-    { label: 'Studio Portfolio', href: '/work' },
-    { label: 'Capabilities Index', href: '/services' },
-    { label: 'Project Protocol', href: '/process' },
-    { label: 'Digital Heritage', href: '/about' },
+    { label: 'Work', href: '/work' },
+    { label: 'Services', href: '/services' },
+    { label: 'Process', href: '/process' },
+    { label: 'About', href: '/about' },
   ],
   CONNECTED: [
-    { label: 'Project Initialize', href: '/start-a-project' },
-    { label: 'Dossier Request', href: '/contact' },
-    { label: 'Direct Sync', href: 'mailto:deepcipherstudio@gmail.com' },
+    { label: 'Start a Project', href: '/start-a-project' },
+    { label: 'View Pricing', href: '/contact' },
+    { label: 'Contact', href: 'mailto:deepcipherstudio@gmail.com' },
   ],
   NODES: [
     { label: 'Instagram', href: '#' },
@@ -31,6 +31,30 @@ const footerNav = {
     { label: 'Behance', href: '#' },
   ],
 };
+
+function FooterNavLink({ href, label, index }: { href: string; label: string; index: number }) {
+  const { setCursor, resetCursor } = useCursor();
+  return (
+    <li>
+      <Link
+        href={href}
+        onMouseEnter={() => setCursor('link')}
+        onMouseLeave={resetCursor}
+        className="footer-nav-link group flex items-center gap-3 py-1.5"
+      >
+        <span className="font-mono text-[9px] text-[var(--accent-warm)] opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+          {String(index).padStart(2, '0')}
+        </span>
+        <span className="text-[10px] text-white/10 select-none">/</span>
+        <span className="relative overflow-hidden inline-block">
+          <span className="inline-block font-display font-light italic text-[18px] text-white/45 group-hover:text-white transition-all duration-500 transform group-hover:translate-x-1">
+            {label}
+          </span>
+        </span>
+      </Link>
+    </li>
+  );
+}
 
 export default function Footer() {
   const { setCursor, resetCursor } = useCursor();
@@ -55,7 +79,7 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative bg-[#0A0A0A] text-white pt-44 pb-12 overflow-hidden border-t border-white/5"
+      className="footer-container relative bg-[#0A0A0A] text-white overflow-hidden"
       style={{ zIndex: 40 }}
     >
       {/* 01. THE ATMOSPHERIC SPOTLIGHT */}
@@ -66,7 +90,7 @@ export default function Footer() {
           left: 0,
           width: '1200px',
           height: '1200px',
-          background: 'radial-gradient(circle, rgba(184,149,106,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(184,149,106,0.065) 0%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
           x: springX,
@@ -76,105 +100,215 @@ export default function Footer() {
         }}
       />
 
-      <div className="relative z-10 px-6 md:px-20 lg:px-40 max-w-[1800px] mx-auto">
-        
-        {/* TOP HUD: MISSION STATUS */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32 border-b border-white/5 pb-12">
-           <div className="flex flex-col gap-4">
-              <span className="font-mono text-[9px] text-[var(--accent-warm)] opacity-50 tracking-[0.5em] uppercase hover:opacity-100 transition-opacity select-none cursor-none overflow-hidden" onMouseEnter={() => setCursor('hover', 'READY')}>SYSTEM_READY_v7.01</span>
-              <h2 className="font-display font-light italic text-[clamp(40px,7vw,110px)] text-white tracking-tighter m-0 uppercase leading-[0.8]">
-                 Ready To <br />
-                 <span className="opacity-35 italic">Launch.</span>
-              </h2>
-           </div>
-
-           <div className="flex flex-col gap-8 md:text-right md:items-end">
-              <div className="flex flex-col gap-3">
-                 <span className="font-mono text-[9px] text-white/20 tracking-[0.4em] uppercase">Communication_Line_Sync</span>
-                 <motion.a 
-                    href="mailto:deepcipherstudio@gmail.com"
-                    onMouseEnter={() => setCursor('hover', 'EMAIL')}
-                    onMouseLeave={resetCursor}
-                    className="font-display font-light italic text-4xl text-white hover:text-[var(--accent-warm)] transition-colors duration-700 tracking-tighter uppercase underline decoration-[var(--accent-warm)]/20 underline-offset-8"
-                  >
-                   deepcipherstudio@gmail.com
-                 </motion.a>
-              </div>
-           </div>
+      {/* ── ZONE 1: THE EMAIL REVEAL ────────────────── */}
+      <section className="footer-zone-1 relative z-10">
+        <div className="email-reveal-wrap">
+          <div className="email-hairline" />
+          <motion.a 
+            href="mailto:deepcipherstudio@gmail.com"
+            onMouseEnter={() => setCursor('hover', 'EMAIL')}
+            onMouseLeave={resetCursor}
+            className="email-link"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.4 }}
+          >
+            DEEPCIPHERSTUDIO@GMAIL.COM
+          </motion.a>
+          <div className="email-hairline" />
         </div>
+      </section>
 
-        {/* MIDDLE: THE ARCHITECTURAL NAV */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-32 mb-44">
-           {/* CTA HUB */}
-           <div className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-16">
-              <p className="font-body font-light text-[18px] md:text-[22px] text-white/30 leading-relaxed italic max-w-[40ch]">
-                 Architecting digital authority for ambitious brands across the neuro-technological landscape.
-              </p>
+      {/* ── ZONE 2: THE MAIN GRID ─────────────────── */}
+      <section className="footer-zone-2 relative z-10">
+        <div className="footer-main-grid">
+          
+          {/* Left Column: Brand Statement */}
+          <div className="footer-left-col flex flex-col items-start">
+            <h3 className="footer-wordmark flex items-center gap-2">
+              DEEPCIPHER <span className="text-[var(--accent-warm)]">·</span> STUDIO
+            </h3>
+            <p className="footer-brand-tagline" style={{ marginBottom: '16px' }}>Web Design &amp; Brand Identity Studio</p>
+            
+            <h4 className="footer-hero-headline leading-tight" style={{ marginTop: '0px', marginBottom: '24px' }}>
+              Architecting digital authority for ambitious brands globally.
+            </h4>
+            
+            <div className="footer-cta-wrap">
+              <MagneticButton variant="outline" href="/start-a-project" className="px-12 py-6 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
+                Initialize_Mission &rarr;
+              </MagneticButton>
+            </div>
+            
+            {/* Social Icons row (flat links display horizontally with 24px gap, 32px below the tagline/CTA) */}
+            <div className="flex items-center gap-[24px] mt-[32px] select-none flex-wrap">
+              <a 
+                href="https://www.instagram.com/deepcipher.ai/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                className="group relative font-mono text-[10px] tracking-[0.15em] text-[#6B6560] hover:text-[#B8956A] transition-colors duration-500 uppercase pb-1"
+              >
+                INSTAGRAM ↗
+                <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+              </a>
+
+              <a 
+                href="https://linkedin.com/in/deepakparagi" 
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                className="group relative font-mono text-[10px] tracking-[0.15em] text-[#6B6560] hover:text-[#B8956A] transition-colors duration-500 uppercase pb-1"
+              >
+                LINKEDIN ↗
+                <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+              </a>
+
+              <a 
+                href="https://behance.net/deepakparagi" 
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                className="group relative font-mono text-[10px] tracking-[0.15em] text-[#6B6560] hover:text-[#B8956A] transition-colors duration-500 uppercase pb-1"
+              >
+                BEHANCE ↗
+                <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: 3-column subgrid */}
+          <div className="footer-right-col">
+            
+            {/* Nav: MANIFEST */}
+            <div className="flex flex-col gap-6">
+              <span className="footer-nav-heading font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.3em] uppercase opacity-75">
+                // NAVIGATION
+              </span>
+              <ul className="footer-nav-list flex flex-col gap-3">
+                {footerNav.MANIFEST.map((link, idx) => (
+                  <FooterNavLink 
+                    key={link.label} 
+                    href={link.href} 
+                    label={link.label} 
+                    index={idx + 1} 
+                  />
+                ))}
+              </ul>
+            </div>
+
+            {/* Nav: CONNECTED */}
+            <div className="flex flex-col gap-6">
+              <span className="footer-nav-heading font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.3em] uppercase opacity-75">
+                // START A PROJECT
+              </span>
+              <ul className="footer-nav-list flex flex-col gap-3">
+                {footerNav.CONNECTED.map((link, idx) => (
+                  <FooterNavLink 
+                    key={link.label} 
+                    href={link.href} 
+                    label={link.label} 
+                    index={idx + 5} 
+                  />
+                ))}
+              </ul>
+            </div>
+
+            {/* Technical HUD Metrics Column */}
+            <div className="flex flex-col gap-6 font-mono">
+              <span className="footer-nav-heading text-[9px] text-[var(--accent-warm)] tracking-[0.3em] uppercase opacity-75">
+                // STUDIO INFO
+              </span>
               
-              <div className="flex flex-col sm:flex-row items-start gap-8">
-                 <MagneticButton variant="ghost" href="/start-a-project" className="px-12 py-6 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
-                    Initialize_Mission →
-                 </MagneticButton>
-                 <div className="flex flex-col gap-2 pt-1 sm:pt-0">
-                    <span className="font-mono text-[8px] text-white/10 tracking-[0.3em] uppercase">Operational_Status</span>
-                    <span className="font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.2em] uppercase">● ACTIVE_ON_GRID</span>
-                 </div>
-              </div>
-           </div>
-
-           {/* NAV NODES */}
-           <div className="md:col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-16 md:gap-24">
-              {Object.entries(footerNav).map(([title, links]) => (
-                <div key={title} className="flex flex-col gap-10">
-                   <span className="font-mono text-[9px] text-white/10 tracking-[0.5em] uppercase italic underline decoration-white/5 underline-offset-4">{title}</span>
-                   <ul className="flex flex-col gap-4 m-0 p-0 list-none">
-                      {links.map((link) => (
-                        <li key={link.label}>
-                           <Link 
-                              href={link.href}
-                              onMouseEnter={() => setCursor('link')}
-                              onMouseLeave={resetCursor}
-                              className="font-mono text-[11px] text-white/30 hover:text-white transition-all duration-500 uppercase tracking-[0.2em]"
-                           >
-                             {link.label}
-                           </Link>
-                        </li>
-                      ))}
-                   </ul>
+              <div className="flex flex-col gap-4 text-[10px] tracking-[0.15em]">
+                <div className="flex flex-col gap-1 border-b border-white/5 pb-2">
+                  <span className="text-white/20 text-[8px]">// LOCATION</span>
+                  <span className="text-white/60 font-medium">INDIA — GLOBAL</span>
                 </div>
-              ))}
-           </div>
+
+                <div className="flex flex-col gap-1 border-b border-white/5 pb-2">
+                  <span className="text-white/20 text-[8px]">// CONTACT</span>
+                  <a href="mailto:deepcipherstudio@gmail.com" className="text-[var(--accent-warm)] hover:text-white transition-colors duration-300 block mb-1">
+                    deepcipherstudio@gmail.com
+                  </a>
+                  <a href="tel:+918197174493" className="text-white/60 hover:text-[var(--accent-warm)] transition-colors duration-300 block">
+                    +91 8197174493
+                  </a>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#B8956A] text-[8px]">// AVAILABILITY</span>
+                  <span className="text-[#B8956A] font-medium text-[10px]">Open for projects — 2026</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
+      </section>
 
-        {/* FOOTER WATERMARK — Cinematic Expansion */}
-        <div className="relative pt-24 border-t border-white/5 overflow-hidden">
-           <motion.h1 
-             whileHover={{ letterSpacing: '0.45em', filter: 'blur(4px)' }}
-             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-             className="font-display font-black text-[18vw] leading-[0.7] text-white/[0.03] uppercase tracking-tighter m-0 whitespace-nowrap select-none pointer-events-auto cursor-none overflow-hidden"
-             onMouseEnter={() => setCursor('hover', 'TERMINAL')}
-             onMouseLeave={resetCursor}
-           >
-             DEEP_CIPHER®
-           </motion.h1>
-           
-           <div className="flex flex-col md:flex-row justify-between items-end gap-12 mt-12">
-              <div className="flex flex-col gap-2 font-mono text-[8px] text-white/10 tracking-[0.4em] uppercase italic">
-                 <span>Architecture_Protocol_v7.0</span>
-                 <span>Onyx_Gold_Sync_Complete</span>
-              </div>
-              
-              <div className="font-mono text-[10px] text-white/20 tracking-[0.3em] uppercase">
-                 © 2026 DEEPCIPHER STUDIO. ALL RIGHTS RESERVED.
-              </div>
-
-              <div className="font-mono text-[10px] text-white/20 tracking-[0.3em] uppercase md:text-right">
-                 Built with <span className="text-[var(--accent-warm)]">Obsessive_Precision.</span>
-              </div>
-           </div>
+      {/* ── ZONE 3: BOLD WORDMARK STATEMENT ──── */}
+      <section className="footer-zone-3 relative z-10">
+        <div className="watermark-container">
+          <div className="watermark-text-wrap">
+            <motion.h1 
+              whileHover={{ letterSpacing: '0.45em' }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="footer-watermark pointer-events-auto cursor-none select-none"
+              onMouseEnter={() => setCursor('hover', 'TERMINAL')}
+              onMouseLeave={resetCursor}
+            >
+              DEEPCIPHER
+            </motion.h1>
+          </div>
         </div>
+        <div className="footer-wordmark-rule" />
+      </section>
 
-      </div>
+      {/* ── ZONE 4: BOTTOM BAR ────────────────── */}
+      <section className="footer-zone-4 relative z-10">
+        <div className="footer-bottom-bar">
+          <div 
+            className="bottom-item bottom-left" 
+            style={{ 
+              fontSize: '10px', 
+              color: '#6B6560', 
+              letterSpacing: '0.15em', 
+              textTransform: 'none',
+              fontFamily: 'var(--font-mono), monospace'
+            }}
+          >
+            © 2026 DEEPCIPHER STUDIO
+          </div>
+          <div 
+            className="bottom-item bottom-center" 
+            style={{ 
+              fontSize: '10px', 
+              color: '#6B6560', 
+              letterSpacing: '0.15em',
+              textTransform: 'none',
+              fontFamily: 'var(--font-mono), monospace',
+            }}
+          >
+            WEB DESIGN & BRAND IDENTITY
+          </div>
+          <div 
+            className="bottom-item bottom-right" 
+            style={{ 
+              fontSize: '10px', 
+              color: '#6B6560', 
+              letterSpacing: '0.15em',
+              textTransform: 'none',
+              fontFamily: 'var(--font-mono), monospace'
+            }}
+          >
+            BUILT WITH <span style={{ color: '#B8956A' }}>OBSESSIVE PRECISION.</span>
+          </div>
+        </div>
+      </section>
+
     </footer>
   );
 }

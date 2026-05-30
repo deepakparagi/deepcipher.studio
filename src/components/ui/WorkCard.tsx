@@ -92,7 +92,7 @@ export default function WorkCard({ project, index }: WorkCardProps) {
           {/* Metadata Block */}
           <div className="overflow-hidden mb-2">
             <motion.span 
-              className="block font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.3em] uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+              className="block font-mono text-[9px] text-[var(--accent-warm)] tracking-[0.3em] uppercase translate-y-0 md:translate-y-full group-hover:translate-y-0 transition-transform duration-500"
             >
               {project.category}
             </motion.span>
@@ -105,7 +105,7 @@ export default function WorkCard({ project, index }: WorkCardProps) {
           </h3>
 
           {/* Footer Metadata */}
-          <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-end opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-200">
+          <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-end opacity-100 md:opacity-0 group-hover:opacity-100 translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-200">
             <div className="flex flex-col gap-1">
               <span className="font-mono text-[8px] text-white/40 tracking-widest uppercase">
                 Release: {project.year}

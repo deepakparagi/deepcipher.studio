@@ -199,12 +199,13 @@ export default function CTAv2() {
 
       {/* ── Footer Contact Links ── */}
       <motion.div 
-        className="relative z-10 w-full max-w-[1400px] flex flex-col md:flex-row items-center md:items-end justify-between mt-32 gap-8 border-t border-[rgba(255,255,255,0.05)] pt-12"
+        className="relative z-10 w-full max-w-[1400px] flex flex-col md:flex-row items-center md:items-start justify-between mt-32 gap-8 border-t border-[rgba(255,255,255,0.05)] pt-12"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.8 }}
       >
+        {/* Left: General Inquiries */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.15em', textTransform: 'uppercase', lineHeight: 1.5 }}>
             General Inquiries
@@ -212,21 +213,28 @@ export default function CTAv2() {
           <a 
             href="mailto:hello@deepcipher.studio"
             className="nav-link-underline"
-            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '14px', color: '#fff', textDecoration: 'none', lineHeight: 1.5 }}
+            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '13px', color: '#fff', textDecoration: 'none', lineHeight: 1.5, letterSpacing: '0.05em' }}
           >
             hello@deepcipher.studio
           </a>
         </div>
 
-        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: 'rgba(255,255,255,0.2)', letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center', lineHeight: 1.8 }}>
-          No retainers. No lock-ins. <br className="hidden md:block" /> Just exceptional work.
-        </span>
+        {/* Center: Core Value */}
+        <div className="flex flex-col items-center gap-3">
+          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.15em', textTransform: 'uppercase', lineHeight: 1.5 }}>
+            No retainers. No lock-ins.
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '13px', color: '#fff', letterSpacing: '0.05em', textTransform: 'uppercase', lineHeight: 1.5 }}>
+            Just exceptional work.
+          </span>
+        </div>
 
+        {/* Right: Location */}
         <div className="flex flex-col items-center md:items-end gap-3">
           <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.15em', textTransform: 'uppercase', lineHeight: 1.5 }}>
             Location
           </span>
-          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '12px', color: '#fff', letterSpacing: '0.05em', lineHeight: 1.5 }}>
+          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '13px', color: '#fff', letterSpacing: '0.05em', textTransform: 'uppercase', lineHeight: 1.5 }}>
             GLOBAL / REMOTE
           </span>
         </div>

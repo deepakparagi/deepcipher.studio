@@ -22,30 +22,37 @@ const services: ServiceItem[] = [
   {
     no: '01',
     title: 'Web Design & Development',
-    subtitle: 'Digital experiences that convert visitors into clients.',
-    capabilities: ['Next.js', 'Framer', 'Webflow', 'CMS Integration', 'E-Commerce'],
+    subtitle: "Websites that don't just exist — they perform. From bespoke marketing sites to full-scale e-commerce, every build is obsessed over at the pixel level and engineered to convert.",
+    capabilities: ['Next.js', 'Framer', 'Webflow', 'Redesign', 'E-Commerce', 'CMS Integration'],
     accent: '#B8956A',
   },
   {
     no: '02',
     title: 'Brand Identity & Logo Design',
-    subtitle: 'Visual systems that make your brand unforgettable.',
-    capabilities: ['Brand Strategy', 'Logo Design', 'Guidelines', 'Asset Library'],
+    subtitle: 'Identity systems built to be remembered. We craft logos, colour palettes, typography hierarchies, and brand guidelines that hold authority across every touchpoint — digital and print.',
+    capabilities: ['Brand Strategy', 'Logo Design', 'Guidelines', 'Asset Library', 'Stationery'],
     accent: '#C4A882',
   },
   {
     no: '03',
-    title: 'UI Redesign & Design Systems',
-    subtitle: 'Pixel-perfect interfaces built for scale.',
-    capabilities: ['UI Audit', 'Figma Systems', 'Component Libraries', 'Design Tokens'],
+    title: 'Brand Strategy & Consulting',
+    subtitle: "Before a single pixel is placed, we study your market. Positioning, messaging, and competitive intelligence — so your brand doesn't just look premium, it occupies premium ground.",
+    capabilities: ['Market Analysis', 'Positioning', 'Messaging', 'Creative Direction', 'Competitor Audit'],
     accent: '#A8845A',
   },
   {
     no: '04',
-    title: 'Brand Strategy & Consulting',
-    subtitle: 'Positioning that puts you ahead of the competition.',
-    capabilities: ['Market Analysis', 'Positioning', 'Messaging', 'Creative Direction'],
+    title: 'SEO & Performance Optimisation',
+    subtitle: 'A beautiful site that no one finds is a silent luxury. We optimise for speed, structure, and search — so your business ranks where it belongs and loads before impatience sets in.',
+    capabilities: ['Technical SEO', 'Core Web Vitals', 'Local SEO', 'Content Audit', 'Analytics Setup'],
     accent: '#D4B896',
+  },
+  {
+    no: '05',
+    title: 'AI & Business Automation',
+    subtitle: 'Intelligence, built in. We engineer AI-powered tools — chatbots, lead pipelines, automated dashboards, and workflow systems — that make your business run sharper while you sleep.',
+    capabilities: ['AI Chatbots', 'Lead Automation', 'CRM Workflows', 'AI Dashboards', 'WhatsApp Bots'],
+    accent: '#B8956A',
   },
 ];
 
@@ -264,7 +271,7 @@ export default function ServicesV2() {
             textAlign: 'right',
           }}
         >
-          Four disciplines. Each one obsessed over.
+          Five disciplines. Each one obsessed over.
         </motion.p>
       </div>
 

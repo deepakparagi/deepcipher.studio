@@ -51,7 +51,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             exit={{ opacity: 0, y: -10, filter: 'blur(10px)' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             style={{ 
-              paddingTop: (pathname === '/' || (pathname.startsWith('/work/') && pathname !== '/work')) ? '0px' : '68px',
+              paddingTop: (pathname === '/' || pathname.startsWith('/work') || pathname === '/services' || pathname === '/process' || pathname === '/about' || pathname === '/contact') ? '0px' : '68px',
               minHeight: '100vh',
               display: 'flex',
               flexDirection: 'column'

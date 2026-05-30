@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 20 560 460" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <!-- Base Background -->
+  <rect x="0" y="0" width="800" height="500" fill="#F5EDD8" />
+
+  <!-- Concentric Circles -->
+  <circle cx="400" cy="220" r="220" fill="none" stroke="#C41230" stroke-width="2.5" />
+  <circle cx="400" cy="220" r="160" fill="none" stroke="#C45A12" stroke-width="1.5" />
+  <circle cx="400" cy="220" r="80" fill="#C8A55A" opacity="0.25" />
+
+  <!-- Overlapping Geometric Triangles -->
+  <polygon points="400,60 480,200 320,200" fill="#C8A55A" />
+  <polygon points="400,380 480,240 320,240" fill="#C41230" opacity="0.85" />
+  <polygon points="240,130 400,220 240,310" fill="#C45A12" opacity="0.7" />
+  <polygon points="560,130 400,220 560,310" fill="#C8A55A" opacity="0.7" />
+</svg>

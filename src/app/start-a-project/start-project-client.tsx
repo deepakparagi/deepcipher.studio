@@ -21,7 +21,7 @@ const serviceOptions = [
 ];
 
 const timelineOptions = ['Under 4 weeks', '1–2 months', '2–3 months', 'No rush'];
-const budgetOptions = ['Under €3,000', '€3,000–€5,000', '€5,000–€10,000', '€10,000–€25,000', '€25,000+'];
+const budgetOptions = ['Under ₹2,50,000', '₹2,50,000–₹5,00,000', '₹5,00,000–₹10,00,000', '₹10,00,000–₹25,00,000', '₹25,00,000+'];
 
 export default function StartProjectClient() {
   const [step, setStep] = useState(0);

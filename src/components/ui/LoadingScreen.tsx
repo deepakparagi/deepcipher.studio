@@ -41,7 +41,7 @@ export default function LoadingScreen({ onFinished }: { onFinished: () => void }
   }, [onFinished]);
 
   // SVG Drawing variants
-  const pathVariants = {
+  const pathVariants: any = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: { 
       pathLength: 1, 
@@ -54,7 +54,7 @@ export default function LoadingScreen({ onFinished }: { onFinished: () => void }
     }
   };
 
-  const internalVariants = {
+  const internalVariants: any = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { 
       opacity: 0.2, 

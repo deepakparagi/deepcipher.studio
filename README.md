@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DEEPCIPHER
 
-## Getting Started
+## Premium Digital Studio Experience
 
-First, run the development server:
+DEEPCIPHER is a luxury digital agency site built with Next.js, React, TypeScript, Tailwind, Framer Motion, and Lenis smooth scrolling.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/Deepcipher)
+
+---
+
+## Live Demo
+
+```md
+Coming Soon
+```
+
+---
+
+## Features
+
+- Premium luxury UI with immersive editorial styling
+- Responsive design across desktop, tablet, and mobile
+- Advanced motion system with GSAP, Framer Motion, and Lenis
+- Custom Three.js visuals and interactive content sections
+- Service architecture and process workflow pages
+- Project onboarding flow with dynamic routing
+- SEO-ready metadata and structured page content
+- Performance-optimized Next.js production build
+
+---
+
+## Tech Stack
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Lenis**
+- **Vercel**
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/deepakparagi/Deepcipher.git
+cd Deepcipher
+npm install
+```
+
+---
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+### Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This repository is configured for one-click deployment on Vercel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push the repository to GitHub.
+2. Import the project into Vercel.
+3. Vercel automatically detects the Next.js framework.
+4. Click deploy.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/Deepcipher)
+
+---
+
+## Project Structure
+
+```bash
+src/
+  app/
+    about/
+    contact/
+    process/
+    services/
+    start-a-project/
+    work/
+    client-layout.tsx
+    globals.css
+    layout.tsx
+  components/
+    layout/
+    sections/
+    ui/
+  lib/
+    hooks/
+    animations.ts
+    projects.ts
+    services.ts
+public/
+  images/
+    projects/
+    services/
+eslint.config.mjs
+next.config.ts
+package.json
+package-lock.json
+postcss.config.mjs
+tsconfig.json
+README.md
+```
+
+---
+
+## Performance
+
+- Lighthouse optimized
+- Responsive across viewports
+- SEO friendly
+- Accessibility compliant
+
+---
+
+## License
+
+MIT
+
+---
+
+## Author
+
+Deepak Paragi
+
+GitHub: https://github.com/deepakparagi

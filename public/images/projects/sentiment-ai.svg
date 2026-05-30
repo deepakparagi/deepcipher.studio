@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <!-- Base Background -->
+  <rect width="600" height="400" fill="#F5F0E8" />
+
+  <!-- Overlapping Flat Rectangles -->
+  <rect x="80" y="50" width="280" height="300" fill="#185A30" />
+  <rect x="280" y="100" width="240" height="250" fill="#7AB818" opacity="0.95" />
+</svg>

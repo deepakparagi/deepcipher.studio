@@ -1,148 +1,101 @@
-# DEEPCIPHER
+# DEEPCIPHER.AI
 
-## Premium Digital Studio Experience
+## Architecting Undeniable Authority.
 
-DEEPCIPHER is a luxury digital agency site built with Next.js, React, TypeScript, Tailwind, Framer Motion, and Lenis smooth scrolling.
+DEEPCIPHER is a premium web design and brand identity studio based in India, operating globally. We architect digital authority through an obsessive attention to craft — from typography scales and micro-interactions to performance metrics and conversion architecture.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/Deepcipher)
+This luxury digital agency platform is built with **Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, and Lenis smooth scrolling**.
 
----
-
-## Live Demo
-
-```md
-Coming Soon
-```
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/deepcipher.ai)
 
 ---
 
-## Features
+## ⚡ Features
 
-- Premium luxury UI with immersive editorial styling
-- Responsive design across desktop, tablet, and mobile
-- Advanced motion system with GSAP, Framer Motion, and Lenis
-- Custom Three.js visuals and interactive content sections
-- Service architecture and process workflow pages
-- Project onboarding flow with dynamic routing
-- SEO-ready metadata and structured page content
-- Performance-optimized Next.js production build
+- **Premium Luxury UI:** Immersive editorial styling, dynamic grids, and sophisticated dark mode.
+- **Advanced Motion System:** Powered by GSAP, Framer Motion, and Lenis smooth scrolling.
+- **Responsive Excellence:** Flawless rendering across desktop, tablet, and mobile breakpoints.
+- **High-End Conversion Flow:** Custom multi-step project onboarding and interactive consultation forms.
+- **Custom Visuals:** Integrated WebGL/Three.js capabilities and smooth visual transitions.
+- **Production Ready:** Fully optimized for Core Web Vitals, SEO, and extreme performance.
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Next.js**
-- **React**
-- **TypeScript**
-- **Tailwind CSS**
-- **Framer Motion**
-- **Lenis**
-- **Vercel**
-
----
-
-## Installation
-
-```bash
-git clone https://github.com/deepakparagi/Deepcipher.git
-cd Deepcipher
-npm install
-```
+- **Framework:** Next.js (App Router)
+- **Library:** React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS (with custom design system)
+- **Animation:** Framer Motion & GSAP
+- **Scrolling:** Lenis
+- **Deployment:** Vercel
 
 ---
 
-## Development
+## 🚀 Quick Start
 
-```bash
-npm run dev
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/deepakparagi/deepcipher.ai.git
+   cd deepcipher.ai
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
----
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-## Build
-
-```bash
-npm run build
-```
-
-```bash
-npm run start
-```
-
----
-
-## Deployment
-
-### Vercel
-
-This repository is configured for one-click deployment on Vercel.
-
-1. Push the repository to GitHub.
-2. Import the project into Vercel.
-3. Vercel automatically detects the Next.js framework.
-4. Click deploy.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/Deepcipher)
+   Visit [http://localhost:3000](http://localhost:3000) to see your local instance.
 
 ---
 
-## Project Structure
+## 📦 Deployment (Vercel Ready)
+
+This repository is optimized for a zero-configuration deployment to Vercel.
+
+1. Ensure all code is pushed to your `main` branch.
+2. Go to your [Vercel Dashboard](https://vercel.com/dashboard) and click **Add New... > Project**.
+3. Import the `deepcipher.ai` repository.
+4. Vercel will automatically detect the **Next.js** framework and configure the build command (`npm run build`).
+5. Click **Deploy**.
+
+Alternatively, just click the button below:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/deepakparagi/deepcipher.ai)
+
+---
+
+## 🏗️ Project Structure
 
 ```bash
 src/
-  app/
-    about/
-    contact/
-    process/
-    services/
-    start-a-project/
-    work/
-    client-layout.tsx
-    globals.css
-    layout.tsx
-  components/
-    layout/
-    sections/
-    ui/
-  lib/
-    hooks/
-    animations.ts
-    projects.ts
-    services.ts
-public/
-  images/
-    projects/
-    services/
-eslint.config.mjs
-next.config.ts
-package.json
-package-lock.json
-postcss.config.mjs
-tsconfig.json
-README.md
+├── app/                  # Next.js App Router (pages, layouts, globals)
+│   ├── about/            # Studio Manifesto & Founder profile
+│   ├── contact/          # Luxury Intake Protocol
+│   ├── process/          # Methodology & Workflow
+│   ├── services/         # Capabilities
+│   └── work/             # Selected Portfolio
+├── components/           # Reusable UI, Layout, and Section components
+└── lib/                  # Utilities, hooks, and static data
+public/                   # Static assets (images, fonts, SVG)
 ```
 
 ---
 
-## Performance
+## 📄 License
 
-- Lighthouse optimized
-- Responsive across viewports
-- SEO friendly
-- Accessibility compliant
+This project is licensed under the MIT License.
 
 ---
 
-## License
+## 👤 Author
 
-MIT
-
----
-
-## Author
-
-Deepak Paragi
-
-GitHub: https://github.com/deepakparagi
+**Deepak Paragi**  
+Founder & Creative Director at DEEPCIPHER  
+GitHub: [@deepakparagi](https://github.com/deepakparagi)

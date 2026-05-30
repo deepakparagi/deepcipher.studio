@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import Noise from '@/components/ui/Noise';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /* ==========================================================
    ABOUT PAGE — Completely Redesigned
@@ -399,7 +400,13 @@ export default function AboutClient() {
 
           {/* RIGHT COLUMN: Visual */}
           <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto" style={{ minHeight: '400px' }}>
-            <ManifestoVisual />
+            <Image
+              src="/images/retro-terminal.jpg"
+              alt="Retro Terminal"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              quality={100}
+            />
             <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
           </div>
         </div>
@@ -534,9 +541,13 @@ export default function AboutClient() {
 
           {/* RIGHT COLUMN: Visual */}
           <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:order-2" style={{ minHeight: '400px' }}>
-            {/* TODO: replace with real photo */}
-            {/* When Deepak uploads a real photo, replace this SVG with next/image using object-fit: cover */}
-            <FounderVisual />
+            <Image
+              src="/images/Deepak.jpg"
+              alt="Deepak Paragi"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              quality={100}
+            />
             <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
           </div>
         </div>

@@ -200,7 +200,7 @@ export default function WorkClient() {
             className="mb-3 block uppercase"
             style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#B8956A', letterSpacing: '0.25em' }}
           >
-            2024 — 2026
+            2026
           </span>
           <p
             className="mx-auto max-w-[480px]"

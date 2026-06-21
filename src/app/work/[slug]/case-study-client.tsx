@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import type { Project } from '@/lib/projects';
 import Noise from '@/components/ui/Noise';
@@ -41,7 +41,7 @@ function getProjectBackground(slug: string) {
   }
 }
 
-function getProjectImageFolder(slug: string) {
+function getProjectImageFolder(slug: string): string {
   switch (slug) {
     case 'bipin-chikkatti-college':
       return 'Bipin Chikkati School';
@@ -62,9 +62,31 @@ function getProjectImageFolder(slug: string) {
 
 export default function CaseStudyClient({ project, nextProject }: { project: Project; nextProject: Project }) {
   const { setCursor, resetCursor } = useCursor();
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveImage(null);
+        resetCursor();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [resetCursor]);
+
+  useEffect(() => {
+    if (activeImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeImage]);
   
   const bgGradient = getProjectBackground(project.slug);
-  const imageFolder = getProjectImageFolder(project.slug);
   const stats = project.stats || [
     { label: 'DEEPCIPHER AUDIT SCORE', value: '8.0/10' },
     { label: 'PROJECT VALUE TIER', value: 'Standard' },
@@ -98,8 +120,8 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       
       {/* SECTION 1: HERO */}
       <section 
-        className="relative overflow-hidden flex flex-col justify-center items-center text-center px-[24px] md:px-[64px] pt-[120px] md:pt-[80px] pb-[80px] md:pb-[40px] w-full"
-        style={{ minHeight: '100svh' }}
+        className="relative overflow-hidden flex flex-col justify-center items-center text-center pt-[200px] md:pt-[240px] pb-[120px] md:pb-[160px] w-full"
+        style={{ minHeight: '100svh', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
       >
         {/* Mobile alignment override using tailwind classes on the inner container below */}
         <div 
@@ -180,10 +202,11 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
       {/* SECTION 2: NARRATIVE */}
       <section 
-        className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-[64px] lg:gap-[80px] items-start px-[24px] md:px-[64px] py-[80px] md:py-[100px]"
-        style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}
+        className="w-full py-32 md:py-48 lg:py-64"
+        style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
       >
-        <div className="flex flex-col gap-16">
+        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-[64px] lg:gap-[100px] items-start">
+          <div className="flex flex-col gap-24 pr-8 md:pr-24 lg:pr-[20%]">
           <NarrativeBlock label="OVERVIEW" text={project.overview || ''} />
           <NarrativeBlock label="THE PROBLEM" text={project.problem || ''} />
           <NarrativeBlock label="THE CHALLENGE" text={project.challenge || ''} />
@@ -281,119 +304,129 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
             </a>
           )}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* SECTION 3: VISUAL ARCHIVE */}
-      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '48px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
-        <div className="flex flex-col gap-[32px] md:gap-[64px]">
+      <section className="w-full py-32 md:py-48 lg:py-64" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+        <div className="max-w-[1400px] mx-auto w-full">
+          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '32px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] md:gap-[32px]">
           {[1, 2, 3].map((num, i) => {
-            const imagePath = imageFolder ? `/images/case-studies/${imageFolder}/${num}.png` : null;
-            const isFullWidth = i === 0;
+            const getGradientAngle = () => {
+              if (i === 0) return '160deg';
+              if (i === 1) return '175deg';
+              return '150deg';
+            };
+            const angleStr = getGradientAngle();
+            const opacity = i === 2 ? 0.85 : 1;
+            const bgStr = bgGradient.replace(/\d+deg/, angleStr);
+            const folderName = getProjectImageFolder(project.slug);
+            const imagePath = folderName ? `/images/case-studies/${folderName}/${num}.png` : '';
             
             return (
-              <motion.div 
+              <div 
                 key={num} 
-                className={`relative overflow-hidden cursor-pointer group ${isFullWidth ? 'w-full' : 'w-full md:w-[48%]'} ${i === 2 ? 'self-end' : ''}`}
+                className="relative overflow-hidden cursor-pointer group" 
                 onMouseEnter={() => setCursor('hover', 'ZOOM')} 
                 onMouseLeave={resetCursor}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                style={{ 
-                  border: '1px solid rgba(245,240,232,0.05)',
-                  background: 'rgba(255,255,255,0.01)'
+                onClick={() => {
+                  if (imagePath) setActiveImage(imagePath);
                 }}
               >
-                 <div className="w-full relative" style={{ aspectRatio: isFullWidth ? '16/9' : '4/5' }}>
-                   {imagePath && (
-                     <motion.img 
-                       src={imagePath}
-                       alt={`${project.title} screenshot ${num}`}
-                       className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 ease-out group-hover:scale-105"
-                     />
-                   )}
-                   
-                   {/* Extremely subtle vignette to maintain text readability without obscuring the image */}
-                   <div 
-                     className="absolute inset-0 z-10 pointer-events-none"
-                     style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 20%, transparent 100%)' }}
+                 <style jsx>{`
+                    div { aspect-ratio: 16/9; }
+                    @media (min-width: 768px) {
+                      div { aspect-ratio: 16/9; }
+                    }
+                 `}</style>
+                 <div className="absolute inset-0 pointer-events-none" style={{ background: bgStr, opacity, zIndex: 0 }} />
+                 {imagePath && (
+                   <img 
+                     src={imagePath}
+                     alt={`${project.title} screenshot ${num}`}
+                     className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
+                     style={{ zIndex: 1 }}
                    />
-                   
-                   <div 
-                     className="absolute bottom-0 left-0 right-0 p-[24px] z-20 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   >
-                     <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#F5F0E8', letterSpacing: '0.12em' }}>
-                       // DETAIL 0{num} / 03
-                     </span>
-                     <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#B8956A', letterSpacing: '0.1em' }}>
-                       [ EXAMINE ]
-                     </span>
-                   </div>
+                 )}
+                 <div 
+                   className="absolute inset-0 pointer-events-none"
+                   style={{ background: `repeating-linear-gradient(90deg, transparent 0px, transparent 32px, rgba(255,255,255,0.02) 32px, rgba(255,255,255,0.02) 34px)`, zIndex: 2 }}
+                 />
+                 {i === 0 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', top: '-10%', left: '20%', width: '60%', height: '50%', zIndex: 3 }} />}
+                 {i === 1 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', top: '20%', right: '-10%', width: '50%', height: '60%', zIndex: 3 }} />}
+                 {i === 2 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', bottom: '-10%', left: '30%', width: '50%', height: '50%', zIndex: 3 }} />}
+                 
+                 <div 
+                   className="absolute bottom-0 left-0 right-0 p-[16px] pointer-events-none"
+                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)', fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#9A9590', letterSpacing: '0.12em', zIndex: 4 }}
+                 >
+                   // DETAIL 0{num} / 03
                  </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* SECTION 4: PULL QUOTE */}
-      <section style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <div className="px-[24px] md:px-[64px] py-[80px] md:py-[120px] max-w-[928px] mx-auto">
-          <div style={{ borderLeft: '2px solid #B8956A', paddingLeft: '40px' }}>
+      <section className="w-full py-32 md:py-48 lg:py-64" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+        <div className="max-w-[1400px] mx-auto w-full">
+          <div className="max-w-[928px] mx-auto pr-8 md:pr-24 lg:pr-[20%]">
+          <div className="border-l-0 md:border-l-2 border-[#B8956A] pl-0 md:pl-10 text-center md:text-left">
             <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(22px, 3vw, 34px)', color: '#F5F0E8', lineHeight: 1.4, margin: 0 }}>
               {project.pullQuote || 'Capturing structural harmony through liquid motion and architectural editorial balance.'}
             </p>
           </div>
-          <p style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.8, marginTop: '24px', paddingLeft: '40px', marginBottom: 0 }}>
+          <p 
+            className="pl-0 md:pl-10 text-center md:text-left mt-6"
+            style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.8, marginBottom: 0 }}
+          >
             We believe that every technical platform deserves a luxury execution. By implementing bespoke micro-interactions, Variable typeface sizing parameters, and organic WebGL shaders, we guarantee that the final digital artifact is not just usable—it is a landmark in visual storytelling and digital authority.
           </p>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* SECTION 5: STATS */}
-      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', marginBottom: '40px', display: 'block', letterSpacing: '0.18em' }}>[ OUTCOMES ]</span>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] md:gap-[32px]">
+      <section className="w-full py-32 md:py-48 lg:py-64" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+        <div className="max-w-[1400px] mx-auto w-full">
+          <span 
+            className="text-center md:text-left"
+            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', marginBottom: '40px', display: 'block', letterSpacing: '0.18em' }}
+          >
+            [ OUTCOMES ]
+          </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] md:gap-[32px] pr-8 md:pr-24 lg:pr-[20%]">
           {stats.map((stat, i) => (
-            <motion.div 
+            <div 
               key={i} 
-              className="p-[40px] md:p-[48px] relative overflow-hidden group" 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ 
-                background: 'rgba(255,255,255,0.015)', 
-                border: '1px solid rgba(245,240,232,0.05)', 
-                backdropFilter: 'blur(10px)' 
-              }}
+              className="p-[32px] md:p-[40px] px-[24px] md:px-[32px] text-center md:text-left" 
+              style={{ background: 'rgba(184,149,106,0.04)', border: '0.5px solid rgba(184,149,106,0.12)', borderRadius: 0 }}
             >
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{ background: 'radial-gradient(circle at center, rgba(184,149,106,0.05) 0%, transparent 70%)' }}
-              />
-              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', letterSpacing: '0.15em', color: '#9A9590', display: 'block', marginBottom: '24px', textTransform: 'uppercase' }}>
+              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', display: 'block', marginBottom: '16px', textTransform: 'uppercase' }}>
                 {stat.label}
               </span>
-              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(32px, 5vw, 48px)', color: '#F5F0E8', margin: 0, lineHeight: 1.1 }}>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(36px, 10vw, 64px)', color: '#B8956A', margin: 0, lineHeight: 1 }}>
                 {stat.value}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* SECTION 6: NEXT PROJECT NAV */}
       <section 
-        className="flex flex-col md:flex-row items-start md:items-center justify-between px-[24px] md:px-[64px] py-[64px] md:py-[80px]"
-        style={{ borderTop: '0.5px solid rgba(245,240,232,0.08)' }}
+        className="w-full py-24 md:py-32 lg:py-40"
+        style={{ borderTop: '0.5px solid rgba(245,240,232,0.08)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
       >
+        <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-center justify-between pr-8 md:pr-24 lg:pr-[20%] gap-8 md:gap-0">
         <Link 
           href="/work"
           style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: '#6B6560', letterSpacing: '0.15em', textDecoration: 'none', transition: 'color 0.3s ease' }}
-          className="hover:text-[#B8956A] mb-8 md:mb-0 block"
+          className="hover:text-[#B8956A] block"
           onMouseEnter={() => setCursor('link')}
           onMouseLeave={resetCursor}
         >
@@ -406,17 +439,25 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           onMouseEnter={() => setCursor('hover', 'NEXT')}
           onMouseLeave={resetCursor}
         >
-          <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '4px', textAlign: 'left', letterSpacing: '0.1em' }} className="md:text-right">
+          <span 
+            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '4px', letterSpacing: '0.1em' }} 
+            className="text-center md:text-right"
+          >
             NEXT PROJECT
           </span>
-          <span className="group-hover:text-[#B8956A] transition-colors duration-300" style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(20px, 3vw, 32px)', color: '#F5F0E8', display: 'block', textAlign: 'left' }} >
+          <span 
+            className="group-hover:text-[#B8956A] transition-colors duration-300 text-center md:text-right block" 
+            style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(20px, 3vw, 32px)', color: '#F5F0E8' }} 
+          >
             {nextProject.title} →
           </span>
         </Link>
-      </section>
+      </div>
+    </section>
 
       {/* SECTION 7: FOOTER EMAIL CTA */}
-      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', textAlign: 'center' }}>
+      <section className="w-full py-32 md:py-48 lg:py-64 text-center" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+        <div className="max-w-[1400px] mx-auto w-full pr-8 md:pr-24 lg:pr-[20%]">
         <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: 'clamp(20px, 4vw, 24px)', color: '#9A9590', marginBottom: '24px', fontWeight: 300, margin: '0 auto 24px' }}>
           Or start your own project.
         </p>
@@ -430,7 +471,53 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           DEEPCIPHERSTUDIO@GMAIL.COM
           <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
         </a>
-      </section>
+      </div>
+    </section>
+
+      {/* LIGHTBOX MODAL */}
+      <AnimatePresence>
+        {activeImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md cursor-zoom-out"
+            onClick={() => {
+              setActiveImage(null);
+              resetCursor();
+            }}
+          >
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveImage(null);
+                resetCursor();
+              }}
+              className="absolute top-6 right-8 text-[#9A9590] hover:text-[#F5F0E8] transition-colors duration-300 font-mono text-xs tracking-widest z-[10000] cursor-pointer"
+            >
+              [ CLOSE ]
+            </button>
+            
+            {/* Image Container with Animation */}
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative max-w-[90vw] max-h-[85vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={activeImage}
+                alt="Enlarged screenshot"
+                className="w-auto h-auto max-w-full max-h-[85vh] object-contain border border-white/10"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </motion.main>
   );

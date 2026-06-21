@@ -80,13 +80,6 @@ export default function Footer() {
           
           {/* LEFT SIDE (5 columns) */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:col-span-5">
-            <div className="mb-4 relative" style={{ width: 180, height: 60 }}>
-              <img 
-                src="/deepcipher_logo.png" 
-                alt="DeepCipher Studio Logo" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'left' }}
-              />
-            </div>
             <p className="footer-brand-tagline mb-10 text-white/60 font-light text-[14px]">
               Web Design &amp; Brand Identity Studio
             </p>
@@ -237,10 +230,22 @@ export default function Footer() {
       >
         <div className="watermark-container">
           <div className="watermark-text-wrap">
+            {/* Mobile Watermark */}
             <motion.h1 
               whileHover={{ letterSpacing: '0.3em' }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="footer-watermark pointer-events-auto cursor-none select-none"
+              className="footer-watermark block md:hidden pointer-events-auto cursor-none select-none"
+              onMouseEnter={() => setCursor('hover', 'TERMINAL')}
+              onMouseLeave={resetCursor}
+            >
+              CIPHER
+            </motion.h1>
+
+            {/* Desktop Watermark */}
+            <motion.h1 
+              whileHover={{ letterSpacing: '0.3em' }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="footer-watermark hidden md:block pointer-events-auto cursor-none select-none"
               onMouseEnter={() => setCursor('hover', 'TERMINAL')}
               onMouseLeave={resetCursor}
             >

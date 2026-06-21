@@ -31,7 +31,7 @@ function ManifestoVisual() {
               stroke="#B8956A" strokeWidth="0.5" opacity="0.06"/>
       <text x="400" y="780" fontFamily="DM Mono, monospace"
             fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">EST. 2024 — GLOBAL REACH</text>
+            letterSpacing="4">EST. 2026 — GLOBAL REACH</text>
     </svg>
   );
 }
@@ -244,7 +244,7 @@ export default function AboutClient() {
               marginBottom: '20px',
             }}
           >
-            INDIA · GLOBAL · EST. 2024
+            INDIA · GLOBAL · EST. 2026
           </span>
 
           {/* Body */}

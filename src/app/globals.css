@@ -1277,7 +1277,7 @@ footer a {
   font-family: var(--font-display), serif;
   font-weight: 400;
   /* Scale to fill viewport width: DEEPCIPHER */
-  font-size: 8.2vw;
+  font-size: 13.5vw;
   line-height: 1;
   /* Subtle gradient: brighter center, fading toward edges at 0.04 opacity */
   background: linear-gradient(
@@ -1290,7 +1290,7 @@ footer a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 0.6vw;
+  letter-spacing: 1.2vw;
   margin: 0;
   white-space: nowrap;
   user-select: none;

@@ -173,14 +173,16 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div className="w-full px-2 md:px-12 lg:px-20 xl:px-28 flex items-center justify-between mx-auto" style={{
+          <div className="w-full h-full flex items-center justify-between mx-auto" style={{
             maxWidth: '1640px',
+            paddingLeft: 'var(--navbar-pad-x)',
+            paddingRight: 'var(--navbar-pad-x)',
           }}>
             {/* Logo */}
             <Link
               href="/"
-              className="relative flex items-center justify-start w-[90px] h-[34px] md:w-[120px] md:h-[40px]"
-              style={{ pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
+              className="relative flex items-center justify-start w-[80px] h-[30px] md:w-[110px] md:h-[36px]"
+              style={{ pointerEvents: 'all', zIndex: 9999, position: 'relative', transform: 'translateY(-2px)' }}
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={resetCursor}
             >
@@ -188,7 +190,7 @@ function Navbar() {
                 src="/deepcipher_logo.png?v=2"
                 alt="DeepCipher Logo"
                 fill
-                sizes="(max-width: 768px) 90px, 120px"
+                sizes="(max-width: 768px) 80px, 110px"
                 priority
                 className="object-contain object-left"
                 style={{ transform: 'translate3d(0,0,0)' }}

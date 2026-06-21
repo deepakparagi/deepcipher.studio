@@ -105,7 +105,7 @@ export default function Footer() {
             <div className="flex flex-row items-center gap-6 mt-auto">
               {[
                 { label: 'INSTAGRAM ↗', href: 'https://www.instagram.com/deepcipher.ai/' },
-                { label: 'LINKEDIN ↗', href: 'https://www.linkedin.com/company/deepcipher' },
+                { label: 'LINKEDIN ↗', href: 'https://www.linkedin.com/in/deepak-paragi-501140261/' },
                 { label: 'BEHANCE ↗', href: 'https://www.behance.net/' }
               ].map((social) => (
                 <a 

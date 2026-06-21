@@ -173,20 +173,14 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div style={{
-            width: '100%',
+          <div className="w-full px-4 md:px-8 flex items-center justify-between mx-auto" style={{
             maxWidth: '100%',
-            padding: '0 clamp(16px, 2.5vw, 32px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            margin: '0 auto',
           }}>
             {/* Logo */}
             <Link
               href="/"
-              className="relative flex items-center justify-center"
-              style={{ width: 120, height: 40, pointerEvents: 'all', zIndex: 9999, position: 'relative', marginLeft: '-10px' }}
+              className="relative flex items-center justify-start"
+              style={{ width: 120, height: 40, pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={resetCursor}
             >
@@ -196,7 +190,7 @@ function Navbar() {
                 fill
                 sizes="120px"
                 priority
-                className="object-contain"
+                className="object-contain object-left"
                 style={{ transform: 'translate3d(0,0,0)' }}
               />
             </Link>
@@ -290,10 +284,9 @@ function Navbar() {
             {/* Hamburger (Mobile) */}
             {!isCaseStudy && (
               <button
-                className="flex md:hidden flex-col justify-center items-center gap-[6px] w-10 h-10 group focus:outline-none touch-manipulation relative z-[9999] pointer-events-auto"
+                className="flex md:hidden flex-col justify-center items-end gap-[6px] w-10 h-10 group focus:outline-none touch-manipulation relative z-[9999] pointer-events-auto"
                 onClick={toggleMobileOpen}
                 aria-label="Toggle Menu"
-                style={{ marginRight: '-8px' }}
               >
                 <motion.span
                   animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 7 : 0 }}

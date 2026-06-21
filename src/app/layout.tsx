@@ -76,6 +76,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cormorant.variable} ${josefin.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <meta name="view-transition" content="same-origin" />
@@ -86,7 +87,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <ClientLayout>
           <main id="main-content">

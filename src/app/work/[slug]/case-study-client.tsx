@@ -78,8 +78,8 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       
       {/* SECTION 1: HERO */}
       <section 
-        className="relative overflow-hidden flex flex-col justify-center items-center text-center px-[24px] md:px-[64px] pt-[80px] md:pt-[56px] pb-[40px] md:pb-0 w-full"
-        style={{ height: '100svh', justifyContent: 'center' }}
+        className="relative overflow-hidden flex flex-col justify-center items-center text-center px-[24px] md:px-[64px] pt-[120px] md:pt-[80px] pb-[80px] md:pb-[40px] w-full"
+        style={{ minHeight: '100svh' }}
       >
         {/* Mobile alignment override using tailwind classes on the inner container below */}
         <div 
@@ -126,24 +126,24 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           </p>
 
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-0 w-full max-w-[900px] pt-[24px]"
+            className="grid grid-cols-2 md:grid-cols-4 w-full max-w-[900px] pt-[40px] gap-y-8 gap-x-4 md:gap-y-0"
             style={{ borderTop: '0.5px solid rgba(245,240,232,0.1)' }}
           >
-            <div className="px-[24px] text-left border-r border-[rgba(245,240,232,0.08)] mb-6 md:mb-0">
+            <div className="text-left md:border-r border-[rgba(245,240,232,0.08)] md:pr-6">
               <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>CLIENT</span>
-              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#F5F0E8' }}>{project.client}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '15px', fontWeight: 300, color: '#F5F0E8' }}>{project.client}</span>
             </div>
-            <div className="px-[24px] text-left border-r-0 md:border-r border-[rgba(245,240,232,0.08)] mb-6 md:mb-0">
+            <div className="text-left md:border-r border-[rgba(245,240,232,0.08)] md:px-6">
               <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>CATEGORY</span>
-              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#F5F0E8' }}>{project.category}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '15px', fontWeight: 300, color: '#F5F0E8' }}>{project.category}</span>
             </div>
-            <div className="px-[24px] text-left border-r border-[rgba(245,240,232,0.08)]">
+            <div className="text-left md:border-r border-[rgba(245,240,232,0.08)] md:px-6">
               <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>YEAR</span>
-              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#F5F0E8' }}>{project.year}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '15px', fontWeight: 300, color: '#F5F0E8' }}>{project.year}</span>
             </div>
-            <div className="px-[24px] text-left">
+            <div className="text-left md:pl-6">
               <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>ROLE</span>
-              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#F5F0E8' }}>{project.tags[0] || 'Design'}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '15px', fontWeight: 300, color: '#F5F0E8' }}>{project.tags[0] || 'Design'}</span>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
       {/* SECTION 2: NARRATIVE */}
       <section 
-        className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-[40px] lg:gap-[80px] items-start px-[24px] md:px-[64px] py-[48px] md:py-[80px]"
+        className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-[64px] lg:gap-[80px] items-start px-[24px] md:px-[64px] py-[80px] md:py-[100px]"
         style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}
       >
         <div className="flex flex-col gap-16">
@@ -264,9 +264,9 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       </section>
 
       {/* SECTION 3: VISUAL ARCHIVE */}
-      <section className="px-[24px] md:px-[64px] py-[80px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '24px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[4px]">
+      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
+        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '32px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px] md:gap-[4px]">
           {[1, 2, 3].map((num, i) => {
             const getGradientAngle = () => {
               if (i === 0) return '160deg';
@@ -308,7 +308,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
       {/* SECTION 4: PULL QUOTE */}
       <section style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <div className="px-[24px] md:px-[64px] py-[80px] max-w-[928px] mx-auto">
+        <div className="px-[24px] md:px-[64px] py-[80px] md:py-[120px] max-w-[928px] mx-auto">
           <div style={{ borderLeft: '2px solid #B8956A', paddingLeft: '40px' }}>
             <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(22px, 3vw, 34px)', color: '#F5F0E8', lineHeight: 1.4, margin: 0 }}>
               {project.pullQuote || 'Capturing structural harmony through liquid motion and architectural editorial balance.'}
@@ -321,15 +321,15 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       </section>
 
       {/* SECTION 5: STATS */}
-      <section className="px-[24px] md:px-[64px] py-[48px] md:py-[80px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
+      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
         <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', marginBottom: '40px', display: 'block', letterSpacing: '0.18em' }}>[ OUTCOMES ]</span>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[4px] md:gap-[2px]">
           {stats.map((stat, i) => (
-            <div key={i} style={{ background: 'rgba(184,149,106,0.04)', border: '0.5px solid rgba(184,149,106,0.12)', padding: '40px 32px', borderRadius: 0 }}>
+            <div key={i} className="p-[32px] md:p-[40px] px-[24px] md:px-[32px]" style={{ background: 'rgba(184,149,106,0.04)', border: '0.5px solid rgba(184,149,106,0.12)', borderRadius: 0 }}>
               <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', display: 'block', marginBottom: '16px', textTransform: 'uppercase' }}>
                 {stat.label}
               </span>
-              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(40px, 5vw, 64px)', color: '#B8956A', margin: 0, lineHeight: 1 }}>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(36px, 10vw, 64px)', color: '#B8956A', margin: 0, lineHeight: 1 }}>
                 {stat.value}
               </p>
             </div>
@@ -339,7 +339,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
       {/* SECTION 6: NEXT PROJECT NAV */}
       <section 
-        className="flex flex-col md:flex-row items-start md:items-center justify-between px-[24px] md:px-[64px] py-[32px] md:py-[40px]"
+        className="flex flex-col md:flex-row items-start md:items-center justify-between px-[24px] md:px-[64px] py-[64px] md:py-[80px]"
         style={{ borderTop: '0.5px solid rgba(245,240,232,0.08)' }}
       >
         <Link 
@@ -368,8 +368,8 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       </section>
 
       {/* SECTION 7: FOOTER EMAIL CTA */}
-      <section style={{ padding: '60px 64px', borderTop: '0.5px solid rgba(245,240,232,0.06)', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '24px', color: '#9A9590', marginBottom: '16px', fontWeight: 300, margin: '0 auto 16px' }}>
+      <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: 'clamp(20px, 4vw, 24px)', color: '#9A9590', marginBottom: '24px', fontWeight: 300, margin: '0 auto 24px' }}>
           Or start your own project.
         </p>
         <a 

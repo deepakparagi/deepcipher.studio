@@ -348,10 +348,10 @@ export default function Hero() {
       <div
         className="relative z-10 w-full flex-1 flex flex-col justify-center items-center text-center"
         style={{
-          paddingTop: 'clamp(80px, 10vh, 120px)',
-          paddingBottom: 'clamp(32px, 4vw, 60px)',
-          paddingLeft: 'clamp(24px, 6vw, 80px)',
-          paddingRight: 'clamp(24px, 6vw, 80px)',
+          paddingTop: 'clamp(60px, 8vh, 120px)',
+          paddingBottom: 'clamp(24px, 4vh, 60px)',
+          paddingLeft: 'clamp(16px, 4vw, 80px)',
+          paddingRight: 'clamp(16px, 4vw, 80px)',
         }}
       >
         {/* Headline */}
@@ -361,7 +361,7 @@ export default function Hero() {
             fontFamily: "var(--font-display), 'Cormorant Garamond', serif",
             fontWeight: 300,
             fontStyle: 'italic',
-            fontSize: 'clamp(64px, 8vw, 110px)',
+            fontSize: 'clamp(44px, 11vw, 110px)',
             lineHeight: 0.84,
             letterSpacing: '-0.02em',
             color: '#fff',
@@ -415,11 +415,11 @@ export default function Hero() {
           style={{
             fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
-            fontSize: '17px',
+            fontSize: 'clamp(13px, 3.5vw, 17px)',
             color: 'rgba(255,255,255,0.55)',
             maxWidth: '520px',
-            lineHeight: 1.85,
-            marginTop: '48px',
+            lineHeight: 1.6,
+            marginTop: 'clamp(24px, 4vh, 48px)',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
@@ -432,7 +432,7 @@ export default function Hero() {
         {/* CTAs */}
         <motion.div
           className="flex items-center justify-center"
-          style={{ gap: '24px', marginTop: '36px' }}
+          style={{ gap: '16px', marginTop: 'clamp(24px, 4vh, 36px)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: LOADER_DELAY + 1.1 }}
@@ -478,8 +478,8 @@ export default function Hero() {
 
         {/* Stats row */}
         <div
-          className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center select-none gap-y-8 gap-x-6 md:gap-0"
-          style={{ marginTop: '48px' }}
+          className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center select-none gap-y-6 gap-x-4 md:gap-0"
+          style={{ marginTop: 'clamp(32px, 5vh, 48px)' }}
         >
           {HERO_STATS.map((stat, i) => (
             <motion.div
@@ -498,7 +498,7 @@ export default function Hero() {
                   fontFamily: 'var(--font-display), serif',
                   fontWeight: 300,
                   fontStyle: 'italic',
-                  fontSize: 'clamp(40px, 5vw, 64px)',
+                  fontSize: 'clamp(28px, 8vw, 64px)',
                   color: '#F5F0E8',
                   lineHeight: 1,
                 }}

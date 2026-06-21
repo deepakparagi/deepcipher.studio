@@ -180,7 +180,7 @@ function Navbar() {
             <Link
               href="/"
               className="relative flex items-center justify-start"
-              style={{ width: 120, height: 40, pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
+              style={{ width: 160, height: 54, pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={resetCursor}
             >
@@ -188,7 +188,7 @@ function Navbar() {
                 src="/deepcipher_logo.png"
                 alt="DeepCipher Logo"
                 fill
-                sizes="120px"
+                sizes="160px"
                 priority
                 className="object-contain object-left"
                 style={{ transform: 'translate3d(0,0,0)' }}

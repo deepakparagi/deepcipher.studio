@@ -80,7 +80,7 @@ export default function Footer() {
           
           {/* LEFT SIDE (5 columns) */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:col-span-5">
-            <div className="mb-4 relative" style={{ width: 140, height: 40 }}>
+            <div className="mb-4 relative" style={{ width: 180, height: 60 }}>
               <img 
                 src="/deepcipher_logo.png" 
                 alt="DeepCipher Studio Logo" 

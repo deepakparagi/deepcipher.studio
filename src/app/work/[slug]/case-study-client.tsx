@@ -41,10 +41,30 @@ function getProjectBackground(slug: string) {
   }
 }
 
+function getProjectImageFolder(slug: string) {
+  switch (slug) {
+    case 'bipin-chikkatti-college':
+      return 'Bipin Chikkati School';
+    case 'cinepulse-ai':
+      return 'Cinepusle AI';
+    case 'deepak-portfolio':
+      return 'Deepak Paragi Portfolio';
+    case 'gadag-info':
+      return 'Gadag_info';
+    case 'khans-fitness':
+      return "Khan's Fitness";
+    case 'shingri-developers':
+      return 'Shingri developers';
+    default:
+      return '';
+  }
+}
+
 export default function CaseStudyClient({ project, nextProject }: { project: Project; nextProject: Project }) {
   const { setCursor, resetCursor } = useCursor();
   
   const bgGradient = getProjectBackground(project.slug);
+  const imageFolder = getProjectImageFolder(project.slug);
   const stats = project.stats || [
     { label: 'DEEPCIPHER AUDIT SCORE', value: '8.0/10' },
     { label: 'PROJECT VALUE TIER', value: 'Standard' },
@@ -265,42 +285,54 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
       {/* SECTION 3: VISUAL ARCHIVE */}
       <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
-        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '32px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px] md:gap-[4px]">
+        <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '48px', letterSpacing: '0.18em' }}>[ VISUAL ARCHIVE ]</span>
+        <div className="flex flex-col gap-[32px] md:gap-[64px]">
           {[1, 2, 3].map((num, i) => {
-            const getGradientAngle = () => {
-              if (i === 0) return '160deg';
-              if (i === 1) return '175deg';
-              return '150deg';
-            };
-            const angleStr = getGradientAngle();
-            const opacity = i === 2 ? 0.85 : 1;
-            const bgStr = bgGradient.replace(/\d+deg/, angleStr);
+            const imagePath = imageFolder ? `/images/case-studies/${imageFolder}/${num}.png` : null;
+            const isFullWidth = i === 0;
             
             return (
-              <div key={num} className="relative overflow-hidden cursor-pointer" onMouseEnter={() => setCursor('hover', 'ZOOM')} onMouseLeave={resetCursor}>
-                 <style jsx>{`
-                    div { aspect-ratio: 16/9; }
-                    @media (min-width: 768px) {
-                      div { aspect-ratio: 4/5; }
-                    }
-                 `}</style>
-                 <div className="absolute inset-0 z-0" style={{ background: bgStr, opacity }} />
-                 <div 
-                   className="absolute inset-0 z-1 pointer-events-none"
-                   style={{ background: `repeating-linear-gradient(90deg, transparent 0px, transparent 32px, rgba(255,255,255,0.02) 32px, rgba(255,255,255,0.02) 34px)` }}
-                 />
-                 {i === 0 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', top: '-10%', left: '20%', width: '60%', height: '50%', zIndex: 2 }} />}
-                 {i === 1 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', top: '20%', right: '-10%', width: '50%', height: '60%', zIndex: 2 }} />}
-                 {i === 2 && <div className="absolute rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)', bottom: '-10%', left: '30%', width: '50%', height: '50%', zIndex: 2 }} />}
-                 
-                 <div 
-                   className="absolute bottom-0 left-0 right-0 p-[16px] z-10"
-                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)', fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', letterSpacing: '0.12em' }}
-                 >
-                   // DETAIL 0{num} / 03
+              <motion.div 
+                key={num} 
+                className={`relative overflow-hidden cursor-pointer group ${isFullWidth ? 'w-full' : 'w-full md:w-[48%]'} ${i === 2 ? 'self-end' : ''}`}
+                onMouseEnter={() => setCursor('hover', 'ZOOM')} 
+                onMouseLeave={resetCursor}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                style={{ 
+                  border: '1px solid rgba(245,240,232,0.05)',
+                  background: 'rgba(255,255,255,0.01)'
+                }}
+              >
+                 <div className="w-full relative" style={{ aspectRatio: isFullWidth ? '16/9' : '4/5' }}>
+                   {imagePath && (
+                     <motion.img 
+                       src={imagePath}
+                       alt={`${project.title} screenshot ${num}`}
+                       className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 ease-out group-hover:scale-105"
+                     />
+                   )}
+                   
+                   {/* Extremely subtle vignette to maintain text readability without obscuring the image */}
+                   <div 
+                     className="absolute inset-0 z-10 pointer-events-none"
+                     style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 20%, transparent 100%)' }}
+                   />
+                   
+                   <div 
+                     className="absolute bottom-0 left-0 right-0 p-[24px] z-20 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   >
+                     <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#F5F0E8', letterSpacing: '0.12em' }}>
+                       // DETAIL 0{num} / 03
+                     </span>
+                     <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#B8956A', letterSpacing: '0.1em' }}>
+                       [ EXAMINE ]
+                     </span>
+                   </div>
                  </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -323,16 +355,32 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       {/* SECTION 5: STATS */}
       <section className="px-[24px] md:px-[64px] py-[80px] md:py-[100px]" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)' }}>
         <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', marginBottom: '40px', display: 'block', letterSpacing: '0.18em' }}>[ OUTCOMES ]</span>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[4px] md:gap-[2px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] md:gap-[32px]">
           {stats.map((stat, i) => (
-            <div key={i} className="p-[32px] md:p-[40px] px-[24px] md:px-[32px]" style={{ background: 'rgba(184,149,106,0.04)', border: '0.5px solid rgba(184,149,106,0.12)', borderRadius: 0 }}>
-              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', display: 'block', marginBottom: '16px', textTransform: 'uppercase' }}>
+            <motion.div 
+              key={i} 
+              className="p-[40px] md:p-[48px] relative overflow-hidden group" 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{ 
+                background: 'rgba(255,255,255,0.015)', 
+                border: '1px solid rgba(245,240,232,0.05)', 
+                backdropFilter: 'blur(10px)' 
+              }}
+            >
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ background: 'radial-gradient(circle at center, rgba(184,149,106,0.05) 0%, transparent 70%)' }}
+              />
+              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', letterSpacing: '0.15em', color: '#9A9590', display: 'block', marginBottom: '24px', textTransform: 'uppercase' }}>
                 {stat.label}
               </span>
-              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(36px, 10vw, 64px)', color: '#B8956A', margin: 0, lineHeight: 1 }}>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(32px, 5vw, 48px)', color: '#F5F0E8', margin: 0, lineHeight: 1.1 }}>
                 {stat.value}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

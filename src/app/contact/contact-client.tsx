@@ -54,6 +54,7 @@ export default function ContactClient() {
   const [form, setForm] = useState({
     name: '',
     email: '',
+    phone: '',
     company: '',
     projectType: '',
     budget: '',
@@ -81,6 +82,7 @@ export default function ContactClient() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
+          phone: form.phone,
           company: form.company,
           projectType: form.projectType,
           budget: form.budget,
@@ -495,6 +497,30 @@ export default function ContactClient() {
                       placeholder="your@email.com"
                       className="contact-form-input"
                       required
+                    />
+                  </motion.div>
+
+                  {/* PHONE */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
+                    <label
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      PHONE
+                    </label>
+                    <input
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      placeholder="Your mobile number"
+                      className="contact-form-input"
                     />
                   </motion.div>
 

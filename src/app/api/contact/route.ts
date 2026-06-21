@@ -7,6 +7,7 @@ export async function POST(req: Request) {
     const {
       name,
       email,
+      phone,
       company,
       website,
       projectType,
@@ -43,6 +44,7 @@ export async function POST(req: Request) {
           <h2 style="color: #0A0A0A; border-bottom: 2px solid #B8956A; padding-bottom: 10px;">New Project Intake Protocol</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
           <p><strong>Company:</strong> ${company || 'N/A'}</p>
           <p><strong>Website:</strong> ${website || 'N/A'}</p>
           <p><strong>Project Type:</strong> ${projectType || 'Not specified'}</p>

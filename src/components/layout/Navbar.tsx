@@ -173,7 +173,7 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div className="w-full h-full flex items-center justify-between mx-auto" style={{
+          <div className="w-full h-full flex items-center justify-between mx-auto relative" style={{
             maxWidth: '1640px',
             paddingLeft: 'var(--navbar-pad-x)',
             paddingRight: 'var(--navbar-pad-x)',
@@ -199,7 +199,16 @@ function Navbar() {
 
             {/* Desktop Links */}
             {!isCaseStudy && (
-              <div className="hidden md:flex items-center" style={{ gap: '32px' }}>
+              <div 
+                className="hidden md:flex items-center" 
+                style={{ 
+                  gap: '32px',
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
                   return (

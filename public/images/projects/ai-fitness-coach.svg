@@ -1,0 +1,12 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" fill="#0B0D0C"/>
+  <rect x="80" y="80" width="1040" height="590" stroke="#B8956A" stroke-opacity=".28"/>
+  <path d="M80 560H1120" stroke="#F5F0E8" stroke-opacity=".08"/>
+  <path d="M238 80V670" stroke="#F5F0E8" stroke-opacity=".08"/>
+  <text x="118" y="142" fill="#B8956A" font-family="Inter, Arial, sans-serif" font-size="18" letter-spacing="10">AI FITNESS</text>
+  <text x="310" y="324" fill="#F5F0E8" font-family="Cormorant Garamond, Times New Roman, serif" font-size="90" font-style="italic" font-weight="300">Coach Intelligence</text>
+  <text x="314" y="382" fill="#8A8A8A" font-family="Inter, Arial, sans-serif" font-size="22" letter-spacing="5">TRAINING · NUTRITION · PROGRESS</text>
+  <path d="M879 250C909 206 969 206 999 250C1029 294 999 354 939 432C879 354 849 294 879 250Z" stroke="#B8956A" stroke-width="3"/>
+  <path d="M893 305H985M939 259V402" stroke="#B8956A" stroke-opacity=".65" stroke-width="3"/>
+  <text x="118" y="620" fill="#F5F0E8" fill-opacity=".52" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="4">PERSONALIZED AI WELLNESS PLATFORM</text>
+</svg>

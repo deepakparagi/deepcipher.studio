@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import MagneticButton from '../ui/MagneticButton';
 import { useCursor } from '../ui/CursorProvider';
 
 /* ==========================================================
@@ -14,6 +13,7 @@ import { useCursor } from '../ui/CursorProvider';
    ========================================================== */
 
 const navLinks = [
+  { label: 'HOME', href: '/' },
   { label: 'WORK', href: '/work' },
   { label: 'SERVICES', href: '/services' },
   { label: 'PROCESS', href: '/process' },
@@ -74,13 +74,14 @@ const linkVariants = {
   }
 };
 
-export default function Navbar() {
+function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { setCursor, resetCursor } = useCursor();
+  const stateRef = useRef({ lastScrollY: 0, scrolled: false, hidden: false, raf: 0 });
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(
@@ -89,145 +90,226 @@ export default function Navbar() {
   );
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 50);
-      if (currentScrollY > lastScrollY && currentScrollY > 400) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      lastScrollY = currentScrollY;
+      if (stateRef.current.raf) return;
+      stateRef.current.raf = window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const nextScrolled = currentScrollY > 50;
+        const nextHidden = currentScrollY > stateRef.current.lastScrollY && currentScrollY > 400;
+
+        if (nextScrolled !== stateRef.current.scrolled) {
+          stateRef.current.scrolled = nextScrolled;
+          setScrolled(nextScrolled);
+        }
+
+        if (nextHidden !== stateRef.current.hidden) {
+          stateRef.current.hidden = nextHidden;
+          setHidden(nextHidden);
+        }
+
+        stateRef.current.lastScrollY = currentScrollY;
+        stateRef.current.raf = 0;
+      });
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (stateRef.current.raf) window.cancelAnimationFrame(stateRef.current.raf);
+    };
   }, []);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  const toggleMobileOpen = useCallback(() => {
+    setMobileOpen((value) => !value);
+  }, []);
+
   const isCaseStudy = pathname.startsWith('/work/') && pathname !== '/work';
 
   return (
     <>
-      <motion.nav
+      <motion.header
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100%',
-          height: '56px',
           zIndex: 100,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 48px',
-          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          backdropFilter: 'blur(20px) saturate(180%)',
+          transform: 'translate3d(0,0,0)',
+          willChange: 'transform',
         }}
         animate={{
           y: hidden ? '-100%' : '0%',
-          backgroundColor: 'rgba(10, 10, 10, 0.65)',
-          borderBottom: '0.5px solid rgba(245, 240, 232, 0.08)',
         }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
-        {/* Logo */}
-        <Link
-          href="/"
-          className="relative flex items-center"
-          style={{ width: 40, height: 40 }}
-          onMouseEnter={() => setCursor('link')}
-          onMouseLeave={resetCursor}
+
+
+        {/* ── Glassmorphism Navbar ── */}
+        <nav
+          style={{
+            width: '100%',
+            height: '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(10, 10, 10, 0.4)',
+            WebkitBackdropFilter: 'blur(24px)',
+            backdropFilter: 'blur(24px)',
+            borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
+          }}
         >
-          <Image
-            src="/dc-logo-big.png"
-            alt="DeepCipher Logo"
-            fill
-            sizes="40px"
-            priority
-            className="object-contain"
-            style={{ filter: 'brightness(10)' }}
-          />
-        </Link>
-
-        {/* Desktop Links */}
-        {!isCaseStudy && (
-          <div className="hidden lg:flex items-center" style={{ gap: '36px' }}>
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onMouseEnter={() => setCursor('link')}
-                  onMouseLeave={resetCursor}
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '10px',
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    color: isActive ? '#B8956A' : '#F5F0E8',
-                    textDecoration: 'none',
-                    border: 'none',
-                    outline: 'none',
-                    background: 'none',
-                    transition: 'color 0.2s ease',
-                    cursor: 'none',
-                  }}
-                  onMouseOver={(e) => {
-                    if (!isActive) (e.currentTarget as HTMLElement).style.color = '#B8956A';
-                  }}
-                  onMouseOut={(e) => {
-                    if (!isActive) (e.currentTarget as HTMLElement).style.color = '#F5F0E8';
-                  }}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Right side: EST. 2024 or Back to Archive */}
-        {isCaseStudy ? (
-          <Link
-            href="/work"
-            onMouseEnter={() => setCursor('link')}
-            onMouseLeave={resetCursor}
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '9px',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'rgba(245, 240, 232, 0.5)',
-              textDecoration: 'none',
-              transition: 'color 0.3s ease',
-              cursor: 'none',
-            }}
-            onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#F5F0E8'; }}
-            onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(245, 240, 232, 0.5)'; }}
-          >
-            ← BACK TO ARCHIVE
-          </Link>
-        ) : (
-          <div className="hidden lg:flex items-center" style={{ gap: '12px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '9px',
-                letterSpacing: '0.15em',
-                color: '#6B6560',
-                textTransform: 'uppercase',
-                userSelect: 'none',
-              }}
+          <div style={{
+            width: '100%',
+            maxWidth: '100%',
+            padding: '0 clamp(16px, 2.5vw, 32px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            margin: '0 auto',
+          }}>
+            {/* Logo */}
+            <Link
+              href="/"
+              className="relative flex items-center justify-center"
+              style={{ width: 120, height: 40, pointerEvents: 'all', zIndex: 9999, position: 'relative', marginLeft: '-10px' }}
+              onMouseEnter={() => setCursor('link')}
+              onMouseLeave={resetCursor}
             >
-              EST. 2024
-            </span>
+              <Image
+                src="/deepcipher_logo.png"
+                alt="DeepCipher Logo"
+                fill
+                sizes="120px"
+                priority
+                className="object-contain"
+                style={{ transform: 'translate3d(0,0,0)' }}
+              />
+            </Link>
+
+            {/* Desktop Links */}
+            {!isCaseStudy && (
+              <div className="hidden md:flex items-center" style={{ gap: '32px' }}>
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onMouseEnter={() => setCursor('link')}
+                      onMouseLeave={resetCursor}
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontWeight: 500,
+                        fontSize: '11px',
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase',
+                        color: isActive ? '#C9A46A' : '#F6F2ED',
+                        textDecoration: 'none',
+                        transition: 'color 0.2s ease',
+                        cursor: 'none',
+                        pointerEvents: 'all',
+                        position: 'relative'
+                      }}
+                      onMouseOver={(e) => {
+                        if (!isActive) (e.currentTarget as HTMLElement).style.color = '#C9A46A';
+                      }}
+                      onMouseOut={(e) => {
+                        if (!isActive) (e.currentTarget as HTMLElement).style.color = '#F6F2ED';
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Right side CTA */}
+            {isCaseStudy ? (
+              <Link
+                href="/work"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '9px',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(245, 240, 232, 0.5)',
+                  textDecoration: 'none',
+                  transition: 'color 0.3s ease',
+                  cursor: 'none',
+                  pointerEvents: 'all',
+                  position: 'relative'
+                }}
+                onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#F5F0E8'; }}
+                onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(245, 240, 232, 0.5)'; }}
+              >
+                ← BACK TO WORK
+              </Link>
+            ) : (
+              <Link
+                href="/contact"
+                className="hidden md:flex items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  color: '#0A0A0A',
+                  backgroundColor: '#C9A46A',
+                  padding: '12px 24px',
+                  textDecoration: 'none',
+                  cursor: 'none',
+                  pointerEvents: 'all',
+                  position: 'relative'
+                }}
+              >
+                BOOK STRATEGY CALL
+              </Link>
+            )}
+
+            {/* Hamburger (Mobile) */}
+            {!isCaseStudy && (
+              <button
+                className="flex md:hidden flex-col justify-center items-center gap-[6px] w-10 h-10 group focus:outline-none touch-manipulation relative z-[9999] pointer-events-auto"
+                onClick={toggleMobileOpen}
+                aria-label="Toggle Menu"
+                style={{ marginRight: '-8px' }}
+              >
+                <motion.span
+                  animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 7 : 0 }}
+                  style={{ width: '24px', height: '1.5px', background: '#F5F0E8', opacity: 0.9, transformOrigin: 'center' }}
+                />
+                <motion.span
+                  animate={{ opacity: mobileOpen ? 0 : 1 }}
+                  style={{ width: '24px', height: '1.5px', background: '#F5F0E8', opacity: 0.9 }}
+                />
+                <motion.span
+                  animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? -7 : 0 }}
+                  style={{ width: '24px', height: '1.5px', background: '#F5F0E8', opacity: 0.9, transformOrigin: 'center' }}
+                />
+              </button>
+            )}
           </div>
-        )}
 
         {/* Progress bar */}
         <motion.div
@@ -244,27 +326,8 @@ export default function Navbar() {
           }}
         />
 
-        {/* Hamburger (Mobile) */}
-        {!isCaseStudy && (
-          <button
-            className="flex lg:hidden flex-col justify-center gap-1.5 w-8 h-8 group focus:outline-none"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            <motion.span
-              animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 4 : 0 }}
-              style={{ width: '100%', height: '1px', background: '#F5F0E8' }}
-            />
-            <motion.span
-              animate={{ opacity: mobileOpen ? 0 : 1 }}
-              style={{ width: '100%', height: '1px', background: '#F5F0E8' }}
-            />
-            <motion.span
-              animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? -4 : 0 }}
-              style={{ width: '100%', height: '1px', background: '#F5F0E8' }}
-            />
-          </button>
-        )}
-      </motion.nav>
+      </nav>
+      </motion.header>
 
       {/* MOBILE PORTAL */}
       <AnimatePresence>
@@ -274,14 +337,38 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[99] bg-[#0A0A0A] flex flex-col justify-center px-12 md:px-20"
+            className="fixed inset-0 z-[200] flex flex-col justify-center items-center"
+            style={{
+              background: 'rgba(10,10,10,0.98)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
           >
+            {/* Close button — top right */}
+            <button
+              onClick={toggleMobileOpen}
+              className="absolute top-4 right-5 z-20 flex items-center justify-center"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '24px',
+                color: '#F5F0E8',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                width: '48px',
+                height: '48px',
+              }}
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+
             {/* Background Decoration */}
             <div className="absolute inset-x-0 bottom-0 top-0 opacity-[0.02] flex items-center justify-center pointer-events-none select-none">
               <span className="font-display font-black text-[30vw] uppercase tracking-tighter italic">MENU</span>
             </div>
 
-            <div className="flex flex-col gap-10 relative z-10">
+            <div className="flex flex-col gap-8 relative z-10 items-center">
               {navLinks.map((link, i) => {
                 const isActive = pathname === link.href;
                 const isHovered = hoveredIndex === i;
@@ -298,7 +385,7 @@ export default function Navbar() {
                       onMouseLeave={() => setHoveredIndex(null)}
                       className="font-display font-light italic tracking-tighter uppercase inline-block"
                       style={{
-                        fontSize: 'clamp(40px, 10vw, 80px)',
+                        fontSize: 'clamp(36px, 8vw, 48px)',
                         color: isActive 
                           ? '#B8956A' 
                           : isHovered 
@@ -307,6 +394,9 @@ export default function Navbar() {
                         textDecoration: 'none',
                         transition: 'color 0.4s ease',
                         cursor: 'none',
+                        pointerEvents: 'all',
+                        zIndex: 9999,
+                        position: 'relative'
                       }}
                     >
                       {link.label}.
@@ -329,7 +419,7 @@ export default function Navbar() {
                 Ready to start?
               </span>
               <Link
-                href="/start-a-project"
+                href="/contact"
                 onClick={() => setMobileOpen(false)}
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -339,6 +429,9 @@ export default function Navbar() {
                   textTransform: 'uppercase',
                   borderBottom: '0.5px solid rgba(245,240,232,0.1)',
                   paddingBottom: '4px',
+                  pointerEvents: 'all',
+                  zIndex: 9999,
+                  position: 'relative'
                 }}
               >
                 START A PROJECT →
@@ -350,3 +443,5 @@ export default function Navbar() {
     </>
   );
 }
+
+export default memo(Navbar);

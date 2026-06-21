@@ -1,32 +1,30 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, DM_Sans, DM_Mono } from 'next/font/google';
+import { Cormorant_Garamond, Josefin_Sans } from 'next/font/google';
 import './globals.css';
 import ClientLayout from './client-layout';
 
 /* ========================================
    Fonts
+   - Cormorant Garamond: Display headings (mixed upright/italic)
+   - Josefin Sans: Body, UI, Labels, Mono
    ======================================== */
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
   style: ['normal', 'italic'],
-  variable: '--cormorant',
+  variable: '--font-display',
   display: 'swap',
+  preload: true,
 });
 
-const dmSans = DM_Sans({
+const josefin = Josefin_Sans({
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500'],
-  variable: '--dm-sans',
+  weight: ['200', '300', '400', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-body',
   display: 'swap',
-});
-
-const dmMono = DM_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400'],
-  variable: '--dm-mono',
-  display: 'swap',
+  preload: true,
 });
 
 /* ========================================
@@ -43,8 +41,8 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/dc-logo-big.png',
-    apple: '/dc-logo-big.png',
+    icon: '/deepcipher_logo.png',
+    apple: '/deepcipher_logo.png',
   },
 };
 
@@ -57,7 +55,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'DEEPCIPHER',
   url: 'https://deepcipher.studio',
-  logo: 'https://deepcipher.studio/dc-logo-big.png',
+  logo: 'https://deepcipher.studio/deepcipher_logo.png',
   description: 'Premium website design, brand identity, and logo design studio.',
   contactPoint: {
     '@type': 'ContactPoint',
@@ -77,7 +75,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`${cormorant.variable} ${josefin.variable}`}
     >
       <head>
         <meta name="view-transition" content="same-origin" />

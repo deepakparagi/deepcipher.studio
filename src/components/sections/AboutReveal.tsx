@@ -43,7 +43,7 @@ export default function AboutReveal() {
   }, []);
 
   // Split text into words for animation
-  const text = 'We are a vanguard digital studio architecting award-winning web experiences. We fuse meticulous engineering with unrestrained, provocative design to create the unforgettable.';
+  const text = 'I am Deepak Paragi — an AI & Software Engineering student, designer, and builder. Deepcipher is my independent studio, driven by an absolute obsession with digital craft, uncompromising development quality, and the architecture of modern web experiences.';
   const words = text.split(' ');
 
   return (
@@ -52,32 +52,66 @@ export default function AboutReveal() {
       className="relative min-h-screen w-full bg-off-white flex flex-col justify-center px-6 md:px-12 lg:px-24 overflow-hidden"
     >
       <div className="absolute top-12 left-6 md:top-24 md:left-12 lg:left-24">
-        <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-ink-tertiary uppercase">
-          [ OUR ETHOS ]
+        <span 
+          style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: '10px',
+            letterSpacing: '0.3em',
+            color: '#8A8A8A',
+            fontWeight: 300,
+            textTransform: 'uppercase',
+          }}
+        >
+          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> OUR ETHOS
         </span>
       </div>
 
       <div className="max-w-6xl mx-auto w-full">
         <h2 
           ref={textRef}
-          className="font-display text-4xl md:text-6xl lg:text-[100px] leading-[1.05] tracking-tight text-ink font-light italic"
+          className="font-display text-4xl md:text-6xl lg:text-[100px] leading-[1.05] tracking-tight text-ink font-normal not-italic"
         >
-          {words.map((word, i) => (
-            <span 
-              key={i} 
-              className="reveal-word !opacity-20 transition-opacity duration-100" // Initial state: 20% opacity. Transition added for slight smoothness beyond GSAP.
-              style={{ display: 'inline-block', marginRight: '0.2em', willChange: 'opacity' }}
-            >
-              {word}
-            </span>
-          ))}
+          {words.map((word, i) => {
+            // Clean word to match special styling cases
+            const cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()—]/g, "").trim();
+            let wordClass = "upright";
+            
+            if (cleanWord === "Deepak") {
+              wordClass = "upright font-medium";
+            } else if (cleanWord === "Paragi") {
+              wordClass = "italic text-[#B8956A]";
+            } else if (cleanWord === "Deepcipher") {
+              wordClass = "upright font-medium";
+            } else if (["obsession", "craft", "modern", "design", "designer", "builder", "independent"].includes(cleanWord.toLowerCase())) {
+              wordClass = "italic text-[#B8956A]";
+            }
+            
+            return (
+              <span 
+                key={i} 
+                className={`reveal-word !opacity-20 transition-opacity duration-100 ${wordClass}`}
+                style={{ display: 'inline-block', marginRight: '0.2em', willChange: 'opacity' }}
+              >
+                {word}
+              </span>
+            );
+          })}
         </h2>
       </div>
 
       <div className="absolute bottom-12 left-6 md:bottom-24 md:left-12 lg:left-24">
         <div className="flex items-center gap-6">
           <div className="w-12 h-[1px] bg-ink-tertiary/40" />
-          <span className="font-mono text-[10px] tracking-[0.2em] text-ink-tertiary uppercase">
+          <span 
+            style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontSize: '9px',
+              letterSpacing: '0.3em',
+              color: '#8A8A8A',
+              fontWeight: 300,
+              textTransform: 'uppercase',
+            }}
+          >
             SCROLL TO REVEAL
           </span>
         </div>

@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import Noise from '@/components/ui/Noise';
 import Link from 'next/link';
+import ShaderAnimation from '@/components/ui/spiral-shader';
+import AnimatedText from '@/components/ui/AnimatedText';
+import Image from 'next/image';
 
 /* ==========================================================
    PROCESS PAGE — Completely Redesigned
@@ -240,6 +243,8 @@ export default function ProcessClient() {
           textAlign: 'center',
         }}
       >
+        <ShaderAnimation />
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -249,28 +254,30 @@ export default function ProcessClient() {
           {/* Label */}
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               color: '#6B6560',
               fontWeight: 300,
               textTransform: 'uppercase',
               marginBottom: '16px',
             }}
           >
-            [ HOW WE WORK ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> HOW WE WORK
           </span>
 
           {/* Title */}
-          <h1
+          <AnimatedText
+            splitBy="word"
+            as="h1"
             style={{
               fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(96px, 12vw, 160px)',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: 'clamp(60px, 9vw, 130px)',
               color: '#F5F0E8',
               letterSpacing: '-0.02em',
-              lineHeight: 1,
+              lineHeight: 0.9,
               margin: 0,
               marginBottom: '16px',
               textTransform: 'none',
@@ -278,7 +285,7 @@ export default function ProcessClient() {
             }}
           >
             Process
-          </h1>
+          </AnimatedText>
 
           {/* Subline */}
           <span
@@ -376,12 +383,45 @@ export default function ProcessClient() {
                     style={{ minHeight: '400px' }}
                   >
                     <div className="absolute inset-0">
-                      {phase.id === 1 && <DiscoverVisual />}
-                      {phase.id === 2 && <StrategiseVisual />}
-                      {phase.id === 3 && <DesignVisual />}
-                      {phase.id === 4 && <BuildVisual />}
+                      {phase.id === 1 && (
+                        <Image
+                          src="/images/process-discover.webp"
+                          alt="Discover Phase"
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                          priority={true}
+                        />
+                      )}
+                      {phase.id === 2 && (
+                        <Image
+                          src="/images/process-strategise.webp"
+                          alt="Strategise Phase"
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
+                      {phase.id === 3 && (
+                        <Image
+                          src="/images/process-design.webp"
+                          alt="Design Phase"
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
+                      {phase.id === 4 && (
+                        <Image
+                          src="/images/process-build.webp"
+                          alt="Build & Launch Phase"
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
                   </div>
 
                   {/* ── TEXT COLUMN ── */}
@@ -394,7 +434,7 @@ export default function ProcessClient() {
                     {/* Phase number */}
                     <span
                       style={{
-                        fontFamily: 'var(--font-mono), monospace',
+                        fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '10px',
                         color: '#6B6560',
                         letterSpacing: '0.2em',
@@ -410,18 +450,28 @@ export default function ProcessClient() {
                     <h2
                       style={{
                         fontFamily: 'var(--font-display), serif',
-                        fontWeight: 300,
-                        fontStyle: 'italic',
-                        fontSize: 'clamp(48px, 5.5vw, 72px)',
-                        color: titleColor,
-                        lineHeight: 1.1,
+                        fontSize: 'clamp(40px, 5vw, 80px)',
+                        lineHeight: 0.95,
                         letterSpacing: '-0.02em',
                         margin: 0,
                         marginBottom: '8px',
-                        textTransform: 'none',
                       }}
                     >
-                      {phase.title}
+                      {phase.title === "Discover" && (
+                        <span className="italic text-[#B8956A]">Discover</span>
+                      )}
+                      {phase.title === "Strategise" && (
+                        <span className="upright text-[#F5F0E8]">Strategise</span>
+                      )}
+                      {phase.title === "Design" && (
+                        <span className="italic text-[#B8956A]">Design</span>
+                      )}
+                      {phase.title === "Build & Launch" && (
+                        <>
+                          <span className="upright text-[#F5F0E8]">Build & </span>
+                          <span className="italic text-[#B8956A]">Launch</span>
+                        </>
+                      )}
                     </h2>
 
                     {/* Pull Quote */}
@@ -429,11 +479,13 @@ export default function ProcessClient() {
                       style={{
                         fontFamily: 'var(--font-display), serif',
                         fontStyle: 'italic',
-                        fontSize: '18px',
-                        color: '#6B6560',
+                        fontWeight: 400,
+                        fontSize: '20px',
+                        color: '#8A8A8A',
                         borderLeft: '2px solid #B8956A',
                         paddingLeft: '20px',
                         margin: '20px 0 28px',
+                        lineHeight: '1.4',
                       }}
                     >
                       “{phase.quote}”
@@ -445,7 +497,7 @@ export default function ProcessClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '15px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#BDB8B3',
                         lineHeight: 1.8,
                         maxWidth: '480px',
                         margin: 0,
@@ -489,7 +541,7 @@ export default function ProcessClient() {
                               fontFamily: 'var(--font-body), sans-serif',
                               fontSize: '13px',
                               fontWeight: 300,
-                              color: '#9A9590',
+                              color: '#BDB8B3',
                             }}
                           >
                             {item}
@@ -520,30 +572,26 @@ export default function ProcessClient() {
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
               color: '#6B6560',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               display: 'block',
               marginBottom: '48px',
               textTransform: 'uppercase',
             }}
           >
-            [ COMMON QUESTIONS ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> COMMON QUESTIONS
           </span>
 
           <h2
+            className="m-0"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(48px, 5vw, 64px)',
-              color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              margin: 0,
+              lineHeight: 0.95,
             }}
           >
-            Questions.
+            <span className="upright text-[#F5F0E8]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Common </span>
+            <span className="italic text-[#B8956A]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Questions.</span>
           </h2>
         </div>
 
@@ -595,7 +643,7 @@ export default function ProcessClient() {
                     fontFamily: 'var(--font-body), sans-serif',
                     fontSize: '14px',
                     fontWeight: 300,
-                    color: '#9A9590',
+                    color: '#BDB8B3',
                     lineHeight: 1.8,
                     maxHeight: isOpen ? '200px' : '0px',
                     overflow: 'hidden',
@@ -625,31 +673,27 @@ export default function ProcessClient() {
       >
         <span
           style={{
-            fontFamily: 'var(--font-mono), monospace',
+            fontFamily: 'var(--font-body), sans-serif',
             fontSize: '10px',
             color: '#6B6560',
-            letterSpacing: '0.2em',
+            letterSpacing: '0.3em',
             display: 'block',
             marginBottom: '24px',
             textTransform: 'uppercase',
           }}
         >
-          [ READY TO START ]
+          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> READY TO START
         </span>
 
         <h2
+          className="m-0 text-center"
           style={{
-            fontFamily: 'var(--font-display), serif',
-            fontWeight: 300,
-            fontStyle: 'italic',
-            fontSize: 'clamp(56px, 7vw, 96px)',
-            color: '#F5F0E8',
-            lineHeight: 1,
-            letterSpacing: '-0.03em',
-            margin: 0,
+            lineHeight: 0.95,
+            marginBottom: '24px',
           }}
         >
-          Start the protocol.
+          <span className="upright text-[#F5F0E8]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Start the </span>
+          <span className="italic text-[#B8956A]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>protocol.</span>
         </h2>
 
         <p

@@ -24,9 +24,9 @@ export default function DarkCTA() {
           [ INITIATE DIALOGUE ]
         </span>
         
-        <h2 className="font-display text-5xl md:text-7xl lg:text-9xl text-white font-light tracking-tighter leading-[0.9] mb-12">
+        <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-9xl text-white font-light tracking-tighter leading-[0.9] mb-12">
           Ready to become <br />
-          <span className="italic text-accent-warm pl-12 md:pl-24">unignorable?</span>
+          <span className="italic text-accent-warm pl-4 sm:pl-12 md:pl-24">unignorable?</span>
         </h2>
 
         <div className="flex flex-col sm:flex-row items-center gap-6"

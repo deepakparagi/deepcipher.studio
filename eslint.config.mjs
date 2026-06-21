@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "fix_hero.js",
-    "fix_hero_styled.js",
   ]),
   {
     rules: {

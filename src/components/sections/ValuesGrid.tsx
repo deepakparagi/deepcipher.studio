@@ -85,15 +85,15 @@ export default function ValuesGrid() {
       
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[20%] left-[30%] w-[600px] h-[600px] bg-[#B8956A]/5 rounded-full blur-[160px]" />
-        <div className="absolute bottom-[30%] right-[20%] w-[400px] h-[400px] bg-white/5 rounded-full blur-[140px]" />
+        <div className="absolute top-[20%] left-[10%] md:left-[30%] w-[150vw] md:w-[600px] h-[150vw] md:h-[600px] bg-[#B8956A]/5 rounded-full blur-[120px] md:blur-[160px]" />
+        <div className="absolute bottom-[30%] right-[10%] md:right-[20%] w-[100vw] md:w-[400px] h-[100vw] md:h-[400px] bg-white/5 rounded-full blur-[100px] md:blur-[140px]" />
         
         {/* Digital Grid Trace */}
         <div className="absolute inset-0 opacity-[0.03]" 
              style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
       </div>
 
-      <div className="container mx-auto px-8 relative h-[1000px] md:h-[1200px]">
+      <div className="container mx-auto px-6 md:px-8 relative h-auto lg:h-[1200px] pb-32 lg:pb-0">
         {/* The Bold Static Header - Distorted Editorial Style */}
         <div className="relative z-20 pt-[60px]">
           <SectionLabel className="mb-[24px] text-white/30 tracking-[0.3em] font-medium">CORE OPERATING SYSTEM</SectionLabel>

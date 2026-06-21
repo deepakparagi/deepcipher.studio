@@ -7,6 +7,8 @@ import { services } from '@/lib/services';
 import Noise from '@/components/ui/Noise';
 import ParallaxImage from '@/components/ui/ParallaxImage';
 import Link from 'next/link';
+import { FluidParticlesBackground } from '@/components/ui/fluid-particles-background';
+import AnimatedText from '@/components/ui/AnimatedText';
 
 /* ==========================================================
    SERVICES PAGE — Final polish pass
@@ -127,92 +129,95 @@ export default function ServicesClient() {
 
       {/* ── 1. HERO SECTION ── */}
       <section
-        className="relative w-full border-b border-[rgba(245,240,232,0.08)] px-6 overflow-hidden"
+        className="relative w-full border-b border-[rgba(245,240,232,0.08)] overflow-hidden"
         style={{
           height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex flex-col items-center"
+        <FluidParticlesBackground className="absolute inset-0 z-0" />
+        
+        {/* All text content positioned over the background */}
+        <div
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
         >
-          {/* Label */}
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '10px',
-              letterSpacing: '0.2em',
-              color: '#6B6560',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              marginBottom: '16px',
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center"
           >
-            [ WHAT WE DO ]
-          </span>
+            {/* Label */}
+            <span
+              style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontSize: '10px',
+                letterSpacing: '0.3em',
+                color: '#6B6560',
+                fontWeight: 300,
+                textTransform: 'uppercase',
+                marginBottom: '16px',
+              }}
+            >
+              <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> WHAT WE DO
+            </span>
 
-          {/* Title */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(96px, 12vw, 160px)',
-              color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              lineHeight: 1,
-              margin: 0,
-              marginBottom: '16px',
-              textTransform: 'uppercase',
-              userSelect: 'none',
-            }}
-          >
-            Services
-          </h1>
+            {/* Title */}
+            <AnimatedText
+              splitBy="word"
+              as="h1"
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontWeight: 500,
+                fontSize: 'clamp(60px, 9vw, 130px)',
+                color: '#F5F0E8',
+                letterSpacing: '-0.02em',
+                lineHeight: 0.9,
+                margin: 0,
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                userSelect: 'none',
+              }}
+            >
+              Services
+            </AnimatedText>
 
-          {/* Tagline */}
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '11px',
-              letterSpacing: '0.25em',
-              color: '#B8956A',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              display: 'block',
-              marginBottom: '20px',
-            }}
-          >
-            DESIGN · DEVELOP · DELIVER
-          </span>
+            {/* Tagline */}
+            <span
+              style={{
+                fontFamily: 'var(--font-mono), monospace',
+                fontSize: '11px',
+                letterSpacing: '0.25em',
+                color: '#B8956A',
+                fontWeight: 300,
+                textTransform: 'uppercase',
+                display: 'block',
+                marginBottom: '20px',
+              }}
+            >
+              DESIGN · DEVELOP · DELIVER
+            </span>
 
-          {/* Subtitle */}
-          <p
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '14px',
-              color: '#6B6560',
-              fontWeight: 300,
-              maxWidth: '480px',
-              margin: '12px auto 0',
-              lineHeight: '1.6',
-            }}
-          >
-            End-to-end design and development services for ambitious brands.
-            From brand identity to AI-powered automation.
-          </p>
-        </motion.div>
+            {/* Subtitle */}
+            <p
+              style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontSize: '14px',
+                color: '#6B6560',
+                fontWeight: 300,
+                maxWidth: '480px',
+                margin: '12px auto 0',
+                lineHeight: '1.6',
+              }}
+            >
+              End-to-end design and development services for ambitious brands.
+              From brand identity to AI-powered automation.
+            </p>
+          </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <div
-          className="absolute flex flex-col items-center gap-4 z-20 select-none"
+          className="absolute flex flex-col items-center gap-4 z-20 select-none left-1/2 -translate-x-1/2"
           style={{ bottom: '48px' }}
         >
           <span
@@ -313,22 +318,30 @@ export default function ServicesClient() {
                     }}
                   >
                     {/* Title */}
-                    <h2
-                      style={{
-                        fontFamily: 'var(--font-display), serif',
-                        fontWeight: 300,
-                        fontStyle: 'italic',
-                        fontSize: 'clamp(48px, 5.5vw, 72px)',
-                        color: titleColor,
-                        lineHeight: 1.1,
-                        letterSpacing: '-0.02em',
-                        margin: 0,
-                        marginBottom: '32px',
-                        textTransform: 'none',
-                      }}
-                    >
-                      {service.title}
-                    </h2>
+                    {(() => {
+                      const title = service.title;
+                      let uprightPart = title;
+                      let italicPart = "";
+                      if (title.includes(" & ")) {
+                        const parts = title.split(" & ");
+                        uprightPart = parts[0] + " &";
+                        italicPart = parts[1];
+                      }
+                      
+                      return (
+                        <h2
+                          className="m-0 mb-8"
+                          style={{
+                            fontSize: 'clamp(40px, 5vw, 80px)',
+                            color: titleColor,
+                            lineHeight: 0.95,
+                          }}
+                        >
+                          <span className="upright block">{uprightPart}</span>
+                          {italicPart && <span className="italic block mt-1">{italicPart}</span>}
+                        </h2>
+                      );
+                    })()}
 
                     {/* Body paragraphs — no dividers, just whitespace */}
                     <div className="flex flex-col">
@@ -339,7 +352,7 @@ export default function ServicesClient() {
                             fontFamily: 'var(--font-body), sans-serif',
                             fontSize: '15px',
                             fontWeight: 300,
-                            color: '#9A9590',
+                            color: '#BDB8B3',
                             lineHeight: 1.8,
                             maxWidth: '520px',
                             margin: 0,
@@ -368,7 +381,7 @@ export default function ServicesClient() {
                             style={{
                               fontFamily: 'var(--font-mono), monospace',
                               fontSize: '9px',
-                              color: '#9A9590',
+                              color: '#BDB8B3',
                               letterSpacing: '0.14em',
                               textTransform: 'uppercase',
                             }}
@@ -446,22 +459,21 @@ export default function ServicesClient() {
           backgroundColor: '#0E0E0E',
         }}
       >
-        <h2
+        <div
           style={{
-            fontFamily: 'var(--font-display), serif',
-            fontWeight: 300,
-            fontStyle: 'italic',
-            fontSize: 'clamp(56px, 7vw, 96px)',
-            lineHeight: 1,
-            letterSpacing: '-0.03em',
+            lineHeight: 0.95,
             margin: 0,
             marginBottom: '24px',
           }}
         >
-          <span style={{ color: '#F5F0E8' }}>Ambition Is</span>
-          <br />
-          <span style={{ color: '#6B6560' }}>The Currency.</span>
-        </h2>
+          <h2 className="m-0 text-center" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>
+            <span className="upright text-[#F5F0E8] block">Ambition Is</span>
+            <span className="block mt-2">
+              <span className="upright text-[#6B6560] mr-4">The</span>
+              <span className="italic text-[#B8956A]">Currency.</span>
+            </span>
+          </h2>
+        </div>
 
         <p
           style={{

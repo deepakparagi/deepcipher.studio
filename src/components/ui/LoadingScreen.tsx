@@ -1,23 +1,40 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const words = ["AUTHENTIC", "CRAFTED", "PRECISION", "FUTURES", "DEEPCIPHER"];
+/* ========================================
+   Premium Loading Screen
+   — Cinematic diamond trace + counter
+   ======================================== */
+
+const LOADING_DURATION = 2600; // ms
 
 export default function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
-  const [showBrand, setShowBrand] = useState(false);
+  const [phase, setPhase] = useState<'init' | 'counting' | 'reveal' | 'exit'>('init');
+
+  const finish = useCallback(() => {
+    setPhase('exit');
+    setTimeout(onFinished, 600);
+  }, [onFinished]);
 
   useEffect(() => {
-    const duration = 3000; // 3 seconds total sequence
-    const interval = 30; 
-    const increment = 100 / (duration / interval);
+    // Phase 1: Init delay
+    const initTimer = setTimeout(() => setPhase('counting'), 300);
+
+    return () => clearTimeout(initTimer);
+  }, []);
+
+  useEffect(() => {
+    if (phase !== 'counting') return;
+
+    const interval = 30;
+    const increment = 100 / (LOADING_DURATION / interval);
 
     const timer = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + increment;
+        const next = prev + increment + Math.random() * 0.5;
         if (next >= 100) {
           clearInterval(timer);
           return 100;
@@ -26,179 +43,315 @@ export default function LoadingScreen({ onFinished }: { onFinished: () => void }
       });
     }, interval);
 
-    const brandTimeout = setTimeout(() => setShowBrand(true), 1500);
-    
-    const finishTimeout = setTimeout(() => {
-      setIsComplete(true);
-      setTimeout(onFinished, 1000); // Hold final state for 1s
-    }, duration + 500);
+    const revealTimer = setTimeout(() => setPhase('reveal'), LOADING_DURATION);
+    const finishTimer = setTimeout(finish, LOADING_DURATION + 800);
 
     return () => {
       clearInterval(timer);
-      clearTimeout(brandTimeout);
-      clearTimeout(finishTimeout);
+      clearTimeout(revealTimer);
+      clearTimeout(finishTimer);
     };
-  }, [onFinished]);
+  }, [phase, finish]);
 
-  // SVG Drawing variants
-  const pathVariants: any = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: { 
-      pathLength: 1, 
-      opacity: 1,
-      transition: { 
-        duration: 2, 
-        ease: "easeInOut",
-        delay: 0.2
-      }
-    }
-  };
-
-  const internalVariants: any = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 0.2, 
-      scale: 1,
-      transition: { 
-        duration: 1.5, 
-        ease: "easeOut",
-        delay: 1
-      }
-    }
-  };
+  const displayProgress = Math.floor(progress);
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: 'blur(20px)' }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050505] overflow-hidden"
-    >
-      {/* Background Cinematic Atmosphere */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.05]" 
-             style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #fff 0%, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <motion.div 
-          animate={{ opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 bg-radial-at-center from-[#B8956A]/10 to-transparent" 
+    <AnimatePresence>
+      {phase !== 'exit' ? null : null}
+      <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#050505' }}
+      >
+        {/* Ambient background grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
         />
-        {/* Grain Overlay */}
-        <div className="absolute inset-0 mix-blend-overlay opacity-[0.15] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      </div>
 
-      <div className="relative flex flex-col items-center">
-        
-        {/* The Prismatic SVG */}
-        <div className="relative w-64 h-64 mb-8">
-          <svg viewBox="0 0 100 100" className="w-full h-full fill-none">
-            {/* Outer Diamond */}
-            <motion.path
-              d="M50 5 L95 50 L50 95 L5 50 Z"
-              stroke="white"
-              strokeWidth="0.5"
-              variants={pathVariants}
-              initial="hidden"
-              animate="visible"
-            />
-            
-            {/* Inner Progress Tracing */}
-            <motion.path
-              d="M50 5 L95 50 L50 95 L5 50 Z"
-              stroke="#B8956A"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: progress / 100 }}
-              style={{ filter: 'drop-shadow(0 0 8px #B8956A)' }}
-            />
+        {/* Warm spotlight pulse */}
+        <motion.div
+          animate={{ opacity: [0.03, 0.08, 0.03], scale: [0.95, 1.05, 0.95] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute pointer-events-none"
+          style={{
+            width: '600px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(184,149,106,0.12) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
 
-            {/* Internal Structural Lines */}
-            <motion.g variants={internalVariants} initial="hidden" animate="visible">
-              <path d="M50 5 L50 95" stroke="white" strokeWidth="0.2" />
-              <path d="M5 50 L95 50" stroke="white" strokeWidth="0.2" />
-              <path d="M27.5 27.5 L72.5 72.5" stroke="white" strokeWidth="0.2" />
-              <path d="M72.5 27.5 L27.5 72.5" stroke="white" strokeWidth="0.2" />
-            </motion.g>
+        {/* Scanning horizontal line */}
+        <motion.div
+          animate={{ top: ['0%', '100%'] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+          className="absolute left-0 right-0 pointer-events-none"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184,149,106,0.15) 50%, transparent 100%)',
+          }}
+        />
 
-            {/* Glint Animation */}
-            <motion.path
-              d="M50 5 L95 50"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ 
-                pathLength: [0, 0.3, 0],
-                pathOffset: [0, 0.7, 1],
-                opacity: [0, 1, 0]
+        {/* Main content */}
+        <div className="relative flex flex-col items-center gap-8">
+
+          {/* Diamond SVG with progress trace */}
+          <div className="relative" style={{ width: '140px', height: '140px' }}>
+            <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+              {/* Outer diamond - ghost */}
+              <motion.path
+                d="M50 5 L95 50 L50 95 L5 50 Z"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="0.5"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, ease: 'easeOut' }}
+              />
+
+              {/* Progress trace - gold */}
+              <motion.path
+                d="M50 5 L95 50 L50 95 L5 50 Z"
+                stroke="#B8956A"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: progress / 100 }}
+                transition={{ duration: 0.1 }}
+              />
+
+              {/* Internal cross lines */}
+              <motion.g
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.12 }}
+                transition={{ duration: 2, delay: 0.5 }}
+              >
+                <line x1="50" y1="5" x2="50" y2="95" stroke="white" strokeWidth="0.3" />
+                <line x1="5" y1="50" x2="95" y2="50" stroke="white" strokeWidth="0.3" />
+                <line x1="27.5" y1="27.5" x2="72.5" y2="72.5" stroke="white" strokeWidth="0.2" />
+                <line x1="72.5" y1="27.5" x2="27.5" y2="72.5" stroke="white" strokeWidth="0.2" />
+              </motion.g>
+
+              {/* Glint sweep */}
+              <motion.path
+                d="M50 5 L95 50 L50 95"
+                stroke="white"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{
+                  pathLength: [0, 0.2, 0],
+                  pathOffset: [0, 0.5, 1],
+                  opacity: [0, 0.8, 0],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  repeatDelay: 0.8,
+                  ease: 'easeInOut',
+                }}
+              />
+            </svg>
+
+            {/* Center glow core */}
+            <motion.div
+              animate={{
+                scale: [0.6, 1, 0.6],
+                opacity: [0.3, 0.6, 0.3],
               }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity, 
-                repeatDelay: 1,
-                ease: "easeInOut" 
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: '20px',
+                height: '20px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(184,149,106,0.5) 0%, transparent 70%)',
               }}
             />
-          </svg>
+          </div>
 
-          {/* Glowing Center Core */}
+          {/* Counter */}
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: progress / 100, opacity: 0.5 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#B8956A] blur-2xl"
-          />
-        </div>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-baseline gap-1"
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontSize: '48px',
+                fontWeight: 300,
+                fontStyle: 'italic',
+                color: '#F5F0E8',
+                lineHeight: 1,
+                letterSpacing: '-0.02em',
+                fontVariantNumeric: 'tabular-nums',
+                minWidth: '80px',
+                textAlign: 'right',
+              }}
+            >
+              {displayProgress}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono), monospace',
+                fontSize: '10px',
+                color: 'rgba(184,149,106,0.6)',
+                letterSpacing: '0.1em',
+              }}
+            >
+              %
+            </span>
+          </motion.div>
 
-        {/* Branding & Text Reveal */}
-        <div className="relative h-12 flex flex-col items-center justify-center overflow-hidden">
-          <AnimatePresence mode="wait">
-            {!showBrand ? (
-              <motion.div
-                key="words"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 0.4 }}
-                exit={{ y: -20, opacity: 0 }}
-                className="font-mono text-[10px] tracking-[0.6em] text-white/50 uppercase"
-              >
-                {words[Math.floor((progress / 100) * (words.length - 1))]}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="brand"
-                initial={{ opacity: 0, filter: 'blur(10px)', scale: 1.1 }}
-                animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-                className="flex flex-col items-center"
-              >
-                <div className="font-display italic font-light text-[24px] tracking-[0.4em] text-white">
-                  {Array.from("DEEPCIPHER").map((char, i) => (
+          {/* Progress bar */}
+          <div
+            style={{
+              width: '200px',
+              height: '1px',
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <motion.div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: '100%',
+                backgroundColor: '#B8956A',
+                width: `${progress}%`,
+              }}
+              transition={{ duration: 0.1 }}
+            />
+          </div>
+
+          {/* Brand name reveal */}
+          <div className="h-10 flex items-center justify-center overflow-hidden">
+            <AnimatePresence mode="wait">
+              {phase === 'reveal' || progress >= 100 ? (
+                <motion.div
+                  key="brand"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center gap-0"
+                >
+                  {Array.from('DEEPCIPHER').map((char, i) => (
                     <motion.span
                       key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 + 0.5, duration: 0.8 }}
+                      initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      transition={{
+                        delay: i * 0.06,
+                        duration: 0.6,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      style={{
+                        fontFamily: 'var(--font-display), serif',
+                        fontSize: '18px',
+                        fontWeight: 300,
+                        fontStyle: 'italic',
+                        color: '#F5F0E8',
+                        letterSpacing: '0.4em',
+                      }}
                     >
                       {char}
                     </motion.span>
                   ))}
-                </div>
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ delay: 1.2, duration: 1.5, ease: "circOut" }}
-                  className="h-[1px] bg-gradient-to-r from-transparent via-[#B8956A] to-transparent mt-2"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.span
+                  key="status"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.4 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    fontFamily: 'var(--font-mono), monospace',
+                    fontSize: '9px',
+                    color: 'rgba(255,255,255,0.3)',
+                    letterSpacing: '0.5em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  INITIALIZING
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Tagline */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: phase === 'reveal' || progress >= 100 ? 1 : 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: phase === 'reveal' || progress >= 100 ? 1 : 0 }}
+              transition={{ delay: 0.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="origin-center"
+              style={{
+                height: '1px',
+                width: '160px',
+                background: 'linear-gradient(to right, transparent, rgba(184,149,106,0.4), transparent)',
+                marginBottom: '12px',
+              }}
+            />
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: phase === 'reveal' || progress >= 100 ? 0.3 : 0 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              style={{
+                fontFamily: 'var(--font-mono), monospace',
+                fontSize: '8px',
+                color: 'rgba(255,255,255,0.25)',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                display: 'block',
+                textAlign: 'center',
+              }}
+            >
+              WEB DESIGN & BRAND IDENTITY
+            </motion.span>
+          </motion.div>
         </div>
 
-        {/* Binary/Status Indicators - Subtle Detail */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-12 font-mono text-[8px] text-white/10 tracking-[0.3em]">
-          <span>CORE_INIT_0X{Math.floor(progress).toString(16).toUpperCase()}</span>
-          <span>STBL_PHASE_0{Math.floor(progress / 25)}</span>
+        {/* Bottom status indicators */}
+        <div
+          className="absolute flex gap-12 pointer-events-none"
+          style={{ bottom: '32px', left: '50%', transform: 'translateX(-50%)' }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '8px',
+              color: 'rgba(255,255,255,0.08)',
+              letterSpacing: '0.3em',
+            }}
+          >
+            SYS_INIT_0x{displayProgress.toString(16).toUpperCase().padStart(2, '0')}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '8px',
+              color: 'rgba(255,255,255,0.08)',
+              letterSpacing: '0.3em',
+            }}
+          >
+            RENDER_PHASE_{Math.min(Math.floor(progress / 25), 4)}
+          </span>
         </div>
-      </div>
-
-    </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

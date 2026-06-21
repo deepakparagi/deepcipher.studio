@@ -110,7 +110,7 @@ export default function HorizontalGallery() {
                   src={project.image || '/placeholder-feature.jpg'}
                   alt={project.title}
                   fill
-                  className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] filter grayscale-[30%] group-hover:grayscale-0"
+                  className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={index === 0}
                 />
@@ -133,7 +133,7 @@ export default function HorizontalGallery() {
               <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex justify-between items-end pointer-events-none">
                 <div className="flex flex-col gap-4">
                   <div className="overflow-hidden">
-                    <span className="block font-mono text-[10px] tracking-[0.2em] text-[var(--accent-warm)] uppercase opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="block font-mono text-[10px] tracking-[0.2em] text-[var(--accent-warm)] uppercase opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 [transition-property:transform,opacity] duration-500">
                       {project.category} · {project.year}
                     </span>
                   </div>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { fadeUp } from '@/lib/animations';
 
 /* ========================================
    Premium Marquee Ticker — Awwwards Edition
@@ -59,8 +61,12 @@ export default function WorkMarquee({
   const skew = scrollProgress * 1.5;
 
   return (
-    <section
+    <motion.section
       ref={sectionRef}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={fadeUp}
       className="relative w-full overflow-hidden"
       style={{
         height: 'clamp(36px, 4vw, 52px)',
@@ -243,6 +249,6 @@ export default function WorkMarquee({
           100% { opacity: 0.2; }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 }

@@ -27,210 +27,179 @@ export interface Project {
     value: string;
     description: string;
   }[];
+  overview?: string;
+  problem?: string;
+  objective?: string;
+  researchStrategy?: string;
+  designProcess?: string;
+  developmentProcess?: string;
+  challenges?: string;
+  solutions?: string;
+  finalOutcome?: string;
+  keyLearnings?: string;
+  resultsNarrative?: string;
+  roleResponsibilities?: string[];
 }
 
 export const categories = [
   'ALL',
-  'WEB DESIGN',
-  'REAL ESTATE',
-  'CULTURE & HERITAGE',
-  'BRAND IDENTITY',
-  'AI & AUTOMATION',
+  'CLIENT WORK',
+  'INDEPENDENT PROJECTS',
+  'EXPERIMENTAL CONCEPTS',
+  'PRODUCT BUILDS',
 ] as const;
 
 export type Category = (typeof categories)[number];
 
 export const projects: Project[] = [
   {
+    id: 3,
+    slug: 'deepak-portfolio',
+    title: 'DEEPAK PARAGI PORTFOLIO',
+    client: 'Deepak Paragi',
+    category: 'INDEPENDENT PROJECTS',
+    year: '2026',
+    tags: ['React', 'Vite', 'Three.js'],
+    description: 'A modern, responsive personal portfolio website built with React and Vite.',
+    challenge: 'Showcasing projects and skills through an immersive digital experience.',
+    solution: 'Built a modern portfolio featuring 3D elements and smooth animations.',
+    result: 'A compelling interactive resume and showcase.',
+    image: '/Project cards images/Deepak_paragi portfolio.png',
+    size: 'small',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
+    pullQuote: 'Creative Technologist & Software Engineer',
+    liveUrl: 'https://deepakparagi.github.io/Deepak-Paragi-Portfolio',
+    githubUrl: 'https://github.com/deepakparagi/Deepak-Paragi-Portfolio.git'
+  },
+  {
     id: 1,
     slug: 'shingri-developers',
     title: 'SHINGRI DEVELOPERS',
     client: 'Shingri Developers',
-    category: 'REAL ESTATE',
+    category: 'CLIENT WORK',
     year: '2026',
-    tags: ['Next.js 15', 'Three.js', 'Prisma', 'GSAP'],
-    description: 'Flagship Real Estate Platform',
-    challenge: 'Elite property developers needed a digital presence that matched their ₹50Cr+ projects. Standard real estate websites lacked the immersive, high-fidelity experiences required to showcase luxury infrastructure.',
-    solution: 'We architected a "Liquid Luxury" platform featuring a custom 3D property navigator, real-time availability HUDs, and an immersive editorial narrative that transforms complex data into cinematic storytelling.',
-    result: 'A benchmark in luxury real estate digital presence',
-    image: '/images/projects/shingri-developers.svg',
+    tags: ['Next.js 16', 'Tailwind CSS', 'Framer Motion'],
+    description: 'A state-of-the-art, premium real estate web application built for Shingri Developers.',
+    challenge: 'Elite property developers needed a digital presence that matched their luxury projects.',
+    solution: 'We architected a "Liquid Luxury" platform featuring a custom 3D property navigator and immersive narrative.',
+    result: 'A benchmark in luxury real estate digital presence.',
+    image: '/Project cards images/Shingri_developers.png',
     size: 'full',
-    techStack: ['Next.js 15', 'TypeScript', 'Three.js', 'Prisma', 'GSAP', 'Tailwind CSS'],
-    pullQuote: 'A benchmark in luxury real estate digital presence',
-    stats: [
-      { label: 'DEEPCIPHER Audit Score', value: '8.1/10' },
-      { label: 'Project Value Tier', value: '₹1L+' },
-      { label: 'Positioning', value: 'World-class' }
-    ],
+    techStack: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Lenis'],
+    pullQuote: 'Crafted with precision for Shingri Developers.',
+    liveUrl: 'https://shingri-developers.vercel.app/',
     paragraphs: [
-      'The SHINGRI DEVELOPERS platform defines a new standard in high-end real estate digital experiences. By integrating custom Three.js environments, we enabled prospective buyers to navigate floor plans and site maps in full 3D, directly within the browser.',
-      'Beyond visuals, the site features a robust backend for managing property inventories, virtual tour scheduling, and an AI-driven valuation engine that provides real-time market insights to investors.',
-      'Key modules include an Interactive 3D Property Navigator, AR Virtual Walkthroughs, and a seamless CRM integration for lead management — all wrapped in a "Quiet Luxury" interface that prioritizes typography and cinematic motion.'
+      'A state-of-the-art, premium real estate web application built for Shingri Developers. This platform is designed to evoke luxury, trust, and architectural excellence through a minimal yet high-impact user interface.',
+      'The UI is a masterclass in Minimal Luxury. Every element is meticulously crafted to provide a "premium" feel. Primary: Monte Beige, Accent: Monte Gold, Foundational: Deep Black/Charcoal.',
+      'The landing experience features a dynamic, full-bleed carousel with Parallax Depth and Animated Typography.'
     ],
     modules: [
-      { label: '3D NAVIGATOR', value: 'Three.js / WebGL', description: 'Bespoke 3D property explorer with floor-level navigation and dynamic sunlight simulation.' },
-      { label: 'AR WALKTHROUGH', value: 'WebXR / 8th Wall', description: 'Immersive AR property viewing directly in the browser without app installation.' },
-      { label: 'VALUATION HUD', value: 'AI Regression', description: 'Predictive market analytics dashboard providing real-time investment insights.' },
-      { label: 'INVENTORY HUB', value: 'Real-time Sync', description: 'Dymanic property availability engine with direct CRM synchronization.' }
+      { label: 'AESTHETIC PALETTE', value: 'Monte Beige & Gold', description: 'Warm, sophisticated background that balances high-contrast elements to signify luxury.' },
+      { label: 'HERO EXPERIENCE', value: 'Parallax Carousel', description: 'Dynamic full-bleed carousel with 3D depth effect and masked text reveal animations.' },
+      { label: 'NAVIGATION', value: 'Glassmorphic UI', description: 'Sticky navbar that transitions to a dark, blurred glass effect upon scrolling.' }
+    ]
+  },
+  {
+    id: 4,
+    slug: 'bipin-chikkatti-college',
+    title: 'BIPIN CHIKKATTI COLLEGE',
+    client: 'Chikkatti Group of Institutions',
+    category: 'CLIENT WORK',
+    year: '2024',
+    tags: ['HTML5', 'CSS3', 'Vanilla JS'],
+    description: 'A premium, elegant college website featuring a "Subtle Minimal Classic Old-Money Premium" aesthetic.',
+    challenge: 'Create a timeless, sophisticated aesthetic inspired by Ivy League universities and luxury editorial design.',
+    solution: 'Built a fully responsive, pure HTML/CSS/JS site with smooth scroll reveals and elegant transitions.',
+    result: 'A sophisticated digital presence for a heritage academic institution.',
+    image: '/Project cards images/BIPIN CHIKKATTI SCHOOL.png',
+    size: 'large',
+    techStack: ['HTML5', 'CSS3', 'Vanilla JavaScript'],
+    pullQuote: 'A timeless, sophisticated aesthetic inspired by Ivy League universities.',
+    liveUrl: 'https://www.chikkattieducation.co.in/',
+    paragraphs: [
+      'This is the official website for Bipin Chikkatti College, part of the Chikkatti Group of Institutions founded by Prof. S. Y. Chikkatti in 1994. Located on a 7-acre lush green campus in Gadag, Karnataka.',
+      'The website embodies a timeless, sophisticated aesthetic inspired by Ivy League university websites, Luxury editorial design, and Heritage academic institutions.',
+      'Color Palette includes Cream/Off-white backgrounds, Deep charcoal/navy accents, and Muted gold highlights.'
     ]
   },
   {
     id: 2,
     slug: 'gadag-info',
     title: 'GADAG INFO',
-    client: 'Gadag Info Community',
-    category: 'CULTURE & HERITAGE',
-    year: '2024',
-    tags: ['Next.js 14', 'Instagram API', 'Framer Motion'],
-    description: 'Cultural Heritage Platform',
-    challenge: 'A massive community platform with over 115k followers required a digital heritage hub dedicated to historical depiction and cultural news that could handle viral traffic while maintaining premium aesthetics.',
-    solution: 'We developed an archival storytelling engine that uses Next.js 14 performance optimizations and cinematic Framer Motion reveals to bring Gadag’s rich history into the 2026 digital landscape.',
-    result: '115k+ Follower Digital Hub',
-    image: '/images/projects/gadag-info.svg',
-    size: 'large',
-    techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'PostgreSQL'],
-    pullQuote: 'Preserving heritage through high-fidelity digital innovation.',
-    stats: [
-      { label: 'Follower Reach', value: '115k+' },
-      { label: 'Performance Score', value: '98/100' },
-      { label: 'Positioning', value: 'Heritage Hub' }
-    ],
-    modules: [
-      { label: 'HERITAGE ARCHIVE', value: 'Historical Timeline', description: 'Interactive digital archive depicting centuries of cultural history with immersive media.' },
-      { label: 'COMMUNITY PULSE', value: 'Engagement HUD', description: 'Real-time analytics dashboard tracking reach across a 115k+ follower network.' },
-      { label: 'VIRTUAL LANDMARKS', value: 'Cinematic Tours', description: 'High-fidelity visual storytelling modules showcasing regional heritage sites.' },
-      { label: 'GROWTH ENGINE', value: 'Scaling Intelligence', description: 'Automated news and event detection pipeline to maintain rapid community expansion.' }
-    ]
-  },
-  {
-    id: 3,
-    slug: 'deepcipher-studio',
-    title: 'DEEPCIPHER STUDIO',
-    client: 'Agency Internal',
-    category: 'BRAND IDENTITY',
+    client: 'Gadag District',
+    category: 'CLIENT WORK',
     year: '2026',
-    tags: ['Next.js 15', 'Three.js', 'GSAP'],
-    description: 'Agency Website / Brand Identity',
-    challenge: 'As a premium studio, our own digital presence needed to reflect the "Editorial Luxury" standard and technical sophistication we provide to our high-end clients.',
-    solution: 'A world-class agency platform built with architectural precision, featuring a 2nd-generation Liquid Narrative engine and bespoke typography.',
-    result: 'Industry-leading agency positioning.',
-    image: '/images/projects/deepcipher-studio.svg',
-    size: 'full',
-    techStack: ['Next.js 15', 'TypeScript', 'Three.js', 'GSAP', 'Lenis'],
-    pullQuote: 'Capturing structural harmony through liquid motion and architectural editorial balance.',
-    stats: [
-      { label: 'Award Score', value: 'Awwwards SOTD' },
-      { label: 'Project Tier', value: 'Enterprise' },
-      { label: 'Positioning', value: 'Elite Studio' }
-    ],
-    paragraphs: [
-      'The DEEPCIPHER STUDIO site acts as both our flagship portfolio and our core technology playground. By building on Next.js 15 and custom WebGL shaders, we enabled organic fluid distortion states that respond directly to cursor vectors.',
-      'Our visual identity focuses on an extreme juxtaposition of technical monospace structures and delicate, classic editorial serif typography. This creates a unique brand signature that conveys both precision and absolute luxury.',
-      'Every interaction on this platform has been designed to reward curiosity—from magnetic buttons that react smoothly to proximity to custom scrolling canvas triggers.'
-    ],
-    modules: [
-      { label: 'LIQUID ENGINE', value: 'GSAP / Shaders', description: 'Proprietary motion engine for silk-like cinematic transitions.' },
-      { label: 'TYPE ARCHITECTURE', value: 'Variable Fonts', description: 'Custom optical sizing and typographic scales for elite editorial layouts.' }
-    ]
-  },
-  {
-    id: 4,
-    slug: 'bipin-chikkatti-school',
-    title: 'BIPIN CHIKKATTI SCHOOL',
-    client: 'Bipin Chikkatti School Gadag',
-    category: 'WEB DESIGN',
-    year: '2025',
-    tags: ['Next.js', 'Framer Motion', 'Tailwind CSS'],
-    description: 'A premium digital identity for a distinguished Gadag institution.',
-    challenge: 'Bipin Chikkatti School needed a modern, trustworthy website that reflected the institution\'s academic excellence and community standing in Gadag — replacing an outdated web presence that failed to communicate their vision.',
-    solution: 'We designed a warm, authoritative website with clean information architecture, smooth scroll animations, and a visual language that balances institutional gravitas with approachable warmth for parents and students.',
-    result: 'Modern School Identity Platform',
-    image: '/images/projects/bipin-chikkatti-school.png',
-    size: 'small',
-    techStack: ['Next.js 14', 'TypeScript', 'Framer Motion', 'Tailwind CSS', 'Vercel'],
-    pullQuote: 'Where academic tradition meets digital precision.',
-    stats: [
-      { label: 'Load Speed', value: '< 1.2s' },
-      { label: 'Parent Engagement', value: '+180%' },
-      { label: 'Positioning', value: 'Education' }
-    ],
-    paragraphs: [
-      'For Bipin Chikkatti School, we crafted a digital experience that mirrors the institution\'s commitment to excellence — clean typography, structured layouts, and a warm color palette that invites exploration.',
-      'The site architecture prioritizes parent and student journeys: admissions flow, academic programs, faculty profiles, and event calendars are all accessible within two clicks from any page.',
-      'Performance was non-negotiable. Edge-cached static generation ensures the site loads instantly across Gadag\'s varied network conditions, while subtle Framer Motion animations add polish without sacrificing speed.'
-    ],
-    modules: [
-      { label: 'INFO ARCHITECTURE', value: 'Parent-First UX', description: 'Navigation designed around parent decision journeys — admissions, academics, campus life.' },
-      { label: 'PERFORMANCE CORE', value: 'Edge Static Gen', description: 'ISR-powered pages cached at the edge for instant loads on any network.' }
-    ]
-  },
-  {
-    id: 5,
-    slug: 'sentiment-ai',
-    title: 'SENTIMENT AI',
-    client: 'MovieIntelligence',
-    category: 'WEB DESIGN',
-    year: '2025',
-    tags: ['React', 'FastAPI', 'DistilBERT'],
-    description: 'Real-time cinematic intelligence. Built with ML, designed to feel cinematic.',
-    challenge: 'Visualizing thousands of movie review sentiments required a production-grade ML dashboard that felt intuitive, fast, and cinematic rather than a clinical spreadsheet.',
-    solution: 'Developed a custom analytics engine using DistilBERT NLP and a Three.js sentiment cloud for immersive data exploration, styled like a luxury dark interface.',
-    result: 'Real-time cinematic insights.',
-    image: '/images/projects/sentiment-ai.svg',
+    tags: ['Next.js 14', 'Tailwind CSS', 'GSAP'],
+    description: 'A premium, highly-performant Next.js editorial website for Gadag District.',
+    challenge: 'A massive community platform required a digital heritage hub dedicated to historical depiction.',
+    solution: 'Developed an archival storytelling engine using Next.js 14 and cinematic Framer Motion reveals.',
+    result: '115k+ Follower Digital Hub',
+    image: '/Project cards images/gadag_info.png',
     size: 'large',
-    techStack: ['React', 'FastAPI', 'DistilBERT', 'Three.js', 'PostgreSQL'],
-    pullQuote: 'Capturing structural harmony through liquid motion and architectural editorial balance.',
-    galleryImages: [
-      '/images/projects/v2-sentiment-custom.jpg',
-      '/images/projects/v2-sentiment-final-custom.png',
-      '/images/projects/v2-sentiment-custom.jpg'
-    ],
-    stats: [
-      { label: 'Model Accuracy', value: '94.2%' },
-      { label: 'Data Nodes', value: '1M+' },
-      { label: 'Positioning', value: 'ML Analytics' }
-    ],
+    techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
+    pullQuote: 'Celebrating Gadag\'s rich cultural heritage through 2026-standard web design.',
+    liveUrl: 'https://gadag.vercel.app/',
     paragraphs: [
-      'Sentiment AI bridges the gap between deep machine learning and premium, human-centric design. By translating natural language movie reviews into real-time visual coordinate spaces, we created an interface that feels like a luxury terminal.',
-      'Using FastAPI and PostgreSQL, the platform processes hundreds of incoming reviews per second, categorizing them via DistilBERT NLP models and plotting them onto a 3D semantic web.',
-      'Users can click through clusters of opinions, explore critical and audience review discrepancies in full 3D, and generate instant automated sentiment summaries — all within a highly polished onyx dashboard.'
-    ],
-    modules: [
-      { label: 'NLP HUB', value: 'DistilBERT API', description: 'High-throughput movie review sentiment classifier working in real-time.' },
-      { label: '3D CLOUD', value: 'Three.js / WebGL', description: 'Interactive 3D semantic cloud mapping movie opinions dynamically.' },
-      { label: 'ANALYTICS HUD', value: 'Dynamic Charts', description: 'Precision data reporting panels tracking regional audience reactions.' },
-      { label: 'INGESTION ENGINE', value: 'FastAPI Stream', description: 'Ultra-fast API streaming architecture capable of 500+ requests/sec.' }
+      'A premium, highly-performant Next.js editorial website for Gadag District with high-end, 2026-standard web design.',
+      'Featuring custom cinematic animations, bilingual localization (English/Kannada), asymmetric grid layouts, sophisticated typography, and 4K visual assets celebrating Gadag\'s rich cultural heritage.'
     ]
   },
   {
     id: 6,
-    slug: 'gridsystems',
-    title: 'GRIDSYSTEMS (FLUX)',
-    client: 'Flux Energy',
-    category: 'AI & AUTOMATION',
-    year: '2025',
-    tags: ['Next.js', 'LSTM', 'Python'],
-    description: 'Intelligent Grid & Power Automation Hub',
-    challenge: 'Predicting and automating 24-hour power usage surges required a high-performance grid hub that visualizes complex LSTM ensemble models with zero latency.',
-    solution: 'Built a high-fidelity prediction HUD with real-time WebSockets anomaly detection and automated load-balancing agent triggers.',
-    result: 'Optimized grid efficiency.',
-    image: '/images/projects/gridsystems.svg',
-    size: 'small',
-    techStack: ['Next.js 15', 'LSTM', 'Random Forest', 'Python', 'Tailwind CSS'],
-    pullQuote: 'Orchestrating machine power grids with absolute computational precision.',
-    stats: [
-      { label: 'Surges Automated', value: '99.8%' },
-      { label: 'Grid Saving', value: '18%' },
-      { label: 'Positioning', value: 'Energy AI' }
-    ],
+    slug: 'khans-fitness',
+    title: 'KHAN\'S FITNESS',
+    client: 'Khan\'s Fitness, Gadag-Betageri',
+    category: 'CLIENT WORK',
+    year: '2026',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    description: 'Premium AI-Powered Fitness Platform.',
+    challenge: 'Establish a premium digital presence blending high-performance physical training with next-generation digital intelligence.',
+    solution: 'Designed a platform integrating advanced AI tools, personalized fitness calculators, a custom workout coaching interface, and a luxury Burgundy design language.',
+    result: 'A world-class experience across all devices.',
+    image: '/Project cards images/Khans Fitness.png',
+    size: 'large',
+    techStack: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Framer Motion'],
+    pullQuote: 'Blending high-performance physical training with next-generation digital intelligence.',
+    liveUrl: 'https://khans-fitness.vercel.app/',
+    githubUrl: 'https://github.com/deepakparagi/Khans_Fitness.git',
     paragraphs: [
-      'For Flux Energy, we developed an intelligent monitoring console that connects directly to local smart grids to predict power demands up to 24 hours in advance.',
-      'We integrated real-time WebSockets streams that feed sensor logs directly into a custom high-performance dashboard, highlighting anomalous spikes and automatically rerouting power paths.',
-      'The platform visualizes machine learning predictions from LSTM ensemble networks in high-contrast Plotly graphics, giving energy operators absolute clarity and control.'
+      'Khan\'s Fitness is a modern, state-of-the-art training facility located in Gadag-Betageri, Karnataka. This platform is designed and engineered to establish a premium digital presence for the brand.',
+      'The application integrates advanced AI tools, personalized fitness calculators, a custom workout coaching interface, and a dual-theme system mapped to a custom luxury Burgundy design language.',
+      'Centralized AI Fitness Lab Hub housing cutting-edge cognitive tools: BMI Calculator, Fitness Assessment Tool, Workout Generator, and Diet Planner.'
     ],
     modules: [
-      { label: 'PREDICTION HUD', value: 'LSTM Neural Nets', description: 'Advanced power load prediction models tracking surges dynamically.' },
-      { label: 'ANOMALY ALERTER', value: 'WebSockets Stream', description: 'Real-time alert dispatching and power load-balancing routing triggers.' }
+      { label: 'AI FITNESS LAB', value: 'Cognitive Tools', description: 'Centralized interface housing BMI, 1RM, and Target Heart Rate health calculators.' },
+      { label: 'WORKOUT GENERATOR', value: 'Dynamic generation', description: 'Personalized training programs created dynamically.' },
+      { label: 'KHAN AI COACH', value: 'Real-time Chat', description: 'Conversational interface for specialized guidance.' }
+    ]
+  },
+  {
+    id: 5,
+    slug: 'cinepulse-ai',
+    title: 'CINEPULSE AI',
+    client: 'CinePulse AI Intelligence Network',
+    category: 'PRODUCT BUILDS',
+    year: '2026',
+    tags: ['React', 'Flask', 'Machine Learning'],
+    description: 'A high-fidelity, production-grade sentiment analysis platform designed for the cinematic industry.',
+    challenge: 'Provide deep emotional insights into movie reviews with explainable AI metrics.',
+    solution: 'Leveraged state-of-the-art machine learning (TF-IDF + Logistic Regression) and a premium "Bloomberg-Vercel" hybrid aesthetic.',
+    result: 'Real-time cinematic intelligence with 92.4% validation accuracy.',
+    image: '/Project cards images/Sentiment movie analysis.png',
+    size: 'full',
+    techStack: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Flask', 'Scikit-learn', 'SQLite'],
+    pullQuote: 'Real-time cinematic intelligence. Built with ML, designed to feel cinematic.',
+    liveUrl: 'https://cinepulse-ai-sentiment-analysis.vercel.app/',
+    githubUrl: 'https://github.com/deepakparagi/cinepulse-ai-sentiment-analysis.git',
+    paragraphs: [
+      'CinePulse AI is a high-fidelity, production-grade sentiment analysis platform designed for the cinematic industry. Leveraging state-of-the-art machine learning (TF-IDF + Logistic Regression) and a premium "Bloomberg-Vercel" hybrid aesthetic.',
+      'It provides deep emotional insights into movie reviews with explainable AI metrics, featuring a Neural Analyzer for real-time sentiment extraction with character-by-character neural visualization.',
+      'The intelligence core utilizes a TF-IDF vectorization pipeline coupled with a Logistic Regression classifier, selected for its high interpretability and extremely low latency (< 45ms per review).'
+    ],
+    modules: [
+      { label: 'NEURAL ANALYZER', value: 'Real-time extraction', description: 'Character-by-character neural visualization of sentiment.' },
+      { label: 'EXPLAINABLE AI', value: 'Confidence scoring', description: 'Precision confidence scoring and thematic keyword extraction.' },
+      { label: 'INTELLIGENCE DASHBOARD', value: 'World-class telemetry', description: 'Monitoring sentiment momentum, polarity ratios, and neural flux.' }
     ]
   }
 ];

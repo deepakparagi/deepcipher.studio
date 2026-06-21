@@ -77,13 +77,6 @@ export default function PhilosophyScroll() {
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
   const bgOpacity = useTransform(scrollYProgress, [0, 0.05, 0.85, 1], [0.03, 0.04, 0.04, 0]);
   
-  // Smoother background transition to avoid "black gap"
-  const sectionBg = useTransform(
-    scrollYProgress, 
-    [0, 0.8, 0.95, 1], 
-    ['#0C0C0C', '#0C0C0C', '#FFFFFF', '#FFFFFF']
-  );
-
   const tickerX = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
 
   return (
@@ -91,8 +84,8 @@ export default function PhilosophyScroll() {
       ref={containerRef}
       className="relative z-30"
       style={{ 
-        height: '600vh', // Optimized height
-        backgroundColor: sectionBg
+        height: '500vh',
+        backgroundColor: '#0C0C0C',
       }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-inherit">
@@ -161,22 +154,16 @@ export default function PhilosophyScroll() {
               [0.85, principle.scale, principle.scale, 0.95]
             );
 
-            const blur = useTransform(
-              scrollYProgress,
-              [start, start + step * 0.2, end - step * 0.2, end],
-              ['blur(15px)', 'blur(0px)', 'blur(0px)', 'blur(15px)']
-            );
-
             return (
               <motion.div
                 key={principle.id}
                 style={{ 
                   opacity, 
                   scale, 
-                  filter: blur,
                   top: principle.y,
                   left: principle.x,
-                  rotate: principle.rotate
+                  rotate: principle.rotate,
+                  willChange: 'transform, opacity',
                 }}
                 className="absolute w-[85vw] md:w-[32vw] pointer-events-auto z-10"
               >
@@ -220,7 +207,7 @@ export default function PhilosophyScroll() {
               href="/start-a-project"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="mt-8 text-label text-accent-warm border border-accent-warm/30 px-10 py-5 hover:bg-accent-warm hover:text-white transition-all duration-500 uppercase tracking-[0.3em] backdrop-blur-md"
+              className="mt-8 text-label text-accent-warm border border-accent-warm/30 px-10 py-5 hover:bg-accent-warm hover:text-white transition-colors duration-500 uppercase tracking-[0.3em]"
             >
               Start Your Project →
             </motion.a>

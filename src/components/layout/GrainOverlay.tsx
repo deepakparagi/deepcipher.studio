@@ -1,49 +1,26 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { memo } from 'react';
 
-/* ========================================
-   GrainOverlay — Animated SVG Noise
-   ======================================== */
-
-export default function GrainOverlay() {
-  const [seed, setSeed] = useState(1);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setSeed(Math.floor(Math.random() * 1000));
-    }, 80);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
-
+function GrainOverlay() {
   return (
-    <div 
-      className="grain-overlay" 
+    <div
+      className="grain-overlay"
       aria-hidden="true"
       style={{
         position: 'fixed',
         inset: 0,
         pointerEvents: 'none',
         zIndex: 9999,
-        opacity: 0.4
+        opacity: 0.12,
+        backgroundImage:
+          'radial-gradient(circle at 20% 30%, rgba(255,255,255,0.22) 0 0.5px, transparent 0.7px), radial-gradient(circle at 70% 80%, rgba(0,0,0,0.18) 0 0.6px, transparent 0.8px)',
+        backgroundSize: '3px 3px, 4px 4px',
+        mixBlendMode: 'overlay',
+        transform: 'translate3d(0,0,0)',
       }}
-    >
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <filter id="grain-filter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.72"
-            numOctaves={4}
-            seed={seed}
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#grain-filter)" />
-      </svg>
-    </div>
+    />
   );
 }
+
+export default memo(GrainOverlay);

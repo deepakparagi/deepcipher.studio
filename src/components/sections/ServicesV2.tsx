@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import SectionLabel from '../ui/SectionLabel';
 import { useCursor } from '../ui/CursorProvider';
+import AnimatedText from '../ui/AnimatedText';
 
 /* ========================================
    Services Data
@@ -21,38 +22,52 @@ interface ServiceItem {
 const services: ServiceItem[] = [
   {
     no: '01',
-    title: 'Web Design & Development',
-    subtitle: "Websites that don't just exist — they perform. From bespoke marketing sites to full-scale e-commerce, every build is obsessed over at the pixel level and engineered to convert.",
-    capabilities: ['Next.js', 'Framer', 'Webflow', 'Redesign', 'E-Commerce', 'CMS Integration'],
+    title: 'Website Design',
+    subtitle: 'We design digital architectures that command authority, balancing premium aesthetics with uncompromising conversion strategy.',
+    capabilities: ['Visual Direction', 'Interaction Design', 'Conversion Strategy'],
     accent: '#B8956A',
   },
   {
     no: '02',
-    title: 'Brand Identity & Logo Design',
-    subtitle: 'Identity systems built to be remembered. We craft logos, colour palettes, typography hierarchies, and brand guidelines that hold authority across every touchpoint — digital and print.',
-    capabilities: ['Brand Strategy', 'Logo Design', 'Guidelines', 'Asset Library', 'Stationery'],
+    title: 'Web Development',
+    subtitle: 'We engineer robust, scalable platforms using modern frameworks, ensuring your vision is translated into flawless technical reality.',
+    capabilities: ['Next.js', 'React', 'WebGL', 'CMS Integration'],
     accent: '#C4A882',
   },
   {
     no: '03',
-    title: 'Brand Strategy & Consulting',
-    subtitle: "Before a single pixel is placed, we study your market. Positioning, messaging, and competitive intelligence — so your brand doesn't just look premium, it occupies premium ground.",
-    capabilities: ['Market Analysis', 'Positioning', 'Messaging', 'Creative Direction', 'Competitor Audit'],
+    title: 'UI/UX Design',
+    subtitle: 'We build intuitive interfaces that reduce friction and elevate user experience, turning complex workflows into seamless interactions.',
+    capabilities: ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing'],
     accent: '#A8845A',
   },
   {
     no: '04',
-    title: 'SEO & Performance Optimisation',
-    subtitle: 'A beautiful site that no one finds is a silent luxury. We optimise for speed, structure, and search — so your business ranks where it belongs and loads before impatience sets in.',
-    capabilities: ['Technical SEO', 'Core Web Vitals', 'Local SEO', 'Content Audit', 'Analytics Setup'],
+    title: 'Brand Identity',
+    subtitle: 'We craft bespoke visual systems—typography, color, and structure—that establish your business as a premium entity.',
+    capabilities: ['Brand Strategy', 'Logo Design', 'Typography', 'Asset Library'],
     accent: '#D4B896',
   },
   {
     no: '05',
-    title: 'AI & Business Automation',
-    subtitle: 'Intelligence, built in. We engineer AI-powered tools — chatbots, lead pipelines, automated dashboards, and workflow systems — that make your business run sharper while you sleep.',
-    capabilities: ['AI Chatbots', 'Lead Automation', 'CRM Workflows', 'AI Dashboards', 'WhatsApp Bots'],
+    title: 'Performance Optimization',
+    subtitle: 'We optimize for absolute speed and technical perfection. A beautiful site that is slow to load is a silent luxury.',
+    capabilities: ['Core Web Vitals', 'Technical SEO', 'Asset Compression'],
     accent: '#B8956A',
+  },
+  {
+    no: '06',
+    title: 'AI Integrations',
+    subtitle: 'We embed intelligent models directly into your platform, transforming static interfaces into dynamic, context-aware engines.',
+    capabilities: ['LLM Integration', 'Custom Agents', 'Data Pipelines'],
+    accent: '#C4A882',
+  },
+  {
+    no: '07',
+    title: 'Automation Systems',
+    subtitle: 'We build custom workflows that eliminate operational drag, allowing your team to focus on high-leverage growth.',
+    capabilities: ['CRM Workflows', 'API Bridges', 'Business Logic'],
+    accent: '#A8845A',
   },
 ];
 
@@ -60,10 +75,18 @@ const services: ServiceItem[] = [
    Service Row Component
    ======================================== */
 
-function ServiceRow({ service, index }: { service: ServiceItem; index: number }) {
+const ServiceRow = memo(function ServiceRow({ service, index }: { service: ServiceItem; index: number }) {
   const { setCursor, resetCursor } = useCursor();
   const [isHovered, setIsHovered] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
+    setCursor('link', 'VIEW');
+  }, [setCursor]);
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    resetCursor();
+  }, [resetCursor]);
 
   return (
     <motion.div
@@ -73,21 +96,15 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => {
-        setIsHovered(true);
-        setCursor('link', 'VIEW');
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        resetCursor();
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Link
         href="/services"
         style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
       >
         <div
-          className="relative overflow-hidden"
+          className="service-row-shell relative overflow-hidden"
           style={{
             padding: 'clamp(28px, 3.5vw, 48px) 0',
             borderTop: '1px solid rgba(10,10,10,0.08)',
@@ -102,21 +119,25 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
               left: 0,
               top: 0,
               bottom: 0,
-              width: isHovered ? '4px' : '0px',
+              width: '4px',
               backgroundColor: service.accent,
-              transition: 'width 0.4s cubic-bezier(0.16,1,0.3,1)',
+              transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
+              transformOrigin: 'left center',
+              transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+              willChange: 'transform',
             }}
           />
 
           {/* Main row — number + title + arrow */}
           <div
-            className="flex items-start md:items-center justify-between"
+            className="service-row-content flex items-start md:items-center justify-between"
             style={{
-              paddingLeft: isHovered ? '24px' : '0px',
-              transition: 'padding-left 0.4s cubic-bezier(0.16,1,0.3,1)',
+              transform: isHovered ? 'translate3d(24px,0,0)' : 'translate3d(0,0,0)',
+              transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+              willChange: 'transform',
             }}
           >
-            <div className="flex items-start md:items-center gap-4 md:gap-8 flex-1">
+            <div className="service-title-wrap flex items-start md:items-center gap-4 md:gap-8 flex-1">
               {/* Number */}
               <span
                 style={{
@@ -141,7 +162,7 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
                     fontStyle: 'italic',
                     fontSize: 'clamp(28px, 3.5vw, 52px)',
                     lineHeight: 1,
-                    color: isHovered ? '#0A0A0A' : 'rgba(10,10,10,0.3)',
+                    color: isHovered ? '#0A0A0A' : 'rgba(10,10,10,0.42)',
                     transition: 'color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
                     transform: isHovered ? 'translateX(8px)' : 'translateX(0)',
                   }}
@@ -154,9 +175,9 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
                   {isHovered && (
                     <motion.p
                       className="m-0 hidden md:block"
-                      initial={{ opacity: 0, height: 0, y: -4 }}
-                      animate={{ opacity: 1, height: 'auto', y: 0 }}
-                      exit={{ opacity: 0, height: 0, y: -4 }}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
@@ -175,7 +196,7 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
             </div>
 
             {/* Right side — capabilities chips + arrow */}
-            <div className="flex items-center gap-6 flex-shrink-0">
+            <div className="service-row-meta flex items-center gap-6 flex-shrink-0">
               {/* Capability chips — desktop only */}
               <div className="hidden lg:flex items-center gap-2">
                 {service.capabilities.map((cap, i) => (
@@ -190,7 +211,7 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
                       border: '1px solid',
                       borderColor: isHovered ? 'rgba(184,149,106,0.3)' : 'rgba(10,10,10,0.08)',
                       padding: '4px 10px',
-                      transition: 'all 0.3s ease',
+                      transition: 'color 0.3s ease, border-color 0.3s ease',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -218,7 +239,7 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
       </Link>
     </motion.div>
   );
-}
+});
 
 /* ========================================
    Section 6 — Services
@@ -227,22 +248,21 @@ function ServiceRow({ service, index }: { service: ServiceItem; index: number })
 export default function ServicesV2() {
   return (
     <section
+      className="services-home-section"
       style={{
         backgroundColor: '#F8F7F4',
         padding: 'clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px)',
       }}
     >
       {/* Header — editorial layout */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+      <div className="services-home-header flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
         <div>
           <SectionLabel className="mb-4 text-[#0A0A0A]/40">[ WHAT WE BUILD ]</SectionLabel>
 
-          <motion.h2
-            className="m-0"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          <AnimatedText
+            splitBy="word"
+            as="h2"
+            className="services-home-title m-0"
             style={{
               fontFamily: 'var(--font-display), serif',
               fontWeight: 300,
@@ -253,11 +273,11 @@ export default function ServicesV2() {
             }}
           >
             Our Services
-          </motion.h2>
+          </AnimatedText>
         </div>
 
         <motion.p
-          className="m-0"
+          className="services-home-copy m-0"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -271,7 +291,7 @@ export default function ServicesV2() {
             textAlign: 'right',
           }}
         >
-          Five disciplines. Each one obsessed over.
+          Seven disciplines. Each one obsessed over.
         </motion.p>
       </div>
 

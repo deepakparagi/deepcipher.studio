@@ -51,8 +51,8 @@ export default function PageLoader() {
         <motion.div
           key="loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, clipPath: 'circle(0% at 50% 50%)' }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           style={{
             position: 'fixed',
             inset: 0,
@@ -83,11 +83,10 @@ export default function PageLoader() {
 
           {/* Phase 2: DC Monogram */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.88, filter: 'blur(6px)' }}
+            initial={{ opacity: 0, scale: 0.88 }}
             animate={{
               opacity: phase >= 2 ? 1 : 0,
               scale: phase >= 6 ? [1, 1.04, 1] : phase >= 2 ? 1 : 0.88,
-              filter: phase >= 2 ? 'blur(0px)' : 'blur(6px)',
             }}
             transition={
               phase >= 6 
@@ -101,6 +100,7 @@ export default function PageLoader() {
               fontSize: 'clamp(72px, 10vw, 120px)',
               color: '#fff',
               zIndex: 2,
+              willChange: 'transform, opacity',
             }}
           >
             DC

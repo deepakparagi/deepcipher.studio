@@ -1,321 +1,180 @@
 'use client';
 
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import Noise from '@/components/ui/Noise';
 import Link from 'next/link';
+import ShaderLines from '@/components/ui/shader-lines';
+import { staggerContainer, staggerItem } from '@/lib/animations';
+import AnimatedText from '@/components/ui/AnimatedText';
 
-/* ==========================================================
-   CONTACT PAGE — Simplified Intuitively, Aligned & Creative Polish
-   ========================================================== */
+/* =========================================================
+   CONTACT PAGE — Complete Redesign
+   Two-column: Contact Info (left) + Form (right)
+   ========================================================= */
 
 const projectTypes = [
-  'Portfolio',
-  'Startup Website',
-  'SaaS Platform',
-  'Ecommerce',
-  'Agency Website',
-  'Brand Refresh',
+  'Select a service...',
+  'Web Design & Development',
+  'Brand Identity & Logo Design',
+  'Brand Strategy & Consulting',
+  'SEO & Performance Optimisation',
+  'AI & Business Automation',
+  'Full Studio Package',
 ];
 
 const budgetRanges = [
-  '₹50k–1L',
-  '₹1L–2L',
-  '₹2L–5L',
-  '₹5L+',
+  'Select a range...',
+  'Under ₹25,000',
+  '₹25,000 – ₹50,000',
+  '₹50,000 – ₹1,00,000',
+  '₹1,00,000 – ₹2,00,000',
+  '₹2,00,000+',
+  "Let's discuss",
 ];
 
-const timelines = [
-  'ASAP',
-  '30 Days',
-  '60 Days',
-  'Flexible',
-];
+const submitBtnVariants = {
+  hidden: { opacity: 0, scaleX: 0.95 },
+  visible: {
+    opacity: 1,
+    scaleX: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1] as any,
+    },
+  },
+};
 
 export default function ContactClient() {
   const { setCursor, resetCursor } = useCursor();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Form state
   const [form, setForm] = useState({
     name: '',
     email: '',
     company: '',
-    website: '',
     projectType: '',
     budget: '',
-    timeline: '',
     brief: '',
   });
 
-  // Custom validation error state
-  const [errors, setErrors] = useState<{ name?: string; email?: string; projectType?: string; brief?: string }>({});
-
-  // Auto-save form state to localStorage
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('deepcipher_luxury_intake_state');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setForm((prev) => ({ ...prev, ...parsed }));
-        } catch (e) {
-          console.error('Error rehydrating luxury intake state:', e);
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('deepcipher_luxury_intake_state', JSON.stringify(form));
-    }
-  }, [form]);
-
-  // Real-time custom validation
-  const validateField = (field: string, value: string) => {
-    const newErrors = { ...errors };
-
-    if (field === 'name') {
-      if (!value.trim()) {
-        newErrors.name = 'OPERATOR NAME REQUIRED';
-      } else {
-        delete newErrors.name;
-      }
-    }
-
-    if (field === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!value.trim()) {
-        newErrors.email = 'TRANSMISSION ADDR REQUIRED';
-      } else if (!emailRegex.test(value)) {
-        newErrors.email = 'INVALID TRANSMISSION PROTOCOL';
-      } else {
-        delete newErrors.email;
-      }
-    }
-
-    if (field === 'projectType') {
-      if (!value) {
-        newErrors.projectType = 'PROJECT TYPE REQUIRED';
-      } else {
-        delete newErrors.projectType;
-      }
-    }
-
-    if (field === 'brief') {
-      if (!value.trim()) {
-        newErrors.brief = 'MISSION STATEMENT REQUIRED';
-      } else if (value.trim().length < 20) {
-        newErrors.brief = 'BRIEF REQUIRES MINIMUM 20 CHARACTERS';
-      } else {
-        delete newErrors.brief;
-      }
-    }
-
-    setErrors(newErrors);
-  };
-
   const handleInputChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    validateField(field, value);
   };
 
-  // WhatsApp pre-filled generation
-  const handleWhatsAppSubmit = () => {
-    // Final checks
-    const finalErrors: typeof errors = {};
-    if (!form.name.trim()) finalErrors.name = 'OPERATOR NAME REQUIRED';
-    if (!form.email.trim()) {
-      finalErrors.email = 'TRANSMISSION ADDR REQUIRED';
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(form.email)) {
-        finalErrors.email = 'INVALID TRANSMISSION PROTOCOL';
-      }
-    }
-    if (!form.projectType) finalErrors.projectType = 'PROJECT TYPE REQUIRED';
-    if (!form.brief.trim()) {
-      finalErrors.brief = 'MISSION STATEMENT REQUIRED';
-    } else if (form.brief.trim().length < 20) {
-      finalErrors.brief = 'BRIEF REQUIRES MINIMUM 20 CHARACTERS';
-    }
-
-    if (Object.keys(finalErrors).length > 0) {
-      setErrors(finalErrors);
-      const firstError = Object.keys(finalErrors)[0];
-      const element = document.getElementById(`field-${firstError}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      return;
-    }
-
-    const rawMessage = `🚀 NEW PROJECT REQUEST
-
-Name: ${form.name}
-Email: ${form.email}
-Company: ${form.company || 'Not specified'}
-Website: ${form.website || 'Not specified'}
-Project Type: ${form.projectType || 'Not specified'}
-Budget: ${form.budget || 'Not specified'}
-Timeline: ${form.timeline || 'Not specified'}
-
-Project Brief:
-${form.brief}
-
-Submitted via DEEPCIPHER.`;
-
-    const encodedMessage = encodeURIComponent(rawMessage);
-    window.open(`https://wa.me/918197174493?text=${encodedMessage}`, '_blank');
-  };
-
-  const handleSubmit = (e?: FormEvent | React.MouseEvent) => {
+  const handleSubmit = async (e?: FormEvent | React.MouseEvent) => {
     if (e) e.preventDefault();
+    if (isSubmitting) return;
 
-    // Final checks
-    const finalErrors: typeof errors = {};
-    if (!form.name.trim()) finalErrors.name = 'OPERATOR NAME REQUIRED';
-    if (!form.email.trim()) {
-      finalErrors.email = 'TRANSMISSION ADDR REQUIRED';
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(form.email)) {
-        finalErrors.email = 'INVALID TRANSMISSION PROTOCOL';
-      }
-    }
-    if (!form.projectType) finalErrors.projectType = 'PROJECT TYPE REQUIRED';
-    if (!form.brief.trim()) {
-      finalErrors.brief = 'MISSION STATEMENT REQUIRED';
-    } else if (form.brief.trim().length < 20) {
-      finalErrors.brief = 'BRIEF REQUIRES MINIMUM 20 CHARACTERS';
-    }
-
-    if (Object.keys(finalErrors).length > 0) {
-      setErrors(finalErrors);
-      const firstError = Object.keys(finalErrors)[0];
-      const element = document.getElementById(`field-${firstError}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+    if (!form.name.trim() || !form.email.trim() || !form.brief.trim()) {
       return;
     }
 
-    // Build structured email pre-filled content
-    const rawSubject = `DEEPCIPHER Onboarding: New Project Request from ${form.name}`;
-    const rawBody = `🚀 NEW PROJECT PROTOCOL TRANSMISSION
+    setIsSubmitting(true);
 
-OPERATOR IDENTIFICATION
-Name: ${form.name}
-Email: ${form.email}
-Company: ${form.company || 'Not specified'}
-Website: ${form.website || 'Not specified'}
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          projectType: form.projectType,
+          budget: form.budget,
+          message: form.brief,
+        }),
+      });
 
-PROJECT SPECS
-Project Type: ${form.projectType}
-Budget Tier: ${form.budget || 'Not specified'}
-Timeline Lock: ${form.timeline || 'Not specified'}
-
-PROJECT BRIEF / STORY:
-${form.brief}
-
----
-Sent via DEEPCIPHER intake terminal.`;
-
-    const mailtoUrl = `mailto:deepakparagi03@gmail.com?subject=${encodeURIComponent(rawSubject)}&body=${encodeURIComponent(rawBody)}`;
-
-    // Trigger email client redirect
-    if (typeof window !== 'undefined') {
-      window.location.href = mailtoUrl;
-    }
-
-    // Success transition
-    setSubmitted(true);
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('deepcipher_luxury_intake_state');
+      if (!response.ok) throw new Error('Network response was not ok');
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Submission failed', error);
+      alert('Something went wrong. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
-  // Button hover states
-  const [submitHovered, setSubmitHovered] = useState(false);
-  const [whatsappHovered, setWhatsappHovered] = useState(false);
-  const [footerSubmitHovered, setFooterSubmitHovered] = useState(false);
-  const [footerWhatsappHovered, setFooterWhatsappHovered] = useState(false);
 
   return (
     <motion.main
       className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <Noise opacity={0.03} />
 
       <AnimatePresence mode="wait">
         {!submitted ? (
-          <div key="intake-form" className="w-full flex flex-col">
-            
-            {/* ================================================
-               SECTION 1: HERO
-               ================================================ */}
+          <div key="contact-form" className="w-full flex flex-col">
+
+            {/* ══════════════════════════════════════════════
+                SECTION 1: HERO
+                ══════════════════════════════════════════════ */}
             <section
-              className="relative w-full border-b border-[rgba(245,240,232,0.08)] px-6 overflow-hidden flex flex-col justify-center items-center text-center"
-              style={{ minHeight: '90vh' }}
+              className="relative w-full px-6 overflow-hidden flex flex-col justify-center items-center text-center"
+              style={{
+                minHeight: '100vh',
+                borderBottom: '0.5px solid rgba(245,240,232,0.06)',
+              }}
             >
+              <ShaderLines />
+              
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 className="relative z-10 flex flex-col items-center max-w-[1000px]"
               >
                 {/* Label */}
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono), monospace',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontSize: '10px',
-                    letterSpacing: '0.2em',
+                    letterSpacing: '0.3em',
                     color: '#6B6560',
                     fontWeight: 300,
                     textTransform: 'uppercase',
                     marginBottom: '16px',
                   }}
                 >
-                  [ START A PROJECT ]
+                  <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> GET IN TOUCH
                 </span>
 
                 {/* Main H1 */}
                 <h1
                   style={{
                     fontFamily: 'var(--font-display), serif',
-                    fontWeight: 300,
-                    fontStyle: 'italic',
-                    fontSize: 'clamp(54px, 8vw, 110px)',
+                    fontSize: 'clamp(60px, 9vw, 130px)',
                     color: '#F5F0E8',
                     letterSpacing: '-0.02em',
-                    lineHeight: 1.05,
+                    lineHeight: 0.9,
                     margin: 0,
                     marginBottom: '24px',
-                    textTransform: 'none',
                     userSelect: 'none',
                   }}
                 >
-                  Let's build something<br />worth remembering.
+                  <span className="upright font-medium">Let&apos;s build </span>
+                  <span className="italic font-normal text-[#B8956A]">something.</span>
                 </h1>
 
-                {/* Subtitle */}
+                {/* Subline */}
                 <p
                   style={{
                     fontFamily: 'var(--font-body), sans-serif',
-                    fontSize: '14px',
+                    fontSize: '15px',
                     color: '#6B6560',
                     fontWeight: 300,
                     maxWidth: '480px',
-                    margin: '12px auto 0',
+                    margin: '16px auto 0',
                     lineHeight: '1.65',
                   }}
                 >
-                  Tell us about your project. We'll review the details and respond with a clear strategic direction.
+                  Tell us what you&apos;re building. We&apos;ll tell you exactly how we&apos;d approach it
+                  — and what it would cost. No pressure, no obligation.
                 </p>
               </motion.div>
 
@@ -326,569 +185,533 @@ Sent via DEEPCIPHER intake terminal.`;
               >
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono), monospace',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontSize: '9px',
                     color: '#6B6560',
-                    letterSpacing: '0.2em',
+                    letterSpacing: '0.3em',
                     textTransform: 'uppercase',
                   }}
                 >
-                  SCROLL TO BRIEF
+                  SCROLL
                 </span>
                 <motion.div
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{
-                    height: '40px',
-                    width: '0.5px',
-                    background: '#B8956A',
-                  }}
+                  style={{ height: '40px', width: '0.5px', background: '#B8956A' }}
                 />
               </div>
             </section>
 
-            {/* ================================================
-               SECTION 2: UNIFIED EDITORIAL FORM
-               ================================================ */}
+            {/* ══════════════════════════════════════════════
+                SECTION 2: TWO-COLUMN CONTACT + FORM
+                ══════════════════════════════════════════════ */}
             <section
+              className="contact-form-section"
               style={{
-                position: 'relative',
-                width: '100%',
-                borderBottom: '1px solid rgba(245,240,232,0.08)',
-                paddingTop: '100px',
-                paddingBottom: '120px',
-                paddingLeft: '24px',
-                paddingRight: '24px',
+                padding: '80px 64px',
+                borderTop: '0.5px solid rgba(245,240,232,0.06)',
               }}
             >
-              <div 
-                style={{ 
-                  maxWidth: '800px', 
-                  margin: '0 auto', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  gap: '48px',
-                  width: '100%' 
+              <div
+                className="contact-two-col"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '80px',
+                  alignItems: 'start',
+                  maxWidth: '1400px',
+                  margin: '0 auto',
+                  width: '100%',
                 }}
               >
-                
-                {/* Form Heading Header */}
-                <div 
-                  style={{
-                    borderBottom: '1px solid rgba(245,240,232,0.06)',
-                    paddingBottom: '24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
-                  }}
+                {/* ── LEFT COLUMN: Contact Info ── */}
+                <motion.div
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.15 }}
+                  style={{ display: 'flex', flexDirection: 'column' }}
                 >
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: '#B8956A', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                    // PROJECT BRIEF SPECIFICATIONS
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: '#6B6560' }}>
-                    01 / INTAKE
-                  </span>
-                </div>
+                  {/* REACH US Label */}
+                  <motion.span
+                    variants={staggerItem}
+                    style={{
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontSize: '10px',
+                      color: '#6B6560',
+                      letterSpacing: '0.3em',
+                      textTransform: 'uppercase',
+                      marginBottom: '40px',
+                    }}
+                  >
+                    <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> REACH US
+                  </motion.span>
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
-                  
-                  {/* Operator Name */}
-                  <div id="field-name" style={{ position: 'relative' }}>
+                  {/* Email */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '40px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      EMAIL
+                    </span>
+                    <a
+                      href="mailto:deepcipherstudio@gmail.com"
+                      onMouseEnter={() => setCursor('link')}
+                      onMouseLeave={resetCursor}
+                      style={{
+                        fontFamily: 'var(--font-display), serif',
+                        fontStyle: 'italic',
+                        fontSize: '24px',
+                        color: '#F5F0E8',
+                        textDecoration: 'none',
+                        transition: 'color 0.2s ease',
+                        display: 'block',
+                      }}
+                      onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#B8956A'; }}
+                      onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = '#F5F0E8'; }}
+                    >
+                      deepcipherstudio@gmail.com
+                    </a>
+                  </motion.div>
+
+                  {/* Location */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '40px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      LOCATION
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 300,
+                        color: '#9A9590',
+                        display: 'block',
+                      }}
+                    >
+                      Bengaluru, Karnataka, India
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 300,
+                        color: '#9A9590',
+                        display: 'block',
+                      }}
+                    >
+                      Available for remote projects worldwide
+                    </span>
+                  </motion.div>
+
+                  {/* Availability */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '40px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      AVAILABILITY
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 300,
+                        color: '#9A9590',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: '#B8956A',
+                          display: 'inline-block',
+                          marginRight: '8px',
+                          flexShrink: 0,
+                        }}
+                      />
+                      Currently accepting projects for Q3 2026
+                    </span>
+                  </motion.div>
+
+                  {/* Response Time */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '40px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      RESPONSE TIME
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 300,
+                        color: '#9A9590',
+                        display: 'block',
+                      }}
+                    >
+                      Within 24 hours on business days
+                    </span>
+                  </motion.div>
+
+                  {/* Social Links */}
+                  <motion.div
+                    variants={staggerItem}
+                    style={{
+                      marginTop: '48px',
+                      borderTop: '0.5px solid rgba(245,240,232,0.08)',
+                      paddingTop: '32px',
+                      display: 'flex',
+                      gap: '24px',
+                    }}
+                  >
+                    {[
+                      { label: 'INSTAGRAM ↗', href: 'https://www.instagram.com/deepcipher.ai/' },
+                    ].map((social) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onMouseEnter={() => setCursor('link')}
+                        onMouseLeave={resetCursor}
+                        className="group relative"
+                        style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '9px',
+                          letterSpacing: '0.15em',
+                          color: '#6B6560',
+                          textDecoration: 'none',
+                          textTransform: 'uppercase',
+                          paddingBottom: '2px',
+                          transition: 'color 0.2s ease',
+                        }}
+                        onMouseOver={(e) => {
+                          (e.currentTarget as HTMLElement).style.color = '#B8956A';
+                        }}
+                        onMouseOut={(e) => {
+                          (e.currentTarget as HTMLElement).style.color = '#6B6560';
+                        }}
+                      >
+                        {social.label}
+                        <span
+                          className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
+                          style={{ background: '#B8956A' }}
+                        />
+                      </a>
+                    ))}
+                  </motion.div>
+                </motion.div>
+
+                {/* ── RIGHT COLUMN: Contact Form ── */}
+                <motion.form
+                  onSubmit={handleSubmit}
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.15 }}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+
+                  {/* NAME */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
+                    <label
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      NAME
+                    </label>
                     <input
                       type="text"
                       value={form.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
-                      placeholder="FULL NAME *"
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: errors.name ? '1px solid #E8185A' : '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                        transition: 'border-color 0.3s ease',
-                      }}
+                      placeholder="Your full name"
+                      className="contact-form-input"
+                      required
                     />
-                    {errors.name && (
-                      <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: '#E8185A', display: 'block', marginTop: '6px' }}>
-                        {errors.name}
-                      </span>
-                    )}
-                  </div>
+                  </motion.div>
 
-                  {/* Email Address */}
-                  <div id="field-email" style={{ position: 'relative' }}>
+                  {/* EMAIL */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
+                    <label
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      EMAIL
+                    </label>
                     <input
                       type="email"
                       value={form.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      placeholder="EMAIL ADDRESS *"
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: errors.email ? '1px solid #E8185A' : '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                        transition: 'border-color 0.3s ease',
-                      }}
+                      placeholder="your@email.com"
+                      className="contact-form-input"
+                      required
                     />
-                    {errors.email && (
-                      <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: '#E8185A', display: 'block', marginTop: '6px' }}>
-                        {errors.email}
-                      </span>
-                    )}
-                  </div>
+                  </motion.div>
 
-                  {/* Organization / Company */}
-                  <div style={{ position: 'relative' }}>
+                  {/* BUSINESS / BRAND */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
+                    <label
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      BUSINESS / BRAND
+                    </label>
                     <input
                       type="text"
                       value={form.company}
                       onChange={(e) => handleInputChange('company', e.target.value)}
-                      placeholder="ORGANIZATION / COMPANY"
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                      }}
+                      placeholder="What's the name of your business?"
+                      className="contact-form-input"
                     />
-                  </div>
+                  </motion.div>
 
-                  {/* Existing Link / Website */}
-                  <div style={{ position: 'relative' }}>
-                    <input
-                      type="text"
-                      value={form.website}
-                      onChange={(e) => handleInputChange('website', e.target.value)}
-                      placeholder="EXISTING SITE LINK"
-                      className="protocol-input"
+                  {/* PROJECT TYPE */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px', position: 'relative' }}>
+                    <label
                       style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
                       }}
-                    />
-                  </div>
-
-                  {/* Project Type Select */}
-                  <div id="field-projectType" style={{ position: 'relative' }}>
+                    >
+                      PROJECT TYPE
+                    </label>
                     <select
                       value={form.projectType}
                       onChange={(e) => handleInputChange('projectType', e.target.value)}
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        paddingRight: '32px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: errors.projectType ? '1px solid #E8185A' : '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                        appearance: 'none',
-                        cursor: 'none',
-                      }}
+                      className="contact-form-select"
                     >
-                      <option value="" disabled className="bg-[#0A0A0A] text-[#6B6560]">SELECT PROJECT TYPE *</option>
-                      {projectTypes.map((type) => (
-                        <option key={type} value={type} className="bg-[#0A0A0A] text-[#F5F0E8]">
-                          {type.toUpperCase()}
+                      {projectTypes.map((type, i) => (
+                        <option key={type} value={i === 0 ? '' : type} disabled={i === 0}>
+                          {type}
                         </option>
                       ))}
                     </select>
-                    <div style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', opacity: 0.6 }}>
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1">
+                    <div
+                      style={{
+                        position: 'absolute',
+                        right: '8px',
+                        bottom: '16px',
+                        pointerEvents: 'none',
+                        opacity: 0.6,
+                      }}
+                    >
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1" aria-hidden="true">
                         <path d="M1 1L5 5L9 1" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
-                    {errors.projectType && (
-                      <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: '#E8185A', display: 'block', marginTop: '6px' }}>
-                        {errors.projectType}
-                      </span>
-                    )}
-                  </div>
+                  </motion.div>
 
-                  {/* Budget Ranges */}
-                  <div style={{ position: 'relative' }}>
+                  {/* BUDGET RANGE */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px', position: 'relative' }}>
+                    <label
+                      style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      BUDGET RANGE
+                    </label>
                     <select
                       value={form.budget}
                       onChange={(e) => handleInputChange('budget', e.target.value)}
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        paddingRight: '32px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                        appearance: 'none',
-                        cursor: 'none',
-                      }}
+                      className="contact-form-select"
                     >
-                      <option value="" disabled className="bg-[#0A0A0A] text-[#6B6560]">SELECT BUDGET TIER</option>
-                      {budgetRanges.map((range) => (
-                        <option key={range} value={range} className="bg-[#0A0A0A] text-[#F5F0E8]">
-                          {range.toUpperCase()}
+                      {budgetRanges.map((range, i) => (
+                        <option key={range} value={i === 0 ? '' : range} disabled={i === 0}>
+                          {range}
                         </option>
                       ))}
                     </select>
-                    <div style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', opacity: 0.6 }}>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        right: '8px',
+                        bottom: '16px',
+                        pointerEvents: 'none',
+                        opacity: 0.6,
+                      }}
+                    >
                       <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1">
                         <path d="M1 1L5 5L9 1" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Timelines */}
-                  <div style={{ position: 'relative' }}>
-                    <select
-                      value={form.timeline}
-                      onChange={(e) => handleInputChange('timeline', e.target.value)}
-                      className="protocol-input"
+                  {/* TELL US ABOUT YOUR PROJECT */}
+                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
+                    <label
                       style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        paddingTop: '12px',
-                        paddingBottom: '12px',
-                        paddingRight: '32px',
-                        fontSize: '14px',
-                        color: '#F5F0E8',
-                        outline: 'none',
-                        border: 'none',
-                        borderBottom: '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-mono), monospace',
-                        letterSpacing: '0.15em',
-                        borderRadius: 0,
-                        appearance: 'none',
-                        cursor: 'none',
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontSize: '10px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
+                        display: 'block',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
                       }}
                     >
-                      <option value="" disabled className="bg-[#0A0A0A] text-[#6B6560]">SELECT TIMELINE LOCK</option>
-                      {timelines.map((time) => (
-                        <option key={time} value={time} className="bg-[#0A0A0A] text-[#F5F0E8]">
-                          {time.toUpperCase()}
-                        </option>
-                      ))}
-                    </select>
-                    <div style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', opacity: 0.6 }}>
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1">
-                        <path d="M1 1L5 5L9 1" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Textarea strategic story */}
-                  <div id="field-brief" style={{ position: 'relative' }}>
-                    <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>
-                      PROJECT BRIEF / STORY *
-                    </span>
+                      TELL US ABOUT YOUR PROJECT
+                    </label>
                     <textarea
                       value={form.brief}
                       onChange={(e) => handleInputChange('brief', e.target.value)}
-                      placeholder="What are you building? Who is it for? What problem does it solve? What does success look like?"
-                      className="protocol-input"
-                      style={{
-                        width: '100%',
-                        backgroundColor: 'transparent',
-                        minHeight: '300px',
-                        border: 'none',
-                        borderBottom: errors.brief ? '1px solid #E8185A' : '1px solid rgba(245,240,232,0.08)',
-                        fontFamily: 'var(--font-body), sans-serif',
-                        lineHeight: '1.7',
-                        resize: 'none',
-                        transition: 'border-color 0.3s ease',
-                        borderRadius: 0,
-                        outline: 'none',
-                        color: '#F5F0E8',
-                        fontSize: '16px',
-                      }}
+                      placeholder="What are you building? What's the goal? Any reference sites you admire?"
+                      rows={4}
+                      className="contact-form-textarea"
+                      required
                     />
-                    {errors.brief && (
-                      <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: '#E8185A', display: 'block', marginTop: '6px' }}>
-                        {errors.brief}
-                      </span>
-                    )}
-                  </div>
+                  </motion.div>
 
-                  {/* Immediate Submit group right below the form */}
-                  <div 
-                    style={{ 
-                      display: 'flex', 
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      gap: '24px',
-                      flexWrap: 'wrap',
-                      marginTop: '16px',
-                      borderTop: '0.5px solid rgba(245,240,232,0.06)',
-                      paddingTop: '32px'
-                    }}
+                  {/* SUBMIT BUTTON */}
+                  <motion.button
+                    type="submit"
+                    variants={submitBtnVariants}
+                    disabled={isSubmitting}
+                    onMouseEnter={() => setCursor('link')}
+                    onMouseLeave={resetCursor}
+                    className="contact-submit-btn"
+                    style={{ transformOrigin: 'center' }}
                   >
-                    <button
-                      type="submit"
-                      onMouseEnter={() => {
-                        setCursor('link');
-                        setSubmitHovered(true);
-                      }}
-                      onMouseLeave={() => {
-                        resetCursor();
-                        setSubmitHovered(false);
-                      }}
-                      style={{
-                        fontFamily: 'var(--font-mono), monospace',
-                        fontSize: '10px',
-                        letterSpacing: '0.15em',
-                        padding: '16px 36px',
-                        border: '1px solid #B8956A',
-                        backgroundColor: submitHovered ? '#B8956A' : 'transparent',
-                        color: submitHovered ? '#0A0A0A' : '#B8956A',
-                        textTransform: 'uppercase',
-                        transition: 'all 0.3s ease',
-                        cursor: 'none',
-                        outline: 'none',
-                      }}
-                    >
-                      Submit Project →
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleWhatsAppSubmit}
-                      onMouseEnter={() => {
-                        setCursor('link');
-                        setWhatsappHovered(true);
-                      }}
-                      onMouseLeave={() => {
-                        resetCursor();
-                        setWhatsappHovered(false);
-                      }}
-                      style={{
-                        fontFamily: 'var(--font-mono), monospace',
-                        fontSize: '10px',
-                        letterSpacing: '0.15em',
-                        padding: '16px 36px',
-                        border: '1px solid #B8956A',
-                        backgroundColor: whatsappHovered ? '#B8956A' : 'transparent',
-                        color: whatsappHovered ? '#0A0A0A' : '#B8956A',
-                        textTransform: 'uppercase',
-                        transition: 'all 0.3s ease',
-                        cursor: 'none',
-                        outline: 'none',
-                      }}
-                    >
-                      WhatsApp ↗
-                    </button>
-                  </div>
-
-                </form>
-
+                    {isSubmitting ? 'SENDING...' : 'SEND PROJECT BRIEF →'}
+                  </motion.button>
+                </motion.form>
               </div>
             </section>
 
-            {/* ================================================
-               SECTION 3: CREATIVE closing cta (Reinvented screenshot block)
-               ================================================ */}
-            <section
+            {/* ══════════════════════════════════════════════
+                SECTION 3: CLOSING EMAIL CTA
+                ══════════════════════════════════════════════ */}
+            <motion.section
+              className="contact-cta-section"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
               style={{
                 width: '100%',
-                padding: 'clamp(100px, 12vw, 160px) clamp(24px, 5vw, 64px)',
-                backgroundColor: '#0A0A0A',
+                padding: '80px 64px',
+                borderTop: '0.5px solid rgba(245,240,232,0.06)',
                 display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
               }}
             >
-              {/* Luxury HUD Outlined Framing Box with Corner Tick Marks */}
-              <div
+              <h2
                 style={{
-                  width: '100%',
-                  maxWidth: '900px',
-                  border: '1px dashed rgba(184, 149, 106, 0.15)',
-                  position: 'relative',
-                  padding: 'clamp(64px, 8vw, 96px) clamp(32px, 6vw, 64px)',
-                  textAlign: 'center',
-                  backgroundColor: '#0C0C0C',
+                  fontFamily: 'var(--font-display), serif',
+                  fontSize: 'clamp(32px, 4vw, 52px)',
+                  color: '#F5F0E8',
+                  lineHeight: 1.1,
+                  margin: 0,
                 }}
               >
-                {/* Technical HUD Corners */}
-                <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-[#B8956A]" />
-                <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#B8956A]" />
-                <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b border-l border-[#B8956A]" />
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-[#B8956A]" />
+                <span className="upright font-medium">Or simply email </span>
+                <span className="italic font-normal text-[#B8956A]">us directly.</span>
+              </h2>
 
-                {/* Subtitle Label */}
+              <motion.a
+                variants={staggerItem}
+                href="mailto:deepcipherstudio@gmail.com"
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                className="group relative inline-block"
+                style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '10px',
+                  letterSpacing: '0.18em',
+                  color: '#B8956A',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase',
+                  marginTop: '16px',
+                  paddingBottom: '2px',
+                }}
+              >
+                DEEPCIPHERSTUDIO@GMAIL.COM
                 <span
-                  style={{
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontSize: '10px',
-                    color: '#6B6560',
-                    letterSpacing: '0.25em',
-                    display: 'block',
-                    marginBottom: '24px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  [ READY TO BEGIN ]
-                </span>
-
-                {/* Massive Creative Cormorant Garamond italic Title */}
-                <motion.h2
-                  whileHover={{ letterSpacing: '0.04em' }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                  style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontWeight: 300,
-                    fontStyle: 'italic',
-                    fontSize: 'clamp(44px, 6.5vw, 84px)',
-                    color: '#F5F0E8',
-                    lineHeight: 1.05,
-                    letterSpacing: '-0.02em',
-                    margin: 0,
-                    marginBottom: '20px',
-                    cursor: 'default',
-                  }}
-                >
-                  Start the conversation.
-                </motion.h2>
-
-                {/* Explanatory Body */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body), sans-serif',
-                    fontSize: '15px',
-                    fontWeight: 300,
-                    color: '#6B6560',
-                    maxWidth: '520px',
-                    margin: '0 auto 48px',
-                    lineHeight: '1.75',
-                  }}
-                >
-                  Every project begins with a single conversation. Tell us what you're building and we'll tell you exactly how we'd approach it.
-                </p>
-
-                {/* Replicated Screenshot buttons inside our creative box */}
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <button
-                    onClick={handleSubmit}
-                    onMouseEnter={() => {
-                      setCursor('link');
-                      setFooterSubmitHovered(true);
-                    }}
-                    onMouseLeave={() => {
-                      resetCursor();
-                      setFooterSubmitHovered(false);
-                    }}
-                    style={{
-                      fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '10px',
-                      letterSpacing: '0.15em',
-                      padding: '16px 36px',
-                      border: '1px solid #B8956A',
-                      backgroundColor: footerSubmitHovered ? '#B8956A' : 'transparent',
-                      color: footerSubmitHovered ? '#0A0A0A' : '#B8956A',
-                      textTransform: 'uppercase',
-                      transition: 'all 0.3s ease',
-                      cursor: 'none',
-                      outline: 'none',
-                    }}
-                  >
-                    Submit Project →
-                  </button>
-
-                  <button
-                    onClick={handleWhatsAppSubmit}
-                    onMouseEnter={() => {
-                      setCursor('link');
-                      setFooterWhatsappHovered(true);
-                    }}
-                    onMouseLeave={() => {
-                      resetCursor();
-                      setFooterWhatsappHovered(false);
-                    }}
-                    style={{
-                      fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '10px',
-                      letterSpacing: '0.15em',
-                      padding: '16px 36px',
-                      border: '1px solid #B8956A',
-                      backgroundColor: footerWhatsappHovered ? '#B8956A' : 'transparent',
-                      color: footerWhatsappHovered ? '#0A0A0A' : '#B8956A',
-                      textTransform: 'uppercase',
-                      transition: 'all 0.3s ease',
-                      cursor: 'none',
-                      outline: 'none',
-                    }}
-                  >
-                    WhatsApp ↗
-                  </button>
-                </div>
-
-              </div>
-            </section>
+                  className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
+                  style={{ background: '#B8956A' }}
+                />
+              </motion.a>
+            </motion.section>
 
           </div>
         ) : (
-          /* ================================================
-             SUCCESS STATE SCREEN
-             ================================================ */
+          /* ══════════════════════════════════════════════
+              SUCCESS STATE
+              ══════════════════════════════════════════════ */
           <motion.section
             key="success-screen"
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             style={{
               height: '100vh',
               display: 'flex',
@@ -925,7 +748,7 @@ Sent via DEEPCIPHER intake terminal.`;
                   backgroundColor: '#0A0A0A',
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8956A" strokeWidth="1.5">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8956A" strokeWidth="1.5" aria-hidden="true">
                   <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </motion.div>
@@ -934,17 +757,15 @@ Sent via DEEPCIPHER intake terminal.`;
             <h1
               style={{
                 fontFamily: 'var(--font-display), serif',
-                fontWeight: 300,
-                fontStyle: 'italic',
                 fontSize: 'clamp(40px, 6vw, 72px)',
                 color: '#F5F0E8',
                 lineHeight: 1.1,
-                letterSpacing: '-0.02em',
                 margin: 0,
                 marginBottom: '16px',
               }}
             >
-              Transmission received.
+              <span className="upright font-medium">Transmission </span>
+              <span className="italic font-normal text-[#B8956A]">received.</span>
             </h1>
 
             <p
@@ -952,7 +773,7 @@ Sent via DEEPCIPHER intake terminal.`;
                 fontFamily: 'var(--font-body), sans-serif',
                 fontSize: '15px',
                 fontWeight: 300,
-                color: '#9A9590',
+                color: '#BDB8B3',
                 maxWidth: '480px',
                 lineHeight: '1.85',
                 margin: '12px auto 32px',
@@ -975,7 +796,6 @@ Sent via DEEPCIPHER intake terminal.`;
                   textDecoration: 'none',
                   borderBottom: '1px solid #B8956A',
                   paddingBottom: '2px',
-                  cursor: 'none',
                 }}
               >
                 View our work →
@@ -991,7 +811,6 @@ Sent via DEEPCIPHER intake terminal.`;
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   textDecoration: 'none',
-                  cursor: 'none',
                 }}
               >
                 Back home
@@ -1000,16 +819,6 @@ Sent via DEEPCIPHER intake terminal.`;
           </motion.section>
         )}
       </AnimatePresence>
-
-      <style jsx global>{`
-        .protocol-input:focus {
-          border-bottom-color: #B8956A !important;
-        }
-        .hover-lift:hover {
-          border-color: #B8956A !important;
-          color: #F5F0E8 !important;
-        }
-      `}</style>
     </motion.main>
   );
 }

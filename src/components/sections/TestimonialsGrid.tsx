@@ -2,10 +2,9 @@
 
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useRef, useCallback, useState } from 'react';
-import SectionLabel from '../ui/SectionLabel';
 
 /* ========================================
-   Testimonials Data
+   Client Testimonials Data
    ======================================== */
 
 interface TestimonialData {
@@ -15,32 +14,39 @@ interface TestimonialData {
   company: string;
   metric: string;
   metricLabel: string;
+  initials: string;
 }
 
 const testimonials: TestimonialData[] = [
   {
-    quote: "They didn't just redesign our website — they rebuilt how clients perceive us before we even speak. Inquiries tripled in 90 days.",
-    name: 'A. Sharma',
-    role: 'Founder',
-    company: 'E-commerce Brand',
-    metric: '3×',
-    metricLabel: 'Inquiries',
+    quote:
+      "DEEPCIPHER didn't just build us a website — they built a digital experience that genuinely captures the luxury feel of our properties. The attention to detail in every animation and micro-interaction is unmatched. Our enquiries increased dramatically within the first month.",
+    name: 'Shingri Developers',
+    role: 'Real Estate Firm',
+    company: 'Hubli, India',
+    metric: '3x',
+    metricLabel: 'ENQUIRY GROWTH',
+    initials: 'SD',
   },
   {
-    quote: 'Our bounce rate dropped 42% within 30 days of launch. This is what happens when design meets strategy.',
-    name: 'R. Fontaine',
-    role: 'Creative Director',
-    company: 'Media Co.',
-    metric: '-42%',
-    metricLabel: 'Bounce Rate',
+    quote:
+      "Working with Deepak felt less like hiring a developer and more like gaining a creative partner. He understood the cultural significance of the project and translated it into a digital platform that the entire community takes pride in. The bilingual experience is seamless.",
+    name: 'Gadag Info Community',
+    role: '115K+ Follower Platform',
+    company: 'Karnataka, India',
+    metric: '115K+',
+    metricLabel: 'ACTIVE USERS',
+    initials: 'GI',
   },
   {
-    quote: 'Direct bookings increased 35% after the new website. The ROI was clear within the first month.',
-    name: 'S. Mehta',
-    role: 'CEO',
-    company: 'Hospitality Group',
-    metric: '+35%',
-    metricLabel: 'Bookings',
+    quote:
+      "The website Deepak crafted for our institution carries the same dignity and heritage that our campus represents. Parents, students, and faculty all praise how professional and elegant it feels. It truly set a new standard for educational institution websites in the region.",
+    name: 'Chikkatti Group of Institutions',
+    role: 'Educational Institution',
+    company: 'Gadag, India',
+    metric: '100%',
+    metricLabel: 'UPTIME ACHIEVED',
+    initials: 'CI',
   },
 ];
 
@@ -91,10 +97,10 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
         className="relative overflow-hidden flex flex-col justify-between"
         style={{
           padding: 'clamp(32px, 4vw, 48px)',
-          minHeight: '380px',
+          minHeight: '420px',
           background: isHovered
             ? 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(184,149,106,0.06) 50%, rgba(255,255,255,0.03) 100%)'
-            : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+            : 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
           border: '1px solid',
           borderColor: isHovered ? 'rgba(184,149,106,0.2)' : 'rgba(255,255,255,0.06)',
           backdropFilter: 'blur(16px)',
@@ -154,7 +160,7 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
                 fontFamily: 'var(--font-display), serif',
                 fontWeight: 300,
                 fontStyle: 'italic',
-                fontSize: '32px',
+                fontSize: '36px',
                 color: '#B8956A',
                 lineHeight: 1,
               }}
@@ -191,8 +197,8 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
               fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontStyle: 'italic',
-              fontSize: '16px',
-              color: 'rgba(255,255,255,0.65)',
+              fontSize: '15px',
+              color: 'rgba(255,255,255,0.6)',
               lineHeight: 1.85,
             }}
           >
@@ -211,44 +217,70 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
             }}
           />
           <div className="flex justify-between items-end">
+            <div className="flex items-center gap-4">
+              {/* Avatar initials */}
+              <div
+                className="flex items-center justify-center"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  border: '0.5px solid rgba(184,149,106,0.25)',
+                  backgroundColor: 'rgba(184,149,106,0.06)',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display), serif',
+                    fontSize: '14px',
+                    fontWeight: 300,
+                    fontStyle: 'italic',
+                    color: '#B8956A',
+                  }}
+                >
+                  {t.initials}
+                </span>
+              </div>
+              <div>
+                <span
+                  className="m-0"
+                  style={{
+                    fontFamily: 'var(--font-display), serif',
+                    fontWeight: 400,
+                    fontStyle: 'italic',
+                    fontSize: '17px',
+                    color: '#F5F0E8',
+                    display: 'block',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {t.name}
+                </span>
+                <span
+                  className="m-0"
+                  style={{
+                    fontFamily: 'var(--font-mono), monospace',
+                    fontSize: '9px',
+                    color: 'rgba(255,255,255,0.3)',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {t.role}
+                </span>
+              </div>
+            </div>
             <span
               className="m-0"
               style={{
-                fontFamily: 'var(--font-display), serif',
-                fontWeight: 400,
-                fontStyle: 'italic',
-                fontSize: '20px',
-                color: '#fff',
+                fontFamily: 'var(--font-mono), monospace',
+                fontSize: '9px',
+                color: '#B8956A',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
               }}
             >
-              {t.name}
+              {t.company}
             </span>
-            <div className="flex flex-col items-end" style={{ gap: '4px' }}>
-              <span
-                className="m-0"
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '9px',
-                  color: 'rgba(255,255,255,0.35)',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {t.role}
-              </span>
-              <span
-                className="m-0"
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '9px',
-                  color: '#B8956A',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {t.company}
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -257,7 +289,7 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
 }
 
 /* ========================================
-   Section — Testimonials
+   Section — Client Testimonials
    ======================================== */
 
 export default function TestimonialsGrid() {
@@ -302,8 +334,20 @@ export default function TestimonialsGrid() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 mb-16">
-        <SectionLabel className="text-[rgba(255,255,255,0.3)] mb-6">[ CLIENT RESULTS ]</SectionLabel>
+      <div className="relative z-10 mb-16" style={{ maxWidth: '1400px', margin: '0 auto 64px' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: '10px',
+            color: '#6B6560',
+            letterSpacing: '0.3em',
+            display: 'block',
+            marginBottom: '24px',
+            textTransform: 'uppercase',
+          }}
+        >
+          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> CLIENT RESULTS
+        </span>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <motion.h2
@@ -316,12 +360,13 @@ export default function TestimonialsGrid() {
               fontFamily: 'var(--font-display), serif',
               fontWeight: 300,
               fontStyle: 'italic',
-              fontSize: 'clamp(48px, 5.5vw, 88px)',
-              lineHeight: 0.9,
-              color: '#fff',
+              fontSize: 'clamp(40px, 5vw, 80px)',
+              lineHeight: 0.95,
+              color: '#F5F0E8',
             }}
           >
-            What clients<br />say about us
+            What Our<br />
+            <span style={{ color: '#B8956A' }}>Clients Say.</span>
           </motion.h2>
 
           <motion.span
@@ -334,11 +379,12 @@ export default function TestimonialsGrid() {
               fontSize: '14px',
               fontWeight: 300,
               color: 'rgba(255,255,255,0.3)',
-              maxWidth: '240px',
+              maxWidth: '280px',
               textAlign: 'right',
+              lineHeight: 1.6,
             }}
           >
-            Real impact. Real numbers. No vanity metrics.
+            Measured by impact, validated by trust. Every project speaks for itself.
           </motion.span>
         </div>
       </div>
@@ -346,7 +392,7 @@ export default function TestimonialsGrid() {
       {/* 3D Testimonial Cards */}
       <div
         className="relative z-10 grid grid-cols-1 md:grid-cols-3"
-        style={{ gap: 'clamp(12px, 2vw, 20px)' }}
+        style={{ gap: 'clamp(12px, 2vw, 20px)', maxWidth: '1400px', margin: '0 auto' }}
       >
         {testimonials.map((t, i) => (
           <TestimonialCard key={i} t={t} index={i} />

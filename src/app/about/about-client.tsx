@@ -6,6 +6,8 @@ import { useCursor } from '@/components/ui/CursorProvider';
 import Noise from '@/components/ui/Noise';
 import Link from 'next/link';
 import Image from 'next/image';
+import GradientBars from '@/components/ui/gradient-bars-background';
+import AnimatedText from '@/components/ui/AnimatedText';
 
 /* ==========================================================
    ABOUT PAGE — Completely Redesigned
@@ -47,18 +49,7 @@ function FounderVisual() {
       <rect x="220" y="140" width="360" height="460"
             fill="none" stroke="#B8956A"
             strokeWidth="0.5" opacity="0.1"/>
-      <text x="400" y="390" fontFamily="Cormorant Garamond, serif"
-            fontSize="72" fontStyle="italic" fontWeight="300"
-            fill="#B8956A" opacity="0.12" textAnchor="middle">DP</text>
-      <text x="400" y="440" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="3">DEEPAK PARAGI</text>
-      <text x="400" y="460" fontFamily="DM Mono, monospace"
-            fontSize="8" fill="#6B6560" textAnchor="middle"
-            letterSpacing="2">FOUNDER</text>
-      <text x="400" y="780" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">NMIT BENGALURU — 2025</text>
+
     </svg>
   );
 }
@@ -101,12 +92,7 @@ const timeline = [
     event: 'DEEPCIPHER Studio Founded',
     detail: "Identified the gap between traditional web development and high-end, agency-grade digital craft.",
   },
-  {
-    year: '2024',
-    category: 'COMMUNITY',
-    event: 'Open Source Portfolio Published',
-    detail: 'deepakparagi.github.io — documenting the full technical stack and design process publicly.',
-  },
+
   {
     year: '2025',
     category: 'AI / ML',
@@ -202,6 +188,8 @@ export default function AboutClient() {
           textAlign: 'center',
         }}
       >
+        <GradientBars numBars={11} animationDuration={3} />
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -211,28 +199,29 @@ export default function AboutClient() {
           {/* Label */}
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               color: '#6B6560',
               fontWeight: 300,
               textTransform: 'uppercase',
               marginBottom: '16px',
             }}
           >
-            [ WHO WE ARE ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> WHO WE ARE
           </span>
 
           {/* Title */}
-          <h1
+          <AnimatedText
+            splitBy="word"
+            as="h1"
             style={{
               fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(96px, 12vw, 160px)',
+              fontWeight: 500,
+              fontSize: 'clamp(60px, 9vw, 130px)',
               color: '#F5F0E8',
               letterSpacing: '-0.02em',
-              lineHeight: 1,
+              lineHeight: 0.9,
               margin: 0,
               marginBottom: '16px',
               textTransform: 'none',
@@ -240,7 +229,7 @@ export default function AboutClient() {
             }}
           >
             About
-          </h1>
+          </AnimatedText>
 
           {/* Subline */}
           <span
@@ -317,7 +306,7 @@ export default function AboutClient() {
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '80vh' }}>
           {/* LEFT COLUMN: Content */}
           <div
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left"
             style={{
               padding: 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px)',
             }}
@@ -325,33 +314,29 @@ export default function AboutClient() {
             {/* Label */}
             <span
               style={{
-                fontFamily: 'var(--font-mono), monospace',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontSize: '10px',
                 color: '#6B6560',
-                letterSpacing: '0.2em',
+                letterSpacing: '0.3em',
                 display: 'block',
                 marginBottom: '24px',
                 textTransform: 'uppercase',
               }}
             >
-              [ THE STUDIO ]
+              <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> THE STUDIO
             </span>
 
             {/* Title */}
             <h2
+              className="m-0 mb-8"
               style={{
-                fontFamily: 'var(--font-display), serif',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                fontSize: 'clamp(48px, 5vw, 64px)',
                 color: '#F5F0E8',
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                margin: 0,
-                marginBottom: '32px',
+                lineHeight: 0.95,
               }}
             >
-              Architecting Undeniable Authority.
+              <span className="upright block" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Architecting</span>
+              <span className="italic block mt-1" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Undeniable</span>
+              <span className="upright block mt-1" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Authority.</span>
             </h2>
 
             {/* Body Paragraphs */}
@@ -361,7 +346,7 @@ export default function AboutClient() {
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '15px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: 1.8,
                   maxWidth: '480px',
                   margin: 0,
@@ -374,7 +359,7 @@ export default function AboutClient() {
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '15px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: 1.8,
                   maxWidth: '480px',
                   margin: 0,
@@ -387,7 +372,7 @@ export default function AboutClient() {
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '15px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: 1.8,
                   maxWidth: '480px',
                   margin: 0,
@@ -399,13 +384,15 @@ export default function AboutClient() {
           </div>
 
           {/* RIGHT COLUMN: Visual */}
-          <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto" style={{ minHeight: '400px' }}>
+          <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto" style={{ minHeight: '300px' }}>
             <Image
-              src="/images/retro-terminal.jpg"
+              src="/images/retro-terminal.webp"
               alt="Retro Terminal"
               fill
               style={{ objectFit: 'cover', objectPosition: 'center' }}
               quality={100}
+              placeholder="blur"
+              blurDataURL="data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACQAQCdASoHAAoABUB8JQAAVVwYf0AA/tH2T7mb0f3k4yCe52YsQQsf5C9TOtJ5sIEvntg8AAA="
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
           </div>
@@ -413,149 +400,214 @@ export default function AboutClient() {
       </section>
 
       {/* ================================================
-         SECTION 3: FOUNDER
+         SECTION 3: THE FOUNDER
          ================================================ */}
       <section
         className="relative overflow-hidden"
         style={{
           borderTop: '0.5px solid rgba(245,240,232,0.06)',
-          minHeight: '80vh',
-          display: 'grid',
-          alignItems: 'center',
+          backgroundColor: '#0A0A0A',
         }}
       >
+        {/* Section Label */}
+        <div
+          style={{
+            padding: 'clamp(80px, 8vw, 120px) clamp(24px, 5vw, 64px)',
+            paddingBottom: '0',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontSize: '10px',
+              color: '#6B6560',
+              letterSpacing: '0.3em',
+              display: 'block',
+              marginBottom: '48px',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> THE FOUNDER
+          </span>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '80vh' }}>
-          {/* LEFT COLUMN: Content */}
+          {/* LEFT COLUMN: Founder Photo */}
+          <div className="relative overflow-hidden" style={{ minHeight: '500px' }}>
+            <Image
+              src="/founder.png"
+              alt="Deepak Paragi — Founder & Lead Engineer, DEEPCIPHER Studio"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'top center' }}
+              quality={100}
+            />
+            {/* Gradient overlays for editorial feel */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0A0A0A]/40 hidden lg:block" />
+            
+            {/* Name overlay on image */}
+            <div
+              className="absolute bottom-0 left-0 right-0 p-8 md:p-12"
+              style={{ zIndex: 2 }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '9px',
+                  color: '#B8956A',
+                  letterSpacing: '0.2em',
+                  display: 'block',
+                  marginBottom: '8px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                FOUNDER & LEAD ENGINEER
+              </span>
+              <h2
+                className="m-0"
+                style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontSize: 'clamp(36px, 4vw, 56px)',
+                  fontWeight: 300,
+                  fontStyle: 'italic',
+                  color: '#F5F0E8',
+                  lineHeight: 1,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Deepak Paragi
+              </h2>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: Bio & Details */}
           <div
-            className="flex flex-col justify-center lg:order-1"
+            className="flex flex-col justify-center"
             style={{
               padding: 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px)',
             }}
           >
-            {/* Label */}
-            <span
-              style={{
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '10px',
-                color: '#6B6560',
-                letterSpacing: '0.2em',
-                display: 'block',
-                marginBottom: '24px',
-                textTransform: 'uppercase',
-              }}
-            >
-              [ FOUNDER ]
-            </span>
+            {/* Role Title */}
+            <div style={{ marginBottom: '32px' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '9px',
+                  color: '#6B6560',
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  display: 'block',
+                  marginBottom: '8px',
+                }}
+              >
+                // SYSTEM ARCHITECT
+              </span>
+              <h3
+                className="m-0"
+                style={{
+                  fontSize: 'clamp(28px, 3vw, 40px)',
+                  color: '#F5F0E8',
+                  lineHeight: 1.05,
+                }}
+              >
+                <span className="upright block">AI &amp; Full Stack</span>
+                <span className="italic block mt-1" style={{ color: '#B8956A' }}>Developer</span>
+              </h3>
+            </div>
 
-            {/* Name */}
-            <h2
-              style={{
-                fontFamily: 'var(--font-display), serif',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                fontSize: 'clamp(40px, 4.5vw, 60px)',
-                color: '#B8956A',
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                margin: 0,
-                marginBottom: '8px',
-              }}
-            >
-              Deepak Paragi.
-            </h2>
-
-            {/* Role */}
-            <span
-              style={{
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '10px',
-                color: '#6B6560',
-                letterSpacing: '0.15em',
-                display: 'block',
-                marginBottom: '32px',
-                textTransform: 'uppercase',
-              }}
-            >
-              FOUNDER & CREATIVE DIRECTOR
-            </span>
-
-            {/* Body */}
-            <div className="flex flex-col gap-6">
+            {/* Bio */}
+            <div className="flex flex-col gap-5" style={{ marginBottom: '40px' }}>
               <p
                 style={{
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '15px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: 1.8,
-                  maxWidth: '480px',
+                  maxWidth: '500px',
                   margin: 0,
                 }}
               >
-                A final-year AI & ML engineering student at NMIT Bengaluru, and the founder of DEEPCIPHER. Deepak combines a rigorous technical background in machine learning and full-stack development with an obsessive eye for cinematic, editorial design.
+                Deepak operates at the precise intersection of <span style={{ color: '#F5F0E8' }}>Artificial Intelligence</span> and <span style={{ color: '#F5F0E8' }}>Production-Grade Engineering</span>. He doesn&apos;t just build models — he architects the ecosystems that allow them to live, breathe, and act autonomously.
               </p>
               <p
                 style={{
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '15px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: 1.8,
-                  maxWidth: '480px',
+                  maxWidth: '500px',
                   margin: 0,
                 }}
               >
-                Deepak founded DEEPCIPHER after identifying a clear gap in the market — the absence of agency-grade web design for ambitious local and international businesses. Every project is personally overseen from strategy through to launch.
+                His engineering philosophy is rooted in materiality and precision — whether orchestrating complex RAG pipelines, designing agentic workflows with zero-latency execution, or crafting motion-driven interfaces that prioritize kinetic feedback and editorial typographic scales.
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontSize: '14px',
+                  fontWeight: 300,
+                  color: '#6B6560',
+                  lineHeight: 1.7,
+                  maxWidth: '500px',
+                  margin: 0,
+                  fontStyle: 'italic',
+                }}
+              >
+                &ldquo;The next generation of digital experiences won&apos;t just be smart — they will be sentient-like, proactive, and perfectly integrated into our physical reality.&rdquo;
               </p>
             </div>
 
-            {/* Tech Stack Grid — Clean 5 columns on desktop, 2 columns on mobile */}
+            {/* Specialization Cards */}
             <div
-              className="grid grid-cols-2 sm:grid-cols-5"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-px"
               style={{
-                gap: '24px 20px',
-                marginTop: '40px',
-                borderTop: '0.5px solid rgba(245,240,232,0.06)',
-                paddingTop: '32px',
+                backgroundColor: 'rgba(245,240,232,0.06)',
               }}
             >
-              {techStack.map((tech) => (
-                <div key={tech} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { title: 'Agentic Workflows', desc: 'Autonomous LLM behaviors for complex, multi-step tasks' },
+                { title: 'Distributed Systems', desc: 'Resilient backends bridging AI inference & production stability' },
+                { title: 'Tactile Interfaces', desc: 'Motion-driven frontends with kinetic feedback & editorial scales' },
+              ].map((spec) => (
+                <div
+                  key={spec.title}
+                  style={{
+                    backgroundColor: '#0A0A0A',
+                    padding: '24px 20px',
+                  }}
+                >
                   <span
                     style={{
                       fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '9px',
-                      color: '#9A9590',
-                      letterSpacing: '0.12em',
+                      fontSize: '10px',
+                      color: '#B8956A',
+                      letterSpacing: '0.1em',
                       textTransform: 'uppercase',
+                      display: 'block',
+                      marginBottom: '8px',
                     }}
                   >
-                    {tech}
+                    {spec.title}
                   </span>
-                  {/* Underline */}
-                  <div style={{ width: '20px', height: '1px', background: '#B8956A' }} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontSize: '12px',
+                      fontWeight: 300,
+                      color: '#6B6560',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {spec.desc}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* RIGHT COLUMN: Visual */}
-          <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:order-2" style={{ minHeight: '400px' }}>
-            <Image
-              src="/images/Deepak.jpg"
-              alt="Deepak Paragi"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              quality={100}
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
-          </div>
         </div>
       </section>
-
-      {/* ================================================
-         SECTION 4: THREE PRINCIPLES
-         ================================================ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -567,27 +619,24 @@ export default function AboutClient() {
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
               color: '#6B6560',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               display: 'block',
               marginBottom: '48px',
               textTransform: 'uppercase',
             }}
           >
-            [ HOW WE THINK ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> HOW WE THINK
           </span>
 
           <h2
+            className="m-0 upright"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(40px, 4.5vw, 56px)',
+              fontSize: 'clamp(40px, 5vw, 80px)',
               color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              margin: 0,
+              lineHeight: 0.95,
             }}
           >
             Operational Principles.
@@ -628,19 +677,37 @@ export default function AboutClient() {
               </span>
 
               {/* Title */}
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontWeight: 300,
-                  fontStyle: 'italic',
-                  fontSize: '28px',
-                  color: '#F5F0E8',
-                  margin: 0,
-                  marginBottom: '16px',
-                }}
-              >
-                {pr.title}
-              </h3>
+              {(() => {
+                const title = pr.title;
+                let first = "";
+                let second = "";
+                let isFirstItalic = false;
+                if (title === "Business Over Decoration") {
+                  first = "Business Over";
+                  second = "Decoration";
+                } else if (title === "Intentional Pixels") {
+                  first = "Intentional";
+                  second = "Pixels";
+                  isFirstItalic = true;
+                } else if (title === "Craft Obsession") {
+                  first = "Craft";
+                  second = "Obsession";
+                }
+                
+                return (
+                  <h3
+                    className="m-0 mb-4"
+                    style={{
+                      fontSize: '28px',
+                      color: '#F5F0E8',
+                      lineHeight: 1.05,
+                    }}
+                  >
+                    <span className={isFirstItalic ? "italic text-[#B8956A] block" : "upright block"}>{first}</span>
+                    <span className={isFirstItalic ? "upright block mt-1" : "italic text-[#B8956A] block mt-1"}>{second}</span>
+                  </h3>
+                );
+              })()}
 
               {/* Body */}
               <p
@@ -648,7 +715,7 @@ export default function AboutClient() {
                   fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '13px',
                   fontWeight: 300,
-                  color: '#9A9590',
+                  color: '#BDB8B3',
                   lineHeight: '1.7',
                   margin: 0,
                 }}
@@ -674,27 +741,24 @@ export default function AboutClient() {
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
               color: '#6B6560',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               display: 'block',
               marginBottom: '48px',
               textTransform: 'uppercase',
             }}
           >
-            [ STUDIO HISTORY ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> STUDIO HISTORY
           </span>
 
           <h2
+            className="m-0 upright"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(40px, 4.5vw, 56px)',
+              fontSize: 'clamp(40px, 5vw, 80px)',
               color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              margin: 0,
+              lineHeight: 0.95,
               marginBottom: '64px',
             }}
           >
@@ -762,7 +826,7 @@ export default function AboutClient() {
                       fontFamily: 'var(--font-body), sans-serif',
                       fontSize: '13px',
                       fontWeight: 300,
-                      color: '#9A9590',
+                      color: '#BDB8B3',
                       margin: 0,
                       lineHeight: '1.6',
                     }}
@@ -790,27 +854,24 @@ export default function AboutClient() {
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <span
             style={{
-              fontFamily: 'var(--font-mono), monospace',
+              fontFamily: 'var(--font-body), sans-serif',
               fontSize: '10px',
               color: '#6B6560',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.3em',
               display: 'block',
               marginBottom: '48px',
               textTransform: 'uppercase',
             }}
           >
-            [ WHAT WE USE ]
+            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> WHAT WE USE
           </span>
 
           <h2
+            className="m-0 upright"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(40px, 4.5vw, 56px)',
+              fontSize: 'clamp(40px, 5vw, 80px)',
               color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              margin: 0,
+              lineHeight: 0.95,
               marginBottom: '64px',
             }}
           >
@@ -857,7 +918,7 @@ export default function AboutClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '13px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#BDB8B3',
                         lineHeight: '2.0',
                         display: 'block',
                       }}
@@ -886,28 +947,24 @@ export default function AboutClient() {
       >
         <span
           style={{
-            fontFamily: 'var(--font-mono), monospace',
+            fontFamily: 'var(--font-body), sans-serif',
             fontSize: '10px',
             color: '#6B6560',
-            letterSpacing: '0.2em',
+            letterSpacing: '0.3em',
             display: 'block',
             marginBottom: '24px',
             textTransform: 'uppercase',
           }}
         >
-          [ START HERE ]
+          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> START HERE
         </span>
 
         <h2
+          className="m-0 upright text-center"
           style={{
-            fontFamily: 'var(--font-display), serif',
-            fontWeight: 300,
-            fontStyle: 'italic',
-            fontSize: 'clamp(56px, 7vw, 96px)',
+            fontSize: 'clamp(40px, 5vw, 80px)',
             color: '#F5F0E8',
-            lineHeight: 1,
-            letterSpacing: '-0.03em',
-            margin: 0,
+            lineHeight: 0.95,
           }}
         >
           Work with us.

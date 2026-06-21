@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import SectionLabel from '../ui/SectionLabel';
+import AnimatedText from '../ui/AnimatedText';
 
 /* ========================================
    Process Phase Data
@@ -474,12 +475,10 @@ export default function ProcessTeaser() {
               [ HOW WE WORK ]
             </SectionLabel>
 
-            <motion.h2
+            <AnimatedText
+              splitBy="word"
+              as="h2"
               className="m-0"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: 'var(--font-display), serif',
                 fontWeight: 300,
@@ -490,11 +489,22 @@ export default function ProcessTeaser() {
               }}
             >
               Four phases.
-              <br />
-              <span style={{ color: 'rgba(255,255,255,0.3)' }}>
-                Zero guesswork.
-              </span>
-            </motion.h2>
+            </AnimatedText>
+            <AnimatedText
+              splitBy="word"
+              as="h2"
+              className="m-0"
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontWeight: 300,
+                fontStyle: 'italic',
+                fontSize: 'clamp(48px, 5.5vw, 88px)',
+                lineHeight: 0.9,
+                color: 'rgba(255,255,255,0.3)',
+              }}
+            >
+              Zero guesswork.
+            </AnimatedText>
           </div>
 
           <motion.p

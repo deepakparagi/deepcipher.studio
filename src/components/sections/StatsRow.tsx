@@ -35,33 +35,25 @@ function useCountUp(target: number, duration: number, animate: boolean): number 
    Stats Data
    ======================================== */
 
-interface StatData {
-  val: number;
-  label: string;
-  suffix: string;
-  description: string;
-}
-
-const stats: StatData[] = [
-  { val: 20, label: 'WEBSITES LAUNCHED', suffix: '+', description: 'Custom builds shipped' },
-  { val: 10, label: 'PROJECTS PER YEAR', suffix: '', description: 'Maximum capacity' },
-  { val: 24, label: 'RESPONSE TIME', suffix: 'hr', description: 'Average turnaround' },
-  { val: 95, label: 'PERFORMANCE SCORE', suffix: '+', description: 'Lighthouse target' },
+const stats = [
+  { label: 'SELECTED WORK', description: 'A curated showcase of precision digital architecture.' },
+  { label: 'INDEPENDENT STUDIO', description: 'Operating with extreme focus and zero bureaucratic overhead.' },
+  { label: 'MODERN TECHNOLOGIES', description: 'Engineered entirely on Next.js, React, and WebGL.' },
+  { label: 'PERFORMANCE FIRST', description: 'Focused entirely on uncompromising speed and seamless user experience.' },
 ];
 
 /* ========================================
-   Stat Card — Glassmorphism with 3D tilt
+   Credibility Card — Glassmorphism with 3D tilt
    ======================================== */
 
-function StatCard({ stat, index, animate }: { stat: StatData; index: number; animate: boolean }) {
+function StatCard({ stat, index, animate }: { stat: typeof stats[0]; index: number; animate: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const count = useCountUp(stat.val, 1.8, animate);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -132,37 +124,24 @@ function StatCard({ stat, index, animate }: { stat: StatData; index: number; ani
           }}
         />
 
-        {/* Number */}
-        <div className="relative z-10">
+        {/* Statement Title */}
+        <div className="relative z-10 pt-[24px]">
           <span
             style={{
               fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(56px, 7vw, 88px)',
-              lineHeight: 1,
-              color: '#fff',
+              fontWeight: 400,
+              fontSize: 'clamp(28px, 3.5vw, 40px)',
+              lineHeight: 1.1,
+              color: '#F5F0E8',
               display: 'block',
-            }}
-          >
-            {count}{stat.suffix}
-          </span>
-        </div>
-
-        {/* Label + description */}
-        <div className="relative z-10" style={{ marginTop: '24px' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '9px',
-              color: '#B8956A',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              display: 'block',
+              letterSpacing: '-0.01em'
             }}
           >
             {stat.label}
           </span>
+        </div>
+
+
           <span
             style={{
               fontFamily: 'var(--font-body), sans-serif',
@@ -175,7 +154,6 @@ function StatCard({ stat, index, animate }: { stat: StatData; index: number; ani
           >
             {stat.description}
           </span>
-        </div>
 
         {/* Bottom accent line */}
         <motion.div
@@ -294,7 +272,7 @@ export default function StatsRow() {
               color: '#fff',
             }}
           >
-            Results that<br />speak louder
+            The Studio<br />Standard
           </motion.h2>
         </div>
 
@@ -312,7 +290,7 @@ export default function StatsRow() {
             textAlign: 'right',
           }}
         >
-          Every number represents a business we helped transform.
+          Building bespoke digital architectures without compromise.
         </motion.span>
       </div>
 

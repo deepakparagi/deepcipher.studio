@@ -6,6 +6,9 @@ import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } 
 import * as THREE from 'three';
 import Link from 'next/link';
 import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
+import { ShaderGradientCanvas, ShaderGradient } from 'shadergradient';
+
+const ShaderGradientComponent = ShaderGradient as any;
 
 /* ========================================
    Three.js Particle Canvas (5000 Particles)
@@ -112,103 +115,7 @@ function ParticleField() {
   );
 }
 
-function DeepcipherCore() {
-  const coreRef = useRef<THREE.Mesh>(null);
-  const wireframeRef = useRef<THREE.Mesh>(null);
-  const ring1Ref = useRef<THREE.Mesh>(null);
-  const ring2Ref = useRef<THREE.Mesh>(null);
-  const ring3Ref = useRef<THREE.Points>(null);
-  const lightOrbitRef = useRef<THREE.Group>(null);
 
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-    if (coreRef.current) {
-      // Prioritize X rotation for the "upside" feel
-      coreRef.current.rotation.x = time * 0.4; 
-      coreRef.current.rotation.y = time * 0.15;
-      coreRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
-    }
-    if (wireframeRef.current) {
-      wireframeRef.current.rotation.x = -time * 0.12;
-      wireframeRef.current.rotation.y = -time * 0.08;
-      const scale = 1.0 + Math.sin(time * 1.5) * 0.02;
-      wireframeRef.current.scale.setScalar(scale);
-    }
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.x = 1.2 + Math.sin(time * 0.3) * 0.2;
-      ring1Ref.current.rotation.y = time * 0.4; // Speed up
-    }
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.y = 0.8 + Math.cos(time * 0.2) * 0.2;
-      ring2Ref.current.rotation.x = time * 0.3; // Speed up
-    }
-    if (ring3Ref.current) {
-      ring3Ref.current.rotation.x = time * 0.05;
-      ring3Ref.current.rotation.y = -time * 0.2;
-    }
-    if (lightOrbitRef.current) {
-      lightOrbitRef.current.rotation.y = time * 0.8;
-      lightOrbitRef.current.rotation.x = time * 0.5;
-    }
-  });
-
-  return (
-    <group>
-      {/* Dynamic orbiting light to catch specularity */}
-      <group ref={lightOrbitRef}>
-        <pointLight position={[1.5, 0, 0]} intensity={4} color="#D4A853" distance={4} />
-        <pointLight position={[-1.5, 0, 0]} intensity={2} color="#ffffff" distance={4} />
-      </group>
-
-      {/* Solid inner geometric crystal */}
-      <mesh ref={coreRef}>
-        <icosahedronGeometry args={[0.85, 1]} />
-        <meshPhysicalMaterial 
-          color="#050505" 
-          metalness={1.0} 
-          roughness={0.15} 
-          clearcoat={1.0}
-          clearcoatRoughness={0.1}
-          flatShading={true}
-        />
-      </mesh>
-
-      {/* Outer pulsing wireframe web */}
-      <mesh ref={wireframeRef}>
-        <icosahedronGeometry args={[1.05, 2]} />
-        <meshBasicMaterial 
-          color="#D4A853" 
-          wireframe={true} 
-          transparent 
-          opacity={0.08} 
-        />
-      </mesh>
-
-      {/* Interlocking gyroscope rings */}
-      <mesh ref={ring1Ref}>
-        <torusGeometry args={[1.4, 0.002, 16, 120]} />
-        <meshBasicMaterial color="#D4A853" transparent opacity={0.5} />
-      </mesh>
-
-      <mesh ref={ring2Ref}>
-        <torusGeometry args={[1.65, 0.001, 16, 100]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
-      </mesh>
-
-      {/* Outer floating particle ring */}
-      <points ref={ring3Ref}>
-        <torusGeometry args={[1.9, 0.05, 16, 80]} />
-        <pointsMaterial color="#D4A853" size={0.012} transparent opacity={0.4} />
-      </points>
-
-      {/* Volumetric core glow */}
-      <mesh scale={2.4}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial color="#D4A853" transparent opacity={0.015} side={THREE.BackSide} />
-      </mesh>
-    </group>
-  );
-}
 
 
 
@@ -327,150 +234,68 @@ export default function Hero() {
     >
       {/* ── Background WebGL ── */}
       <div className="absolute inset-0 z-0">
-        {mounted && (
-          <Canvas
-            camera={{ position: [0, 0, 18], fov: 45 }}
-            gl={{ antialias: false, alpha: false }}
-            dpr={[1, 1.5]}
-          >
-            <fog attach="fog" args={['#0A0A0A', 10, 25]} />
-            <ParticleField />
-            
-            <EffectComposer multisampling={0}>
-              <Bloom 
-                intensity={1.5} 
-                luminanceThreshold={0.2} 
-                luminanceSmoothing={0.9} 
-                height={300} 
-              />
-              <Noise opacity={0.03} />
-              <Vignette eskil={false} offset={0.1} darkness={1.1} />
-            </EffectComposer>
-          </Canvas>
-        )}
+        <ShaderGradientCanvas
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+          }}
+        >
+          <ShaderGradientComponent
+            animate="on"
+            axesHelper="off"
+            bgColor1="#000000"
+            bgColor2="#000000"
+            brightness={1.2}
+            cAzimuthAngle={170}
+            cDistance={4.4}
+            cPolarAngle={70}
+            cameraZoom={1}
+            color1="#000000"
+            color2="#df8321"
+            color3="#ffffff"
+            destination="onCanvas"
+            embedMode="off"
+            envPreset="city"
+            format="gif"
+            fov={45}
+            frameRate={10}
+            gizmoHelper="hide"
+            grain="off"
+            lightType="3d"
+            pixelDensity={1}
+            positionX={0}
+            positionY={0.9}
+            positionZ={-0.3}
+            range="disabled"
+            rangeEnd={40}
+            rangeStart={0}
+            reflection={0.1}
+            rotationX={45}
+            rotationY={0}
+            rotationZ={0}
+            shader="defaults"
+            type="waterPlane"
+            uAmplitude={0}
+            uDensity={1.2}
+            uFrequency={0}
+            uSpeed={0.2}
+            uStrength={3.4}
+            uTime={0}
+            wireframe={false}
+          />
+        </ShaderGradientCanvas>
       </div>
 
       {/* ── Mouse glow ── */}
       <div className="hero-mouse-glow" />
 
-      {/* ── Decorative hairlines ── */}
-      <div className="hero-hairline hero-hairline--left" />
-      <div className="hero-hairline hero-hairline--right" />
 
-      {/* ── 3D Planet DC Badge — right center ── */}
-      <motion.div 
-        className="hidden lg:flex absolute pointer-events-none flex-col items-center"
-        style={{ 
-          right: 'clamp(48px, 5vw, 80px)', 
-          top: '28%', 
-          y: scrollYOffset,
-          rotateX: scrollRotateX,
-          transformStyle: 'preserve-3d',
-          opacity: 0.6,
-          zIndex: 0
-        }}
-        initial={{ opacity: 0, scale: 0.7, y: '50%', rotateX: 60 }}
-        animate={{ 
-          opacity: 1, 
-          scale: 1, 
-          y: 0, // This is combined with scrollYOffset via framer-motion props
-          rotateX: 0,
-        }}
-        transition={{ 
-          duration: 2.2, 
-          delay: LOADER_DELAY + 0.3, 
-          ease: [0.16, 1, 0.3, 1] 
-        }}
-      >
-        {/* 3D Planet container */}
-        <div
-          className="relative"
-          style={{ width: '192px', height: '192px', pointerEvents: 'none' }}
-        >
-          {/* Three.js Planet Canvas */}
-          {mounted && (
-            <Canvas
-              camera={{ position: [0, 0, 3.2], fov: 45 }}
-              gl={{ antialias: true, alpha: true }}
-              dpr={[1, 2]}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '240px',
-                height: '240px',
-                pointerEvents: 'none'
-              }}
-            >
-              <ambientLight intensity={0.15} />
-              <directionalLight position={[3, 2, 4]} intensity={0.8} color="#FFFFFF" />
-              <directionalLight position={[-2, -1, -2]} intensity={0.3} color="#B8956A" />
-              <pointLight position={[0, 0, 3]} intensity={0.4} color="#B8956A" />
-              <DeepcipherCore />
-            </Canvas>
-          )}
- 
-          {/* DC text overlay — positioned strictly centered */}
-          <div
-            className="absolute flex flex-col items-center justify-center z-10 w-full h-full"
-            style={{ 
-              pointerEvents: 'none', 
-              top: 0, 
-              left: 0, 
-              marginTop: '-4px' // Counter-balance the EST text below 
-            }}
-          >
-            <motion.span
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: LOADER_DELAY + 0.8, duration: 1.2 }}
-              style={{
-                fontFamily: 'var(--dm-sans), sans-serif',
-                fontWeight: 200,
-                fontStyle: 'normal',
-                fontSize: '38px',
-                color: '#ffffff',
-                lineHeight: 1,
-                letterSpacing: '-0.04em',
-                marginRight: '-0.04em', // Fixes optical shifting from letter-spacing
-                textShadow: '0 4px 24px rgba(184,149,106,0.3), 0 0 40px rgba(0,0,0,0.6)',
-              }}
-            >
-              DC
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: LOADER_DELAY + 1.2, duration: 0.8 }}
-              style={{
-                fontFamily: 'var(--dm-mono), monospace',
-                fontSize: '8px',
-                color: 'rgba(184,149,106,0.8)',
-                letterSpacing: '0.4em',
-                marginRight: '-0.4em', // Fix optical shift
-                marginTop: '8px',
-                textTransform: 'uppercase',
-              }}
-            >
-              EST. 2024
-            </motion.span>
-          </div>
- 
-          {/* Atmospheric outer glow */}
-          <div
-            className="absolute w-full h-full"
-            style={{
-              top: 0,
-              left: 0,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(184,149,106,0.06) 0%, rgba(184,149,106,0.02) 40%, transparent 70%)',
-              pointerEvents: 'none',
-              transform: 'scale(1.2)',
-            }}
-          />
-        </div>
-      </motion.div>
+
+
 
       {/* ── Scroll indicator — bottom right ── */}
       <div
@@ -521,17 +346,17 @@ export default function Hero() {
 
       {/* ── Main content — flex flex-col justify-end ── */}
       <div
-        className="relative z-10 w-full flex-1 flex flex-col justify-end"
+        className="relative z-10 w-full flex-1 flex flex-col justify-center items-center text-center"
         style={{
-          paddingTop: 'clamp(120px, 15vh, 160px)',
-          paddingBottom: 'clamp(48px, 6vw, 80px)',
+          paddingTop: 'clamp(80px, 10vh, 120px)',
+          paddingBottom: 'clamp(32px, 4vw, 60px)',
           paddingLeft: 'clamp(24px, 6vw, 80px)',
           paddingRight: 'clamp(24px, 6vw, 80px)',
         }}
       >
         {/* Headline */}
         <h1
-          className="m-0"
+          className="m-0 text-center"
           style={{
             fontFamily: "var(--font-display), 'Cormorant Garamond', serif",
             fontWeight: 300,
@@ -540,12 +365,13 @@ export default function Hero() {
             lineHeight: 0.84,
             letterSpacing: '-0.02em',
             color: '#fff',
+            width: '100%',
           }}
         >
           {/* Line 1 — WHERE VISION */}
           <span className="block overflow-hidden">
             <motion.span
-              className="block"
+              className="block text-center"
               initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
               animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
               transition={{ ...SPRING_CONFIG, delay: LOADER_DELAY }}
@@ -554,10 +380,10 @@ export default function Hero() {
             </motion.span>
           </span>
 
-          {/* Line 2 — MEETS (gold + indented) */}
-          <span className="block overflow-hidden" style={{ marginLeft: 'clamp(48px, 6vw, 120px)' }}>
+          {/* Line 2 — MEETS (gold) */}
+          <span className="block overflow-hidden">
             <motion.span
-              className="block"
+              className="block text-center"
               style={{ color: '#B8956A' }}
               initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
               animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
@@ -570,7 +396,7 @@ export default function Hero() {
           {/* Line 3 — EXECUTION. (gold period) */}
           <span className="block overflow-hidden">
             <motion.span
-              className="block"
+              className="block text-center"
               initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
               animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
               transition={{ ...SPRING_CONFIG, delay: LOADER_DELAY + 0.4 }}
@@ -580,12 +406,12 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Subtext (Margin adjusted to exactly 48px to replace the 1px rule) */}
+        {/* Subtext */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: LOADER_DELAY + 0.8 }}
-          className="m-0"
+          className="m-0 text-center"
           style={{
             fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
@@ -594,6 +420,8 @@ export default function Hero() {
             maxWidth: '520px',
             lineHeight: 1.85,
             marginTop: '48px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
           }}
         >
           Most businesses have the vision. Few have the digital presence to match it.
@@ -603,7 +431,7 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          className="flex items-center"
+          className="flex items-center justify-center"
           style={{ gap: '24px', marginTop: '36px' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -619,9 +447,9 @@ export default function Hero() {
               fontSize: '11px',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              backgroundColor: btnHover ? '#B8956A' : 'transparent',
-              color: btnHover ? '#0A0A0A' : '#B8956A',
-              border: '1px solid #B8956A',
+              backgroundColor: btnHover ? '#F5F0E8' : 'transparent',
+              color: btnHover ? '#0A0A0A' : '#F5F0E8',
+              border: '1px solid rgba(245, 240, 232, 0.2)',
               padding: '16px 32px',
               textDecoration: 'none',
               cursor: 'pointer',
@@ -650,13 +478,13 @@ export default function Hero() {
 
         {/* Stats row */}
         <div
-          className="grid grid-cols-2 md:flex md:flex-wrap items-center select-none gap-y-8 gap-x-6 md:gap-0"
+          className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center select-none gap-y-8 gap-x-6 md:gap-0"
           style={{ marginTop: '48px' }}
         >
           {HERO_STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="flex flex-col md:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
+              className="flex flex-col items-center text-center md:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
               style={{ 
                 gap: '8px',
                 padding: '0 clamp(16px, 2.5vw, 40px)',

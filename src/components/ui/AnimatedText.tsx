@@ -17,6 +17,7 @@ interface AnimatedTextProps {
   delay?: number;
   once?: boolean;
   amount?: number;
+  style?: React.CSSProperties;
 }
 
 const staggerMap = {
@@ -33,6 +34,7 @@ export default function AnimatedText({
   delay = 0,
   once = true,
   amount = 0.2,
+  style,
 }: AnimatedTextProps) {
   const MotionTag = motion.create(Tag as string) as React.ComponentType<HTMLMotionProps<'div'>>;
 
@@ -50,7 +52,7 @@ export default function AnimatedText({
                 y: '0%',
                         transition: {
                           duration: 0.8,
-                          ease: ease.out,
+                          ease: ease.out as any,
                         },
               },
             }}
@@ -81,7 +83,7 @@ export default function AnimatedText({
                         y: '0%',
                         transition: {
                           duration: 0.8,
-                          ease: ease.out,
+                          ease: ease.out as any,
                         },
                       },
                     }}
@@ -108,7 +110,7 @@ export default function AnimatedText({
                           y: '0%',
                           transition: {
                             duration: 0.8,
-                            ease: ease.out,
+                            ease: ease.out as any,
                           },
                         },
                       }}
@@ -128,6 +130,7 @@ export default function AnimatedText({
   return (
     <MotionTag
       className={className}
+      style={style}
       initial="hidden"
       whileInView="visible"
       viewport={{ once, amount }}

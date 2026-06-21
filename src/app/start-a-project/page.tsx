@@ -1,11 +1,9 @@
-import type { Metadata } from 'next';
-import StartProjectClient from './start-project-client';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Start a Project — DEEPCIPHER',
-  description: 'Tell us about your project and we will send a proposal within 48 hours.',
-};
+/* ========================================
+   Start a Project — Redirects to /contact
+   ======================================== */
 
 export default function StartProjectPage() {
-  return <StartProjectClient />;
+  redirect('/contact');
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
+import { memo, useCallback, useState, type ReactNode } from 'react';
 
 /* ========================================
    AccordionItem — FAQ section component
@@ -13,12 +13,13 @@ interface AccordionItemProps {
   defaultOpen?: boolean;
 }
 
-export default function AccordionItem({
+function AccordionItem({
   question,
   children,
   defaultOpen = false,
 }: AccordionItemProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const toggleOpen = useCallback(() => setIsOpen((value) => !value), []);
 
   return (
     <div
@@ -27,7 +28,7 @@ export default function AccordionItem({
         padding: '20px 0',
         cursor: 'pointer',
       }}
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={toggleOpen}
     >
       <div
         style={{
@@ -65,11 +66,11 @@ export default function AccordionItem({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 24 }}
-            style={{ overflow: 'hidden' }}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            style={{ overflow: 'hidden', willChange: 'transform, opacity' }}
           >
             <div
               style={{
@@ -91,3 +92,5 @@ export default function AccordionItem({
     </div>
   );
 }
+
+export default memo(AccordionItem);

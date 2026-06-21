@@ -1,0 +1,12 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" fill="#0A0A0A"/>
+  <rect x="72" y="72" width="1056" height="606" stroke="#B8956A" stroke-opacity=".32"/>
+  <path d="M72 210H1128" stroke="#F5F0E8" stroke-opacity=".08"/>
+  <path d="M260 72V678" stroke="#F5F0E8" stroke-opacity=".08"/>
+  <text x="108" y="136" fill="#B8956A" font-family="Inter, Arial, sans-serif" font-size="18" letter-spacing="10">PORTFOLIO</text>
+  <text x="315" y="340" fill="#F5F0E8" font-family="Cormorant Garamond, Times New Roman, serif" font-size="92" font-style="italic" font-weight="300">Deepak Paragi</text>
+  <text x="318" y="398" fill="#8A8A8A" font-family="Inter, Arial, sans-serif" font-size="22" letter-spacing="5">AI / ML ENGINEER · CREATIVE DEVELOPER</text>
+  <circle cx="932" cy="338" r="88" stroke="#B8956A" stroke-opacity=".45"/>
+  <circle cx="932" cy="338" r="18" fill="#B8956A"/>
+  <text x="108" y="610" fill="#F5F0E8" fill-opacity=".52" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="4">PERSONAL BRAND SYSTEM</text>
+</svg>

@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import Link from 'next/link';
 import { useCursor } from './CursorProvider';
 
 /* ========================================
@@ -145,10 +146,18 @@ export default function MagneticButton({
   );
 
   if (href) {
+    const isExternal = href.startsWith('http') || href.startsWith('mailto:');
+    if (isExternal) {
+      return (
+        <a href={href} style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer">
+          {content}
+        </a>
+      );
+    }
     return (
-      <a href={href} style={{ textDecoration: 'none' }}>
+      <Link href={href} style={{ textDecoration: 'none' }}>
         {content}
-      </a>
+      </Link>
     );
   }
 

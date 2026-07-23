@@ -173,11 +173,7 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div className="w-full h-full flex items-center justify-between mx-auto relative" style={{
-            maxWidth: '1640px',
-            paddingLeft: 'var(--navbar-pad-x)',
-            paddingRight: 'var(--navbar-pad-x)',
-          }}>
+          <div className="w-full h-full flex items-center justify-between mx-auto relative px-0 md:px-8">
             {/* Logo */}
             <Link
               href="/"

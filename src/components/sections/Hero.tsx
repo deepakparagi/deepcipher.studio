@@ -227,7 +227,7 @@ export default function Hero() {
     <section
       className="relative w-full flex flex-col overflow-hidden"
       style={{
-        minHeight: '100svh',
+        minHeight: 'calc(100svh - 72px)',
         backgroundColor: '#0A0A0A',
         perspective: '1200px', // Enable section-level 3D depth
       }}
@@ -248,15 +248,15 @@ export default function Hero() {
             animate="on"
             axesHelper="off"
             bgColor1="#000000"
-            bgColor2="#000000"
-            brightness={1.2}
+            bgColor2="#050505"
+            brightness={1.1}
             cAzimuthAngle={170}
             cDistance={4.4}
             cPolarAngle={70}
             cameraZoom={1}
-            color1="#000000"
-            color2="#df8321"
-            color3="#ffffff"
+            color1="#0a0a0a"
+            color2="#8a8a8a"
+            color3="#e8e8e8"
             destination="onCanvas"
             embedMode="off"
             envPreset="city"
@@ -289,6 +289,14 @@ export default function Hero() {
           />
         </ShaderGradientCanvas>
       </div>
+
+      {/* ── Dark scrim so text stays readable over bright gradient areas ── */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%)',
+        }}
+      />
 
       {/* ── Mouse glow ── */}
       <div className="hero-mouse-glow" />
@@ -509,7 +517,7 @@ export default function Hero() {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '9px',
-                  color: '#6B6560',
+                  color: '#B8956A',
                   letterSpacing: '0.2em',
                   textTransform: 'uppercase',
                 }}

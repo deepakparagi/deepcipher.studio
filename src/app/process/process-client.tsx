@@ -13,120 +13,296 @@ import Image from 'next/image';
    PROCESS PAGE — Completely Redesigned
    ========================================================== */
 
-/* ── Inline SVG: Phase 01 — Discover ── */
+/* ==========================================================
+   MINIMAL ARTISTIC PROCESS VISUALS (Phase 01 - 04)
+   Precision vector geometry, subtle gold accents, 120Hz smooth
+   ========================================================== */
+
+/* ── Phase 01: Discover — Optical Aperture & Coordinate Lens ── */
 function DiscoverVisual() {
   return (
-    <svg viewBox="0 0 800 900" width="100%" height="100%"
-         preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <rect width="800" height="900" fill="#0A0A0A"/>
-      <circle cx="400" cy="420" r="280" fill="none"
-              stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
-      <circle cx="400" cy="420" r="180" fill="none"
-              stroke="#B8956A" strokeWidth="0.5" opacity="0.15"/>
-      <circle cx="400" cy="420" r="80" fill="none"
-              stroke="#B8956A" strokeWidth="0.5" opacity="0.1"/>
-      <circle cx="400" cy="420" r="6"
-              fill="#B8956A" opacity="0.8"/>
-      <line x1="400" y1="140" x2="400" y2="700"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.1"/>
-      <line x1="120" y1="420" x2="680" y2="420"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.1"/>
-      <text x="400" y="780" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">DISCOVERY PHASE</text>
-    </svg>
+    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+      {/* Subtle radial background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.06) 0%, transparent 65%)',
+        }}
+      />
+      {/* Grid cross lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+      <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
+        {/* Outer Orbit Ring with dashed styling */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+          className="absolute inset-4 rounded-full border border-dashed border-[#B8956A]/20"
+        />
+
+        {/* Secondary Precision Ring */}
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          className="absolute inset-14 rounded-full border border-[#B8956A]/30"
+          style={{
+            borderTopColor: '#B8956A',
+            borderRightColor: 'transparent',
+          }}
+        />
+
+        {/* Inner Coordinate Ring */}
+        <div className="absolute inset-28 rounded-full border border-white/10 flex items-center justify-center">
+          <div className="w-full h-px bg-white/[0.06] absolute" />
+          <div className="h-full w-px bg-white/[0.06] absolute" />
+        </div>
+
+        {/* Center Golden Core */}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center bg-[#B8956A]/10 border border-[#B8956A]/60 shadow-[0_0_30px_rgba(184,149,106,0.3)]"
+        >
+          <div className="w-2.5 h-2.5 rounded-full bg-[#F5F0E8]" />
+        </motion.div>
+
+        {/* Minimal Corner Labels */}
+        <div className="absolute top-2 left-2 font-mono text-[9px] text-[#B8956A]/50 tracking-[0.25em]">
+          SYS // 01.DISCOVERY
+        </div>
+        <div className="absolute top-2 right-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
+          INTAKE PROTOCOL
+        </div>
+        <div className="absolute bottom-2 left-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
+          SCOPE: AUDIENCE &amp; MARKET
+        </div>
+        <div className="absolute bottom-2 right-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
+          STATUS: ALIGNED
+        </div>
+      </div>
+    </div>
   );
 }
 
-/* ── Inline SVG: Phase 02 — Strategise ── */
+/* ── Phase 02: Strategise — Architectural Blueprint & Logic Node ── */
 function StrategiseVisual() {
   return (
-    <svg viewBox="0 0 800 900" width="100%" height="100%"
-         preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <rect width="800" height="900" fill="#0A0A0A"/>
-      <line x1="160" y1="200" x2="640" y2="200"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.3"/>
-      <line x1="160" y1="300" x2="640" y2="300"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.25"/>
-      <line x1="160" y1="400" x2="640" y2="400"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
-      <line x1="160" y1="500" x2="640" y2="500"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.15"/>
-      <line x1="160" y1="600" x2="640" y2="600"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.1"/>
-      <rect x="160" y="240" width="120" height="120"
-            fill="none" stroke="#B8956A" strokeWidth="0.5"
-            opacity="0.4"/>
-      <rect x="340" y="320" width="160" height="100"
-            fill="none" stroke="#B8956A" strokeWidth="0.5"
-            opacity="0.3"/>
-      <rect x="240" y="440" width="200" height="80"
-            fill="none" stroke="#B8956A" strokeWidth="0.5"
-            opacity="0.25"/>
-      <line x1="220" y1="300" x2="340" y2="370"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
-      <line x1="500" y1="370" x2="440" y2="440"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
-      <text x="400" y="780" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">STRATEGY PHASE</text>
-    </svg>
+    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 50%, rgba(184,149,106,0.05) 0%, transparent 70%)',
+        }}
+      />
+      {/* Blueprint Grid lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(184,149,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(184,149,106,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+      <div className="relative w-full max-w-[420px] h-[320px] flex flex-col justify-between">
+        {/* Header telemetry */}
+        <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
+          <span className="font-mono text-[9px] tracking-[0.25em] text-[#B8956A]">
+            ARCHITECTURAL_MATRIX // 02
+          </span>
+          <span className="font-mono text-[9px] tracking-[0.2em] text-white/40">
+            SITEMAP_HIERARCHY
+          </span>
+        </div>
+
+        {/* Blueprint Layout Schema */}
+        <div className="relative flex-1 my-4 flex items-center justify-center">
+          {/* Main Frame Box */}
+          <div className="w-full h-full border border-white/10 relative p-4 flex flex-col justify-between">
+            {/* Top Node Row */}
+            <div className="flex justify-between items-center">
+              <div className="px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[9px] text-[#F5F0E8] tracking-widest">
+                [ 01_HERO_EXP ]
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#B8956A]/40 via-white/10 to-[#B8956A]/40 mx-3" />
+              <div className="px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[9px] text-white/60 tracking-widest">
+                [ 02_STORY_FLOW ]
+              </div>
+            </div>
+
+            {/* Central Conversion Core Node */}
+            <div className="relative flex items-center justify-center my-2">
+              <div className="absolute inset-x-0 h-px bg-white/[0.06]" />
+              <motion.div
+                animate={{ borderColor: ['rgba(184,149,106,0.3)', 'rgba(184,149,106,0.8)', 'rgba(184,149,106,0.3)'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative z-10 px-5 py-2.5 bg-[#0D0D0D] border border-[#B8956A]/60 flex items-center gap-2.5 shadow-[0_0_20px_rgba(184,149,106,0.15)]"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#B8956A] animate-pulse" />
+                <span className="font-mono text-[10px] text-[#F5F0E8] tracking-[0.2em]">
+                  CONVERSION_ENGINE
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Bottom Node Row */}
+            <div className="flex justify-between items-center">
+              <div className="px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[9px] text-white/60 tracking-widest">
+                [ 03_PROOF_METRICS ]
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-[#B8956A]/40 to-white/10 mx-3" />
+              <div className="px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[9px] text-[#F5F0E8] tracking-widest">
+                [ 04_TRANSMISSION ]
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer telemetry */}
+        <div className="flex justify-between items-center border-t border-white/[0.06] pt-3">
+          <span className="font-mono text-[9px] tracking-[0.2em] text-white/30">
+            PAGE_DEPTH: 5_TIERS
+          </span>
+          <span className="font-mono text-[9px] tracking-[0.2em] text-[#B8956A]/70">
+            UX_LOGIC: OPTIMAL
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
 
-/* ── Inline SVG: Phase 03 — Design ── */
+/* ── Phase 03: Design — Golden Ratio & Haute Typography Geometry ── */
 function DesignVisual() {
   return (
-    <svg viewBox="0 0 800 900" width="100%" height="100%"
-         preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <rect width="800" height="900" fill="#0A0A0A"/>
-      <polygon points="400,160 600,400 400,640 200,400"
-               fill="none" stroke="#B8956A"
-               strokeWidth="0.5" opacity="0.3"/>
-      <polygon points="400,220 560,400 400,580 240,400"
-               fill="none" stroke="#B8956A"
-               strokeWidth="0.5" opacity="0.2"/>
-      <polygon points="400,280 520,400 400,520 280,400"
-               fill="none" stroke="#B8956A"
-               strokeWidth="0.5" opacity="0.15"/>
-      <circle cx="400" cy="400" r="8"
-              fill="#B8956A" opacity="0.6"/>
-      <circle cx="400" cy="400" r="40"
-              fill="none" stroke="#B8956A"
-              strokeWidth="0.5" opacity="0.15"/>
-      <text x="400" y="780" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">DESIGN PHASE</text>
-    </svg>
+    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.07) 0%, transparent 60%)',
+        }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+      <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
+        {/* Nested Golden Diamonds */}
+        <motion.div
+          animate={{ rotate: [0, 90, 180, 270, 360] }}
+          transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
+          className="absolute inset-4 border border-white/[0.08] transform rotate-45"
+        />
+
+        <motion.div
+          animate={{ rotate: [360, 270, 180, 90, 0] }}
+          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+          className="absolute inset-16 border border-[#B8956A]/30 transform rotate-12"
+        />
+
+        <div className="absolute inset-28 border border-[#B8956A]/50 transform rotate-45 flex items-center justify-center bg-[#B8956A]/[0.02]">
+          {/* Inner golden jewel / typography accent */}
+          <div className="transform -rotate-45 text-center flex flex-col items-center gap-1">
+            <span
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontSize: '32px',
+                fontStyle: 'italic',
+                color: '#F5F0E8',
+                lineHeight: 1,
+              }}
+            >
+              Φ
+            </span>
+            <span className="font-mono text-[8px] text-[#B8956A] tracking-[0.3em]">
+              1.618_RATIO
+            </span>
+          </div>
+        </div>
+
+        {/* Minimal Corner Accents */}
+        <div className="absolute top-2 left-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
+          FIDELITY: ULTRA_HIGH
+        </div>
+        <div className="absolute top-2 right-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
+          DESKTOP + MOBILE
+        </div>
+        <div className="absolute bottom-2 left-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
+          BESPOKE_INTERACTIONS
+        </div>
+        <div className="absolute bottom-2 right-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
+          2_REVISION_LOOPS
+        </div>
+      </div>
+    </div>
   );
 }
 
-/* ── Inline SVG: Phase 04 — Build & Launch ── */
+/* ── Phase 04: Build & Launch — Monolithic Velocity & Precision Telemetry ── */
 function BuildVisual() {
   return (
-    <svg viewBox="0 0 800 900" width="100%" height="100%"
-         preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <rect width="800" height="900" fill="#0A0A0A"/>
-      <text x="400" y="400" fontFamily="Cormorant Garamond, serif"
-            fontSize="200" fontStyle="italic" fontWeight="300"
-            fill="#B8956A" opacity="0.08" textAnchor="middle">95</text>
-      <text x="400" y="460" fontFamily="DM Mono, monospace"
-            fontSize="10" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">LIGHTHOUSE SCORE</text>
-      <line x1="200" y1="520" x2="600" y2="520"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.2"/>
-      <line x1="200" y1="555" x2="520" y2="555"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.15"/>
-      <line x1="200" y1="590" x2="560" y2="590"
-            stroke="#B8956A" strokeWidth="0.5" opacity="0.1"/>
-      <text x="400" y="780" fontFamily="DM Mono, monospace"
-            fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">BUILD & LAUNCH PHASE</text>
-    </svg>
+    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.08) 0%, transparent 65%)',
+        }}
+      />
+      {/* Telemetry vertical scanlines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_8px]" />
+
+      <div className="relative w-full max-w-[420px] flex flex-col justify-between h-[320px]">
+        {/* Top bar */}
+        <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#4BB543] shadow-[0_0_8px_#4BB543]" />
+            <span className="font-mono text-[9px] tracking-[0.2em] text-[#F5F0E8]">
+              RUNTIME // PRODUCTION_READY
+            </span>
+          </div>
+          <span className="font-mono text-[9px] tracking-[0.2em] text-[#B8956A]">
+            120HZ_CERTIFIED
+          </span>
+        </div>
+
+        {/* Center Metric Display */}
+        <div className="my-auto flex flex-col items-center justify-center py-4">
+          <div className="relative flex items-baseline justify-center gap-2">
+            <span
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontSize: '84px',
+                fontWeight: 300,
+                fontStyle: 'italic',
+                color: '#F5F0E8',
+                lineHeight: 1,
+              }}
+            >
+              99
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-display), serif',
+                fontSize: '32px',
+                color: '#B8956A',
+              }}
+            >
+              /100
+            </span>
+          </div>
+          <span className="font-mono text-[10px] text-[#B8956A] tracking-[0.3em] uppercase mt-1">
+            LIGHTHOUSE_PERFORMANCE_INDEX
+          </span>
+        </div>
+
+        {/* Telemetry Grid */}
+        <div className="grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-3">
+          <div className="flex flex-col border-r border-white/[0.06] pr-2">
+            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">LATENCY</span>
+            <span className="font-mono text-[11px] text-[#F5F0E8] font-medium">&lt; 15ms</span>
+          </div>
+          <div className="flex flex-col border-r border-white/[0.06] px-2">
+            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">FRAME_PACING</span>
+            <span className="font-mono text-[11px] text-[#B8956A] font-medium">120 FPS</span>
+          </div>
+          <div className="flex flex-col pl-2">
+            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">SEO_INDEX</span>
+            <span className="font-mono text-[11px] text-[#F5F0E8] font-medium">100 / 100</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -379,49 +555,15 @@ export default function ProcessClient() {
                 >
                   {/* ── VISUAL COLUMN ── */}
                   <div
-                    className={`relative overflow-hidden ${isOdd ? 'lg:order-1' : 'lg:order-2'}`}
-                    style={{ minHeight: '400px' }}
+                    className={`relative overflow-hidden flex items-center justify-center ${isOdd ? 'lg:order-1' : 'lg:order-2'}`}
+                    style={{ minHeight: '440px' }}
                   >
-                    <div className="absolute inset-0">
-                      {phase.id === 1 && (
-                        <Image
-                          src="/images/process-discover.webp"
-                          alt="Discover Phase"
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                          priority={true}
-                        />
-                      )}
-                      {phase.id === 2 && (
-                        <Image
-                          src="/images/process-strategise.webp"
-                          alt="Strategise Phase"
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        />
-                      )}
-                      {phase.id === 3 && (
-                        <Image
-                          src="/images/process-design.webp"
-                          alt="Design Phase"
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        />
-                      )}
-                      {phase.id === 4 && (
-                        <Image
-                          src="/images/process-build.webp"
-                          alt="Build & Launch Phase"
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        />
-                      )}
+                    <div className="w-full h-full">
+                      {phase.id === 1 && <DiscoverVisual />}
+                      {phase.id === 2 && <StrategiseVisual />}
+                      {phase.id === 3 && <DesignVisual />}
+                      {phase.id === 4 && <BuildVisual />}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
                   </div>
 
                   {/* ── TEXT COLUMN ── */}

@@ -64,9 +64,8 @@ function RouteLoader({ show }: { show: boolean }) {
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [loading, setLoading] = useState(true);
-  const [routeLoading, setRouteLoading] = useState(false);
-  const previousPathRef = useRef(pathname);
+  const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pageOffset = useMemo(
     () =>
       pathname === '/' ||
@@ -80,48 +79,52 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     [pathname]
   );
 
+  useEffect(() => {
+    setMounted(true);
+    try {
+      if (!sessionStorage.getItem('dc_visited')) {
+        setLoading(true);
+      }
+    } catch {
+      setLoading(false);
+    }
+  }, []);
+
   // Protect against GC layout leakage from pinned timelines
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.getAll().forEach((t) => t.kill());
     const refreshTimer = window.setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
+    }, 50);
     return () => window.clearTimeout(refreshTimer);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (previousPathRef.current === pathname) return;
-    previousPathRef.current = pathname;
-    setRouteLoading(true);
-    const timer = window.setTimeout(() => setRouteLoading(false), 520);
-    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   return (
     <CursorProvider>
       <LenisProvider>
-        <AnimatePresence>
-          {loading && <LoadingScreen onFinished={() => setLoading(false)} />}
-        </AnimatePresence>
-        <RouteLoader show={!loading && routeLoading} />
+        {mounted && loading && (
+          <AnimatePresence>
+            <LoadingScreen onFinished={() => setLoading(false)} />
+          </AnimatePresence>
+        )}
         
         <CustomCursor />
         <GrainOverlay />
         <Navbar />
-        {/* Page Transitions (Safe Mode - No AnimatePresence) */}
+        {/* Page Transitions (Optimized for 120Hz) */}
         <motion.div
           key={pathname}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           style={{ 
             paddingTop: pageOffset,
             minHeight: '100svh',
             display: 'flex',
             flexDirection: 'column',
             transform: 'translate3d(0,0,0)',
-            willChange: 'transform, opacity',
+            willChange: 'opacity',
           }}
           className="page-wrapper flex-grow"
         >

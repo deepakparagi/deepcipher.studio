@@ -90,11 +90,15 @@ export default function ContactClient() {
         }),
       });
 
-      if (!response.ok) throw new Error('Network response was not ok');
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Network response was not ok');
+      }
       setSubmitted(true);
-    } catch (error) {
-      console.error('Submission failed', error);
-      alert('Something went wrong. Please try again or email us directly.');
+    } catch (error: any) {
+      console.error('Submission failed:', error);
+      alert(error?.message || 'Something went wrong. Please try again or email us directly.');
     } finally {
       setIsSubmitting(false);
     }

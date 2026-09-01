@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
    Cinematic Premium Loading Screen
    ======================================== */
 
-// Total duration of the cinematic loader
-const TOTAL_DURATION = 4000;
+// Total duration of the cinematic loader (fast ~1.1s reveal)
+const TOTAL_DURATION = 1100;
 
 const milestones = [
   'DISCOVER',
@@ -22,25 +22,33 @@ export default function LoadingScreen({ onFinished }: { onFinished: () => void }
   const [activeMilestone, setActiveMilestone] = useState(0);
 
   const finish = useCallback(() => {
+    try {
+      sessionStorage.setItem('dc_visited', 'true');
+    } catch {}
     setPhase(4);
-    // Unmount safely after the exit transition completes
-    setTimeout(onFinished, 1200);
+    setTimeout(onFinished, 400);
   }, [onFinished]);
 
   useEffect(() => {
-    // Phase sequence timeline
-    const p1 = setTimeout(() => setPhase(1), 400);   // Start drawing diamond
-    const p2 = setTimeout(() => setPhase(2), 1200);  // Diamond drawing, milestones cycling
-    const p3 = setTimeout(() => setPhase(3), 3200);  // Final glow + text
-    const p4 = setTimeout(finish, TOTAL_DURATION);   // Launch sequence
+    try {
+      if (sessionStorage.getItem('dc_visited') === 'true') {
+        onFinished();
+        return;
+      }
+    } catch {}
 
-    // Milestone ticker during Phase 1 & 2
+    // Rapid phase sequence timeline
+    const p1 = setTimeout(() => setPhase(1), 150);
+    const p2 = setTimeout(() => setPhase(2), 400);
+    const p3 = setTimeout(() => setPhase(3), 800);
+    const p4 = setTimeout(finish, TOTAL_DURATION);
+
     const ticker = setInterval(() => {
       setActiveMilestone(prev => {
         if (prev < milestones.length - 1) return prev + 1;
         return prev;
       });
-    }, (2000) / milestones.length);
+    }, 180);
 
     return () => {
       clearTimeout(p1);
@@ -49,7 +57,7 @@ export default function LoadingScreen({ onFinished }: { onFinished: () => void }
       clearTimeout(p4);
       clearInterval(ticker);
     };
-  }, [finish]);
+  }, [finish, onFinished]);
 
   return (
     <AnimatePresence>

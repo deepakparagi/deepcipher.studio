@@ -95,9 +95,18 @@ export default function ShaderLines() {
     const mesh = new THREE.Mesh(geometry, material)
     scene.add(mesh)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(window.devicePixelRatio)
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      alpha: true,
+      powerPreference: 'high-performance',
+      stencil: false,
+      depth: false,
+    })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
     container.appendChild(renderer.domElement)
+
+    let isVisible = true
+    let animationId: number | null = null
 
     sceneRef.current = {
       camera,
@@ -108,6 +117,7 @@ export default function ShaderLines() {
     }
 
     const onWindowResize = () => {
+      if (!container) return
       const rect = container.getBoundingClientRect()
       renderer.setSize(rect.width, rect.height)
       uniforms.resolution.value.x = renderer.domElement.width
@@ -115,18 +125,35 @@ export default function ShaderLines() {
     }
 
     onWindowResize()
-    window.addEventListener("resize", onWindowResize, false)
+    window.addEventListener("resize", onWindowResize, { passive: true })
 
-    const animate = () => {
-      sceneRef.current.animationId = requestAnimationFrame(animate)
-      uniforms.time.value += 0.05
+    const renderFrame = () => {
+      if (!isVisible) return
+      animationId = requestAnimationFrame(renderFrame)
+      uniforms.time.value += 0.03
       renderer.render(scene, camera)
     }
 
-    animate()
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting
+        if (isVisible) {
+          if (animationId === null) {
+            animationId = requestAnimationFrame(renderFrame)
+          }
+        } else if (animationId !== null) {
+          cancelAnimationFrame(animationId)
+          animationId = null
+        }
+      },
+      { threshold: 0.05 }
+    )
+
+    observer.observe(container)
 
     return () => {
-      if (sceneRef.current.animationId) cancelAnimationFrame(sceneRef.current.animationId)
+      observer.disconnect()
+      if (animationId !== null) cancelAnimationFrame(animationId)
       window.removeEventListener("resize", onWindowResize)
       if (container && renderer.domElement) container.removeChild(renderer.domElement)
       renderer.dispose()

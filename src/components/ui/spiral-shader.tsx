@@ -94,42 +94,65 @@ export function ShaderAnimation() {
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      alpha: true,
+      powerPreference: "high-performance",
+      stencil: false,
+      depth: false,
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     container.appendChild(renderer.domElement);
 
+    let isVisible = true;
+    let animationId: number | null = null;
+
     const onWindowResize = () => {
+      if (!container) return;
       const { clientWidth, clientHeight } = container;
       renderer.setSize(clientWidth, clientHeight);
       uniforms.resolution.value.x = renderer.domElement.width;
       uniforms.resolution.value.y = renderer.domElement.height;
     };
     onWindowResize();
-    window.addEventListener("resize", onWindowResize, false);
+    window.addEventListener("resize", onWindowResize, { passive: true });
 
-    const animate = () => {
-      const animationId = requestAnimationFrame(animate);
-      uniforms.time.value += 0.05;
+    const renderFrame = () => {
+      if (!isVisible) return;
+      animationId = requestAnimationFrame(renderFrame);
+      uniforms.time.value += 0.03;
       renderer.render(scene, camera);
-      if (sceneRef.current) {
-        sceneRef.current.animationId = animationId;
-      }
     };
 
-    sceneRef.current = { camera, scene, renderer, uniforms, animationId: 0 };
-    animate();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          if (animationId === null) {
+            animationId = requestAnimationFrame(renderFrame);
+          }
+        } else if (animationId !== null) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", onWindowResize);
-      if (sceneRef.current) {
-        cancelAnimationFrame(sceneRef.current.animationId);
-        if (container && sceneRef.current.renderer.domElement) {
-          container.removeChild(sceneRef.current.renderer.domElement);
-        }
-        sceneRef.current.renderer.dispose();
-        geometry.dispose();
-        material.dispose();
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
       }
+      if (container && renderer.domElement) {
+        container.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+      geometry.dispose();
+      material.dispose();
     };
   }, []);
 

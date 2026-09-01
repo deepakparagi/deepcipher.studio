@@ -14,64 +14,62 @@ interface LenisProviderProps {
 
 export default function LenisProvider({ children }: LenisProviderProps) {
   const lenisRef = useRef<InstanceType<typeof import('lenis').default> | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
-  }, []);
-
-  useEffect(() => {
-    let gsapRef: typeof import('gsap').default | null = null;
+    let lenisInstance: InstanceType<typeof import('lenis').default> | null = null;
+    let tickerCallback: ((time: number) => void) | null = null;
+    let gsapObj: any = null;
 
     const initLenis = async () => {
       try {
         const Lenis = (await import('lenis')).default;
         const gsapModule = await import('gsap');
         const gsap = gsapModule.default || gsapModule;
-        gsapRef = gsap as typeof import('gsap').default;
+        gsapObj = gsap;
         const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 
         gsap.registerPlugin(ScrollTrigger);
 
-        const lenisInstance = new Lenis({
-          duration: 1.4,
+        // 120Hz Optimized Lenis Configuration
+        lenisInstance = new Lenis({
+          duration: 0.9,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
-          wheelMultiplier: 0.9,
-          touchMultiplier: 2,
+          wheelMultiplier: 1.0,
+          touchMultiplier: 1.5,
+          syncTouch: false,
         });
 
         lenisRef.current = lenisInstance;
 
-        /* ── Critical: sync Lenis scroll events to ScrollTrigger ── */
+        // Sync with GSAP ScrollTrigger
         lenisInstance.on('scroll', ScrollTrigger.update);
+
+        tickerCallback = (time: number) => {
+          lenisInstance?.raf(time * 1000);
+        };
+
+        gsap.ticker.add(tickerCallback);
         gsap.ticker.lagSmoothing(0);
 
-        /* ── Delayed refresh to ensure correct measurements ── */
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 100);
+        ScrollTrigger.refresh();
       } catch (e) {
         console.warn('Lenis or GSAP failed to initialize:', e);
       }
     };
 
-    if (isMobile) return;
-
     initLenis();
 
     return () => {
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
+      if (gsapObj && tickerCallback) {
+        gsapObj.ticker.remove(tickerCallback);
+      }
+      if (lenisInstance) {
+        lenisInstance.destroy();
         lenisRef.current = null;
       }
     };
-  }, [isMobile]);
-
-  useAnimationFrame((time) => {
-    if (lenisRef.current) {
-      lenisRef.current.raf(time);
-    }
-  });
+  }, []);
 
   return <>{children}</>;
 }

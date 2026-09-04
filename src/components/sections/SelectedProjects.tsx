@@ -17,14 +17,14 @@ import { projects } from '@/lib/projects';
    - Mobile responsive
    ========================================================= */
 
-const FRACTAL_STYLES = [
-  { bg: 'linear-gradient(160deg, #0D1B2A 0%, #1B3A5C 25%, #2E6B9E 45%, #C4763A 65%, #E8A456 80%, #F2C87E 100%)', ray: 0.03 }, // 01 Shingri
-  { bg: 'linear-gradient(150deg, #1A0A2E 0%, #3D1A6E 30%, #7B3FA0 55%, #C4663A 75%, #E8954A 90%, #F5C878 100%)', ray: 0.04 }, // 02 Gadag
-  { bg: 'linear-gradient(165deg, #0A0A0A 0%, #1A1208 20%, #3D2E0A 40%, #8B6914 60%, #C4A028 78%, #E8C84A 92%, #F5E8A0 100%)', ray: 0.03 }, // 03 Deepcipher
-  { bg: 'linear-gradient(155deg, #050D1A 0%, #0A2040 25%, #0E3D7A 45%, #1560B8 62%, #2890D8 78%, #5AB8E8 90%, #A0D8F5 100%)', ray: 0.04 }, // 04 Hyrox
-  { bg: 'linear-gradient(158deg, #0A0F0A 0%, #0D2010 25%, #1A4020 45%, #2A7034 62%, #3A9E48 76%, #6AC878 88%, #A8E8B0 100%)', ray: 0.03 }, // 05 Sentiment
-  { bg: 'linear-gradient(162deg, #0D0A1A 0%, #1E1040 25%, #3D1A7A 45%, #6828B0 62%, #9040D0 76%, #C060E8 88%, #E0A0F8 100%)', ray: 0.04 }, // 06 Gridsystems
-];
+const PROJECT_COVERS: Record<string, string> = {
+  'shingri-developers': '/project-covers/shingri-developers.jpg',
+  'gadag-info': '/project-covers/gadag-info.jpg',
+  'deepak-portfolio': '/project-covers/deepak-portfolio.jpg',
+  'bipin-chikkatti-college': '/project-covers/bipin-college.jpg',
+  'khans-fitness': '/project-covers/khans-fitness.jpg',
+  'cinepulse-ai': '/project-covers/cinepulse-ai.jpg',
+};
 
 /* ── Card position styles ── */
 const CARD_STYLES = {
@@ -368,7 +368,7 @@ export default function SelectedProjects() {
           const position = getCardPosition(index, activeIndex, projects.length);
           const style = styles[position] || styles.hidden;
           const isActive = position === 'active';
-          const styleObj = FRACTAL_STYLES[index % FRACTAL_STYLES.length];
+          const coverImage = PROJECT_COVERS[project.slug] || project.image;
 
           return (
             <motion.div
@@ -402,17 +402,19 @@ export default function SelectedProjects() {
               }}
               onMouseLeave={resetCursor}
             >
-              {/* Fractal Gradient Background */}
-              <div
-                className="absolute inset-0"
-                style={{ background: styleObj.bg }}
+              {/* Image Cover */}
+              <img
+                src={coverImage}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{ zIndex: 0 }}
               />
 
-              {/* Vertical Rays */}
+              {/* Gradient Overlay for Text Readability */}
               <div 
-                className="absolute inset-0 pointer-events-none z-[1]"
+                className="absolute inset-0 z-[1] pointer-events-none"
                 style={{
-                  background: `repeating-linear-gradient(90deg, transparent 0px, transparent 32px, rgba(255,255,255,${styleObj.ray}) 32px, rgba(255,255,255,${styleObj.ray}) 34px)`
+                  background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.9) 100%)'
                 }}
               />
 

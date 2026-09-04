@@ -139,76 +139,6 @@ const LOADER_DELAY = 3.2;
 const SPRING_CONFIG = { type: 'spring' as const, stiffness: 80, damping: 16 };
 
 /* ========================================
-   Technical Mouse Crosshair
-   ======================================== */
-
-function MouseCrosshair() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  useMotionValueEvent(mouseX, "change", (latest) => {
-    setCoords(prev => ({ ...prev, x: Math.floor(latest) }));
-  });
-
-  useMotionValueEvent(mouseY, "change", (latest) => {
-    setCoords(prev => ({ ...prev, y: Math.floor(latest) }));
-  });
-
-  return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {/* Horizontal Line */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: mouseY,
-          height: '1px',
-          backgroundColor: 'rgba(184,149,106,0.1)',
-        }}
-      />
-      {/* Vertical Line */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: mouseX,
-          width: '1px',
-          backgroundColor: 'rgba(184,149,106,0.1)',
-        }}
-      />
-      {/* Coordinates label */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          left: mouseX,
-          top: mouseY,
-          x: 20,
-          y: 20,
-          fontFamily: 'var(--font-mono), monospace',
-          fontSize: '9px',
-          color: 'rgba(184,149,106,0.4)',
-          letterSpacing: '0.1em',
-        }}
-      >
-        [ {coords.x} : {coords.y} ]
-      </motion.div>
-    </div>
-  );
-}
-
-/* ========================================
    Section 1 — Hero Component
    ======================================== */
 
@@ -349,8 +279,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Technical Crosshairs ── */}
-      <MouseCrosshair />
 
       {/* ── Main content — flex flex-col justify-end ── */}
       <div

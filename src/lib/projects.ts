@@ -130,18 +130,19 @@ export const projects: Project[] = [
     category: 'CLIENT WORK',
     year: '2026',
     tags: ['Next.js 14', 'Tailwind CSS', 'GSAP'],
-    description: 'A premium, highly-performant Next.js editorial website for Gadag District.',
-    challenge: 'A massive community platform required a digital heritage hub dedicated to historical depiction.',
-    solution: 'Developed an archival storytelling engine using Next.js 14 and cinematic Framer Motion reveals.',
-    result: '115k+ Follower Digital Hub',
+    description: 'A dynamic digital hub built for Gadag\'s largest social media community, designed to elevate their brand and streamline partnerships.',
+    challenge: 'With over 120k Instagram followers, the client needed a centralized platform to showcase their content, highlight Gadag city\'s heritage, and manage brand promotions effectively.',
+    solution: 'Developed a premium, highly-performant website that serves as a digital portfolio and business inquiry portal, consolidating their social influence into a professional brand presence.',
+    result: 'Enhanced brand value and streamlined brand partnerships.',
     image: '/Project cards images/gadag_info.png',
     size: 'large',
     techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
-    pullQuote: 'Celebrating Gadag\'s rich cultural heritage through 2026-standard web design.',
+    pullQuote: 'Transforming local influence into a professional digital brand with over 120,000 followers.',
     liveUrl: 'https://gadag.vercel.app/',
     paragraphs: [
-      'A premium, highly-performant Next.js editorial website for Gadag District with high-end, 2026-standard web design.',
-      'Featuring custom cinematic animations, bilingual localization (English/Kannada), asymmetric grid layouts, sophisticated typography, and 4K visual assets celebrating Gadag\'s rich cultural heritage.'
+      'Gadag Info is the most followed community page in Gadag District, boasting an audience of over 120,000 on Instagram. They required a dedicated digital platform to transcend traditional social media boundaries and establish a robust online presence.',
+      'The website was architected to serve as a comprehensive content showcase and business portal. It highlights the rich culture of Gadag city while presenting the client\'s promotional portfolio to prospective brand partners.',
+      'By centralizing their content and providing a streamlined contact channel for business inquiries, the platform significantly enhances Gadag Info\'s reputation, unlocking new opportunities for brand collaborations and sustained growth.'
     ]
   },
   {

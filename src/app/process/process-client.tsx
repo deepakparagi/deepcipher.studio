@@ -21,7 +21,7 @@ import Image from 'next/image';
 /* ── Phase 01: Discover — Optical Aperture & Coordinate Lens ── */
 function DiscoverVisual() {
   return (
-    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
       {/* Subtle radial background glow */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -37,14 +37,14 @@ function DiscoverVisual() {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-4 rounded-full border border-dashed border-[#B8956A]/20"
+          className="absolute inset-[10%] rounded-full border border-dashed border-[#B8956A]/20"
         />
 
         {/* Secondary Precision Ring */}
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-14 rounded-full border border-[#B8956A]/30"
+          className="absolute inset-[25%] rounded-full border border-[#B8956A]/30"
           style={{
             borderTopColor: '#B8956A',
             borderRightColor: 'transparent',
@@ -52,7 +52,7 @@ function DiscoverVisual() {
         />
 
         {/* Inner Coordinate Ring */}
-        <div className="absolute inset-28 rounded-full border border-white/10 flex items-center justify-center">
+        <div className="absolute inset-[40%] rounded-full border border-white/10 flex items-center justify-center">
           <div className="w-full h-px bg-white/[0.06] absolute" />
           <div className="h-full w-px bg-white/[0.06] absolute" />
         </div>
@@ -87,7 +87,7 @@ function DiscoverVisual() {
 /* ── Phase 02: Strategise — Architectural Blueprint & Logic Node ── */
 function StrategiseVisual() {
   return (
-    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -97,7 +97,7 @@ function StrategiseVisual() {
       {/* Blueprint Grid lines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(184,149,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(184,149,106,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
-      <div className="relative w-full max-w-[420px] h-[320px] flex flex-col justify-between">
+      <div className="relative w-full max-w-[420px] min-h-[260px] md:h-[320px] flex flex-col justify-between">
         {/* Header telemetry */}
         <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
           <span className="font-mono text-[9px] tracking-[0.25em] text-[#B8956A]">
@@ -114,12 +114,12 @@ function StrategiseVisual() {
           <div className="w-full h-full border border-white/10 relative p-4 flex flex-col justify-between">
             {/* Top Node Row */}
             <div className="flex justify-between items-center">
-              <div className="px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[9px] text-[#F5F0E8] tracking-widest">
-                [ 01_HERO_EXP ]
+              <div className="px-1.5 md:px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-[#F5F0E8] tracking-widest whitespace-nowrap">
+                [ 01_HERO ]
               </div>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#B8956A]/40 via-white/10 to-[#B8956A]/40 mx-3" />
-              <div className="px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[9px] text-white/60 tracking-widest">
-                [ 02_STORY_FLOW ]
+              <div className="h-px flex-1 bg-gradient-to-r from-[#B8956A]/40 via-white/10 to-[#B8956A]/40 mx-2 md:mx-3" />
+              <div className="px-1.5 md:px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-white/60 tracking-widest whitespace-nowrap">
+                [ 02_STORY ]
               </div>
             </div>
 
@@ -140,12 +140,12 @@ function StrategiseVisual() {
 
             {/* Bottom Node Row */}
             <div className="flex justify-between items-center">
-              <div className="px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[9px] text-white/60 tracking-widest">
-                [ 03_PROOF_METRICS ]
+              <div className="px-1.5 md:px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-white/60 tracking-widest whitespace-nowrap">
+                [ 03_METRICS ]
               </div>
-              <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-[#B8956A]/40 to-white/10 mx-3" />
-              <div className="px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[9px] text-[#F5F0E8] tracking-widest">
-                [ 04_TRANSMISSION ]
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-[#B8956A]/40 to-white/10 mx-2 md:mx-3" />
+              <div className="px-1.5 md:px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-[#F5F0E8] tracking-widest whitespace-nowrap">
+                [ 04_TRANS ]
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ function StrategiseVisual() {
 /* ── Phase 03: Design — Golden Ratio & Haute Typography Geometry ── */
 function DesignVisual() {
   return (
-    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -182,16 +182,16 @@ function DesignVisual() {
         <motion.div
           animate={{ rotate: [0, 90, 180, 270, 360] }}
           transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-4 border border-white/[0.08] transform rotate-45"
+          className="absolute inset-[10%] border border-white/[0.08] transform rotate-45"
         />
 
         <motion.div
           animate={{ rotate: [360, 270, 180, 90, 0] }}
           transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-16 border border-[#B8956A]/30 transform rotate-12"
+          className="absolute inset-[25%] border border-[#B8956A]/30 transform rotate-12"
         />
 
-        <div className="absolute inset-28 border border-[#B8956A]/50 transform rotate-45 flex items-center justify-center bg-[#B8956A]/[0.02]">
+        <div className="absolute inset-[40%] border border-[#B8956A]/50 transform rotate-45 flex items-center justify-center bg-[#B8956A]/[0.02]">
           {/* Inner golden jewel / typography accent */}
           <div className="transform -rotate-45 text-center flex flex-col items-center gap-1">
             <span
@@ -232,7 +232,7 @@ function DesignVisual() {
 /* ── Phase 04: Build & Launch — Monolithic Velocity & Precision Telemetry ── */
 function BuildVisual() {
   return (
-    <div className="relative w-full h-full min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-8 border border-white/[0.04]">
+    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -242,7 +242,7 @@ function BuildVisual() {
       {/* Telemetry vertical scanlines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_8px]" />
 
-      <div className="relative w-full max-w-[420px] flex flex-col justify-between h-[320px]">
+      <div className="relative w-full max-w-[420px] flex flex-col justify-between min-h-[260px] md:h-[320px]">
         {/* Top bar */}
         <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
           <div className="flex items-center gap-2">
@@ -555,8 +555,7 @@ export default function ProcessClient() {
                 >
                   {/* ── VISUAL COLUMN ── */}
                   <div
-                    className={`relative overflow-hidden flex items-center justify-center ${isOdd ? 'lg:order-1' : 'lg:order-2'}`}
-                    style={{ minHeight: '440px' }}
+                    className={`relative overflow-hidden flex items-center justify-center min-h-[320px] lg:min-h-[440px] ${isOdd ? 'lg:order-1' : 'lg:order-2'}`}
                   >
                     <div className="w-full h-full">
                       {phase.id === 1 && <DiscoverVisual />}

@@ -9,7 +9,7 @@ const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false, l
 const SelectedProjects = dynamic(() => import('@/components/sections/SelectedProjects'), { loading: () => null });
 const TestimonialsGrid = dynamic(() => import('@/components/sections/TestimonialsGrid'), { loading: () => null });
 const ServicesV2 = dynamic(() => import('@/components/sections/ServicesV2'), { loading: () => null });
-const ProcessTeaser = dynamic(() => import('@/components/sections/ProcessTeaser'), { ssr: false, loading: () => null });
+
 const CTAv2 = dynamic(() => import('@/components/sections/CTAv2'), { ssr: false, loading: () => null });
 
 /* ========================================
@@ -108,9 +108,6 @@ export default function HomeClient() {
       </SectionErrorBoundary>
       <SectionErrorBoundary>
         <ServicesV2 />
-      </SectionErrorBoundary>
-      <SectionErrorBoundary>
-        <ProcessTeaser />
       </SectionErrorBoundary>
       <SectionErrorBoundary>
         <CTAv2 />

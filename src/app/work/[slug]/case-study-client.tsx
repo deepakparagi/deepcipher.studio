@@ -88,9 +88,9 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
   
   const bgGradient = getProjectBackground(project.slug);
   const stats = project.stats || [
-    { label: 'DEEPCIPHER AUDIT SCORE', value: '8.0/10' },
-    { label: 'PROJECT VALUE TIER', value: 'Standard' },
-    { label: 'POSITIONING', value: 'Production' },
+    { label: 'DELIVERY TIME', value: '4 Weeks' },
+    { label: 'CLIENT SATISFACTION', value: '100%' },
+    { label: 'PLATFORM', value: 'Web' },
   ];
   
   const paragraphs = project.paragraphs || [

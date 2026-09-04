@@ -30,13 +30,23 @@ const testimonials: TestimonialData[] = [
   },
   {
     quote:
-      "Working with Deepak felt less like hiring a developer and more like gaining a creative partner. He understood the cultural significance of the project and translated it into a digital platform that the entire community takes pride in. The bilingual experience is seamless.",
+      "We have over 120k followers on Instagram, but we needed a real digital home. DEEPCIPHER built us an incredible platform to showcase Gadag's heritage and our promotional content. It’s made it incredibly easy for brands to reach out for collaborations, massively boosting our reputation.",
     name: 'Gadag Info Community',
-    role: '115K+ Follower Platform',
-    company: 'Karnataka, India',
-    metric: '115K+',
-    metricLabel: 'ACTIVE USERS',
+    role: '120K+ Follower Platform',
+    company: 'Gadag, India',
+    metric: '120K+',
+    metricLabel: 'COMMUNITY FOLLOWERS',
     initials: 'GI',
+  },
+  {
+    quote:
+      "We wanted a digital presence that matched the premium, high-performance feel of our physical gym. DEEPCIPHER delivered a platform that is a true AI fitness hub. The sleek design and integrated AI tools have completely transformed how our clients train and interact with us online.",
+    name: "Khan's Fitness",
+    role: 'Premium Fitness Center',
+    company: 'Gadag-Betageri, India',
+    metric: '2.5x',
+    metricLabel: 'DIGITAL ENGAGEMENT',
+    initials: 'KF',
   },
   {
     quote:
@@ -391,7 +401,7 @@ export default function TestimonialsGrid() {
 
       {/* 3D Testimonial Cards */}
       <div
-        className="relative z-10 grid grid-cols-1 md:grid-cols-3"
+        className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
         style={{ gap: 'clamp(12px, 2vw, 20px)', maxWidth: '1400px', margin: '0 auto' }}
       >
         {testimonials.map((t, i) => (

@@ -267,17 +267,17 @@ export default function CTAv2() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         />
 
-        {/* Left: General Inquiries */}
+        {/* Left: Get in Touch */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left group cursor-pointer">
           <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
-            General Inquiries
+            Get in Touch
           </div>
           <a 
-            href="mailto:hello@deepcipher.studio"
+            href="mailto:deepcipherstudio@gmail.com"
             className="relative inline-block"
             style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '12px', color: '#F5F0E8', textDecoration: 'none', letterSpacing: '0.05em' }}
           >
-            hello@deepcipher.studio
+            deepcipherstudio@gmail.com
             {/* Elite underline hover effect */}
             <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#B8956A] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
           </a>

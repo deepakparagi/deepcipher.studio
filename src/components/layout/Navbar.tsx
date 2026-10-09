@@ -173,7 +173,7 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div className="w-full h-full flex items-center justify-between mx-auto relative px-6 md:px-[5vw] max-w-[1920px]">
+          <div className="w-full h-full flex items-center justify-between mx-auto relative px-8 md:px-16 lg:px-24 max-w-[1920px]">
             {/* Logo */}
             <Link
               href="/"

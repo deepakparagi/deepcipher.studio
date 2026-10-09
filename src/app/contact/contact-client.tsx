@@ -14,25 +14,6 @@ import AnimatedText from '@/components/ui/AnimatedText';
    Two-column: Contact Info (left) + Form (right)
    ========================================================= */
 
-const projectTypes = [
-  'Select a service...',
-  'Web Design & Development',
-  'Brand Identity & Logo Design',
-  'Brand Strategy & Consulting',
-  'SEO & Performance Optimisation',
-  'AI & Business Automation',
-  'Full Studio Package',
-];
-
-const budgetRanges = [
-  'Select a range...',
-  'Under ₹25,000',
-  '₹25,000 – ₹50,000',
-  '₹50,000 – ₹1,00,000',
-  '₹1,00,000 – ₹2,00,000',
-  '₹2,00,000+',
-  "Let's discuss",
-];
 
 const submitBtnVariants = {
   hidden: { opacity: 0, scaleX: 0.95 },
@@ -54,10 +35,6 @@ export default function ContactClient() {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    phone: '',
-    company: '',
-    projectType: '',
-    budget: '',
     brief: '',
   });
 
@@ -82,10 +59,6 @@ export default function ContactClient() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          phone: form.phone,
-          company: form.company,
-          projectType: form.projectType,
-          budget: form.budget,
           message: form.brief,
         }),
       });
@@ -504,135 +477,6 @@ export default function ContactClient() {
                     />
                   </motion.div>
 
-                  {/* PHONE */}
-                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
-                    <label
-                      style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
-                        display: 'block',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      PHONE
-                    </label>
-                    <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      placeholder="Your mobile number"
-                      className="contact-form-input"
-                    />
-                  </motion.div>
-
-                  {/* BUSINESS / BRAND */}
-                  <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
-                    <label
-                      style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
-                        display: 'block',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      BUSINESS / BRAND
-                    </label>
-                    <input
-                      type="text"
-                      value={form.company}
-                      onChange={(e) => handleInputChange('company', e.target.value)}
-                      placeholder="What's the name of your business?"
-                      className="contact-form-input"
-                    />
-                  </motion.div>
-
-                  {/* PROJECT TYPE */}
-                  <motion.div variants={staggerItem} style={{ marginBottom: '32px', position: 'relative' }}>
-                    <label
-                      style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
-                        display: 'block',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      PROJECT TYPE
-                    </label>
-                    <select
-                      value={form.projectType}
-                      onChange={(e) => handleInputChange('projectType', e.target.value)}
-                      className="contact-form-select"
-                    >
-                      {projectTypes.map((type, i) => (
-                        <option key={type} value={i === 0 ? '' : type} disabled={i === 0}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        right: '8px',
-                        bottom: '16px',
-                        pointerEvents: 'none',
-                        opacity: 0.6,
-                      }}
-                    >
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1" aria-hidden="true">
-                        <path d="M1 1L5 5L9 1" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </motion.div>
-
-                  {/* BUDGET RANGE */}
-                  <motion.div variants={staggerItem} style={{ marginBottom: '32px', position: 'relative' }}>
-                    <label
-                      style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
-                        display: 'block',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      BUDGET RANGE
-                    </label>
-                    <select
-                      value={form.budget}
-                      onChange={(e) => handleInputChange('budget', e.target.value)}
-                      className="contact-form-select"
-                    >
-                      {budgetRanges.map((range, i) => (
-                        <option key={range} value={i === 0 ? '' : range} disabled={i === 0}>
-                          {range}
-                        </option>
-                      ))}
-                    </select>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        right: '8px',
-                        bottom: '16px',
-                        pointerEvents: 'none',
-                        opacity: 0.6,
-                      }}
-                    >
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#B8956A" strokeWidth="1">
-                        <path d="M1 1L5 5L9 1" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </motion.div>
 
                   {/* TELL US ABOUT YOUR PROJECT */}
                   <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>

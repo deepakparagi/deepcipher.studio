@@ -360,9 +360,9 @@ export default function Hero() {
             marginRight: 'auto',
           }}
         >
-          Most businesses have the vision. Few have the digital presence to match it.
-          We close that gap — with custom websites and brand identities engineered to
-          convert, built to endure, and impossible to ignore.
+          We engineer ultra-premium web applications and scalable digital identities.
+          Combining editorial-grade design with high-performance architecture, we deliver robust,
+          conversion-focused platforms that command authority and drive measurable business growth.
         </motion.p>
 
         {/* CTAs */}

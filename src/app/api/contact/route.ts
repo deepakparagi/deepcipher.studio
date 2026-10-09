@@ -98,10 +98,9 @@ export async function POST(req: Request) {
       `,
     };
 
-    // Send email in the background without blocking the UI
-    transporter.sendMail(mailOptions).catch((err) => {
-      console.error('Background email send failed:', err);
-    });
+    // We MUST await the email send in Vercel, otherwise the serverless function 
+    // will terminate immediately before the email has a chance to send!
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true, message: 'Email sent successfully!' });
   } catch (error: any) {

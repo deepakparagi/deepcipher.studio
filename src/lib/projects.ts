@@ -202,6 +202,34 @@ export const projects: Project[] = [
       { label: 'EXPLAINABLE AI', value: 'Confidence scoring', description: 'Precision confidence scoring and thematic keyword extraction.' },
       { label: 'INTELLIGENCE DASHBOARD', value: 'World-class telemetry', description: 'Monitoring sentiment momentum, polarity ratios, and neural flux.' }
     ]
+  },
+  {
+    id: 7,
+    slug: 'brown-sugar-fusion-cafe',
+    title: 'BROWN SUGAR FUSION CAFE',
+    client: 'Brown Sugar Fusion Cafe',
+    category: 'CLIENT WORK',
+    year: '2026',
+    tags: ['Three.js', 'Vite', 'Tailwind CSS v4'],
+    description: 'An Elite Digital Experience • Architected for the Modern Web',
+    challenge: 'Transcending traditional restaurant websites with an immersive, high-fidelity user experience.',
+    solution: 'Merging cinematic 3D environmental design with editorial-grade typography and frictionless mobile UX.',
+    result: 'An ultra-premium web application reflecting the unparalleled quality of the Brown Sugar brand.',
+    image: '/Project cards images/Brown Sugar Fusion Cafe.png',
+    size: 'large',
+    techStack: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Three.js', 'React Three Fiber', 'Framer Motion', 'Swiper'],
+    pullQuote: 'An Elite Digital Experience • Architected for the Modern Web',
+    liveUrl: 'https://brown-sugar-dc.vercel.app/',
+    paragraphs: [
+      'Welcome to the digital storefront of the Brown Sugar Fusion Cafe. This repository houses a meticulously crafted, ultra-premium web application designed to transcend traditional restaurant websites.',
+      'By merging cinematic 3D environmental design with editorial-grade typography, this platform delivers an immersive, high-fidelity user experience that reflects the unparalleled quality of the Brown Sugar brand.',
+      'Powered by @react-three/fiber and custom WebGL shaders, the background environments feature abstract architectural models with zero-gravity physics and mouse-driven parallax.'
+    ],
+    modules: [
+      { label: 'CINEMATIC 3D', value: 'WebGL Shaders', description: 'Background environments featuring abstract architectural models with zero-gravity physics and mouse-driven parallax.' },
+      { label: 'MOBILE UX', value: 'Fluid Containers', description: 'Menu navigation featuring bespoke frosted-glass overlays and frictionless swipe mechanics via swiper.js.' },
+      { label: 'TYPOGRAPHY', value: 'Editorial System', description: 'Curated Google Fonts: Playfair Display for hierarchical headers and Montserrat for meticulously tracked metadata.' }
+    ]
   }
 ];
 

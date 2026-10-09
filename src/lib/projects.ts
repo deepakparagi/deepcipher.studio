@@ -221,7 +221,9 @@ export const projects: Project[] = [
     pullQuote: 'An Elite Digital Experience • Architected for the Modern Web',
     liveUrl: 'https://brown-sugar-dc.vercel.app/',
     stats: [
-      { label: 'DELIVERY TIME', value: '1 Week' }
+      { label: 'DELIVERY TIME', value: '1 Week' },
+      { label: 'CLIENT SATISFACTION', value: '100%' },
+      { label: 'PLATFORM', value: 'Web' }
     ],
     paragraphs: [
       'Brown Sugar Fusion Cafe is a highly-rated, pure vegetarian dining spot located at Datta Prime near Mulgund Naka in Gadag-Betageri, Karnataka. Spanning a comfortable price range of ₹200–400 per person, it has quickly become a local favorite for its trendy, casual ambiance, lively vibes, and an extensive fusion menu that expertly blends Pan-Asian, Continental, and authentic North Indian cuisines.',

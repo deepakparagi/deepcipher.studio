@@ -175,7 +175,7 @@ export default function WorkClient() {
         className="relative flex flex-col items-center justify-center text-center w-full"
         style={{ height: '100vh', paddingTop: '56px' }}
       >
-        <NeuralBackground color="#B8956A" speed={0.8} trailOpacity={0.15} />
+        <NeuralBackground color="#B8956A" speed={0.2} trailOpacity={0.15} />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

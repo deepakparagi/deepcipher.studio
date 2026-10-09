@@ -215,7 +215,7 @@ export const projects: Project[] = [
     challenge: 'Transcending traditional restaurant websites with an immersive, high-fidelity user experience.',
     solution: 'Merging cinematic 3D environmental design with editorial-grade typography and frictionless mobile UX.',
     result: 'An ultra-premium web application reflecting the unparalleled quality of the Brown Sugar brand.',
-    image: '/Project cards images/Brown Sugar Fusion Cafe.png',
+    image: '/project-covers/brown-sugar-fusion-cafe.png',
     size: 'large',
     techStack: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Three.js', 'React Three Fiber', 'Framer Motion', 'Swiper'],
     pullQuote: 'An Elite Digital Experience • Architected for the Modern Web',

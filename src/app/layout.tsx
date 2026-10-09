@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/deepcipher_logo.png',
-    apple: '/deepcipher_logo.png',
+    icon: '/dc-logo-big.png',
+    apple: '/dc-logo-big.png',
   },
 };
 
@@ -55,7 +55,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'DEEPCIPHER',
   url: 'https://deepcipher.studio',
-  logo: 'https://deepcipher.studio/deepcipher_logo.png',
+  logo: 'https://deepcipher.studio/dc-logo-big.png',
   description: 'Premium website design, brand identity, and logo design studio.',
   contactPoint: {
     '@type': 'ContactPoint',

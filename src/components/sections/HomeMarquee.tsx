@@ -20,28 +20,21 @@ function TickerRow({
   items,
   direction,
   duration = 40,
-  bg,
-  textColor,
-  dotColor,
 }: {
   items: string[];
   direction: 'left' | 'right';
   duration?: number;
-  bg: string;
-  textColor: string;
-  dotColor: string;
 }) {
-  /* Duplicate items so the strip is wide enough for seamless looping */
   const repeated = [...items, ...items, ...items, ...items];
 
   return (
     <div
       style={{
-        height: '36px',
+        height: '48px',
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        background: bg,
+        background: '#141414',
         overflow: 'hidden',
       }}
     >
@@ -68,15 +61,14 @@ function TickerRow({
               style={{
                 fontFamily: "var(--font-mono), monospace",
                 fontStyle: 'normal',
-                fontWeight: 500,
+                fontWeight: 300,
                 fontSize: '10px',
-                letterSpacing: '0.2em',
-                color: textColor,
+                letterSpacing: '0.18em',
+                color: 'rgba(245,240,232,0.3)',
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
                 lineHeight: 1,
                 cursor: 'default',
-                opacity: 0.8,
                 padding: '0 24px',
               }}
             >
@@ -84,10 +76,10 @@ function TickerRow({
             </span>
             <span
               style={{
-                width: '5px',
-                height: '5px',
+                width: '4px',
+                height: '4px',
                 borderRadius: '50%',
-                background: dotColor,
+                background: '#B8956A',
                 flexShrink: 0,
                 display: 'inline-block',
               }}
@@ -102,7 +94,6 @@ function TickerRow({
 export default function HomeMarquee() {
   return (
     <>
-      {/* Keyframes injected once */}
       <style jsx global>{`
         @keyframes marquee-scroll-left {
           0% { transform: translateX(0); }
@@ -124,7 +115,7 @@ export default function HomeMarquee() {
           overflow: 'hidden',
           width: '100%',
           padding: 0,
-          height: '72px',
+          height: '96px',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -133,17 +124,11 @@ export default function HomeMarquee() {
           items={row1Items}
           direction="left"
           duration={45}
-          bg="#F5F0E8"
-          textColor="rgba(10,10,10,0.3)"
-          dotColor="rgba(10,10,10,0.15)"
         />
         <TickerRow
           items={row2Items}
           direction="right"
           duration={45}
-          bg="#0A0A0A"
-          textColor="rgba(245,240,232,0.3)"
-          dotColor="#B8956A"
         />
       </section>
     </>

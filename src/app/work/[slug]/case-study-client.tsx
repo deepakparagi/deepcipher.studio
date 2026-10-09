@@ -55,6 +55,8 @@ function getProjectImageFolder(slug: string): string {
       return "Khan's Fitness";
     case 'shingri-developers':
       return 'Shingri developers';
+    case 'brown-sugar-fusion-cafe':
+      return 'Brown Sugar cafe';
     default:
       return '';
   }

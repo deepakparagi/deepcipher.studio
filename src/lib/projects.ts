@@ -220,10 +220,19 @@ export const projects: Project[] = [
     techStack: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Three.js', 'React Three Fiber', 'Framer Motion', 'Swiper'],
     pullQuote: 'An Elite Digital Experience • Architected for the Modern Web',
     liveUrl: 'https://brown-sugar-dc.vercel.app/',
+    stats: [
+      { label: 'DELIVERY TIME', value: '1 Week' }
+    ],
     paragraphs: [
+      'Brown Sugar Fusion Cafe is a highly-rated, pure vegetarian dining spot located at Datta Prime near Mulgund Naka in Gadag-Betageri, Karnataka. Spanning a comfortable price range of ₹200–400 per person, it has quickly become a local favorite for its trendy, casual ambiance, lively vibes, and an extensive fusion menu that expertly blends Pan-Asian, Continental, and authentic North Indian cuisines.',
       'Welcome to the digital storefront of the Brown Sugar Fusion Cafe. This repository houses a meticulously crafted, ultra-premium web application designed to transcend traditional restaurant websites.',
       'By merging cinematic 3D environmental design with editorial-grade typography, this platform delivers an immersive, high-fidelity user experience that reflects the unparalleled quality of the Brown Sugar brand.',
       'Powered by @react-three/fiber and custom WebGL shaders, the background environments feature abstract architectural models with zero-gravity physics and mouse-driven parallax.'
+    ],
+    galleryImages: [
+      '/images/case-studies/Brown Sugar cafe/1.png',
+      '/images/case-studies/Brown Sugar cafe/2.png',
+      '/images/case-studies/Brown Sugar cafe/3.png'
     ],
     modules: [
       { label: 'CINEMATIC 3D', value: 'WebGL Shaders', description: 'Background environments featuring abstract architectural models with zero-gravity physics and mouse-driven parallax.' },

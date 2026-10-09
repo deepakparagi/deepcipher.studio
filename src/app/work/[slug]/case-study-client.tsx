@@ -484,7 +484,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md cursor-zoom-out"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out p-6 md:p-12"
             onClick={() => {
               setActiveImage(null);
               resetCursor();
@@ -508,13 +508,13 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative max-w-[90vw] max-h-[85vh] overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+              className="relative w-full h-full flex items-center justify-center"
             >
               <img
                 src={activeImage}
                 alt="Enlarged screenshot"
-                className="w-auto h-auto max-w-full max-h-[85vh] object-contain border border-white/10"
+                className="w-auto h-auto max-w-full max-h-full object-contain shadow-2xl rounded-sm border border-white/5"
+                onClick={(e) => e.stopPropagation()}
               />
             </motion.div>
           </motion.div>

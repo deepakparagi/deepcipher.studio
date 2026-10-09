@@ -177,8 +177,8 @@ function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="relative flex items-center justify-start w-[80px] h-[30px] md:w-[110px] md:h-[36px]"
-              style={{ pointerEvents: 'all', zIndex: 9999, position: 'relative', transform: 'translateY(-2px)' }}
+              className="relative flex items-center justify-start w-[90px] h-[32px] md:w-[110px] md:h-[36px]"
+              style={{ pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={resetCursor}
             >
@@ -291,7 +291,7 @@ function Navbar() {
             {/* Hamburger (Mobile) */}
             {!isCaseStudy && (
               <button
-                className="flex md:hidden flex-col justify-center items-end gap-[6px] w-10 h-10 group focus:outline-none touch-manipulation relative z-[9999] pointer-events-auto"
+                className="flex md:hidden flex-col justify-center items-end gap-[6px] w-12 h-12 group focus:outline-none touch-manipulation relative z-[9999] pointer-events-auto"
                 onClick={toggleMobileOpen}
                 aria-label="Toggle Menu"
               >

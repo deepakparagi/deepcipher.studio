@@ -237,7 +237,7 @@ export default function Hero() {
 
       {/* ── Scroll indicator — bottom right ── */}
       <div
-        className="absolute z-20 pointer-events-none flex flex-col items-center"
+        className="hidden md:flex absolute z-20 pointer-events-none flex-col items-center"
         style={{ bottom: '40px', right: '40px' }}
       >
         <motion.span
@@ -297,8 +297,8 @@ export default function Hero() {
             fontFamily: "var(--font-display), 'Cormorant Garamond', serif",
             fontWeight: 300,
             fontStyle: 'italic',
-            fontSize: 'clamp(44px, 11vw, 110px)',
-            lineHeight: 0.84,
+            fontSize: 'clamp(48px, 12.5vw, 110px)',
+            lineHeight: 0.9,
             letterSpacing: '-0.02em',
             color: '#fff',
             width: '100%',
@@ -347,14 +347,14 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: LOADER_DELAY + 0.8 }}
-          className="m-0 text-center"
+          className="m-0 text-center px-4 md:px-0"
           style={{
             fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
-            fontSize: 'clamp(13px, 3.5vw, 17px)',
-            color: 'rgba(255,255,255,0.55)',
-            maxWidth: '520px',
-            lineHeight: 1.6,
+            fontSize: 'clamp(14px, 4vw, 16px)',
+            color: 'rgba(255,255,255,0.7)',
+            maxWidth: '420px',
+            lineHeight: 1.65,
             marginTop: 'clamp(24px, 4vh, 48px)',
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -367,28 +367,31 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          className="flex items-center justify-center"
-          style={{ gap: '16px', marginTop: 'clamp(24px, 4vh, 36px)' }}
+          className="flex flex-col sm:flex-row items-center justify-center w-full sm:w-auto px-6 sm:px-0"
+          style={{ gap: '20px', marginTop: 'clamp(24px, 4vh, 36px)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: LOADER_DELAY + 1.1 }}
         >
           <Link
-            href="/start-a-project"
+            href="/contact"
             onMouseEnter={() => setBtnHover(true)}
             onMouseLeave={() => setBtnHover(false)}
-            className="block transition-all duration-300 hover:scale-[0.98] active:scale-[0.96]"
+            className="flex items-center justify-center transition-all duration-300 w-full sm:w-auto min-h-[48px]"
             style={{
               fontFamily: 'var(--dm-mono), monospace',
               fontSize: '11px',
+              fontWeight: 500,
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              backgroundColor: btnHover ? '#F5F0E8' : 'transparent',
+              backgroundColor: btnHover ? '#B8956A' : 'transparent',
               color: btnHover ? '#0A0A0A' : '#F5F0E8',
-              border: '1px solid rgba(245, 240, 232, 0.2)',
-              padding: '16px 32px',
+              border: btnHover ? '1px solid #B8956A' : '1px solid rgba(184, 149, 106, 0.5)',
+              padding: '0 32px',
               textDecoration: 'none',
               cursor: 'pointer',
+              transform: btnHover ? 'translateY(-2px)' : 'none',
+              boxShadow: btnHover ? '0 8px 24px rgba(184,149,106,0.2)' : 'none',
             }}
           >
             START YOUR PROJECT &rarr;
@@ -414,16 +417,16 @@ export default function Hero() {
 
         {/* Stats row */}
         <div
-          className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center select-none gap-y-6 gap-x-4 md:gap-0"
-          style={{ marginTop: 'clamp(32px, 5vh, 48px)' }}
+          className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center select-none gap-y-10 gap-x-4 sm:gap-0 w-full max-w-[800px] mx-auto"
+          style={{ marginTop: 'clamp(48px, 6vh, 64px)' }}
         >
           {HERO_STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="flex flex-col items-center text-center md:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
+              className="flex flex-col items-center text-center sm:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
               style={{ 
                 gap: '8px',
-                padding: '0 clamp(16px, 2.5vw, 40px)',
+                padding: '0 clamp(8px, 2.5vw, 40px)',
               }}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}

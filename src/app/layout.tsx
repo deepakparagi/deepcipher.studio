@@ -40,10 +40,6 @@ export const metadata: Metadata = {
     description: 'Web Design & Brand Identity Studio',
     type: 'website',
   },
-  icons: {
-    icon: '/dc-logo-big.png',
-    apple: '/dc-logo-big.png',
-  },
 };
 
 export const viewport: Viewport = {

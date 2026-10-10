@@ -68,11 +68,6 @@ export default function ContactClient() {
       if (!response.ok) {
         throw new Error(result.error || 'Network response was not ok');
       }
-      
-      // Redirect to WhatsApp
-      const text = `Hello Deepcipher, my name is ${form.name}.\n\nMy Email: ${form.email}\n\nProject Brief:\n${form.brief}`;
-      const whatsappUrl = `https://wa.me/9187360830?text=${encodeURIComponent(text)}`;
-      window.open(whatsappUrl, '_blank');
 
       setSubmitted(true);
     } catch (error: any) {

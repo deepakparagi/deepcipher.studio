@@ -108,7 +108,7 @@ export default function Footer() {
               Architecting digital authority <br/> for ambitious brands globally.
             </h4>
             
-            <div className="footer-cta-wrap mb-16">
+            <div className="footer-cta-wrap">
               <MagneticButton
                 variant="outline"
                 href="/contact"
@@ -124,11 +124,16 @@ export default function Footer() {
             </div>
             
             {/* Social links */}
-            <div className="flex flex-row items-center gap-6 mt-auto">
+            <div 
+              className="flex flex-row items-center justify-center lg:justify-start"
+              style={{
+                marginTop: 'clamp(36px, 4.5vh, 52px)',
+                gap: 'clamp(28px, 2.5vw, 40px)',
+              }}
+            >
               {[
                 { label: 'INSTAGRAM ↗', href: 'https://www.instagram.com/deepcipher.ai/' },
                 { label: 'LINKEDIN ↗', href: 'https://www.linkedin.com/in/deepak-paragi-501140261/' },
-                { label: 'BEHANCE ↗', href: 'https://www.behance.net/' }
               ].map((social) => (
                 <a 
                   key={social.label}
@@ -140,13 +145,13 @@ export default function Footer() {
                   className="social-link-item group relative uppercase"
                   style={{
                     fontFamily: 'var(--font-mono), monospace',
-                    fontSize: '9px',
-                    color: '#6B6560',
-                    letterSpacing: '0.15em',
+                    fontSize: '9.5px',
+                    color: '#8E8880',
+                    letterSpacing: '0.16em',
                     transition: 'color 0.3s ease',
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
-                  onMouseOut={(e) => e.currentTarget.style.color = '#6B6560'}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#F5F0E8'}
+                  onMouseOut={(e) => e.currentTarget.style.color = '#8E8880'}
                 >
                   {social.label}
                 </a>

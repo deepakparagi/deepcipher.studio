@@ -1,412 +1,339 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useRef, useCallback, useState } from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowUpRight, Pause, Play } from 'lucide-react';
 
-/* ========================================
-   Client Testimonials Data
-   ======================================== */
+/* ==========================================================
+   DEEPCIPHER — Client Reviews Showcase
+   Continuous Sliding Marquee with Large Rounded Cards
+   Features:
+   - Infinite linear motion at comfortable reading pace
+   - Automatic pause on hover (desktop) or click/tap (mobile/desktop)
+   - Generous white space and luxury rounded-3xl borders
+   - Left and right gradient fade masks
+   ========================================================== */
 
-interface TestimonialData {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-  metric: string;
-  metricLabel: string;
+interface ClientReview {
+  id: string;
+  number: string;
+  client: string;
   initials: string;
+  category: string;
+  location: string;
+  year: string;
+  quote: string;
+  scopeTag: string;
+  slug: string;
 }
 
-const testimonials: TestimonialData[] = [
+const clientReviews: ClientReview[] = [
   {
-    quote:
-      "DEEPCIPHER didn't just build us a website — they built a digital experience that genuinely captures the luxury feel of our properties. The attention to detail in every animation and micro-interaction is unmatched. Our enquiries increased dramatically within the first month.",
-    name: 'Shingri Developers',
-    role: 'Real Estate Firm',
-    company: 'Hubli, India',
-    metric: '3x',
-    metricLabel: 'ENQUIRY GROWTH',
+    id: 'shingri-developers',
+    number: '01',
+    client: 'Shingri Developers',
     initials: 'SD',
+    category: 'Luxury Real Estate',
+    location: 'Hubli, India',
+    year: '2026',
+    quote:
+      'DEEPCIPHER architected an immersive digital experience that genuinely captures the luxury of our properties. Client enquiries increased dramatically in the first month.',
+    scopeTag: '3D Property Navigator',
+    slug: 'shingri-developers',
   },
   {
-    quote:
-      "We have over 120k followers on Instagram, but we needed a real digital home. DEEPCIPHER built us an incredible platform to showcase Gadag's heritage and our promotional content. It’s made it incredibly easy for brands to reach out for collaborations, massively boosting our reputation.",
-    name: 'Gadag Info Community',
-    role: '120K+ Follower Platform',
-    company: 'Gadag, India',
-    metric: '120K+',
-    metricLabel: 'COMMUNITY FOLLOWERS',
+    id: 'gadag-info',
+    number: '02',
+    client: 'Gadag Info Community',
     initials: 'GI',
+    category: 'Regional Media',
+    location: 'Gadag, India',
+    year: '2026',
+    quote:
+      'They gave our 120k community a real digital home. It streamlined brand partnerships and established our authority across the region.',
+    scopeTag: '120K+ Creator Platform',
+    slug: 'gadag-info',
   },
   {
-    quote:
-      "We wanted a digital presence that matched the premium, high-performance feel of our physical gym. DEEPCIPHER delivered a platform that is a true AI fitness hub. The sleek design and integrated AI tools have completely transformed how our clients train and interact with us online.",
-    name: "Khan's Fitness",
-    role: 'Premium Fitness Center',
-    company: 'Gadag-Betageri, India',
-    metric: '2.5x',
-    metricLabel: 'DIGITAL ENGAGEMENT',
+    id: 'khans-fitness',
+    number: '03',
+    client: "Khan's Fitness",
     initials: 'KF',
+    category: 'Performance Athletic',
+    location: 'Gadag-Betageri',
+    year: '2026',
+    quote:
+      'The platform delivers the same high-performance intensity as our physical gym. It completely transformed our member onboarding and digital presence.',
+    scopeTag: 'AI Fitness Lab',
+    slug: 'khans-fitness',
   },
   {
+    id: 'bipin-chikkatti',
+    number: '04',
+    client: 'Bipin Chikkatti Institutions',
+    initials: 'BC',
+    category: 'Higher Education',
+    location: 'Gadag, India',
+    year: '2024',
     quote:
-      "The website Deepak crafted for our institution carries the same dignity and heritage that our campus represents. Parents, students, and faculty all praise how professional and elegant it feels. It truly set a new standard for educational institution websites in the region.",
-    name: 'Chikkatti Group of Institutions',
-    role: 'Educational Institution',
-    company: 'Gadag, India',
-    metric: '100%',
-    metricLabel: 'UPTIME ACHIEVED',
-    initials: 'CI',
+      'A digital presence carrying the dignity and heritage of our institutions. Clean, reliable, and praised by parents and faculty alike.',
+    scopeTag: 'Heritage Campus Platform',
+    slug: 'bipin-chikkatti-institutions',
   },
   {
-    quote:
-      "DEEPCIPHER brought our dining venue into the digital dimension with jaw-dropping 3D interactive design and effortless mobile navigation. Our guests constantly compliment the sleek aesthetic. Table reservations and digital menu visits surged by over 4x within the very first week.",
-    name: 'Brown Sugar Fusion Cafe',
-    role: 'Luxury Fusion Dining',
-    company: 'Gadag-Betageri, India',
-    metric: '4x',
-    metricLabel: 'RESERVATIONS & ENGAGEMENT',
+    id: 'brown-sugar',
+    number: '05',
+    client: 'Brown Sugar Fusion Cafe',
     initials: 'BS',
+    category: 'Luxury Hospitality',
+    location: 'Gadag-Betageri',
+    year: '2026',
+    quote:
+      'Jaw-dropping 3D visual design with seamless mobile ordering. Table reservations and digital visits jumped over four times in our opening week.',
+    scopeTag: 'Cinematic 3D WebGL',
+    slug: 'brown-sugar-fusion-cafe',
+  },
+  {
+    id: 'cinepulse-ai',
+    number: '06',
+    client: 'CinePulse AI Network',
+    initials: 'CP',
+    category: 'Machine Learning',
+    location: 'Global Platform',
+    year: '2026',
+    quote:
+      'Real-time sentiment telemetry delivered with world-class polish. The platform feels like a Bloomberg terminal merged with contemporary editorial craft.',
+    scopeTag: 'Cognitive NLP Telemetry',
+    slug: 'cinepulse-ai',
   },
 ];
 
-/* ========================================
-   Testimonial Card — 3D Perspective Tilt
-   ======================================== */
+export default function TestimonialsGrid() {
+  const [isPaused, setIsPaused] = useState(false);
 
-function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  // Duplicate cards for a seamless infinite loop
+  const duplicatedReviews = [...clientReviews, ...clientReviews];
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 25 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 25 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  }, [mouseX, mouseY]);
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0);
-    mouseY.set(0);
-    setIsHovered(false);
-  }, [mouseX, mouseY]);
+  const handleCardClick = () => {
+    setIsPaused((prev) => !prev);
+  };
 
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 40, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className="h-full flex flex-col"
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-        height: '100%',
-      }}
-    >
-      <div
-        className="relative overflow-hidden flex flex-col justify-between h-full w-full rounded-none"
+    <>
+      <style jsx global>{`
+        @keyframes testimonials-slide {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .testimonials-track {
+          display: flex;
+          width: max-content;
+          will-change: transform;
+          animation: testimonials-slide 55s linear infinite;
+        }
+        .testimonials-track:hover {
+          animation-play-state: paused !important;
+        }
+      `}</style>
+
+      <section
+        id="testimonials"
+        className="relative w-full overflow-hidden bg-[#0A0A0A] text-[#F5F0E8]"
         style={{
-          padding: 'clamp(18px, 1.8vw, 24px)',
-          height: '100%',
-          background: isHovered
-            ? 'linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(48, 73, 232, 0.1) 50%, rgba(255,255,255,0.02) 100%)'
-            : 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.008) 100%)',
-          border: '1px solid',
-          borderColor: isHovered ? 'rgba(56, 84, 255, 0.45)' : 'rgba(255,255,255,0.08)',
-          backdropFilter: 'blur(16px)',
-          transition: 'background 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease',
-          boxShadow: isHovered ? '0 12px 32px rgba(0,0,0,0.6), 0 0 20px rgba(48, 73, 232, 0.15)' : 'none',
+          paddingTop: 'clamp(24px, 3.5vw, 44px)',
+          paddingBottom: 'clamp(72px, 8vw, 120px)',
+          borderTop: '0.5px solid rgba(245, 240, 232, 0.06)',
         }}
       >
-        {/* Glow effect on hover */}
+        {/* Subtle ambient lighting */}
         <div
           className="absolute pointer-events-none"
           style={{
-            top: '-30%',
-            left: '-20%',
-            width: '200px',
-            height: '200px',
-            background: 'radial-gradient(circle, rgba(56, 84, 255, 0.15) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(40px)',
-            opacity: isHovered ? 1 : 0,
-            transition: 'opacity 0.4s ease',
+            top: '20%',
+            left: '30%',
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(69, 101, 255, 0.04) 0%, transparent 70%)',
+            filter: 'blur(90px)',
           }}
+          aria-hidden="true"
         />
 
-        {/* Sharp corner brackets */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '8px',
-            left: '8px',
-            width: '10px',
-            height: '10px',
-            borderTop: '1.5px solid rgba(56, 84, 255, 0.45)',
-            borderLeft: '1.5px solid rgba(56, 84, 255, 0.45)',
-            opacity: isHovered ? 1 : 0.4,
-            transition: 'opacity 0.3s ease',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '8px',
-            right: '8px',
-            width: '10px',
-            height: '10px',
-            borderBottom: '1.5px solid rgba(56, 84, 255, 0.45)',
-            borderRight: '1.5px solid rgba(56, 84, 255, 0.45)',
-            opacity: isHovered ? 1 : 0.4,
-            transition: 'opacity 0.3s ease',
-          }}
-        />
-
-        {/* Top — metric highlight */}
-        <div className="relative z-10 shrink-0">
-          {/* Metric badge */}
-          <div className="flex items-baseline justify-between gap-3 mb-2">
-            <span
-              style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                fontSize: 'clamp(26px, 2.2vw, 32px)',
-                color: '#3854FF',
-                textShadow: '0 0 20px rgba(56, 84, 255, 0.35)',
-                lineHeight: 1,
-              }}
-            >
-              {t.metric}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: '8px',
-                color: 'rgba(255,255,255,0.48)',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                fontWeight: 600,
-                textAlign: 'right',
-              }}
-            >
-              {t.metricLabel}
+        {/* Section Header with Proper Whitespace */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 mb-8 sm:mb-10 md:mb-14">
+          {/* Eyebrow Label */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4565FF] inline-block animate-pulse shrink-0" />
+            <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#8E8882]">
+              CLIENT RESULTS // TESTIMONIALS
             </span>
           </div>
 
-          {/* Thin separator */}
+          {/* Heading & Subtitle */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <h2
+                className="m-0 upright"
+                style={{
+                  fontSize: 'clamp(38px, 5.2vw, 72px)',
+                  color: '#F5F0E8',
+                  lineHeight: 1.05,
+                  letterSpacing: '-0.025em',
+                }}
+              >
+                <span className="block">What Our</span>
+                <span className="block font-citadel italic mt-0.5">
+                  <span style={{ color: '#4565FF' }}>Clients</span>{' '}
+                  <span style={{ color: '#F5F0E8' }}>Say.</span>
+                </span>
+              </h2>
+              <p
+                className="m-0 mt-4 max-w-2xl text-[14px] sm:text-[15px] text-[#A6A099] font-light leading-relaxed"
+                style={{ fontFamily: 'var(--font-body), sans-serif' }}
+              >
+                Understated, genuine partnerships with founders and institutions who value obsessive craft and measurable digital authority.
+              </p>
+            </div>
+
+            {/* Quick Stats Tags & Motion Toggle */}
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#A6A099] bg-[#121316] border border-white/[0.08]">
+                06 Verified Reviews
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsPaused((prev) => !prev)}
+                aria-label={isPaused ? 'Resume sliding reviews' : 'Pause sliding reviews'}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#A6A099] hover:text-[#F5F0E8] bg-[#121316] hover:bg-[#18191E] border border-white/[0.08] transition-colors cursor-pointer"
+              >
+                {isPaused ? <Play size={10} className="fill-current" /> : <Pause size={10} className="fill-current" />}
+                <span>{isPaused ? 'Resume Motion' : 'Hover / Tap to Pause'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Continuous Sliding Cards Container */}
+        <div className="relative w-full overflow-hidden">
+          {/* Left Gradient Edge Vignette */}
           <div
-            style={{
-              width: '100%',
-              height: '1px',
-              background: 'linear-gradient(to right, rgba(56, 84, 255, 0.4), transparent)',
-              marginBottom: '12px',
-            }}
+            className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 md:w-48 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20"
+            aria-hidden="true"
           />
-        </div>
 
-        {/* Middle — Quote */}
-        <div className="relative z-10 flex-1 flex flex-col justify-start">
-          <p
-            className="m-0"
+          {/* Right Gradient Edge Vignette */}
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 md:w-48 bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20"
+            aria-hidden="true"
+          />
+
+          {/* Marquee Infinite Sliding Track */}
+          <div
+            className="testimonials-track flex items-stretch gap-6 sm:gap-8 md:gap-10 py-6 px-4"
             style={{
-              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontWeight: 400,
-              fontSize: '12.5px',
-              color: 'rgba(245, 240, 232, 0.82)',
-              lineHeight: 1.55,
+              animationPlayState: isPaused ? 'paused' : 'running',
             }}
           >
-            &ldquo;{t.quote}&rdquo;
-          </p>
-        </div>
-
-        {/* Bottom — attribution pinned to baseline */}
-        <div
-          className="relative z-10 shrink-0 mt-4 pt-3.5"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          <div className="flex items-center gap-2.5">
-            {/* Avatar initials with sharp corners */}
-            <div
-              className="flex items-center justify-center shrink-0 rounded-none"
-              style={{
-                width: '32px',
-                height: '32px',
-                border: '1px solid rgba(56, 84, 255, 0.4)',
-                backgroundColor: 'rgba(48, 73, 232, 0.15)',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                  fontSize: '10.5px',
-                  fontWeight: 700,
-                  color: '#FFFFFF',
-                }}
-              >
-                {t.initials}
-              </span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <span
-                className="block m-0 truncate"
-                style={{
-                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                  fontWeight: 600,
-                  fontSize: '13px',
-                  color: '#FFFFFF',
-                  lineHeight: 1.2,
-                }}
-              >
-                {t.name}
-              </span>
+            {duplicatedReviews.map((item, index) => (
               <div
-                className="mt-0.5"
+                key={`${item.id}-${index}`}
+                onClick={handleCardClick}
+                className="group relative flex flex-col justify-between w-[340px] sm:w-[440px] md:w-[480px] lg:w-[500px] shrink-0 rounded-[26px] sm:rounded-[30px] border border-white/[0.08] hover:border-white/[0.22] bg-[#0E0F12] hover:bg-[#121317] p-7 sm:p-9 md:p-10 transition-all duration-300 cursor-pointer"
                 style={{
-                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                  fontSize: '8.5px',
-                  color: 'rgba(255,255,255,0.45)',
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  lineHeight: 1.3,
+                  boxShadow: '0 20px 48px -16px rgba(0, 0, 0, 0.6)',
                 }}
               >
-                <span>{t.role}</span>
-                <span className="mx-1 text-white/20">·</span>
-                <span style={{ color: '#3854FF', fontWeight: 600 }}>{t.company}</span>
+                {/* Subtle top hover highlight hairline */}
+                <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-[#4565FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div>
+                  {/* Top Meta: Number + Category + 5 Stars */}
+                  <div className="flex items-center justify-between pb-5 border-b border-white/[0.06] mb-6">
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '11px',
+                          color: '#4565FF',
+                          letterSpacing: '0.12em',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {item.number}
+                      </span>
+                      <span className="text-white/[0.15]">/</span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '10px',
+                          color: '#8E8882',
+                          letterSpacing: '0.12em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {item.category}
+                      </span>
+                    </div>
+
+                    {/* 5-star rating */}
+                    <div className="flex items-center gap-1 text-[#D4AF37] opacity-85" aria-label="5 out of 5 stars">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <svg key={i} className="w-3 h-3 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Review Quote with Generous Whitespace */}
+                  <blockquote
+                    className="m-0 text-[14.5px] sm:text-[15.5px] md:text-[16px] text-[#D8D2C7] font-light leading-[1.78] mb-8"
+                    style={{ fontFamily: 'var(--font-body), sans-serif' }}
+                  >
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+                </div>
+
+                {/* Card Footer: Client Identity + Scope Tag + Case Study Link */}
+                <div className="pt-5 border-t border-white/[0.06] flex items-center justify-between gap-4 mt-auto">
+                  <div className="flex flex-col min-w-0">
+                    <span
+                      className="text-[14px] sm:text-[15px] font-medium text-[#F5F0E8] truncate group-hover:text-white"
+                      style={{ fontFamily: 'var(--font-body), sans-serif' }}
+                    >
+                      {item.client}
+                    </span>
+                    <span
+                      className="text-[12px] text-[#7E7973] font-light truncate mt-0.5"
+                      style={{ fontFamily: 'var(--font-body), sans-serif' }}
+                    >
+                      {item.location} · {item.year}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="hidden sm:inline-block text-[10.5px] font-mono text-[#8E8882] bg-white/[0.03] border border-white/[0.06] px-2.5 py-1 rounded-full">
+                      {item.scopeTag}
+                    </span>
+                    <Link
+                      href={`/work/${item.slug}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#A6A099] hover:text-[#F5F0E8] bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.08] transition-all"
+                    >
+                      <span>Case</span>
+                      <ArrowUpRight size={13} />
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ========================================
-   Section — Client Testimonials
-   ======================================== */
-
-export default function TestimonialsGrid() {
-  return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        backgroundColor: '#0C0C0C',
-        padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(100px, 12vw, 160px)',
-      }}
-    >
-      {/* Floating decorative orbs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          style={{
-            position: 'absolute',
-            top: '10%',
-            right: '5%',
-            width: '250px',
-            height: '250px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(44, 52, 128,0.04) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-          }}
-        />
-        <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          style={{
-            position: 'absolute',
-            bottom: '20%',
-            left: '10%',
-            width: '180px',
-            height: '180px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(44, 52, 128,0.03) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
-      </div>
-
-      {/* Header */}
-      <div className="relative z-10 mb-8 sm:mb-12" style={{ maxWidth: '1400px', margin: '0 auto clamp(28px, 4vw, 48px)' }}>
-        <span
-          style={{
-            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-            fontSize: '10px',
-            color: 'rgba(245, 240, 232, 0.45)',
-            letterSpacing: '0.22em',
-            display: 'block',
-            marginBottom: '16px',
-            textTransform: 'uppercase',
-            fontWeight: 600,
-          }}
-        >
-          <span style={{ color: '#3854FF', marginRight: '6px' }}>—</span> CLIENT RESULTS
-        </span>
-
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 sm:gap-6">
-          <motion.h2
-            className="m-0"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontWeight: 700,
-              fontSize: 'clamp(32px, 4.5vw, 64px)',
-              lineHeight: 1.05,
-              letterSpacing: '-0.03em',
-              color: '#F5F0E8',
-            }}
-          >
-            What Our<br />
-            <span className="font-citadel italic" style={{ color: '#3854FF', textShadow: '0 0 30px rgba(56, 84, 255, 0.4)' }}>Clients Say.</span>
-          </motion.h2>
-
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            style={{
-              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontSize: 'clamp(12px, 0.9vw, 13.5px)',
-              fontWeight: 400,
-              color: 'rgba(255,255,255,0.48)',
-              maxWidth: '320px',
-              textAlign: 'left',
-              lineHeight: 1.55,
-            }}
-          >
-            Measured by impact, validated by trust. Every project speaks for itself.
-          </motion.span>
-        </div>
-      </div>
-
-      {/* 3D Testimonial Cards */}
-      <div
-        className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch"
-        style={{ gap: 'clamp(12px, 1.2vw, 18px)', maxWidth: '1750px', margin: '0 auto' }}
-      >
-        {testimonials.map((t, i) => (
-          <TestimonialCard key={i} t={t} index={i} />
-        ))}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

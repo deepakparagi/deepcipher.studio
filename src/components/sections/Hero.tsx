@@ -1,28 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 
-/* ========================================
-   DEEPCIPHER — Homepage Hero Section
-   Cinematic architectural composition matching
-   the reference visual with editorial typography.
-   ======================================== */
+/* ==========================================================
+   DEEPCIPHER — Premium Hero Section
+   Centered luxury composition with 20% dreamy blurred backdrop,
+   refined typography, and micro-interactions.
+   ========================================================== */
+
+const EASE_CUBIC = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
   const [isHoveredPrimary, setIsHoveredPrimary] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const EASE_CUBIC = [0.16, 1, 0.3, 1] as const;
-
   const fadeUp = (delay: number) => ({
-    initial: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
+    initial: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.7, delay, ease: EASE_CUBIC },
   });
@@ -35,291 +30,225 @@ export default function Hero() {
 
   return (
     <section
-      className="hero-home-section relative w-full flex-1 min-h-0 overflow-hidden flex flex-col justify-between"
+      className="hero-home-section relative w-full flex-1 min-h-0 overflow-hidden flex flex-col items-center justify-center"
       style={{
         backgroundColor: '#0A0A0A',
-        backgroundImage: "url('/images/HERO%20SECTION.png')",
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
       }}
     >
-      <style jsx>{`
-        .hero-home-section {
-          background-position: 30% center;
-        }
-        @media (min-width: 768px) {
-          .hero-home-section {
-            background-position: right center;
-          }
-        }
-      `}</style>
+      {/* ── 1. Crisp Background Image Layer (No Blur) ── */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/HERO%20SECTION.png')",
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+        aria-hidden="true"
+      />
 
-      {/* ── Left-to-right gradient scrim ── */}
+      {/* ── 2. Atmospheric Vignettes for Text Contrast ── */}
+      {/* Dark radial vignette for centered contrast */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(to right, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.84) 40%, rgba(10, 10, 10, 0.45) 68%, rgba(10, 10, 10, 0.08) 88%, transparent 100%)',
+            'radial-gradient(ellipse at center, rgba(10, 10, 12, 0.45) 0%, rgba(10, 10, 12, 0.8) 100%)',
         }}
       />
 
-      {/* ── Mobile vertical vignette for maximum contrast ── */}
+      {/* Top and bottom subtle fade vignettes */}
       <div
-        className="absolute inset-0 z-[1] pointer-events-none md:hidden"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(10, 10, 10, 0.75) 0%, rgba(10, 10, 10, 0.3) 30%, rgba(10, 10, 10, 0.2) 60%, rgba(10, 10, 10, 0.85) 100%)',
+            'linear-gradient(to bottom, rgba(10, 10, 12, 0.45) 0%, transparent 24%, transparent 76%, rgba(10, 10, 12, 0.75) 100%)',
         }}
       />
 
-      {/* ── Subtle bottom vignette ── */}
+      {/* ── 3. Main Hero Content Wrapper (Neatly Centered) ── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-20 z-[1] pointer-events-none"
+        className="relative z-10 flex flex-col items-center text-center w-full max-w-[680px] mx-auto my-auto px-5 sm:px-6"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 10, 0.7) 100%)',
-        }}
-      />
-
-      {/* ── Foreground Content Container ── */}
-      <div
-        className="relative z-10 w-full h-full flex-1 flex flex-col justify-between"
-        style={{
-          paddingLeft: 'clamp(28px, 7.5vw, 116px)',
-          paddingRight: 'clamp(24px, 5vw, 64px)',
-          paddingTop: 'clamp(20px, 3.5vh, 42px)',
-          paddingBottom: 'clamp(24px, 4vh, 40px)',
+          paddingTop: 'clamp(20px, 3vh, 38px)',
+          paddingBottom: 'clamp(28px, 4vh, 46px)',
         }}
       >
-        {/* ── 1. Single Main Hero Content Wrapper (Shared Left Axis) ── */}
-        <div
-          className="my-auto flex flex-col items-start w-full"
-          style={{
-            maxWidth: 'min(92vw, 540px)',
-          }}
-        >
-          {/* Top: Brand Eyebrow on shared left axis */}
-          <motion.div
-            {...fadeIn(0.1)}
-            className="flex items-center gap-3 select-none shrink-0"
-            style={{ marginBottom: 'clamp(14px, 2.5vh, 24px)' }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(10px, 0.8vw, 11px)',
-                fontWeight: 600,
-                letterSpacing: '0.22em',
-                color: 'rgba(255, 255, 255, 0.72)',
-                textTransform: 'uppercase',
-              }}
-            >
-              DEEPCIPHER
-            </span>
-            <span
-              style={{
-                width: '24px',
-                height: '1px',
-                backgroundColor: 'rgba(255, 255, 255, 0.22)',
-                display: 'inline-block',
-              }}
-              aria-hidden="true"
-            />
-          </motion.div>
-
-          {/* Headline Block with Dedicated Accent Line */}
-          <motion.div
-            {...fadeUp(0.25)}
-            className="relative w-full"
-            style={{ marginBottom: 'clamp(14px, 2.5vh, 20px)' }}
-          >
-            {/* Cobalt Accent Line: 2px wide, cobalt blue, aligned with headline top, height matches 2-line headline */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '-14px',
-                top: '3px',
-                bottom: '3px',
-                width: '2px',
-                backgroundColor: '#3049E8',
-                borderRadius: '1px',
-                boxShadow: '0 0 12px rgba(48, 73, 232, 0.45)',
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Headline Text: Editorial serif with balanced proportions */}
-            <h1
-              className="m-0 text-left select-none"
-              style={{
-                fontFamily: "var(--font-editorial), var(--font-serif, 'Cormorant Garamond'), Georgia, serif",
-                fontSize: 'clamp(2.35rem, 5.2vw, 4.8rem)',
-                lineHeight: 1.04,
-                letterSpacing: '-0.02em',
-                fontWeight: 500,
-              }}
-            >
-              {/* Line 1: Ideas into (warm white) */}
-              <span className="block text-[#F5F0E8]">
-                Ideas{' '}
-                <span
-                  style={{
-                    fontFamily: "var(--font-citadel, 'Citadel Script'), cursive",
-                    fontStyle: 'normal',
-                    fontWeight: 400,
-                    fontSize: '1.16em',
-                    marginLeft: '0.08em',
-                    display: 'inline-block',
-                    lineHeight: 1,
-                    color: '#F5F0E8',
-                  }}
-                >
-                  into
-                </span>
-              </span>
-
-              {/* Line 2: Real Products (cobalt blue) */}
-              <span
-                className="block whitespace-nowrap"
-                style={{
-                  color: '#3049E8',
-                  fontWeight: 500,
-                  letterSpacing: '-0.015em',
-                  marginTop: '0.04em',
-                  textShadow: '0 0 32px rgba(48, 73, 232, 0.35)',
-                }}
-              >
-                Real Products
-              </span>
-            </h1>
-          </motion.div>
-
-          {/* Supporting Description: Aligned to headline text left edge */}
-          <motion.p
-            {...fadeUp(0.4)}
-            className="m-0 text-left"
-            style={{
-              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontSize: 'clamp(11px, 0.85vw, 12px)',
-              fontWeight: 500,
-              letterSpacing: '0.14em',
-              color: '#B8BEC9',
-              lineHeight: 1.6,
-              maxWidth: 'min(86vw, 440px)',
-              textTransform: 'uppercase',
-              marginBottom: 'clamp(20px, 3vh, 26px)',
-            }}
-          >
-            WE BUILD WEBSITES, AI SOLUTIONS &amp;<br />
-            AUTOMATIONS THAT CREATE REAL IMPACT.
-          </motion.p>
-
-          {/* CTA Buttons: Aligned to description left edge */}
-          <motion.div
-            {...fadeUp(0.55)}
-            className="flex flex-wrap items-center"
-            style={{ gap: 'clamp(16px, 2.5vw, 28px)' }}
-          >
-            {/* Primary Pill Button: LET'S BUILD */}
-            <Link
-              href="/contact"
-              onMouseEnter={() => setIsHoveredPrimary(true)}
-              onMouseLeave={() => setIsHoveredPrimary(false)}
-              className="group inline-flex items-center justify-center gap-2.5 transition-all duration-300"
-              style={{
-                height: 'clamp(44px, 5.2vh, 50px)',
-                backgroundColor: isHoveredPrimary ? '#3854FF' : '#3049E8',
-                color: '#FFFFFF',
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(10.5px, 0.8vw, 11px)',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                padding: '0 clamp(20px, 2vw, 28px)',
-                borderRadius: '9999px',
-                boxShadow: isHoveredPrimary
-                  ? '0 0 24px rgba(56, 84, 255, 0.6), 0 4px 14px rgba(0, 0, 0, 0.4)'
-                  : '0 4px 18px rgba(48, 73, 232, 0.4)',
-                transform: isHoveredPrimary ? 'translateY(-1px)' : 'none',
-              }}
-            >
-              <span>LET&apos;S BUILD</span>
-              <span
-                className="inline-block transition-transform duration-300 group-hover:translate-x-1"
-                style={{ fontSize: '13px', lineHeight: 1 }}
-              >
-                &rarr;
-              </span>
-            </Link>
-
-            {/* Secondary Link: VIEW WORK */}
-            <Link
-              href="/work"
-              className="group inline-flex items-center transition-all duration-300"
-              style={{
-                height: 'clamp(44px, 5.2vh, 50px)',
-                backgroundColor: 'transparent',
-                color: 'rgba(255, 255, 255, 0.85)',
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(10.5px, 0.8vw, 11px)',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-              }}
-            >
-              <span
-                className="transition-all duration-300 group-hover:text-white"
-                style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.45)',
-                  paddingBottom: '3px',
-                }}
-              >
-                VIEW WORK
-              </span>
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* ── 2. Bottom Services List: Colinear with top accent line & shared left text axis ── */}
+        {/* Top: Brand Eyebrow on centered axis */}
         <motion.div
-          {...fadeIn(0.7)}
-          className="relative select-none shrink-0"
-          style={{
-            maxWidth: 'min(92vw, 540px)',
-          }}
+          {...fadeIn(0.1)}
+          className="flex items-center justify-center gap-3 select-none shrink-0"
+          style={{ marginBottom: 'clamp(14px, 2.4vh, 22px)' }}
         >
-          {/* Vertical Divider Line: Exactly colinear with headline's cobalt accent line at left: -14px */}
-          <div
+          <span
             style={{
-              position: 'absolute',
-              left: '-14px',
-              top: '2px',
-              bottom: '2px',
-              width: '1.5px',
-              backgroundColor: 'rgba(255, 255, 255, 0.22)',
-              borderRadius: '1px',
+              width: '26px',
+              height: '1px',
+              backgroundColor: 'rgba(255, 255, 255, 0.28)',
+              display: 'inline-block',
             }}
             aria-hidden="true"
           />
-          <ul
-            className="list-none m-0 p-0 flex flex-col"
+          <span
             style={{
               fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontSize: '10px',
-              fontWeight: 500,
-              letterSpacing: '0.14em',
-              color: 'rgba(255, 255, 255, 0.48)',
+              fontSize: 'clamp(10px, 0.8vw, 11px)',
+              fontWeight: 600,
+              letterSpacing: '0.24em',
+              color: 'rgba(255, 255, 255, 0.78)',
               textTransform: 'uppercase',
-              lineHeight: 1.55,
-              gap: '2px',
             }}
           >
-            <li>WEBSITES</li>
-            <li>AI AUTOMATION</li>
-            <li>AGENTIC AI</li>
-            <li>PRODUCTS</li>
-          </ul>
+            DEEPCIPHER
+          </span>
+          <span
+            style={{
+              width: '26px',
+              height: '1px',
+              backgroundColor: 'rgba(255, 255, 255, 0.28)',
+              display: 'inline-block',
+            }}
+            aria-hidden="true"
+          />
+        </motion.div>
+
+        {/* Headline Block: Neatly Centered */}
+        <motion.div
+          {...fadeUp(0.25)}
+          className="relative w-full flex flex-col items-center justify-center"
+          style={{ marginBottom: 'clamp(14px, 2.4vh, 22px)' }}
+        >
+          <h1
+            className="m-0 text-center select-none"
+            style={{
+              fontFamily:
+                "var(--font-editorial), var(--font-serif, 'Cormorant Garamond'), Georgia, serif",
+              fontSize: 'clamp(2.4rem, 5.2vw, 4.8rem)',
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              fontWeight: 500,
+            }}
+          >
+            {/* Line 1: Ideas into (warm ivory) */}
+            <span className="block text-[#F5F0E8]">
+              Ideas{' '}
+              <span
+                style={{
+                  fontFamily: "var(--font-citadel, 'Citadel Script'), cursive",
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '1.16em',
+                  marginLeft: '0.08em',
+                  display: 'inline-block',
+                  lineHeight: 1,
+                  color: '#F5F0E8',
+                }}
+              >
+                into
+              </span>
+            </span>
+
+            {/* Line 2: Real Products (electric cobalt blue with dreamy glow) */}
+            <span
+              className="block whitespace-nowrap"
+              style={{
+                color: '#3049E8',
+                fontWeight: 500,
+                letterSpacing: '-0.015em',
+                marginTop: '0.04em',
+                textShadow: '0 0 34px rgba(48, 73, 232, 0.45)',
+              }}
+            >
+              Real Products
+            </span>
+          </h1>
+        </motion.div>
+
+        {/* Supporting Description: Centered */}
+        <motion.p
+          {...fadeUp(0.4)}
+          className="m-0 text-center"
+          style={{
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+            fontSize: 'clamp(11px, 0.85vw, 12px)',
+            fontWeight: 500,
+            letterSpacing: '0.14em',
+            color: '#B8BEC9',
+            lineHeight: 1.62,
+            maxWidth: 'min(90vw, 460px)',
+            textTransform: 'uppercase',
+            marginBottom: 'clamp(20px, 3vh, 28px)',
+          }}
+        >
+          WE BUILD WEBSITES, AI SOLUTIONS &amp;<br />
+          AUTOMATIONS THAT CREATE REAL IMPACT.
+        </motion.p>
+
+        {/* CTA Buttons: Neatly Centered */}
+        <motion.div
+          {...fadeUp(0.55)}
+          className="flex flex-wrap items-center justify-center"
+          style={{ gap: 'clamp(16px, 2.5vw, 26px)' }}
+        >
+          {/* Primary Pill Button: LET'S BUILD */}
+          <Link
+            href="/contact"
+            onMouseEnter={() => setIsHoveredPrimary(true)}
+            onMouseLeave={() => setIsHoveredPrimary(false)}
+            className="group inline-flex items-center justify-center gap-2.5 transition-all duration-300"
+            style={{
+              height: 'clamp(44px, 5.2vh, 50px)',
+              backgroundColor: isHoveredPrimary ? '#3854FF' : '#3049E8',
+              color: '#FFFFFF',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontSize: 'clamp(10.5px, 0.8vw, 11px)',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              padding: '0 clamp(22px, 2.2vw, 30px)',
+              borderRadius: '9999px',
+              boxShadow: isHoveredPrimary
+                ? '0 0 28px rgba(56, 84, 255, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4)'
+                : '0 4px 18px rgba(48, 73, 232, 0.45)',
+              transform: isHoveredPrimary ? 'translateY(-1px)' : 'none',
+            }}
+          >
+            <span>LET&apos;S BUILD</span>
+            <span
+              className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              style={{ fontSize: '13px', lineHeight: 1 }}
+            >
+              &rarr;
+            </span>
+          </Link>
+
+          {/* Secondary Link: VIEW WORK */}
+          <Link
+            href="/work"
+            className="group inline-flex items-center transition-all duration-300"
+            style={{
+              height: 'clamp(44px, 5.2vh, 50px)',
+              backgroundColor: 'transparent',
+              color: 'rgba(255, 255, 255, 0.85)',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontSize: 'clamp(10.5px, 0.8vw, 11px)',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            <span
+              className="transition-all duration-300 group-hover:text-white"
+              style={{
+                borderBottom: '1px solid rgba(255, 255, 255, 0.45)',
+                paddingBottom: '3px',
+              }}
+            >
+              VIEW WORK
+            </span>
+          </Link>
         </motion.div>
       </div>
     </section>

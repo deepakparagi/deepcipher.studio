@@ -54,7 +54,9 @@ function HeroFallback() {
         backgroundColor: '#0A0A0A',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
         padding: 'clamp(120px, 15vh, 160px) clamp(24px, 6vw, 80px) clamp(48px, 6vw, 80px)',
       }}
     >

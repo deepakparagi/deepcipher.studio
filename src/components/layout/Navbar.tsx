@@ -174,11 +174,7 @@ function Navbar() {
           }}
         >
           <div
-            className="w-full h-full flex items-center justify-between relative"
-            style={{
-              paddingLeft: 'clamp(28px, 2.5vw, 40px)',
-              paddingRight: 'clamp(28px, 2.5vw, 40px)',
-            }}
+            className="w-full h-full flex items-center justify-between relative px-4 sm:px-6 md:px-8 lg:px-10"
           >
             {/* Logo */}
             <Link
@@ -198,7 +194,7 @@ function Navbar() {
                 style={{ transform: 'translate3d(0,0,0)', width: 'auto', height: '28px' }}
               />
               <span
-                className="inline-flex items-center tracking-[0.14em] text-[#F5F0E8] font-bold"
+                className="hidden md:inline-flex items-center tracking-[0.14em] text-[#F5F0E8] font-bold"
                 style={{
                   fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                   fontSize: 'clamp(14px, 1.2vw, 16px)',

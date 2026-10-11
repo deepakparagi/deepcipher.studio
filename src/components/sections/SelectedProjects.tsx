@@ -195,8 +195,8 @@ export default function SelectedProjects() {
       className="relative w-full overflow-hidden flex flex-col justify-center"
       style={{
         backgroundColor: '#0A0A0A',
-        minHeight: '100svh',
-        padding: 'clamp(40px, 6vw, 80px) 0',
+        minHeight: isMobile ? 'auto' : '100svh',
+        padding: isMobile ? '36px 0 20px' : 'clamp(40px, 6vw, 72px) 0 clamp(20px, 3vw, 36px)',
       }}
     >
       {/* Ambient background glow */}

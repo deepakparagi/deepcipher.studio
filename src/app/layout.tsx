@@ -67,10 +67,11 @@ export const metadata: Metadata = {
     'Premium website design, brand identity, and logo design studio. We help ambitious brands launch websites that convert and identities that endure.',
   icons: {
     icon: [
-      { url: '/deepcipher_logo.png' },
+      { url: '/favicon.png' },
+      { url: '/favicon.ico' },
       { url: '/icon.png' },
     ],
-    shortcut: '/deepcipher_logo.png',
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   openGraph: {

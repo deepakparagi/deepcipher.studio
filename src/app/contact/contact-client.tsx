@@ -34,7 +34,7 @@ export default function ContactClient() {
 
   const [form, setForm] = useState({
     name: '',
-    email: '',
+    phone: '',
     brief: '',
   });
 
@@ -46,7 +46,7 @@ export default function ContactClient() {
     if (e) e.preventDefault();
     if (isSubmitting) return;
 
-    if (!form.name.trim() || !form.email.trim() || !form.brief.trim()) {
+    if (!form.name.trim() || !form.phone.trim() || !form.brief.trim()) {
       return;
     }
 
@@ -58,7 +58,7 @@ export default function ContactClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name,
-          email: form.email,
+          phone: form.phone,
           message: form.brief,
         }),
       });
@@ -80,7 +80,7 @@ export default function ContactClient() {
 
   return (
     <motion.main
-      className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30 overflow-hidden"
+      className="relative bg-[#0A0A0A] text-white selection:bg-[#2C3480]/30 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -95,19 +95,45 @@ export default function ContactClient() {
                 SECTION 1: HERO
                 ══════════════════════════════════════════════ */}
             <section
-              className="relative w-full px-6 overflow-hidden flex flex-col justify-center items-center text-center"
+              className="relative w-full px-6 overflow-hidden flex flex-col justify-between items-center text-center"
               style={{
-                minHeight: '100vh',
+                height: 'calc(100dvh - 72px)',
+                minHeight: '480px',
                 borderBottom: '0.5px solid rgba(245,240,232,0.06)',
+                paddingTop: 'clamp(20px, 3.5vh, 44px)',
+                paddingBottom: 'clamp(16px, 2.8vh, 32px)',
               }}
             >
-              <ShaderLines />
+              {/* ── Background image layer with 40% dreamy blur effect ── */}
+              <div
+                className="absolute inset-0 z-0 pointer-events-none"
+                style={{
+                  backgroundImage: "url('/images/contact%20page%20hero%20section.png')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  filter: 'blur(11px) saturate(108%)',
+                  transform: 'scale(1.08)',
+                }}
+              />
+
+              {/* ── Dark overlay to ensure text contrast ── */}
+              <div
+                className="absolute inset-0 z-[1] pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.82) 100%)',
+                  backgroundColor: 'rgba(10, 10, 10, 0.45)',
+                }}
+              />
+
+              {/* Top spacer for balanced vertical centering */}
+              <div aria-hidden="true" className="w-full h-2 shrink-0 pointer-events-none" />
               
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                className="relative z-10 flex flex-col items-center max-w-[1000px]"
+                className="relative z-10 flex flex-col items-center max-w-[1000px] my-auto"
               >
                 {/* Label */}
                 <span
@@ -115,59 +141,71 @@ export default function ContactClient() {
                     fontFamily: 'var(--font-body), sans-serif',
                     fontSize: '10px',
                     letterSpacing: '0.3em',
-                    color: '#6B6560',
-                    fontWeight: 300,
+                    color: '#E0DCD6',
+                    fontWeight: 500,
                     textTransform: 'uppercase',
-                    marginBottom: '16px',
+                    marginBottom: '14px',
                   }}
                 >
-                  <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> GET IN TOUCH
+                  <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> GET IN TOUCH
                 </span>
 
                 {/* Main H1 */}
                 <h1
                   style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontSize: 'clamp(60px, 9vw, 130px)',
+                    fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                    fontSize: 'clamp(36px, 5.8vw, 92px)',
                     color: '#F5F0E8',
-                    letterSpacing: '-0.02em',
-                    lineHeight: 0.9,
+                    letterSpacing: '-0.025em',
+                    lineHeight: 1.02,
                     margin: 0,
-                    marginBottom: '24px',
+                    marginBottom: '16px',
                     userSelect: 'none',
+                    textShadow: '0 4px 24px rgba(0,0,0,0.5)',
                   }}
                 >
-                  <span className="upright font-medium">Let&apos;s build </span>
-                  <span className="italic font-normal text-[#B8956A]">something.</span>
+                  <span className="upright font-bold" style={{ color: '#F5F0E8' }}>
+                    Let&apos;s bring your ideas to{' '}
+                  </span>
+                  <span
+                    className="font-citadel italic font-normal"
+                    style={{
+                      fontFamily: "var(--font-citadel, 'Citadel Script'), 'Citadel Script', cursive",
+                      color: '#4B5DF5',
+                      textShadow: '0 0 40px rgba(75, 93, 245, 0.7), 0 2px 20px rgba(0, 0, 0, 0.8)',
+                    }}
+                  >
+                    life.
+                  </span>
                 </h1>
 
-                {/* Subline */}
+                {/* Tagline */}
                 <p
                   style={{
                     fontFamily: 'var(--font-body), sans-serif',
-                    fontSize: '15px',
-                    color: '#6B6560',
-                    fontWeight: 300,
-                    maxWidth: '480px',
-                    margin: '16px auto 0',
-                    lineHeight: '1.65',
+                    fontSize: 'clamp(13px, 1.1vw, 16px)',
+                    color: '#F5F0E8',
+                    fontWeight: 400,
+                    letterSpacing: '0.04em',
+                    maxWidth: '520px',
+                    margin: '8px auto 0',
+                    lineHeight: '1.6',
+                    textShadow: '0 2px 12px rgba(0,0,0,0.6)',
                   }}
                 >
-                  Tell us what you&apos;re building. We&apos;ll tell you exactly how we&apos;d approach it
-                  — and what it would cost. No pressure, no obligation.
+                  Your idea, our creation.
                 </p>
               </motion.div>
 
-              {/* Scroll Indicator */}
+              {/* Scroll Indicator — docked cleanly at bottom of viewport */}
               <div
-                className="absolute flex flex-col items-center gap-3 z-20 select-none"
-                style={{ bottom: '48px' }}
+                className="relative flex flex-col items-center gap-2 z-20 select-none shrink-0"
               >
                 <span
                   style={{
                     fontFamily: 'var(--font-body), sans-serif',
                     fontSize: '9px',
-                    color: '#6B6560',
+                    color: '#E0DCD6',
                     letterSpacing: '0.3em',
                     textTransform: 'uppercase',
                   }}
@@ -177,7 +215,7 @@ export default function ContactClient() {
                 <motion.div
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ height: '40px', width: '0.5px', background: '#B8956A' }}
+                  style={{ height: '32px', width: '1px', background: '#3049E8' }}
                 />
               </div>
             </section>
@@ -217,14 +255,15 @@ export default function ContactClient() {
                     variants={staggerItem}
                     style={{
                       fontFamily: 'var(--font-body), sans-serif',
-                      fontSize: '10px',
-                      color: '#6B6560',
+                      fontSize: '11px',
+                      color: '#FFFFFF',
                       letterSpacing: '0.3em',
                       textTransform: 'uppercase',
+                      fontWeight: 600,
                       marginBottom: '40px',
                     }}
                   >
-                    <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> REACH US
+                    <span style={{ color: '#4B5DF5', marginRight: '6px' }}>—</span> REACH US
                   </motion.span>
 
                   {/* Email */}
@@ -232,12 +271,13 @@ export default function ContactClient() {
                     <span
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
                         display: 'block',
                         marginBottom: '8px',
                         textTransform: 'uppercase',
+                        fontWeight: 600,
                       }}
                     >
                       EMAIL
@@ -247,16 +287,16 @@ export default function ContactClient() {
                       onMouseEnter={() => setCursor('link')}
                       onMouseLeave={resetCursor}
                       style={{
-                        fontFamily: 'var(--font-display), serif',
+                        fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                         fontStyle: 'italic',
                         fontSize: '24px',
-                        color: '#F5F0E8',
+                        color: '#FFFFFF',
                         textDecoration: 'none',
-                        transition: 'color 0.2s ease',
+                        transition: 'all 0.2s ease',
                         display: 'block',
                       }}
-                      onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#B8956A'; }}
-                      onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = '#F5F0E8'; }}
+                      onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#4B5DF5'; }}
+                      onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = '#FFFFFF'; }}
                     >
                       deepcipherstudio@gmail.com
                     </a>
@@ -267,12 +307,13 @@ export default function ContactClient() {
                     <span
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
                         display: 'block',
                         marginBottom: '8px',
                         textTransform: 'uppercase',
+                        fontWeight: 600,
                       }}
                     >
                       LOCATION
@@ -282,7 +323,7 @@ export default function ContactClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '15px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#E2E8F0',
                         display: 'block',
                       }}
                     >
@@ -293,7 +334,7 @@ export default function ContactClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '15px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#E2E8F0',
                         display: 'block',
                       }}
                     >
@@ -306,12 +347,13 @@ export default function ContactClient() {
                     <span
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
                         display: 'block',
                         marginBottom: '8px',
                         textTransform: 'uppercase',
+                        fontWeight: 600,
                       }}
                     >
                       AVAILABILITY
@@ -321,19 +363,20 @@ export default function ContactClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '15px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#E2E8F0',
                         display: 'flex',
                         alignItems: 'center',
                       }}
                     >
                       <span
                         style={{
-                          width: '6px',
-                          height: '6px',
+                          width: '7px',
+                          height: '7px',
                           borderRadius: '50%',
-                          background: '#B8956A',
+                          background: '#4B5DF5',
+                          boxShadow: '0 0 8px #4B5DF5',
                           display: 'inline-block',
-                          marginRight: '8px',
+                          marginRight: '10px',
                           flexShrink: 0,
                         }}
                       />
@@ -346,12 +389,13 @@ export default function ContactClient() {
                     <span
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
                         display: 'block',
                         marginBottom: '8px',
                         textTransform: 'uppercase',
+                        fontWeight: 600,
                       }}
                     >
                       RESPONSE TIME
@@ -361,7 +405,7 @@ export default function ContactClient() {
                         fontFamily: 'var(--font-body), sans-serif',
                         fontSize: '15px',
                         fontWeight: 300,
-                        color: '#9A9590',
+                        color: '#E2E8F0',
                         display: 'block',
                       }}
                     >
@@ -374,7 +418,7 @@ export default function ContactClient() {
                     variants={staggerItem}
                     style={{
                       marginTop: '48px',
-                      borderTop: '0.5px solid rgba(245,240,232,0.08)',
+                      borderTop: '0.5px solid rgba(255,255,255,0.15)',
                       paddingTop: '32px',
                       display: 'flex',
                       gap: '24px',
@@ -393,25 +437,26 @@ export default function ContactClient() {
                         className="group relative"
                         style={{
                           fontFamily: 'var(--font-mono), monospace',
-                          fontSize: '9px',
-                          letterSpacing: '0.15em',
-                          color: '#6B6560',
+                          fontSize: '10px',
+                          letterSpacing: '0.2em',
+                          color: '#FFFFFF',
                           textDecoration: 'none',
                           textTransform: 'uppercase',
+                          fontWeight: 600,
                           paddingBottom: '2px',
                           transition: 'color 0.2s ease',
                         }}
                         onMouseOver={(e) => {
-                          (e.currentTarget as HTMLElement).style.color = '#B8956A';
+                          (e.currentTarget as HTMLElement).style.color = '#4B5DF5';
                         }}
                         onMouseOut={(e) => {
-                          (e.currentTarget as HTMLElement).style.color = '#6B6560';
+                          (e.currentTarget as HTMLElement).style.color = '#FFFFFF';
                         }}
                       >
                         {social.label}
                         <span
                           className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
-                          style={{ background: '#B8956A' }}
+                          style={{ background: '#4B5DF5' }}
                         />
                       </a>
                     ))}
@@ -433,11 +478,12 @@ export default function ContactClient() {
                     <label
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
+                        fontWeight: 600,
                         display: 'block',
-                        marginBottom: '8px',
+                        marginBottom: '10px',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -453,26 +499,27 @@ export default function ContactClient() {
                     />
                   </motion.div>
 
-                  {/* EMAIL */}
+                  {/* PHONE */}
                   <motion.div variants={staggerItem} style={{ marginBottom: '32px' }}>
                     <label
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
+                        fontWeight: 600,
                         display: 'block',
-                        marginBottom: '8px',
+                        marginBottom: '10px',
                         textTransform: 'uppercase',
                       }}
                     >
-                      EMAIL
+                      PHONE
                     </label>
                     <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      placeholder="your@email.com"
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      placeholder="Your phone number"
                       className="contact-form-input"
                       required
                     />
@@ -484,11 +531,12 @@ export default function ContactClient() {
                     <label
                       style={{
                         fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '10px',
-                        color: '#6B6560',
-                        letterSpacing: '0.2em',
+                        fontSize: '11px',
+                        color: '#FFFFFF',
+                        letterSpacing: '0.25em',
+                        fontWeight: 600,
                         display: 'block',
-                        marginBottom: '8px',
+                        marginBottom: '10px',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -541,7 +589,7 @@ export default function ContactClient() {
             >
               <h2
                 style={{
-                  fontFamily: 'var(--font-display), serif',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                   fontSize: 'clamp(32px, 4vw, 52px)',
                   color: '#F5F0E8',
                   lineHeight: 1.1,
@@ -549,7 +597,7 @@ export default function ContactClient() {
                 }}
               >
                 <span className="upright font-medium">Or simply email </span>
-                <span className="italic font-normal text-[#B8956A]">us directly.</span>
+                <span className="italic font-normal text-[#4B5DF5]">us directly.</span>
               </h2>
 
               <motion.a
@@ -560,19 +608,23 @@ export default function ContactClient() {
                 className="group relative inline-block"
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '10px',
-                  letterSpacing: '0.18em',
-                  color: '#B8956A',
+                  fontSize: '11px',
+                  letterSpacing: '0.2em',
+                  color: '#FFFFFF',
                   textDecoration: 'none',
                   textTransform: 'uppercase',
-                  marginTop: '16px',
+                  fontWeight: 600,
+                  marginTop: '18px',
                   paddingBottom: '2px',
+                  transition: 'color 0.2s ease',
                 }}
+                onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.color = '#4B5DF5'; }}
+                onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.color = '#FFFFFF'; }}
               >
                 DEEPCIPHERSTUDIO@GMAIL.COM
                 <span
                   className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
-                  style={{ background: '#B8956A' }}
+                  style={{ background: '#4B5DF5' }}
                 />
               </motion.a>
             </motion.section>
@@ -608,7 +660,7 @@ export default function ContactClient() {
                   width: '64px',
                   height: '64px',
                   borderRadius: '50%',
-                  border: '1.5px solid #B8956A',
+                  border: '1.5px solid #2C3480',
                 }}
               />
               <motion.div
@@ -616,14 +668,14 @@ export default function ContactClient() {
                   width: '64px',
                   height: '64px',
                   borderRadius: '50%',
-                  border: '1px solid #B8956A',
+                  border: '1px solid #2C3480',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#0A0A0A',
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8956A" strokeWidth="1.5" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2C3480" strokeWidth="1.5" aria-hidden="true">
                   <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </motion.div>
@@ -631,7 +683,7 @@ export default function ContactClient() {
 
             <h1
               style={{
-                fontFamily: 'var(--font-display), serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontSize: 'clamp(40px, 6vw, 72px)',
                 color: '#F5F0E8',
                 lineHeight: 1.1,
@@ -640,7 +692,7 @@ export default function ContactClient() {
               }}
             >
               <span className="upright font-medium">Transmission </span>
-              <span className="italic font-normal text-[#B8956A]">received.</span>
+              <span className="italic font-normal text-[#2C3480]">received.</span>
             </h1>
 
             <p
@@ -665,11 +717,11 @@ export default function ContactClient() {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '11px',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   textDecoration: 'none',
-                  borderBottom: '1px solid #B8956A',
+                  borderBottom: '1px solid #2C3480',
                   paddingBottom: '2px',
                 }}
               >

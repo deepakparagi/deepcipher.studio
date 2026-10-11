@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { CursorProvider } from '@/components/ui/CursorProvider';
 import LenisProvider from '@/components/layout/LenisProvider';
 import Navbar from '@/components/layout/Navbar';
@@ -34,19 +35,27 @@ function RouteLoader({ show }: { show: boolean }) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="font-display text-[42px] leading-none text-[#F5F0E8]">
-              DC
+            <div className="relative w-24 h-20 flex items-center justify-center">
+              <Image
+                src="/deepcipher_logo.png"
+                alt="DEEPCIPHER"
+                width={88}
+                height={66}
+                priority
+                className="object-contain drop-shadow-[0_0_25px_rgba(212,175,106,0.3)]"
+                style={{ width: 'auto', height: '64px' }}
+              />
             </div>
             <div className="h-px w-36 overflow-hidden bg-white/10">
               <motion.div
-                className="h-full w-full origin-left bg-[#B8956A]"
+                className="h-full w-full origin-left bg-[#2C3480]"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
               />
             </div>
             <span
-              className="text-[9px] uppercase tracking-[0.34em] text-[#B8956A]/70"
+              className="text-[9px] uppercase tracking-[0.34em] text-[#2C3480]/70"
               style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300 }}
             >
               Loading

@@ -163,7 +163,7 @@ function Navbar() {
         <nav
           style={{
             width: '100%',
-            height: '64px',
+            height: '72px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -173,24 +173,42 @@ function Navbar() {
             borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
           }}
         >
-          <div className="w-full h-full flex items-center justify-between mx-auto relative px-8 md:px-16 lg:px-24 max-w-[1920px]">
+          <div
+            className="w-full h-full flex items-center justify-between relative"
+            style={{
+              paddingLeft: 'clamp(28px, 2.5vw, 40px)',
+              paddingRight: 'clamp(28px, 2.5vw, 40px)',
+            }}
+          >
             {/* Logo */}
             <Link
               href="/"
-              className="relative flex items-center justify-start w-[90px] h-[32px] md:w-[110px] md:h-[36px]"
-              style={{ pointerEvents: 'all', zIndex: 9999, position: 'relative' }}
+              className="relative flex items-center justify-start gap-3.5 group select-none"
+              style={{ pointerEvents: 'all', zIndex: 9999 }}
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={resetCursor}
             >
               <Image
-                src="/deepcipher_logo.png?v=2"
-                alt="DeepCipher Logo"
-                fill
-                sizes="(max-width: 768px) 80px, 110px"
+                src="/deepcipher_logo.png"
+                alt="DeepCipher Official Logo"
+                width={36}
+                height={27}
                 priority
-                className="object-contain object-left"
-                style={{ transform: 'translate3d(0,0,0)' }}
+                className="object-contain object-left transition-transform duration-300 group-hover:scale-105"
+                style={{ transform: 'translate3d(0,0,0)', width: 'auto', height: '28px' }}
               />
+              <span
+                className="hidden md:inline-block tracking-[0.14em] text-[#F5F0E8] font-bold"
+                style={{
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                  fontSize: '16px',
+                  lineHeight: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                DEEPCIPHER
+              </span>
             </Link>
 
             {/* Desktop Links */}
@@ -219,7 +237,7 @@ function Navbar() {
                         fontSize: '11px',
                         letterSpacing: '0.15em',
                         textTransform: 'uppercase',
-                        color: isActive ? '#C9A46A' : '#F6F2ED',
+                        color: isActive ? '#2C3480' : '#F6F2ED',
                         textDecoration: 'none',
                         transition: 'color 0.2s ease',
                         cursor: 'none',
@@ -227,7 +245,7 @@ function Navbar() {
                         position: 'relative'
                       }}
                       onMouseOver={(e) => {
-                        if (!isActive) (e.currentTarget as HTMLElement).style.color = '#C9A46A';
+                        if (!isActive) (e.currentTarget as HTMLElement).style.color = '#2C3480';
                       }}
                       onMouseOut={(e) => {
                         if (!isActive) (e.currentTarget as HTMLElement).style.color = '#F6F2ED';
@@ -266,25 +284,28 @@ function Navbar() {
             ) : (
               <Link
                 href="/contact"
-                className="hidden md:flex items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black"
+                className="hidden md:flex items-center justify-center transition-all duration-300 hover:bg-[#2C3480] hover:text-[#0A0A0A]"
                 onMouseEnter={() => setCursor('link')}
                 onMouseLeave={resetCursor}
                 style={{
-                  fontFamily: 'var(--font-mono)',
+                  fontFamily: 'var(--font-mono), monospace',
                   fontSize: '10px',
-                  fontWeight: 600,
-                  letterSpacing: '0.15em',
+                  fontWeight: 500,
+                  letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: '#0A0A0A',
-                  backgroundColor: '#C9A46A',
-                  padding: '12px 24px',
+                  color: '#F5F0E8',
+                  backgroundColor: 'rgba(44, 52, 128, 0.12)',
+                  border: '1px solid rgba(44, 52, 128, 0.45)',
+                  backdropFilter: 'blur(10px)',
+                  padding: '0 20px',
+                  height: '38px',
                   textDecoration: 'none',
                   cursor: 'none',
                   pointerEvents: 'all',
                   position: 'relative'
                 }}
               >
-                BOOK STRATEGY CALL
+                BOOK A STRATEGY CALL
               </Link>
             )}
 
@@ -344,6 +365,21 @@ function Navbar() {
               WebkitBackdropFilter: 'blur(20px)',
             }}
           >
+            {/* Brand Header — top left */}
+            <div className="absolute top-5 left-6 z-20 flex items-center gap-3">
+              <Image
+                src="/deepcipher_logo.png"
+                alt="DeepCipher"
+                width={38}
+                height={28}
+                className="object-contain"
+                style={{ width: 'auto', height: '28px' }}
+              />
+              <span style={{ fontFamily: 'var(--font-helvetica), sans-serif', fontSize: '15px', letterSpacing: '0.12em', color: '#F5F0E8', fontWeight: 700 }}>
+                DEEPCIPHER
+              </span>
+            </div>
+
             {/* Close button — top right */}
             <button
               onClick={toggleMobileOpen}
@@ -387,7 +423,7 @@ function Navbar() {
                       style={{
                         fontSize: 'clamp(36px, 8vw, 48px)',
                         color: isActive 
-                          ? '#B8956A' 
+                          ? '#2C3480' 
                           : isHovered 
                             ? '#F5F0E8' 
                             : 'rgba(245, 240, 232, 0.4)',

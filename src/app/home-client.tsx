@@ -60,30 +60,32 @@ function HeroFallback() {
     >
       <h1
         style={{
-          fontFamily: "var(--font-display), serif",
+          fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+          fontWeight: 700,
+          fontSize: 'clamp(2.8rem, 5.2vw, 5.4rem)',
+          lineHeight: 1.02,
+          letterSpacing: '-0.03em',
           color: '#fff',
           margin: 0,
-          lineHeight: 0.9,
         }}
       >
-        <span className="upright" style={{ display: 'block', fontSize: 'clamp(60px, 9vw, 130px)' }}>WHERE VISION</span>
-        <span className="italic" style={{ display: 'block', marginLeft: 'clamp(48px, 6vw, 120px)', color: '#B8956A', fontSize: 'clamp(60px, 9vw, 130px)' }}>MEETS</span>
-        <span className="upright" style={{ display: 'block', fontSize: 'clamp(60px, 9vw, 130px)' }}>EXECUTION<span style={{ color: '#B8956A' }}>.</span></span>
+        <span style={{ color: '#F5F0E8' }}>Ideas <span className="font-citadel italic" style={{ color: '#F5F0E8' }}>into</span></span>
+        <span style={{ display: 'block', color: '#3049E8' }}>Real Products</span>
       </h1>
       <p
         style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontWeight: 300,
-          fontSize: '17px',
-          color: 'rgba(255,255,255,0.55)',
-          maxWidth: '520px',
-          lineHeight: 1.85,
-          marginTop: '48px',
+          fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+          fontSize: '12px',
+          letterSpacing: '0.18em',
+          color: 'rgba(255,255,255,0.65)',
+          maxWidth: '430px',
+          lineHeight: 1.65,
+          marginTop: '24px',
+          textTransform: 'uppercase',
         }}
       >
-        Most businesses have the vision. Few have the digital presence to match it.
-        We close that gap — with custom websites and brand identities engineered to
-        convert, built to endure, and impossible to ignore.
+        WE BUILD WEBSITES, AI SOLUTIONS &amp;<br />
+        AUTOMATIONS THAT CREATE REAL IMPACT.
       </p>
     </section>
   );
@@ -96,10 +98,19 @@ export default function HomeClient() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <SectionErrorBoundary fallback={<HeroFallback />}>
-        <Hero />
-      </SectionErrorBoundary>
-      <HomeMarquee />
+      {/* Hero + Marquee combined view — fits 100% in a single screen window */}
+      <div
+        className="hero-marquee-wrapper relative w-full overflow-hidden flex flex-col justify-between"
+        style={{
+          height: 'calc(100dvh - 72px)',
+          minHeight: '480px',
+        }}
+      >
+        <SectionErrorBoundary fallback={<HeroFallback />}>
+          <Hero />
+        </SectionErrorBoundary>
+        <HomeMarquee />
+      </div>
       <SectionErrorBoundary>
         <SelectedProjects />
       </SectionErrorBoundary>

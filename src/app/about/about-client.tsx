@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import GradientBars from '@/components/ui/gradient-bars-background';
 import AnimatedText from '@/components/ui/AnimatedText';
+import EditorialPageHero from '@/components/layout/EditorialPageHero';
 
 /* ==========================================================
    ABOUT PAGE — Completely Redesigned
@@ -20,15 +21,15 @@ function ManifestoVisual() {
          preserveAspectRatio="xMidYMid slice"
          xmlns="http://www.w3.org/2000/svg">
       <rect width="800" height="900" fill="#0A0A0A"/>
-      <text x="400" y="420" fontFamily="Cormorant Garamond, serif"
+      <text x="400" y="420" fontFamily="PT Serif, serif"
             fontSize="280" fontStyle="italic" fontWeight="300"
-            fill="#B8956A" opacity="0.06" textAnchor="middle">
+            fill="#2C3480" opacity="0.06" textAnchor="middle">
         DC
       </text>
       <circle cx="400" cy="380" r="300" fill="none"
-              stroke="#B8956A" strokeWidth="0.5" opacity="0.08"/>
+              stroke="#2C3480" strokeWidth="0.5" opacity="0.08"/>
       <circle cx="400" cy="380" r="200" fill="none"
-              stroke="#B8956A" strokeWidth="0.5" opacity="0.06"/>
+              stroke="#2C3480" strokeWidth="0.5" opacity="0.06"/>
       <text x="400" y="780" fontFamily="DM Mono, monospace"
             fontSize="9" fill="#6B6560" textAnchor="middle"
             letterSpacing="4">EST. 2026 — GLOBAL REACH</text>
@@ -44,10 +45,10 @@ function FounderVisual() {
          xmlns="http://www.w3.org/2000/svg">
       <rect width="800" height="900" fill="#111111"/>
       <rect x="200" y="120" width="400" height="500"
-            fill="none" stroke="#B8956A"
+            fill="none" stroke="#2C3480"
             strokeWidth="0.5" opacity="0.15"/>
       <rect x="220" y="140" width="360" height="460"
-            fill="none" stroke="#B8956A"
+            fill="none" stroke="#2C3480"
             strokeWidth="0.5" opacity="0.1"/>
 
     </svg>
@@ -167,129 +168,21 @@ export default function AboutClient() {
 
   return (
     <motion.main
-      className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30 overflow-hidden"
+      className="relative bg-[#0A0A0A] text-white selection:bg-[#2C3480]/30 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <Noise opacity={0.03} />
 
-      {/* ================================================
-         SECTION 1: HERO
-         ================================================ */}
-      <section
-        className="relative w-full border-b border-[rgba(245,240,232,0.08)] px-6 overflow-hidden"
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
-      >
-        <GradientBars numBars={11} animationDuration={3} />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex flex-col items-center"
-        >
-          {/* Label */}
-          <span
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '10px',
-              letterSpacing: '0.3em',
-              color: '#6B6560',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              marginBottom: '16px',
-            }}
-          >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> WHO WE ARE
-          </span>
-
-          {/* Title */}
-          <AnimatedText
-            splitBy="word"
-            as="h1"
-            style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 500,
-              fontSize: 'clamp(60px, 9vw, 130px)',
-              color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              lineHeight: 0.9,
-              margin: 0,
-              marginBottom: '16px',
-              textTransform: 'none',
-              userSelect: 'none',
-            }}
-          >
-            About
-          </AnimatedText>
-
-          {/* Subline */}
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '11px',
-              letterSpacing: '0.25em',
-              color: '#B8956A',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              display: 'block',
-              marginBottom: '20px',
-            }}
-          >
-            INDIA · GLOBAL · EST. 2026
-          </span>
-
-          {/* Body */}
-          <p
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '14px',
-              color: '#6B6560',
-              fontWeight: 300,
-              maxWidth: '520px',
-              margin: '12px auto 0',
-              lineHeight: '1.6',
-            }}
-          >
-            A specialized digital craft studio built on surgical precision, architectural aesthetics, and the integration of AI into the modern web.
-          </p>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <div
-          className="absolute flex flex-col items-center gap-4 z-20 select-none"
-          style={{ bottom: '48px' }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '9px',
-              color: '#6B6560',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-            }}
-          >
-            SCROLL
-          </span>
-          <motion.div
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              height: '40px',
-              width: '0.5px',
-              background: '#B8956A',
-            }}
-          />
-        </div>
-      </section>
+      {/* ── 1. HERO SECTION ── */}
+      <EditorialPageHero
+        eyebrow="INDEPENDENT THINKING. INTENTIONAL BUILDING."
+        title="The"
+        italicWord="Studio."
+        description="Independent digital studio architecting digital authority, high-performance web systems, and enduring brand identities globally."
+        backgroundImage="/images/about%20page%20hero.png"
+      />
 
       {/* ================================================
          SECTION 2: STUDIO MANIFESTO
@@ -306,7 +199,7 @@ export default function AboutClient() {
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '80vh' }}>
           {/* LEFT COLUMN: Content */}
           <div
-            className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left"
+            className="flex flex-col justify-center items-start text-left order-2 lg:order-1"
             style={{
               padding: 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px)',
             }}
@@ -323,7 +216,7 @@ export default function AboutClient() {
                 textTransform: 'uppercase',
               }}
             >
-              <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> THE STUDIO
+              <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> THE STUDIO
             </span>
 
             {/* Title */}
@@ -384,17 +277,16 @@ export default function AboutClient() {
           </div>
 
           {/* RIGHT COLUMN: Visual */}
-          <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto" style={{ minHeight: '300px' }}>
+          <div className="relative overflow-hidden w-full aspect-square md:aspect-[4/3] lg:aspect-auto lg:h-full order-1 lg:order-2" style={{ minHeight: '400px' }}>
             <Image
-              src="/images/retro-terminal.webp"
-              alt="Retro Terminal"
+              src="/images/about-authority.jpg"
+              alt="DeepCipher Architectural Visual"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
               quality={100}
-              placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACQAQCdASoHAAoABUB8JQAAVVwYf0AA/tH2T7mb0f3k4yCe52YsQQsf5C9TOtJ5sIEvntg8AAA="
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/20 to-transparent lg:opacity-60" />
           </div>
         </div>
       </section>
@@ -427,7 +319,7 @@ export default function AboutClient() {
               textTransform: 'uppercase',
             }}
           >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> THE FOUNDER
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> THE FOUNDER
           </span>
         </div>
 
@@ -454,7 +346,7 @@ export default function AboutClient() {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '9px',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   letterSpacing: '0.2em',
                   display: 'block',
                   marginBottom: '8px',
@@ -466,10 +358,7 @@ export default function AboutClient() {
               <h2
                 className="m-0"
                 style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontSize: 'clamp(36px, 4vw, 56px)',
-                  fontWeight: 300,
-                  fontStyle: 'italic',
+                  fontFamily: "var(--font-citadel), 'Citadel Script', cursive", fontSize: 'clamp(44px, 5vw, 68px)', fontWeight: 400, fontStyle: 'normal',
                   color: '#F5F0E8',
                   lineHeight: 1,
                   letterSpacing: '-0.02em',
@@ -511,7 +400,7 @@ export default function AboutClient() {
                 }}
               >
                 <span className="upright block">AI &amp; Full Stack</span>
-                <span className="italic block mt-1" style={{ color: '#B8956A' }}>Developer</span>
+                <span className="italic block mt-1" style={{ color: '#2C3480' }}>Developer</span>
               </h3>
             </div>
 
@@ -582,7 +471,7 @@ export default function AboutClient() {
                     style={{
                       fontFamily: 'var(--font-mono), monospace',
                       fontSize: '10px',
-                      color: '#B8956A',
+                      color: '#2C3480',
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
                       display: 'block',
@@ -628,7 +517,7 @@ export default function AboutClient() {
               textTransform: 'uppercase',
             }}
           >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> HOW WE THINK
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> HOW WE THINK
           </span>
 
           <h2
@@ -667,7 +556,7 @@ export default function AboutClient() {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '10px',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   letterSpacing: '0.2em',
                   display: 'block',
                   marginBottom: '24px',
@@ -703,8 +592,8 @@ export default function AboutClient() {
                       lineHeight: 1.05,
                     }}
                   >
-                    <span className={isFirstItalic ? "italic text-[#B8956A] block" : "upright block"}>{first}</span>
-                    <span className={isFirstItalic ? "upright block mt-1" : "italic text-[#B8956A] block mt-1"}>{second}</span>
+                    <span className={isFirstItalic ? "italic text-[#2C3480] block" : "upright block"}>{first}</span>
+                    <span className={isFirstItalic ? "upright block mt-1" : "italic text-[#2C3480] block mt-1"}>{second}</span>
                   </h3>
                 );
               })()}
@@ -750,7 +639,7 @@ export default function AboutClient() {
               textTransform: 'uppercase',
             }}
           >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> STUDIO HISTORY
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> STUDIO HISTORY
           </span>
 
           <h2
@@ -782,7 +671,7 @@ export default function AboutClient() {
                   style={{
                     fontFamily: 'var(--font-mono), monospace',
                     fontSize: '11px',
-                    color: '#B8956A',
+                    color: '#2C3480',
                     letterSpacing: '0.15em',
                     minWidth: '60px',
                   }}
@@ -863,7 +752,7 @@ export default function AboutClient() {
               textTransform: 'uppercase',
             }}
           >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> WHAT WE USE
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> WHAT WE USE
           </span>
 
           <h2
@@ -900,7 +789,7 @@ export default function AboutClient() {
                   style={{
                     fontFamily: 'var(--font-mono), monospace',
                     fontSize: '10px',
-                    color: '#B8956A',
+                    color: '#2C3480',
                     letterSpacing: '0.15em',
                     marginBottom: '24px',
                     textTransform: 'uppercase',
@@ -956,7 +845,7 @@ export default function AboutClient() {
             textTransform: 'uppercase',
           }}
         >
-          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> START HERE
+          <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> START HERE
         </span>
 
         <h2
@@ -1010,9 +899,9 @@ export default function AboutClient() {
               fontSize: '10px',
               letterSpacing: '0.15em',
               padding: '16px 36px',
-              border: '1px solid #B8956A',
-              backgroundColor: ctaHovered ? '#B8956A' : 'transparent',
-              color: ctaHovered ? '#0A0A0A' : '#B8956A',
+              border: '1px solid #2C3480',
+              backgroundColor: ctaHovered ? '#2C3480' : 'transparent',
+              color: ctaHovered ? '#0A0A0A' : '#2C3480',
               textTransform: 'uppercase',
               textDecoration: 'none',
               transition: 'all 0.3s ease',
@@ -1040,7 +929,7 @@ export default function AboutClient() {
               padding: '16px 0',
               backgroundColor: 'transparent',
               border: 'none',
-              color: emailHovered ? '#B8956A' : '#6B6560',
+              color: emailHovered ? '#2C3480' : '#6B6560',
               textTransform: 'uppercase',
               textDecoration: 'none',
               transition: 'color 0.3s ease',

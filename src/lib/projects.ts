@@ -64,7 +64,7 @@ export const projects: Project[] = [
     challenge: 'Showcasing projects and skills through an immersive digital experience.',
     solution: 'Built a modern portfolio featuring 3D elements and smooth animations.',
     result: 'A compelling interactive resume and showcase.',
-    image: '/Project cards images/Deepak_paragi portfolio.png',
+    image: '/project-covers/deepak-portfolio.jpg',
     size: 'small',
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
     pullQuote: 'Creative Technologist & Software Engineer',
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     challenge: 'Elite property developers needed a digital presence that matched their luxury projects.',
     solution: 'We architected a "Liquid Luxury" platform featuring a custom 3D property navigator and immersive narrative.',
     result: 'A benchmark in luxury real estate digital presence.',
-    image: '/Project cards images/Shingri_developers.png',
+    image: '/project-covers/shingri-developers.jpg',
     size: 'full',
     techStack: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Lenis'],
     pullQuote: 'Crafted with precision for Shingri Developers.',
@@ -101,23 +101,23 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    slug: 'bipin-chikkatti-college',
-    title: 'BIPIN CHIKKATTI COLLEGE',
+    slug: 'bipin-chikkatti-institutions',
+    title: 'BIPIN CHIKKATTI INSTITUTIONS',
     client: 'Chikkatti Group of Institutions',
     category: 'CLIENT WORK',
     year: '2024',
     tags: ['HTML5', 'CSS3', 'Vanilla JS'],
-    description: 'A premium, elegant college website featuring a "Subtle Minimal Classic Old-Money Premium" aesthetic.',
+    description: 'A premium, elegant institutional website featuring a "Subtle Minimal Classic Old-Money Premium" aesthetic.',
     challenge: 'Create a timeless, sophisticated aesthetic inspired by Ivy League universities and luxury editorial design.',
     solution: 'Built a fully responsive, pure HTML/CSS/JS site with smooth scroll reveals and elegant transitions.',
     result: 'A sophisticated digital presence for a heritage academic institution.',
-    image: '/Project cards images/BIPIN CHIKKATTI SCHOOL.png',
+    image: '/project-covers/bipin-chikkatti-institutions.jpg',
     size: 'large',
     techStack: ['HTML5', 'CSS3', 'Vanilla JavaScript'],
     pullQuote: 'A timeless, sophisticated aesthetic inspired by Ivy League universities.',
     liveUrl: 'https://www.chikkattieducation.co.in/',
     paragraphs: [
-      'This is the official website for Bipin Chikkatti College, part of the Chikkatti Group of Institutions founded by Prof. S. Y. Chikkatti in 1994. Located on a 7-acre lush green campus in Gadag, Karnataka.',
+      'This is the official website for Bipin Chikkatti Institutions, part of the Chikkatti Group of Institutions founded by Prof. S. Y. Chikkatti in 1994. Located on a 7-acre lush green campus in Gadag, Karnataka.',
       'The website embodies a timeless, sophisticated aesthetic inspired by Ivy League university websites, Luxury editorial design, and Heritage academic institutions.',
       'Color Palette includes Cream/Off-white backgrounds, Deep charcoal/navy accents, and Muted gold highlights.'
     ]
@@ -134,7 +134,7 @@ export const projects: Project[] = [
     challenge: 'With over 120k Instagram followers, the client needed a centralized platform to showcase their content, highlight Gadag city\'s heritage, and manage brand promotions effectively.',
     solution: 'Developed a premium, highly-performant website that serves as a digital portfolio and business inquiry portal, consolidating their social influence into a professional brand presence.',
     result: 'Enhanced brand value and streamlined brand partnerships.',
-    image: '/Project cards images/gadag_info.png',
+    image: '/project-covers/gadag-info.jpg',
     size: 'large',
     techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
     pullQuote: 'Transforming local influence into a professional digital brand with over 120,000 followers.',
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     challenge: 'Establish a premium digital presence blending high-performance physical training with next-generation digital intelligence.',
     solution: 'Designed a platform integrating advanced AI tools, personalized fitness calculators, a custom workout coaching interface, and a luxury Burgundy design language.',
     result: 'A world-class experience across all devices.',
-    image: '/Project cards images/Khans Fitness.png',
+    image: '/project-covers/khans-fitness.jpg',
     size: 'large',
     techStack: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Framer Motion'],
     pullQuote: 'Blending high-performance physical training with next-generation digital intelligence.',
@@ -186,7 +186,7 @@ export const projects: Project[] = [
     challenge: 'Provide deep emotional insights into movie reviews with explainable AI metrics.',
     solution: 'Leveraged state-of-the-art machine learning (TF-IDF + Logistic Regression) and a premium "Bloomberg-Vercel" hybrid aesthetic.',
     result: 'Real-time cinematic intelligence with 92.4% validation accuracy.',
-    image: '/Project cards images/Sentiment movie analysis.png',
+    image: '/project-covers/cinepulse-ai.jpg',
     size: 'full',
     techStack: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Flask', 'Scikit-learn', 'SQLite'],
     pullQuote: 'Real-time cinematic intelligence. Built with ML, designed to feel cinematic.',
@@ -215,7 +215,7 @@ export const projects: Project[] = [
     challenge: 'Transcending traditional restaurant websites with an immersive, high-fidelity user experience.',
     solution: 'Merging cinematic 3D environmental design with editorial-grade typography and frictionless mobile UX.',
     result: 'An ultra-premium web application reflecting the unparalleled quality of the Brown Sugar brand.',
-    image: '/project-covers/brown-sugar-fusion-cafe.png',
+    image: '/project-covers/brown-sugar-fusion-cafe.jpg',
     size: 'large',
     techStack: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Three.js', 'React Three Fiber', 'Framer Motion', 'Swiper'],
     pullQuote: 'An Elite Digital Experience • Architected for the Modern Web',
@@ -245,11 +245,11 @@ export const projects: Project[] = [
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+  return projects.find((p) => p.slug === slug || (slug === 'bipin-chikkatti-college' && p.slug === 'bipin-chikkatti-institutions'));
 }
 
 export function getNextProject(currentSlug: string): Project {
-  const currentIndex = projects.findIndex((p) => p.slug === currentSlug);
+  const currentIndex = projects.findIndex((p) => p.slug === currentSlug || (currentSlug === 'bipin-chikkatti-college' && p.slug === 'bipin-chikkatti-institutions'));
   const nextIndex = (currentIndex + 1) % projects.length;
   return projects[nextIndex];
 }

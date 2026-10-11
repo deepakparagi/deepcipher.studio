@@ -68,7 +68,7 @@ function TickerRow({
               style={{
                 fontFamily: "var(--font-mono), monospace",
                 fontStyle: 'normal',
-                fontWeight: 500,
+                fontWeight: 600,
                 fontSize: '10px',
                 letterSpacing: '0.2em',
                 color: textColor,
@@ -76,7 +76,7 @@ function TickerRow({
                 whiteSpace: 'nowrap',
                 lineHeight: 1,
                 cursor: 'default',
-                opacity: 0.8,
+                opacity: 0.9,
                 padding: '0 24px',
               }}
             >
@@ -125,6 +125,7 @@ export default function HomeMarquee() {
           width: '100%',
           padding: 0,
           height: '72px',
+          flexShrink: 0,
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -133,17 +134,17 @@ export default function HomeMarquee() {
           items={row1Items}
           direction="left"
           duration={45}
-          bg="#F5F0E8"
-          textColor="rgba(10,10,10,0.3)"
-          dotColor="rgba(10,10,10,0.15)"
+          bg="#FFFFFF"
+          textColor="#0A0A0A"
+          dotColor="#2C3480"
         />
         <TickerRow
           items={row2Items}
           direction="right"
           duration={45}
           bg="#0A0A0A"
-          textColor="rgba(245,240,232,0.3)"
-          dotColor="#B8956A"
+          textColor="#FFFFFF"
+          dotColor="#4B5DF5"
         />
       </section>
     </>

@@ -122,12 +122,12 @@ function PhaseCard({
         <span
           className="select-none pointer-events-none"
           style={{
-            fontFamily: 'var(--font-display), serif',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
             fontWeight: 200,
             fontStyle: 'italic',
             fontSize: 'clamp(72px, 6vw, 100px)',
             lineHeight: 0.85,
-            color: isActive ? 'rgba(184,149,106,0.12)' : 'rgba(255,255,255,0.03)',
+            color: isActive ? 'rgba(44, 52, 128,0.12)' : 'rgba(255,255,255,0.03)',
             transition: 'color 0.6s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
@@ -143,7 +143,7 @@ function PhaseCard({
             width: '6px',
             height: '6px',
             borderRadius: '50%',
-            backgroundColor: '#B8956A',
+            backgroundColor: '#2C3480',
           }}
           animate={{
             scale: isActive ? 1 : 0.5,
@@ -160,11 +160,11 @@ function PhaseCard({
           padding: 'clamp(32px, 3vw, 48px)',
           minHeight: '360px',
           background: isActive
-            ? 'linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(184,149,106,0.04) 40%, rgba(255,255,255,0.02) 100%)'
+            ? 'linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(44, 52, 128,0.04) 40%, rgba(255,255,255,0.02) 100%)'
             : 'linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
           border: '1px solid',
           borderColor: isActive
-            ? 'rgba(184,149,106,0.15)'
+            ? 'rgba(44, 52, 128,0.15)'
             : 'rgba(255,255,255,0.04)',
           backdropFilter: 'blur(20px)',
           transition: 'all 0.6s cubic-bezier(0.16,1,0.3,1)',
@@ -180,7 +180,7 @@ function PhaseCard({
             height: '200px',
             borderRadius: '50%',
             background:
-              'radial-gradient(circle, rgba(184,149,106,0.1) 0%, transparent 70%)',
+              'radial-gradient(circle, rgba(44, 52, 128,0.1) 0%, transparent 70%)',
             filter: 'blur(40px)',
             opacity: isActive ? 1 : 0,
             transition: 'opacity 0.6s ease',
@@ -198,7 +198,7 @@ function PhaseCard({
             borderTop: '1px solid',
             borderLeft: '1px solid',
             borderColor: isActive
-              ? 'rgba(184,149,106,0.3)'
+              ? 'rgba(44, 52, 128,0.3)'
               : 'rgba(255,255,255,0.06)',
             transition: 'border-color 0.4s ease',
           }}
@@ -214,7 +214,7 @@ function PhaseCard({
             borderBottom: '1px solid',
             borderRight: '1px solid',
             borderColor: isActive
-              ? 'rgba(184,149,106,0.3)'
+              ? 'rgba(44, 52, 128,0.3)'
               : 'rgba(255,255,255,0.06)',
             transition: 'border-color 0.4s ease',
           }}
@@ -224,7 +224,7 @@ function PhaseCard({
         <h3
           className="m-0 relative z-10"
           style={{
-            fontFamily: 'var(--font-display), serif',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
             fontWeight: 300,
             fontStyle: 'italic',
             fontSize: 'clamp(28px, 3vw, 40px)',
@@ -242,7 +242,7 @@ function PhaseCard({
           style={{
             fontFamily: 'var(--font-mono), monospace',
             fontSize: '9px',
-            color: isActive ? '#B8956A' : 'rgba(255,255,255,0.2)',
+            color: isActive ? '#2C3480' : 'rgba(255,255,255,0.2)',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
             marginTop: '12px',
@@ -259,7 +259,7 @@ function PhaseCard({
             width: '100%',
             height: '1px',
             background: isActive
-              ? 'linear-gradient(to right, rgba(184,149,106,0.2), transparent)'
+              ? 'linear-gradient(to right, rgba(44, 52, 128,0.2), transparent)'
               : 'rgba(255,255,255,0.04)',
             marginTop: '24px',
             marginBottom: '24px',
@@ -298,12 +298,12 @@ function PhaseCard({
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: isActive
-                  ? 'rgba(184,149,106,0.7)'
+                  ? 'rgba(44, 52, 128,0.7)'
                   : 'rgba(255,255,255,0.15)',
                 padding: '6px 12px',
                 border: '1px solid',
                 borderColor: isActive
-                  ? 'rgba(184,149,106,0.15)'
+                  ? 'rgba(44, 52, 128,0.15)'
                   : 'rgba(255,255,255,0.04)',
                 transition: 'all 0.4s ease',
               }}
@@ -349,7 +349,7 @@ function ProgressLine({ activePhase }: { activePhase: number }) {
         style={{
           width,
           background:
-            'linear-gradient(to right, #B8956A, rgba(184,149,106,0.3))',
+            'linear-gradient(to right, #2C3480, rgba(44, 52, 128,0.3))',
         }}
       />
       {/* Phase markers */}
@@ -365,7 +365,7 @@ function ProgressLine({ activePhase }: { activePhase: number }) {
             height: '5px',
             borderRadius: '50%',
             backgroundColor:
-              i <= activePhase ? '#B8956A' : 'rgba(255,255,255,0.08)',
+              i <= activePhase ? '#2C3480' : 'rgba(255,255,255,0.08)',
             transition: 'background-color 0.4s ease',
           }}
         />
@@ -436,7 +436,7 @@ export default function ProcessTeaser() {
           height: '600px',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(184,149,106,0.035) 0%, transparent 60%)',
+            'radial-gradient(circle, rgba(44, 52, 128,0.035) 0%, transparent 60%)',
           filter: 'blur(80px)',
         }}
         animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
@@ -453,7 +453,7 @@ export default function ProcessTeaser() {
           height: '400px',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(184,149,106,0.025) 0%, transparent 60%)',
+            'radial-gradient(circle, rgba(44, 52, 128,0.025) 0%, transparent 60%)',
           filter: 'blur(60px)',
         }}
         animate={{ y: [0, -20, 0] }}
@@ -480,7 +480,7 @@ export default function ProcessTeaser() {
               as="h2"
               className="m-0"
               style={{
-                fontFamily: 'var(--font-display), serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontWeight: 300,
                 fontStyle: 'italic',
                 fontSize: 'clamp(48px, 5.5vw, 88px)',
@@ -495,7 +495,7 @@ export default function ProcessTeaser() {
               as="h2"
               className="m-0"
               style={{
-                fontFamily: 'var(--font-display), serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontWeight: 300,
                 fontStyle: 'italic',
                 fontSize: 'clamp(48px, 5.5vw, 88px)',
@@ -572,7 +572,7 @@ export default function ProcessTeaser() {
               style={{
                 fontFamily: 'var(--font-mono), monospace',
                 fontSize: '10px',
-                color: '#B8956A',
+                color: '#2C3480',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
                 transition: 'opacity 0.3s ease',
@@ -584,7 +584,7 @@ export default function ProcessTeaser() {
               style={{
                 fontFamily: 'var(--font-mono), monospace',
                 fontSize: '14px',
-                color: '#B8956A',
+                color: '#2C3480',
                 display: 'inline-block',
               }}
               whileHover={{ x: 4 }}

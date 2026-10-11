@@ -65,7 +65,7 @@ export default function PhilosophyV2() {
         const isBrand = word.dataset.brand === 'true';
         if (isBrand) {
           // Brand word is always gold — animate opacity to make it prominent
-          gsap.set(word, { color: '#B8956A', opacity: 0.3 });
+          gsap.set(word, { color: '#2C3480', opacity: 0.3 });
           tl.to(word, {
             opacity: 1,
             ease: 'none',
@@ -130,19 +130,19 @@ export default function PhilosophyV2() {
       {/* ── 4 Corner L-Brackets ── */}
       <div
         className="hidden md:block absolute"
-        style={{ top: '32px', left: '32px', width: '24px', height: '24px', borderTop: '1.5px solid rgba(184,149,106,0.25)', borderLeft: '1.5px solid rgba(184,149,106,0.25)' }}
+        style={{ top: '32px', left: '32px', width: '24px', height: '24px', borderTop: '1.5px solid rgba(44, 52, 128,0.25)', borderLeft: '1.5px solid rgba(44, 52, 128,0.25)' }}
       />
       <div
         className="hidden md:block absolute"
-        style={{ top: '32px', right: '32px', width: '24px', height: '24px', borderTop: '1.5px solid rgba(184,149,106,0.25)', borderRight: '1.5px solid rgba(184,149,106,0.25)' }}
+        style={{ top: '32px', right: '32px', width: '24px', height: '24px', borderTop: '1.5px solid rgba(44, 52, 128,0.25)', borderRight: '1.5px solid rgba(44, 52, 128,0.25)' }}
       />
       <div
         className="hidden md:block absolute"
-        style={{ bottom: '32px', left: '32px', width: '24px', height: '24px', borderBottom: '1.5px solid rgba(184,149,106,0.25)', borderLeft: '1.5px solid rgba(184,149,106,0.25)' }}
+        style={{ bottom: '32px', left: '32px', width: '24px', height: '24px', borderBottom: '1.5px solid rgba(44, 52, 128,0.25)', borderLeft: '1.5px solid rgba(44, 52, 128,0.25)' }}
       />
       <div
         className="hidden md:block absolute"
-        style={{ bottom: '32px', right: '32px', width: '24px', height: '24px', borderBottom: '1.5px solid rgba(184,149,106,0.25)', borderRight: '1.5px solid rgba(184,149,106,0.25)' }}
+        style={{ bottom: '32px', right: '32px', width: '24px', height: '24px', borderBottom: '1.5px solid rgba(44, 52, 128,0.25)', borderRight: '1.5px solid rgba(44, 52, 128,0.25)' }}
       />
 
       {/* ── Top-left vertical studio label ── */}
@@ -174,7 +174,7 @@ export default function PhilosophyV2() {
       >
         <span
           style={{
-            fontFamily: 'var(--font-display), serif',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
             fontWeight: 700,
             fontSize: 'clamp(160px, 18vw, 280px)',
             color: 'rgba(10,10,10,0.025)',
@@ -196,7 +196,7 @@ export default function PhilosophyV2() {
           style={{
             fontFamily: 'var(--font-mono), monospace',
             fontSize: '9px',
-            color: '#B8956A',
+            color: '#2C3480',
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
           }}
@@ -208,7 +208,7 @@ export default function PhilosophyV2() {
         <h2
           className="m-0"
           style={{
-            fontFamily: 'var(--font-display), serif',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
             fontWeight: 300,
             fontStyle: 'italic',
             fontSize: 'clamp(44px, 6vw, 96px)',
@@ -229,8 +229,8 @@ export default function PhilosophyV2() {
                     display: 'inline-block',
                     marginRight: '0.28em',
                     color: isMobile
-                      ? (isBrand ? '#B8956A' : 'rgba(10,10,10,0.95)')
-                      : (isBrand ? '#B8956A' : 'rgba(10,10,10,0.08)'),
+                      ? (isBrand ? '#2C3480' : 'rgba(10,10,10,0.95)')
+                      : (isBrand ? '#2C3480' : 'rgba(10,10,10,0.08)'),
                     transition: 'color 0.1s linear',
                   }}
                 >
@@ -250,7 +250,7 @@ export default function PhilosophyV2() {
             style={{
               width: '48px',
               height: '1px',
-              backgroundColor: '#B8956A',
+              backgroundColor: '#2C3480',
               marginTop: '40px',
               marginBottom: '32px',
               transform: isMobile ? 'scaleX(1)' : 'scaleX(0)',
@@ -291,7 +291,7 @@ export default function PhilosophyV2() {
               display: 'inline-block',
               transition: 'color 300ms ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#B8956A'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#2C3480'; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = '#0A0A0A'; }}
           >
             Read our process →
@@ -323,7 +323,7 @@ export default function PhilosophyV2() {
         </span>
 
         <div className="flex items-center" style={{ gap: '16px' }}>
-          <div style={{ width: '40px', height: '1px', backgroundColor: 'rgba(184,149,106,0.3)' }} />
+          <div style={{ width: '40px', height: '1px', backgroundColor: 'rgba(44, 52, 128,0.3)' }} />
           <span
             style={{
               fontFamily: 'var(--font-mono), monospace',

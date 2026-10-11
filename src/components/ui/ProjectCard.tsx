@@ -28,7 +28,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       >
         {/* Category Pill (Top-Right) */}
         <div className="absolute top-6 right-6 z-30 pointer-events-none">
-           <span className="px-5 py-2 bg-[#D4AF37] text-[#0A0A0A] font-mono text-[9px] font-bold tracking-[0.2em] uppercase rounded-full shadow-lg">
+           <span className="px-5 py-2 bg-[#2C3480] text-[#0A0A0A] font-mono text-[9px] font-bold tracking-[0.2em] uppercase rounded-full shadow-lg">
              {project.category}
            </span>
         </div>
@@ -68,9 +68,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 {project.title}
               </h3>
               <div className="flex items-center justify-center gap-4">
-                 <div className="w-8 h-px bg-[#D4AF37]" />
-                 <span className="font-mono text-[9px] text-[#D4AF37] tracking-[0.4em] uppercase">VIEW CASE STUDY →</span>
-                 <div className="w-8 h-px bg-[#D4AF37]" />
+                 <div className="w-8 h-px bg-[#2C3480]" />
+                 <span className="font-mono text-[9px] text-[#2C3480] tracking-[0.4em] uppercase">VIEW CASE STUDY →</span>
+                 <div className="w-8 h-px bg-[#2C3480]" />
               </div>
            </motion.div>
         </div>

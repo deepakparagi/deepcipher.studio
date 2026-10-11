@@ -83,7 +83,7 @@ export const services: Service[] = [
       'Visual direction moodboards'
     ],
     duration: '2–3 WEEKS',
-    startingFrom: '₹15,000',
+    startingFrom: '₹40,000',
     icon: '◆',
     image: '/images/services/strategy.png',
   },
@@ -110,7 +110,7 @@ export const services: Service[] = [
     duration: '3–5 WEEKS',
     startingFrom: '₹20,000',
     icon: '◇',
-    image: '/images/services/ui_ux.png',
+    image: '/images/services/services_seo.jpg',
   },
   {
     id: 5,
@@ -135,6 +135,6 @@ export const services: Service[] = [
     duration: '4–8 WEEKS',
     startingFrom: '₹45,000',
     icon: '⬡',
-    image: '/images/services/web_design.png',
+    image: '/images/services/services_ai.jpg',
   },
 ];

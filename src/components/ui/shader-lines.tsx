@@ -1,171 +1,23 @@
-"use client"
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 
-import React, { useEffect, useRef } from "react"
-import * as THREE from "three"
-
-export default function ShaderLines() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const sceneRef = useRef<{
-    camera: THREE.Camera | null
-    scene: THREE.Scene | null
-    renderer: THREE.WebGLRenderer | null
-    uniforms: any
-    animationId: number | null
-  }>({
-    camera: null,
-    scene: null,
-    renderer: null,
-    uniforms: null,
-    animationId: null,
-  })
-
-  useEffect(() => {
-    if (!containerRef.current) return
-
-    const container = containerRef.current
-    container.innerHTML = ""
-
-    const camera = new THREE.Camera()
-    camera.position.z = 1
-
-    const scene = new THREE.Scene()
-    const geometry = new THREE.PlaneGeometry(2, 2)
-
-    const uniforms = {
-      time: { type: "f", value: 1.0 },
-      resolution: { type: "v2", value: new THREE.Vector2() },
-    }
-
-    const vertexShader = `
-      void main() {
-        gl_Position = vec4( position, 1.0 );
-      }
-    `
-
-    // Tinted for Deepcipher Gold
-    const fragmentShader = `
-      #define TWO_PI 6.2831853072
-      #define PI 3.14159265359
-
-      precision highp float;
-      uniform vec2 resolution;
-      uniform float time;
-        
-      float random (in float x) {
-          return fract(sin(x)*1e4);
-      }
-      float random (vec2 st) {
-          return fract(sin(dot(st.xy,
-                               vec2(12.9898,78.233)))*
-              43758.5453123);
-      }
-      
-      varying vec2 vUv;
-
-      void main(void) {
-        vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-        
-        vec2 fMosaicScal = vec2(4.0, 2.0);
-        vec2 vScreenSize = vec2(256,256);
-        uv.x = floor(uv.x * vScreenSize.x / fMosaicScal.x) / (vScreenSize.x / fMosaicScal.x);
-        uv.y = floor(uv.y * vScreenSize.y / fMosaicScal.y) / (vScreenSize.y / fMosaicScal.y);       
-          
-        float t = time*0.06+random(uv.x)*0.4;
-        float lineWidth = 0.0008;
-
-        vec3 color = vec3(0.0);
-        for(int j = 0; j < 3; j++){
-          for(int i=0; i < 5; i++){
-            color[j] += lineWidth*float(i*i) / abs(fract(t - 0.01*float(j)+float(i)*0.01)*1.0 - length(uv));        
-          }
-        }
-
-        // Deepcipher Gold: rgb(184, 149, 106)
-        vec3 tint = vec3(0.72, 0.58, 0.41);
-        gl_FragColor = vec4(color[2] * tint.r * 2.0, color[1] * tint.g * 2.0, color[0] * tint.b * 2.0, 1.0);
-      }
-    `
-
-    const material = new THREE.ShaderMaterial({
-      uniforms: uniforms,
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader,
-    })
-
-    const mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: false,
-      alpha: true,
-      powerPreference: 'high-performance',
-      stencil: false,
-      depth: false,
-    })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
-    container.appendChild(renderer.domElement)
-
-    let isVisible = true
-    let animationId: number | null = null
-
-    sceneRef.current = {
-      camera,
-      scene,
-      renderer,
-      uniforms,
-      animationId: null,
-    }
-
-    const onWindowResize = () => {
-      if (!container) return
-      const rect = container.getBoundingClientRect()
-      renderer.setSize(rect.width, rect.height)
-      uniforms.resolution.value.x = renderer.domElement.width
-      uniforms.resolution.value.y = renderer.domElement.height
-    }
-
-    onWindowResize()
-    window.addEventListener("resize", onWindowResize, { passive: true })
-
-    const renderFrame = () => {
-      if (!isVisible) return
-      animationId = requestAnimationFrame(renderFrame)
-      uniforms.time.value += 0.03
-      renderer.render(scene, camera)
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting
-        if (isVisible) {
-          if (animationId === null) {
-            animationId = requestAnimationFrame(renderFrame)
-          }
-        } else if (animationId !== null) {
-          cancelAnimationFrame(animationId)
-          animationId = null
-        }
-      },
-      { threshold: 0.05 }
-    )
-
-    observer.observe(container)
-
-    return () => {
-      observer.disconnect()
-      if (animationId !== null) cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", onWindowResize)
-      if (container && renderer.domElement) container.removeChild(renderer.domElement)
-      renderer.dispose()
-      geometry.dispose()
-      material.dispose()
-    }
-  }, [])
-
+export default function OptimizedBackground() {
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 z-0 opacity-40 pointer-events-none" 
-    />
-  )
+    <div className="absolute inset-0 z-0 overflow-hidden bg-[#0A0A0A] pointer-events-none opacity-40">
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full blur-[100px]"
+        style={{ background: 'radial-gradient(circle, rgba(44, 52, 128, 0.15) 0%, rgba(0,0,0,0) 70%)' }}
+      />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[80px]"
+        style={{ background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0,0,0,0) 70%)' }}
+      />
+    </div>
+  );
 }
+export { OptimizedBackground as ShaderAnimation, OptimizedBackground as NeuralBackground, OptimizedBackground as ShaderLines, OptimizedBackground as GradientBars };

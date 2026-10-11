@@ -85,7 +85,7 @@ function WorkCard3D({ project, index }: WorkCard3DProps) {
 
           {/* Bottom info */}
           <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col pointer-events-none">
-            <span className="font-mono text-[9px] text-[#B8956A] uppercase tracking-[0.2em] mb-3 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1">
+            <span className="font-mono text-[9px] text-[#2C3480] uppercase tracking-[0.2em] mb-3 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1">
               {project.category}
             </span>
             <h3 className="font-display italic font-light text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
@@ -99,7 +99,7 @@ function WorkCard3D({ project, index }: WorkCard3DProps) {
               </span>
 
               {/* Result metric slides up on hover */}
-              <span className="font-mono text-[9px] text-[#B8956A] uppercase tracking-widest absolute right-0 bottom-[-100%] group-hover:bottom-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+              <span className="font-mono text-[9px] text-[#2C3480] uppercase tracking-widest absolute right-0 bottom-[-100%] group-hover:bottom-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
                 {project.result || 'View Case Study'}
               </span>
             </div>
@@ -132,7 +132,7 @@ export default function WorkGrid() {
           <span className="font-mono text-[9px] text-[rgba(10,10,10,0.3)] tracking-[0.2em] uppercase">
              6 projects · 2024–2025
           </span>
-          <Link href="/work" className="font-mono text-[10px] text-[#0A0A0A] uppercase tracking-[0.1em] hover:text-[#B8956A] border-b border-[#0A0A0A] hover:border-[#B8956A] transition-colors pb-1 mt-1">
+          <Link href="/work" className="font-mono text-[10px] text-[#0A0A0A] uppercase tracking-[0.1em] hover:text-[#2C3480] border-b border-[#0A0A0A] hover:border-[#2C3480] transition-colors pb-1 mt-1">
             View all work →
           </Link>
         </div>

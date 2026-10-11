@@ -30,14 +30,14 @@ export async function POST(req: Request) {
     const data = await req.json();
     const {
       name,
-      email,
+      phone,
       message,
     } = data;
 
     // Validate essential fields
-    if (!name || !email || !message) {
+    if (!name || !phone || !message) {
       return NextResponse.json(
-        { error: 'Name, email, and message are required.' },
+        { error: 'Name, phone, and message are required.' },
         { status: 400 }
       );
     }
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       console.log('----------------------------------------------------');
       console.log('⚡ [CONTACT FORM SUBMISSION]');
       console.log('Time:', new Date().toISOString());
-      console.log('From:', `${name} <${email}>`);
+      console.log('From:', `${name} <${phone}>`);
       console.log('Message:', message);
       console.log('💡 Note: Set EMAIL_USER & EMAIL_APP_PASSWORD in .env.local to send live emails.');
       console.log('----------------------------------------------------');
@@ -68,12 +68,11 @@ export async function POST(req: Request) {
     // Create the email options
     const mailOptions = {
       from: `"${name}" <${emailUser}>`,
-      replyTo: email,
       to: recipientEmail,
       subject: `New Project Inquiry: ${name}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a; line-height: 1.6; border: 1px solid #eaeaea; border-radius: 8px; overflow: hidden;">
-          <div style="background-color: #0A0A0A; padding: 24px; border-bottom: 3px solid #B8956A;">
+          <div style="background-color: #0A0A0A; padding: 24px; border-bottom: 3px solid #2C3480;">
             <h2 style="color: #F5F0E8; margin: 0; font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;">DEEPCIPHER STUDIO — New Inquiry</h2>
           </div>
           <div style="padding: 24px;">
@@ -83,13 +82,13 @@ export async function POST(req: Request) {
                 <td style="padding: 8px 0; font-weight: 600; color: #111;">${name}</td>
               </tr>
               <tr>
-                <td style="padding: 8px 0; color: #777; font-size: 13px; text-transform: uppercase;">Email:</td>
-                <td style="padding: 8px 0; font-weight: 600; color: #111;"><a href="mailto:${email}" style="color: #B8956A; text-decoration: none;">${email}</a></td>
+                <td style="padding: 8px 0; color: #777; font-size: 13px; text-transform: uppercase;">Phone:</td>
+                <td style="padding: 8px 0; font-weight: 600; color: #111;"><a href="tel:${phone}" style="color: #2C3480; text-decoration: none;">${phone}</a></td>
               </tr>
 
             </table>
 
-            <div style="background-color: #f9f9f9; border-left: 4px solid #B8956A; padding: 16px; margin-top: 10px; border-radius: 0 4px 4px 0;">
+            <div style="background-color: #f9f9f9; border-left: 4px solid #2C3480; padding: 16px; margin-top: 10px; border-radius: 0 4px 4px 0;">
               <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; color: #555; letter-spacing: 0.05em;">Project Brief:</h3>
               <p style="margin: 0; white-space: pre-wrap; font-size: 14px; color: #222;">${message}</p>
             </div>

@@ -21,9 +21,11 @@ const PROJECT_COVERS: Record<string, string> = {
   'shingri-developers': '/project-covers/shingri-developers.jpg',
   'gadag-info': '/project-covers/gadag-info.jpg',
   'deepak-portfolio': '/project-covers/deepak-portfolio.jpg',
-  'bipin-chikkatti-college': '/project-covers/bipin-college.jpg',
+  'bipin-chikkatti-institutions': '/project-covers/bipin-chikkatti-institutions.jpg',
+  'bipin-chikkatti-college': '/project-covers/bipin-chikkatti-college.jpg',
   'khans-fitness': '/project-covers/khans-fitness.jpg',
   'cinepulse-ai': '/project-covers/cinepulse-ai.jpg',
+  'brown-sugar-fusion-cafe': '/project-covers/brown-sugar-fusion-cafe.jpg',
 };
 
 /* ── Card position styles ── */
@@ -206,7 +208,7 @@ export default function SelectedProjects() {
           transform: 'translate(-50%, -50%)',
           width: '600px',
           height: '600px',
-          background: 'radial-gradient(circle, rgba(184,149,106,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(44, 52, 128,0.04) 0%, transparent 70%)',
           zIndex: 0,
         }}
         aria-hidden="true"
@@ -220,16 +222,17 @@ export default function SelectedProjects() {
         <div>
           <div className="flex items-center gap-4 mb-4">
             <div
-              style={{ width: '24px', height: '0.5px', backgroundColor: '#B8956A', flexShrink: 0 }}
+              style={{ width: '24px', height: '0.5px', backgroundColor: '#2C3480', flexShrink: 0 }}
               aria-hidden="true"
             />
             <span
               style={{
-                fontFamily: 'var(--font-body), sans-serif',
-                fontSize: '10px',
+                fontFamily: 'var(--font-helvetica), sans-serif',
+                fontSize: '11px',
                 color: '#6B6560',
-                letterSpacing: '0.3em',
+                letterSpacing: '0.2em',
                 textTransform: 'uppercase',
+                fontWeight: 600,
               }}
             >
               SELECTED PROJECTS
@@ -237,16 +240,17 @@ export default function SelectedProjects() {
           </div>
           <h2
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
+              fontFamily: 'var(--font-helvetica), sans-serif',
+              fontWeight: 700,
               fontSize: 'clamp(32px, 5vw, 48px)',
               lineHeight: 1.1,
+              letterSpacing: '-0.03em',
               color: '#F5F0E8',
               margin: 0,
             }}
           >
             <span className="upright">The </span>
-            <span className="italic" style={{ color: '#B8956A' }}>Archive.</span>
+            <span className="font-citadel italic" style={{ color: '#4B5DF5' }}>Archive.</span>
           </h2>
         </div>
 
@@ -260,13 +264,13 @@ export default function SelectedProjects() {
             fontSize: '10px',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
-            color: '#B8956A',
+            color: '#2C3480',
             textDecoration: 'none',
           }}
         >
           VIEW ALL WORK →
           <span
-            className="absolute bottom-[-2px] left-0 w-full h-[0.5px] bg-[#B8956A] origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-out"
+            className="absolute bottom-[-2px] left-0 w-full h-[0.5px] bg-[#2C3480] origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-out"
           />
         </Link>
       </div>
@@ -309,9 +313,9 @@ export default function SelectedProjects() {
             transition: 'all 0.3s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#B8956A';
-            e.currentTarget.style.color = '#B8956A';
-            e.currentTarget.style.background = 'rgba(184,149,106,0.1)';
+            e.currentTarget.style.borderColor = '#2C3480';
+            e.currentTarget.style.color = '#2C3480';
+            e.currentTarget.style.background = 'rgba(44, 52, 128,0.1)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = 'rgba(245,240,232,0.15)';
@@ -347,9 +351,9 @@ export default function SelectedProjects() {
             transition: 'all 0.3s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#B8956A';
-            e.currentTarget.style.color = '#B8956A';
-            e.currentTarget.style.background = 'rgba(184,149,106,0.1)';
+            e.currentTarget.style.borderColor = '#2C3480';
+            e.currentTarget.style.color = '#2C3480';
+            e.currentTarget.style.background = 'rgba(44, 52, 128,0.1)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = 'rgba(245,240,232,0.15)';
@@ -379,8 +383,9 @@ export default function SelectedProjects() {
                 height: isMobile ? '400px' : '520px',
                 borderRadius: '16px',
                 overflow: 'hidden',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 boxShadow: isActive
-                  ? '0 40px 80px rgba(0,0,0,0.8), 0 0 0 0.5px rgba(245,240,232,0.08)'
+                  ? '0 35px 70px rgba(0,0,0,0.85), 0 0 0 1px rgba(75,93,245,0.45)'
                   : '0 20px 40px rgba(0,0,0,0.6)',
                 willChange: 'transform',
               }}
@@ -402,85 +407,79 @@ export default function SelectedProjects() {
               }}
               onMouseLeave={resetCursor}
             >
-              {/* Image Cover */}
+              {/* Image Cover - explicitly styled to fill 100% of card edge-to-edge */}
               <img
                 src={coverImage}
                 alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                style={{ zIndex: 0 }}
-              />
-
-              {/* Gradient Overlay for Text Readability */}
-              <div 
-                className="absolute inset-0 z-[1] pointer-events-none"
+                className="transition-transform duration-700 ease-out group-hover:scale-105"
                 style={{
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.9) 100%)'
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  minWidth: '100%',
+                  minHeight: '100%',
+                  maxWidth: 'none',
+                  maxHeight: 'none',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block',
+                  zIndex: 0,
                 }}
               />
 
-              {/* Light Bloom Effect */}
+              {/* Subtle ambient scrim so image is 100% visible while maintaining hover depth */}
               <div 
-                className="absolute pointer-events-none z-[2] transition-transform duration-600 ease-out group-hover:translate-x-[10%] group-hover:scale-110"
-                style={{
-                  top: '-20%', left: '30%', width: '40%', height: '80%',
-                  background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%)'
-                }}
+                className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-300 bg-black/10 group-hover:bg-black/25" 
               />
 
-              {/* Category badge */}
+              {/* Minimalist Archival Index in Top Left */}
               <div
-                className="absolute"
+                className="absolute top-4 left-4 z-[4] pointer-events-none"
                 style={{
-                  top: '14px',
-                  right: '14px',
-                  background: 'rgba(0,0,0,0.6)',
-                  border: '0.5px solid rgba(184,149,106,0.4)',
-                  color: '#B8956A',
-                  fontFamily: 'var(--font-body), sans-serif',
-                  fontSize: '8px',
-                  letterSpacing: '0.12em',
-                  padding: '4px 10px',
+                  color: 'rgba(255, 255, 255, 0.4)',
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '9.5px',
+                  fontWeight: 600,
+                  letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  backdropFilter: 'blur(8px)',
-                  zIndex: 4,
+                  textShadow: '0 2px 8px rgba(0,0,0,0.8)',
                 }}
               >
-                {project.category}
+                0{index + 1} // 0{projects.length}
               </div>
 
-              {/* Info overlay — floats over canvas with gradient backdrop */}
+              {/* Center Project Name */}
               <div
-                className="absolute bottom-0 left-0 right-0"
+                className="absolute inset-0 z-10 p-6 flex flex-col items-center justify-center text-center pointer-events-none transition-all duration-500"
                 style={{
-                  zIndex: 3,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
-                  padding: isMobile ? '40px 20px 20px' : '60px 28px 24px',
+                  background: isActive
+                    ? 'radial-gradient(ellipse at center, rgba(10, 10, 10, 0.72) 0%, rgba(10, 10, 10, 0.3) 55%, transparent 85%)'
+                    : 'radial-gradient(ellipse at center, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.45) 55%, transparent 85%)',
                 }}
               >
                 <h3
                   style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontWeight: 500,
-                    fontSize: isMobile ? 'clamp(18px, 4vw, 22px)' : '22px',
-                    color: '#F5F0E8',
-                    margin: '0 0 6px 0',
-                    lineHeight: 1.1,
+                    fontFamily: 'var(--font-helvetica), sans-serif',
+                    fontWeight: 700,
+                    fontSize: isMobile ? '20px' : '26px',
+                    color: '#FFFFFF',
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    textShadow: '0 4px 28px rgba(0,0,0,0.98), 0 2px 8px rgba(0,0,0,0.95)',
+                    maxWidth: '85%',
+                    margin: 0,
+                    opacity: isActive ? 1 : 0.45,
+                    transform: isActive ? 'scale(1)' : 'scale(0.95)',
+                    transition: 'all 0.4s ease',
                   }}
-                  className="upright"
+                  className="upright transition-transform duration-300 group-hover:scale-105"
                 >
                   {project.title}
                 </h3>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body), sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 300,
-                    color: '#9A9590',
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {project.description}
-                </span>
               </div>
             </motion.div>
           );
@@ -501,7 +500,7 @@ export default function SelectedProjects() {
               width: i === activeIndex ? '24px' : '6px',
               height: '6px',
               borderRadius: i === activeIndex ? '3px' : '50%',
-              background: i === activeIndex ? '#B8956A' : 'rgba(245,240,232,0.2)',
+              background: i === activeIndex ? '#2C3480' : 'rgba(245,240,232,0.2)',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
@@ -520,9 +519,9 @@ export default function SelectedProjects() {
             fontSize: '10px',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
-            color: '#B8956A',
+            color: '#2C3480',
             textDecoration: 'none',
-            borderBottom: '0.5px solid rgba(184,149,106,0.4)',
+            borderBottom: '0.5px solid rgba(44, 52, 128,0.4)',
             paddingBottom: '4px',
           }}
         >

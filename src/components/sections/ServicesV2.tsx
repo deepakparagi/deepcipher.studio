@@ -25,7 +25,7 @@ const services: ServiceItem[] = [
     title: 'Website Design',
     subtitle: 'We design digital architectures that command authority, balancing premium aesthetics with uncompromising conversion strategy.',
     capabilities: ['Visual Direction', 'Interaction Design', 'Conversion Strategy'],
-    accent: '#B8956A',
+    accent: '#2C3480',
   },
   {
     no: '02',
@@ -53,7 +53,7 @@ const services: ServiceItem[] = [
     title: 'Performance Optimization',
     subtitle: 'We optimize for absolute speed and technical perfection. A beautiful site that is slow to load is a silent luxury.',
     capabilities: ['Core Web Vitals', 'Technical SEO', 'Asset Compression'],
-    accent: '#B8956A',
+    accent: '#2C3480',
   },
   {
     no: '06',
@@ -109,7 +109,7 @@ const ServiceRow = memo(function ServiceRow({ service, index }: { service: Servi
             padding: 'clamp(28px, 3.5vw, 48px) 0',
             borderTop: '1px solid rgba(10,10,10,0.08)',
             transition: 'background-color 0.5s cubic-bezier(0.16,1,0.3,1)',
-            backgroundColor: isHovered ? 'rgba(184,149,106,0.04)' : 'transparent',
+            backgroundColor: isHovered ? 'rgba(44, 52, 128,0.04)' : 'transparent',
           }}
         >
           {/* Left accent bar */}
@@ -157,11 +157,11 @@ const ServiceRow = memo(function ServiceRow({ service, index }: { service: Servi
                 <h3
                   className="m-0"
                   style={{
-                    fontFamily: 'var(--font-display), serif',
-                    fontWeight: 300,
-                    fontStyle: 'italic',
+                    fontFamily: "var(--font-helvetica), sans-serif",
+                    fontWeight: 700,
                     fontSize: 'clamp(28px, 3.5vw, 52px)',
                     lineHeight: 1,
+                    letterSpacing: '-0.025em',
                     color: isHovered ? '#0A0A0A' : 'rgba(10,10,10,0.42)',
                     transition: 'color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
                     transform: isHovered ? 'translateX(8px)' : 'translateX(0)',
@@ -209,7 +209,7 @@ const ServiceRow = memo(function ServiceRow({ service, index }: { service: Servi
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
                       border: '1px solid',
-                      borderColor: isHovered ? 'rgba(184,149,106,0.3)' : 'rgba(10,10,10,0.08)',
+                      borderColor: isHovered ? 'rgba(44, 52, 128,0.3)' : 'rgba(10,10,10,0.08)',
                       padding: '4px 10px',
                       transition: 'color 0.3s ease, border-color 0.3s ease',
                       whiteSpace: 'nowrap',
@@ -259,21 +259,20 @@ export default function ServicesV2() {
         <div>
           <SectionLabel className="mb-4 text-[#0A0A0A]/40">[ WHAT WE BUILD ]</SectionLabel>
 
-          <AnimatedText
-            splitBy="word"
-            as="h2"
+          <h2
             className="services-home-title m-0"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(52px, 6vw, 96px)',
-              lineHeight: 0.9,
+              fontFamily: "var(--font-helvetica), sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(44px, 6vw, 84px)',
+              lineHeight: 0.95,
+              letterSpacing: '-0.03em',
               color: '#0A0A0A',
             }}
           >
-            Our Services
-          </AnimatedText>
+            <span>Our </span>
+            <span className="font-citadel italic" style={{ color: '#2C3480' }}>Services.</span>
+          </h2>
         </div>
 
         <motion.p

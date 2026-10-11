@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCursor } from '../ui/CursorProvider';
 import MagneticButton from '../ui/MagneticButton';
 
@@ -46,7 +47,7 @@ export default function Footer() {
           left: 0,
           width: '1200px',
           height: '1200px',
-          background: 'radial-gradient(circle, rgba(184,149,106,0.065) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(44, 52, 128,0.065) 0%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
           x: springX,
@@ -80,17 +81,45 @@ export default function Footer() {
           
           {/* LEFT SIDE (5 columns) */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:col-span-5">
+            <Link 
+              href="/"
+              className="flex items-center gap-3.5 mb-6 group"
+              onMouseEnter={() => setCursor('link')}
+              onMouseLeave={resetCursor}
+            >
+              <Image
+                src="/deepcipher_logo.png"
+                alt="DEEPCIPHER Official Logo"
+                width={52}
+                height={39}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                style={{ width: 'auto', height: '36px' }}
+              />
+              <span style={{ fontFamily: 'var(--font-helvetica), sans-serif', fontSize: '20px', letterSpacing: '0.14em', color: '#F5F0E8', fontWeight: 700 }}>
+                DEEPCIPHER
+              </span>
+            </Link>
+
             <p className="footer-brand-tagline mb-10 text-white/60 font-light text-[14px]">
               Web Design &amp; Brand Identity Studio
             </p>
             
-            <h4 className="footer-hero-headline leading-[1.1] mb-10 max-w-[420px]" style={{ fontSize: 'clamp(28px, 3vw, 40px)', fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300 }}>
+            <h4 className="footer-hero-headline leading-[1.1] mb-10 max-w-[420px]" style={{ fontSize: 'clamp(28px, 3vw, 40px)', fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontWeight: 700 }}>
               Architecting digital authority <br/> for ambitious brands globally.
             </h4>
             
             <div className="footer-cta-wrap mb-16">
-              <MagneticButton variant="outline" href="/contact" className="px-10 py-5 border border-white/10 text-[10px] font-mono tracking-[0.5em] uppercase hover:bg-[#B8956A] hover:border-[#B8956A] hover:text-[#0A0A0A] transition-all duration-500">
-                START A PROJECT &rarr;
+              <MagneticButton
+                variant="outline"
+                href="/contact"
+                className="footer-cta-btn group px-8 py-4 sm:px-10 sm:py-5 text-[11px] font-mono tracking-[0.25em] uppercase transition-all duration-300"
+              >
+                <span className="flex items-center justify-center gap-3 text-white whitespace-nowrap transition-colors duration-300">
+                  <span>START A PROJECT</span>
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5 text-[#4B5DF5] group-hover:text-white font-bold">
+                    &rarr;
+                  </span>
+                </span>
               </MagneticButton>
             </div>
             
@@ -116,7 +145,7 @@ export default function Footer() {
                     letterSpacing: '0.15em',
                     transition: 'color 0.3s ease',
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#B8956A'}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
                   onMouseOut={(e) => e.currentTarget.style.color = '#6B6560'}
                 >
                   {social.label}
@@ -148,7 +177,7 @@ export default function Footer() {
                   onMouseLeave={resetCursor}
                   className="footer-nav-link"
                   style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.4, transition: 'color 0.3s ease' }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#B8956A'}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
                   onMouseOut={(e) => e.currentTarget.style.color = '#9A9590'}
                 >
                   {link.label}
@@ -178,7 +207,7 @@ export default function Footer() {
                   onMouseLeave={resetCursor}
                   className="footer-nav-link"
                   style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.4, transition: 'color 0.3s ease' }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#B8956A'}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
                   onMouseOut={(e) => e.currentTarget.style.color = '#9A9590'}
                 >
                   {link.label}
@@ -210,8 +239,8 @@ export default function Footer() {
               </div>
 
               <div className="flex flex-col gap-4">
-                <span className="text-[#B8956A]/60 text-[9px] font-mono tracking-[0.15em]">AVAILABILITY</span>
-                <span className="text-[#B8956A] font-medium text-[12px] font-mono tracking-[0.1em]">Open for projects — 2026</span>
+                <span className="text-[#2C3480]/60 text-[9px] font-mono tracking-[0.15em]">AVAILABILITY</span>
+                <span className="text-[#2C3480] font-medium text-[12px] font-mono tracking-[0.1em]">Open for projects — 2026</span>
               </div>
             </div>
           </div>
@@ -300,7 +329,7 @@ export default function Footer() {
               fontFamily: 'var(--font-mono), monospace'
             }} 
           >
-            BUILT WITH <span style={{ color: '#B8956A' }}>OBSESSIVE PRECISION.</span>
+            BUILT WITH <span style={{ color: '#2C3480' }}>OBSESSIVE PRECISION.</span>
           </div>
         </div>
       </section>

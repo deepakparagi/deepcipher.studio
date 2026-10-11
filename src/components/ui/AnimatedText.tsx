@@ -73,7 +73,7 @@ export default function AnimatedText({
               return (
                 <span
                   key={`${lineIndex}-${wordIndex}`}
-                  style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.3em' }}
+                  style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.3em', paddingTop: '0.15em', paddingBottom: '0.15em' }}
                 >
                   <motion.span
                     style={{ display: 'inline-block' }}

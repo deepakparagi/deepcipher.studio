@@ -45,7 +45,7 @@ export default function ProjectCover({ project, className = '' }: ProjectCoverPr
       <div className="absolute top-[24px] right-[24px] z-10">
         <span
           className="font-mono text-[11px] tracking-[0.3em]"
-          style={{ color: 'rgba(184,149,106,0.7)' }}
+          style={{ color: 'rgba(44, 52, 128,0.7)' }}
         >
           {idx}
         </span>

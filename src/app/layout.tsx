@@ -1,30 +1,60 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Josefin_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
+import { Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import ClientLayout from './client-layout';
 
 /* ========================================
    Fonts
-   - Cormorant Garamond: Display headings (mixed upright/italic)
-   - Josefin Sans: Body, UI, Labels, Mono
+   - Helvetica: Timeless modernist Swiss sans-serif (Body, UI, Monospace)
+   - Cormorant Garamond: Classical editorial serif (Hero Display Headlines)
+   - Citadel Script: Luxury calligraphic cursive script (Editorial & Italic accents)
    ======================================== */
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-display',
+  variable: '--font-serif',
   display: 'swap',
-  preload: true,
 });
 
-const josefin = Josefin_Sans({
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-body',
+const helvetica = localFont({
+  src: [
+    {
+      path: '../../public/fonts/helvetica/helvetica-light-587ebe5a59211.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/helvetica/Helvetica.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/helvetica/Helvetica-Oblique.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../../public/fonts/helvetica/Helvetica-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/helvetica/Helvetica-BoldOblique.ttf',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-helvetica',
   display: 'swap',
-  preload: true,
+});
+
+const citadelScript = localFont({
+  src: '../../public/fonts/citadel/CitadelScriptStd.otf',
+  variable: '--font-citadel',
+  display: 'swap',
 });
 
 /* ========================================
@@ -35,10 +65,26 @@ export const metadata: Metadata = {
   title: 'DEEPCIPHER — Web Design & Brand Identity Studio',
   description:
     'Premium website design, brand identity, and logo design studio. We help ambitious brands launch websites that convert and identities that endure.',
+  icons: {
+    icon: [
+      { url: '/deepcipher_logo.png' },
+      { url: '/icon.png' },
+    ],
+    shortcut: '/deepcipher_logo.png',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: 'DEEPCIPHER',
     description: 'Web Design & Brand Identity Studio',
     type: 'website',
+    images: [
+      {
+        url: '/deepcipher_logo.png',
+        width: 1448,
+        height: 1086,
+        alt: 'DEEPCIPHER Official Logo',
+      },
+    ],
   },
 };
 
@@ -51,7 +97,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'DEEPCIPHER',
   url: 'https://deepcipher.studio',
-  logo: 'https://deepcipher.studio/dc-logo-big.png',
+  logo: 'https://deepcipher.studio/deepcipher_logo.png',
   description: 'Premium website design, brand identity, and logo design studio.',
   contactPoint: {
     '@type': 'ContactPoint',
@@ -71,7 +117,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${josefin.variable}`}
+      className={`${helvetica.variable} ${cormorant.variable} ${citadelScript.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -86,7 +132,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <ClientLayout>
-          <main id="main-content">
+          <main id="main-content" style={{ paddingTop: '72px' }}>
             {children}
           </main>
         </ClientLayout>

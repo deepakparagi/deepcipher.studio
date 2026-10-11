@@ -1,78 +1,23 @@
-import React from 'react';
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 
-interface GradientBarsProps {
-  numBars?: number;
-  gradientFrom?: string;
-  gradientTo?: string;
-  animationDuration?: number;
-  className?: string;
-}
-
-export const GradientBars: React.FC<GradientBarsProps> = ({
-  numBars = 15,
-  gradientFrom = 'rgb(184, 149, 106)', // Deepcipher Gold
-  gradientTo = 'transparent',
-  animationDuration = 2,
-  className = '',
-}) => {
-  const calculateHeight = (index: number, total: number) => {
-    const position = index / (total - 1);
-    const maxHeight = 100;
-    const minHeight = 30;
-    
-    const center = 0.5;
-    const distanceFromCenter = Math.abs(position - center);
-    const heightPercentage = Math.pow(distanceFromCenter * 2, 1.2);
-    
-    return minHeight + (maxHeight - minHeight) * heightPercentage;
-  };
-
+export default function OptimizedBackground() {
   return (
-    <>
-      <style>{`
-        @keyframes pulseBar {
-          0% { transform: scaleY(var(--initial-scale)); }
-          100% { transform: scaleY(calc(var(--initial-scale) * 0.7)); }
-        }
-      `}</style>
-      
-      <div className={`absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-30 ${className}`}>
-        <div 
-          className="flex h-full"
-          style={{
-            width: '100%',
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden',
-            WebkitFontSmoothing: 'antialiased',
-          }}
-        >
-          {Array.from({ length: numBars }).map((_, index) => {
-            const height = calculateHeight(index, numBars);
-            return (
-              <div
-                key={index}
-                style={{
-                  flex: `1 0 calc(100% / ${numBars})`,
-                  maxWidth: `calc(100% / ${numBars})`,
-                  height: '100%',
-                  background: `linear-gradient(to top, ${gradientFrom}, ${gradientTo})`,
-                  transform: `scaleY(${height / 100})`,
-                  transformOrigin: 'bottom',
-                  transition: 'transform 0.5s ease-in-out',
-                  animation: `pulseBar ${animationDuration}s ease-in-out infinite alternate`,
-                  animationDelay: `${index * 0.1}s`,
-                  outline: '1px solid rgba(0, 0, 0, 0)',
-                  boxSizing: 'border-box',
-                  // @ts-ignore
-                  '--initial-scale': height / 100,
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </>
+    <div className="absolute inset-0 z-0 overflow-hidden bg-[#0A0A0A] pointer-events-none opacity-40">
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full blur-[100px]"
+        style={{ background: 'radial-gradient(circle, rgba(44, 52, 128, 0.15) 0%, rgba(0,0,0,0) 70%)' }}
+      />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[80px]"
+        style={{ background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0,0,0,0) 70%)' }}
+      />
+    </div>
   );
-};
-
-export default GradientBars;
+}
+export { OptimizedBackground as ShaderAnimation, OptimizedBackground as NeuralBackground, OptimizedBackground as ShaderLines, OptimizedBackground as GradientBars };

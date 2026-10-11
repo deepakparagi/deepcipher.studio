@@ -45,7 +45,7 @@ function FloatingElement({ value }: { value: typeof values[0] }) {
           {/* Internal Glow */}
           <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           
-          <span className="font-mono text-[10px] text-[#B8956A] font-bold">
+          <span className="font-mono text-[10px] text-[#2C3480] font-bold">
             {value.id}
           </span>
           
@@ -85,7 +85,7 @@ export default function ValuesGrid() {
       
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] md:left-[30%] w-[150vw] md:w-[600px] h-[150vw] md:h-[600px] bg-[#B8956A]/5 rounded-full blur-[120px] md:blur-[160px]" />
+        <div className="absolute top-[20%] left-[10%] md:left-[30%] w-[150vw] md:w-[600px] h-[150vw] md:h-[600px] bg-[#2C3480]/5 rounded-full blur-[120px] md:blur-[160px]" />
         <div className="absolute bottom-[30%] right-[10%] md:right-[20%] w-[100vw] md:w-[400px] h-[100vw] md:h-[400px] bg-white/5 rounded-full blur-[100px] md:blur-[140px]" />
         
         {/* Digital Grid Trace */}
@@ -100,7 +100,7 @@ export default function ValuesGrid() {
           <h2 className="font-display italic font-light text-white m-0 pointer-events-none"
               style={{ fontSize: 'clamp(64px, 12vw, 160px)', lineHeight: 0.8, mixBlendMode: 'difference' }}>
             What we <br />
-            <span className="font-bold text-[#B8956A]">stand for</span>
+            <span className="font-bold text-[#2C3480]">stand for</span>
           </h2>
           
           <div className="mt-8 max-w-[300px]">
@@ -128,7 +128,7 @@ export default function ValuesGrid() {
               viewport={{ once: true }}
               className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-sm"
             >
-              <div className="text-[#B8956A] font-mono text-[10px] mb-2">{v.id}</div>
+              <div className="text-[#2C3480] font-mono text-[10px] mb-2">{v.id}</div>
               <div className="text-white font-display italic text-[24px] tracking-tighter">{v.label}</div>
             </motion.div>
           ))}
@@ -141,7 +141,7 @@ export default function ValuesGrid() {
         <div className="w-[150px] h-[1px] bg-white" />
         <div className="flex gap-1">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="w-1 h-1 bg-[#B8956A]" />
+            <div key={i} className="w-1 h-1 bg-[#2C3480]" />
           ))}
         </div>
       </div>

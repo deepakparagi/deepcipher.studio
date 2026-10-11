@@ -125,7 +125,7 @@ interface Particle {
 
 export const FluidParticlesBackground = ({
   children,
-  particleCount = 2000,
+  particleCount = 100,
   noiseIntensity = 0.003,
   particleSize = { min: 0.5, max: 2 },
   className,
@@ -198,8 +198,8 @@ export const FluidParticlesBackground = ({
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle (gold-ish hue: rgba(184, 149, 106, opacity) is perfect for deepcipher!)
-        ctx.fillStyle = `rgba(184, 149, 106, ${opacity})`;
+        // Draw particle (gold-ish hue: rgba(44, 52, 128, opacity) is perfect for deepcipher!)
+        ctx.fillStyle = `rgba(44, 52, 128, ${opacity})`;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();

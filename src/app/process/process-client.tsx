@@ -7,304 +7,12 @@ import Noise from '@/components/ui/Noise';
 import Link from 'next/link';
 import ShaderAnimation from '@/components/ui/spiral-shader';
 import AnimatedText from '@/components/ui/AnimatedText';
-import Image from 'next/image';
-
-/* ==========================================================
-   PROCESS PAGE — Completely Redesigned
-   ========================================================== */
+import ParallaxImage from '@/components/ui/ParallaxImage';
+import EditorialPageHero from '@/components/layout/EditorialPageHero';
 
 /* ==========================================================
    MINIMAL ARTISTIC PROCESS VISUALS (Phase 01 - 04)
-   Precision vector geometry, subtle gold accents, 120Hz smooth
    ========================================================== */
-
-/* ── Phase 01: Discover — Optical Aperture & Coordinate Lens ── */
-function DiscoverVisual() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
-      {/* Subtle radial background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.06) 0%, transparent 65%)',
-        }}
-      />
-      {/* Grid cross lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
-
-      <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-        {/* Outer Orbit Ring with dashed styling */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-[10%] rounded-full border border-dashed border-[#B8956A]/20"
-        />
-
-        {/* Secondary Precision Ring */}
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-[25%] rounded-full border border-[#B8956A]/30"
-          style={{
-            borderTopColor: '#B8956A',
-            borderRightColor: 'transparent',
-          }}
-        />
-
-        {/* Inner Coordinate Ring */}
-        <div className="absolute inset-[40%] rounded-full border border-white/10 flex items-center justify-center">
-          <div className="w-full h-px bg-white/[0.06] absolute" />
-          <div className="h-full w-px bg-white/[0.06] absolute" />
-        </div>
-
-        {/* Center Golden Core */}
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center bg-[#B8956A]/10 border border-[#B8956A]/60 shadow-[0_0_30px_rgba(184,149,106,0.3)]"
-        >
-          <div className="w-2.5 h-2.5 rounded-full bg-[#F5F0E8]" />
-        </motion.div>
-
-        {/* Minimal Corner Labels */}
-        <div className="absolute top-2 left-2 font-mono text-[9px] text-[#B8956A]/50 tracking-[0.25em]">
-          SYS // 01.DISCOVERY
-        </div>
-        <div className="absolute top-2 right-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
-          INTAKE PROTOCOL
-        </div>
-        <div className="absolute bottom-2 left-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
-          SCOPE: AUDIENCE &amp; MARKET
-        </div>
-        <div className="absolute bottom-2 right-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
-          STATUS: ALIGNED
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Phase 02: Strategise — Architectural Blueprint & Logic Node ── */
-function StrategiseVisual() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 50%, rgba(184,149,106,0.05) 0%, transparent 70%)',
-        }}
-      />
-      {/* Blueprint Grid lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(184,149,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(184,149,106,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
-
-      <div className="relative w-full max-w-[420px] min-h-[260px] md:h-[320px] flex flex-col justify-between">
-        {/* Header telemetry */}
-        <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
-          <span className="font-mono text-[9px] tracking-[0.25em] text-[#B8956A]">
-            ARCHITECTURAL_MATRIX // 02
-          </span>
-          <span className="font-mono text-[9px] tracking-[0.2em] text-white/40">
-            SITEMAP_HIERARCHY
-          </span>
-        </div>
-
-        {/* Blueprint Layout Schema */}
-        <div className="relative flex-1 my-4 flex items-center justify-center">
-          {/* Main Frame Box */}
-          <div className="w-full h-full border border-white/10 relative p-4 flex flex-col justify-between">
-            {/* Top Node Row */}
-            <div className="flex justify-between items-center">
-              <div className="px-1.5 md:px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-[#F5F0E8] tracking-widest whitespace-nowrap">
-                [ 01_HERO ]
-              </div>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#B8956A]/40 via-white/10 to-[#B8956A]/40 mx-2 md:mx-3" />
-              <div className="px-1.5 md:px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-white/60 tracking-widest whitespace-nowrap">
-                [ 02_STORY ]
-              </div>
-            </div>
-
-            {/* Central Conversion Core Node */}
-            <div className="relative flex items-center justify-center my-2">
-              <div className="absolute inset-x-0 h-px bg-white/[0.06]" />
-              <motion.div
-                animate={{ borderColor: ['rgba(184,149,106,0.3)', 'rgba(184,149,106,0.8)', 'rgba(184,149,106,0.3)'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-10 px-5 py-2.5 bg-[#0D0D0D] border border-[#B8956A]/60 flex items-center gap-2.5 shadow-[0_0_20px_rgba(184,149,106,0.15)]"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#B8956A] animate-pulse" />
-                <span className="font-mono text-[10px] text-[#F5F0E8] tracking-[0.2em]">
-                  CONVERSION_ENGINE
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Bottom Node Row */}
-            <div className="flex justify-between items-center">
-              <div className="px-1.5 md:px-3 py-1.5 border border-white/15 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-white/60 tracking-widest whitespace-nowrap">
-                [ 03_METRICS ]
-              </div>
-              <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-[#B8956A]/40 to-white/10 mx-2 md:mx-3" />
-              <div className="px-1.5 md:px-3 py-1.5 border border-[#B8956A]/40 bg-[#0A0A0A] font-mono text-[8px] md:text-[9px] text-[#F5F0E8] tracking-widest whitespace-nowrap">
-                [ 04_TRANS ]
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer telemetry */}
-        <div className="flex justify-between items-center border-t border-white/[0.06] pt-3">
-          <span className="font-mono text-[9px] tracking-[0.2em] text-white/30">
-            PAGE_DEPTH: 5_TIERS
-          </span>
-          <span className="font-mono text-[9px] tracking-[0.2em] text-[#B8956A]/70">
-            UX_LOGIC: OPTIMAL
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Phase 03: Design — Golden Ratio & Haute Typography Geometry ── */
-function DesignVisual() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.07) 0%, transparent 60%)',
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-      <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-        {/* Nested Golden Diamonds */}
-        <motion.div
-          animate={{ rotate: [0, 90, 180, 270, 360] }}
-          transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-[10%] border border-white/[0.08] transform rotate-45"
-        />
-
-        <motion.div
-          animate={{ rotate: [360, 270, 180, 90, 0] }}
-          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-[25%] border border-[#B8956A]/30 transform rotate-12"
-        />
-
-        <div className="absolute inset-[40%] border border-[#B8956A]/50 transform rotate-45 flex items-center justify-center bg-[#B8956A]/[0.02]">
-          {/* Inner golden jewel / typography accent */}
-          <div className="transform -rotate-45 text-center flex flex-col items-center gap-1">
-            <span
-              style={{
-                fontFamily: 'var(--font-display), serif',
-                fontSize: '32px',
-                fontStyle: 'italic',
-                color: '#F5F0E8',
-                lineHeight: 1,
-              }}
-            >
-              Φ
-            </span>
-            <span className="font-mono text-[8px] text-[#B8956A] tracking-[0.3em]">
-              1.618_RATIO
-            </span>
-          </div>
-        </div>
-
-        {/* Minimal Corner Accents */}
-        <div className="absolute top-2 left-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
-          FIDELITY: ULTRA_HIGH
-        </div>
-        <div className="absolute top-2 right-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
-          DESKTOP + MOBILE
-        </div>
-        <div className="absolute bottom-2 left-2 font-mono text-[9px] text-white/30 tracking-[0.2em]">
-          BESPOKE_INTERACTIONS
-        </div>
-        <div className="absolute bottom-2 right-2 font-mono text-[9px] text-[#B8956A]/60 tracking-[0.2em]">
-          2_REVISION_LOOPS
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Phase 04: Build & Launch — Monolithic Velocity & Precision Telemetry ── */
-function BuildVisual() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] lg:min-h-[440px] flex items-center justify-center bg-[#070707] overflow-hidden p-4 md:p-8 border border-white/[0.04]">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(184,149,106,0.08) 0%, transparent 65%)',
-        }}
-      />
-      {/* Telemetry vertical scanlines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_8px]" />
-
-      <div className="relative w-full max-w-[420px] flex flex-col justify-between min-h-[260px] md:h-[320px]">
-        {/* Top bar */}
-        <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#4BB543] shadow-[0_0_8px_#4BB543]" />
-            <span className="font-mono text-[9px] tracking-[0.2em] text-[#F5F0E8]">
-              RUNTIME // PRODUCTION_READY
-            </span>
-          </div>
-          <span className="font-mono text-[9px] tracking-[0.2em] text-[#B8956A]">
-            120HZ_CERTIFIED
-          </span>
-        </div>
-
-        {/* Center Metric Display */}
-        <div className="my-auto flex flex-col items-center justify-center py-4">
-          <div className="relative flex items-baseline justify-center gap-2">
-            <span
-              style={{
-                fontFamily: 'var(--font-display), serif',
-                fontSize: '84px',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                color: '#F5F0E8',
-                lineHeight: 1,
-              }}
-            >
-              99
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-display), serif',
-                fontSize: '32px',
-                color: '#B8956A',
-              }}
-            >
-              /100
-            </span>
-          </div>
-          <span className="font-mono text-[10px] text-[#B8956A] tracking-[0.3em] uppercase mt-1">
-            LIGHTHOUSE_PERFORMANCE_INDEX
-          </span>
-        </div>
-
-        {/* Telemetry Grid */}
-        <div className="grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-3">
-          <div className="flex flex-col border-r border-white/[0.06] pr-2">
-            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">LATENCY</span>
-            <span className="font-mono text-[11px] text-[#F5F0E8] font-medium">&lt; 15ms</span>
-          </div>
-          <div className="flex flex-col border-r border-white/[0.06] px-2">
-            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">FRAME_PACING</span>
-            <span className="font-mono text-[11px] text-[#B8956A] font-medium">120 FPS</span>
-          </div>
-          <div className="flex flex-col pl-2">
-            <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">SEO_INDEX</span>
-            <span className="font-mono text-[11px] text-[#F5F0E8] font-medium">100 / 100</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const phases = [
   {
@@ -313,6 +21,7 @@ const phases = [
     title: 'Discover',
     quote: 'Before we design a pixel, we understand your business.',
     body: 'We spend the first phase becoming experts in your world. We study your competitors, your audience, your existing presence — and most importantly, what your website needs to actually do for your business.',
+    image: '/images/process-discover-3d.jpg',
     deliverables: [
       'Brand & business discovery',
       'Competitor website intelligence',
@@ -327,6 +36,7 @@ const phases = [
     title: 'Strategise',
     quote: 'We define the blueprint before we touch Figma.',
     body: 'We map every page, every user journey, and every conversion point before a single design is drawn. This phase ends with your full sign-off on direction, structure, and visual strategy.',
+    image: '/images/process-strategise-3d.jpg',
     deliverables: [
       'Sitemap & page structure',
       'User journey logic mapping',
@@ -341,6 +51,7 @@ const phases = [
     title: 'Design',
     quote: 'This is where your brand takes visual form.',
     body: 'We design desktop and mobile simultaneously — never as an afterthought. Every decision has a rationale. We include two rounds of high-fidelity revisions and present the work in context, not isolation.',
+    image: '/images/process-design-3d.jpg',
     deliverables: [
       'Homepage architecture',
       'Inner page high-fidelity design',
@@ -355,6 +66,7 @@ const phases = [
     title: 'Build & Launch',
     quote: 'We build it fast. We launch it right.',
     body: 'We build to a Lighthouse score of 95+. We test across all device sizes. We launch with you present, ensuring every performance metric is met before handoff.',
+    image: '/images/process-build-3d.jpg',
     deliverables: [
       'Development in Next.js or Framer',
       'CMS & dynamic content setup',
@@ -398,130 +110,21 @@ export default function ProcessClient() {
 
   return (
     <motion.main
-      className="relative bg-[#0A0A0A] text-white selection:bg-[#B8956A]/30 overflow-hidden"
+      className="relative bg-[#0A0A0A] text-white selection:bg-[#2C3480]/30 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <Noise opacity={0.03} />
 
-      {/* ================================================
-         SECTION 1: HERO
-         ================================================ */}
-      <section
-        className="relative w-full border-b border-[rgba(245,240,232,0.08)] px-6 overflow-hidden"
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
-      >
-        <ShaderAnimation />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex flex-col items-center"
-        >
-          {/* Label */}
-          <span
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '10px',
-              letterSpacing: '0.3em',
-              color: '#6B6560',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              marginBottom: '16px',
-            }}
-          >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> HOW WE WORK
-          </span>
-
-          {/* Title */}
-          <AnimatedText
-            splitBy="word"
-            as="h1"
-            style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              fontSize: 'clamp(60px, 9vw, 130px)',
-              color: '#F5F0E8',
-              letterSpacing: '-0.02em',
-              lineHeight: 0.9,
-              margin: 0,
-              marginBottom: '16px',
-              textTransform: 'none',
-              userSelect: 'none',
-            }}
-          >
-            Process
-          </AnimatedText>
-
-          {/* Subline */}
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '11px',
-              letterSpacing: '0.25em',
-              color: '#B8956A',
-              fontWeight: 300,
-              textTransform: 'uppercase',
-              display: 'block',
-              marginBottom: '20px',
-            }}
-          >
-            DISCOVER · STRATEGISE · DESIGN · BUILD
-          </span>
-
-          {/* Body */}
-          <p
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '14px',
-              color: '#6B6560',
-              fontWeight: 300,
-              maxWidth: '480px',
-              margin: '12px auto 0',
-              lineHeight: '1.6',
-            }}
-          >
-            Four surgical phases. Zero guesswork. A documented lifecycle engineered to move your brand from concept to category leader.
-          </p>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <div
-          className="absolute flex flex-col items-center gap-4 z-20 select-none"
-          style={{ bottom: '48px' }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: '9px',
-              color: '#6B6560',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-            }}
-          >
-            SCROLL
-          </span>
-          <motion.div
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              height: '40px',
-              width: '0.5px',
-              background: '#B8956A',
-            }}
-          />
-        </div>
-      </section>
+      {/* ── 1. HERO SECTION ── */}
+      <EditorialPageHero
+        eyebrow="FROM FIRST PRINCIPLES TO FINAL PRODUCT"
+        title="The"
+        italicWord="Process."
+        description="A rigorous four-phase engineering methodology bridging strategic discovery, interface craft, and production-grade deployment."
+        backgroundImage="/images/process%20page%20hero.png"
+      />
 
       {/* ================================================
          SECTION 2: FOUR PHASES
@@ -530,7 +133,7 @@ export default function ProcessClient() {
         <div className="max-w-[1800px] mx-auto">
           {phases.map((phase, i) => {
             const isOdd = i % 2 !== 0;
-            const titleColor = phase.id % 2 === 0 ? '#B8956A' : '#F5F0E8';
+            const titleColor = phase.id % 2 === 0 ? '#2C3480' : '#F5F0E8';
 
             return (
               <motion.div
@@ -558,10 +161,11 @@ export default function ProcessClient() {
                     className={`relative overflow-hidden flex items-center justify-center min-h-[320px] lg:min-h-[440px] ${isOdd ? 'lg:order-1' : 'lg:order-2'}`}
                   >
                     <div className="w-full h-full">
-                      {phase.id === 1 && <DiscoverVisual />}
-                      {phase.id === 2 && <StrategiseVisual />}
-                      {phase.id === 3 && <DesignVisual />}
-                      {phase.id === 4 && <BuildVisual />}
+                      <ParallaxImage
+                        src={phase.image}
+                        alt={phase.title}
+                        className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 opacity-40 group-hover:opacity-80"
+                      />
                     </div>
                   </div>
 
@@ -590,8 +194,7 @@ export default function ProcessClient() {
                     {/* Phase title */}
                     <h2
                       style={{
-                        fontFamily: 'var(--font-display), serif',
-                        fontSize: 'clamp(40px, 5vw, 80px)',
+                        fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontWeight: 700, fontSize: 'clamp(40px, 5vw, 80px)',
                         lineHeight: 0.95,
                         letterSpacing: '-0.02em',
                         margin: 0,
@@ -599,18 +202,18 @@ export default function ProcessClient() {
                       }}
                     >
                       {phase.title === "Discover" && (
-                        <span className="italic text-[#B8956A]">Discover</span>
+                        <span className="italic text-[#2C3480]">Discover</span>
                       )}
                       {phase.title === "Strategise" && (
                         <span className="upright text-[#F5F0E8]">Strategise</span>
                       )}
                       {phase.title === "Design" && (
-                        <span className="italic text-[#B8956A]">Design</span>
+                        <span className="italic text-[#2C3480]">Design</span>
                       )}
                       {phase.title === "Build & Launch" && (
                         <>
                           <span className="upright text-[#F5F0E8]">Build & </span>
-                          <span className="italic text-[#B8956A]">Launch</span>
+                          <span className="italic text-[#2C3480]">Launch</span>
                         </>
                       )}
                     </h2>
@@ -618,12 +221,9 @@ export default function ProcessClient() {
                     {/* Pull Quote */}
                     <div
                       style={{
-                        fontFamily: 'var(--font-display), serif',
-                        fontStyle: 'italic',
-                        fontWeight: 400,
-                        fontSize: '20px',
+                        fontFamily: "var(--font-citadel), 'Citadel Script', cursive", fontStyle: 'normal', fontWeight: 400, fontSize: '24px',
                         color: '#8A8A8A',
-                        borderLeft: '2px solid #B8956A',
+                        borderLeft: '2px solid #2C3480',
                         paddingLeft: '20px',
                         margin: '20px 0 28px',
                         lineHeight: '1.4',
@@ -673,7 +273,7 @@ export default function ProcessClient() {
                               width: '4px',
                               height: '4px',
                               borderRadius: '50%',
-                              backgroundColor: '#B8956A',
+                              backgroundColor: '#2C3480',
                               flexShrink: 0,
                             }}
                           />
@@ -722,7 +322,7 @@ export default function ProcessClient() {
               textTransform: 'uppercase',
             }}
           >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> COMMON QUESTIONS
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> COMMON QUESTIONS
           </span>
 
           <h2
@@ -732,7 +332,7 @@ export default function ProcessClient() {
             }}
           >
             <span className="upright text-[#F5F0E8]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Common </span>
-            <span className="italic text-[#B8956A]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Questions.</span>
+            <span className="italic text-[#2C3480]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Questions.</span>
           </h2>
         </div>
 
@@ -770,7 +370,7 @@ export default function ProcessClient() {
                     style={{
                       fontFamily: 'var(--font-mono), monospace',
                       fontSize: '20px',
-                      color: '#B8956A',
+                      color: '#2C3480',
                       transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
                       transition: 'transform 0.3s ease, color 0.3s ease',
                       display: 'inline-block',
@@ -823,7 +423,7 @@ export default function ProcessClient() {
             textTransform: 'uppercase',
           }}
         >
-          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> READY TO START
+          <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> READY TO START
         </span>
 
         <h2
@@ -834,7 +434,7 @@ export default function ProcessClient() {
           }}
         >
           <span className="upright text-[#F5F0E8]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>Start the </span>
-          <span className="italic text-[#B8956A]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>protocol.</span>
+          <span className="italic text-[#2C3480]" style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}>protocol.</span>
         </h2>
 
         <p
@@ -877,9 +477,9 @@ export default function ProcessClient() {
               fontSize: '10px',
               letterSpacing: '0.15em',
               padding: '16px 36px',
-              border: '1px solid #B8956A',
-              backgroundColor: ctaHovered ? '#B8956A' : 'transparent',
-              color: ctaHovered ? '#0A0A0A' : '#B8956A',
+              border: '1px solid #2C3480',
+              backgroundColor: ctaHovered ? '#2C3480' : 'transparent',
+              color: ctaHovered ? '#0A0A0A' : '#2C3480',
               textTransform: 'uppercase',
               textDecoration: 'none',
               transition: 'all 0.3s ease',
@@ -907,7 +507,7 @@ export default function ProcessClient() {
               padding: '16px 0',
               backgroundColor: 'transparent',
               border: 'none',
-              color: emailHovered ? '#B8956A' : '#6B6560',
+              color: emailHovered ? '#2C3480' : '#6B6560',
               textTransform: 'uppercase',
               textDecoration: 'none',
               transition: 'color 0.3s ease',

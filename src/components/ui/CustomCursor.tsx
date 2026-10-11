@@ -54,20 +54,20 @@ function CustomCursor() {
 
   // Dynamic configuration based on state
   let size = 8; // Tiny, precise gold dot by default
-  let bg = '#B8956A';
-  let border = '0px solid #B8956A';
+  let bg = '#2C3480';
+  let border = '0px solid #2C3480';
   let mixBlendMode: any = 'normal';
 
   if (isHover) {
     // Large solid gold circle for explicit hover states (like "EMAIL")
     size = 80;
-    bg = '#B8956A';
+    bg = '#2C3480';
     border = '0px solid transparent';
   } else if (isLink) {
     // Elegant crisp ring that expands out from the dot
     size = 40;
     bg = 'transparent';
-    border = '1px solid rgba(184, 149, 106, 0.8)';
+    border = '1px solid rgba(44, 52, 128, 0.8)';
   }
 
   return (

@@ -62,7 +62,7 @@ export default function AboutReveal() {
             textTransform: 'uppercase',
           }}
         >
-          <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> OUR ETHOS
+          <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> OUR ETHOS
         </span>
       </div>
 
@@ -79,11 +79,11 @@ export default function AboutReveal() {
             if (cleanWord === "Deepak") {
               wordClass = "upright font-medium";
             } else if (cleanWord === "Paragi") {
-              wordClass = "italic text-[#B8956A]";
+              wordClass = "italic text-[#2C3480]";
             } else if (cleanWord === "Deepcipher") {
               wordClass = "upright font-medium";
             } else if (["obsession", "craft", "modern", "design", "designer", "builder", "independent"].includes(cleanWord.toLowerCase())) {
-              wordClass = "italic text-[#B8956A]";
+              wordClass = "italic text-[#2C3480]";
             }
             
             return (

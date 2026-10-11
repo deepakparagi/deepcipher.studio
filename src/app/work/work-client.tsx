@@ -9,23 +9,13 @@ import Noise from '@/components/ui/Noise';
 import NeuralBackground from '@/components/ui/flow-field-background';
 import AnimatedText from '@/components/ui/AnimatedText';
 import Image from 'next/image';
-
-const FRACTAL_STYLES = [
-  { bg: 'linear-gradient(160deg, #0D1B2A 0%, #1B3A5C 25%, #2E6B9E 45%, #C4763A 65%, #E8A456 80%, #F2C87E 100%)', ray: 0.03 }, // 01 Shingri
-  { bg: 'linear-gradient(150deg, #1A0A2E 0%, #3D1A6E 30%, #7B3FA0 55%, #C4663A 75%, #E8954A 90%, #F5C878 100%)', ray: 0.04 }, // 02 Gadag
-  { bg: 'linear-gradient(165deg, #0A0A0A 0%, #1A1208 20%, #3D2E0A 40%, #8B6914 60%, #C4A028 78%, #E8C84A 92%, #F5E8A0 100%)', ray: 0.03 }, // 03 Deepcipher
-  { bg: 'linear-gradient(155deg, #050D1A 0%, #0A2040 25%, #0E3D7A 45%, #1560B8 62%, #2890D8 78%, #5AB8E8 90%, #A0D8F5 100%)', ray: 0.04 }, // 04 Hyrox
-  { bg: 'linear-gradient(158deg, #0A0F0A 0%, #0D2010 25%, #1A4020 45%, #2A7034 62%, #3A9E48 76%, #6AC878 88%, #A8E8B0 100%)', ray: 0.03 }, // 05 Sentiment
-  { bg: 'linear-gradient(162deg, #0D0A1A 0%, #1E1040 25%, #3D1A7A 45%, #6828B0 62%, #9040D0 76%, #C060E8 88%, #E0A0F8 100%)', ray: 0.04 }, // 06 Gridsystems
-];
+import EditorialPageHero from '@/components/layout/EditorialPageHero';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { setCursor, resetCursor } = useCursor();
 
   const techString = project.techStack ? project.techStack.slice(0, 2).join(' · ') : '';
   const metadataLeft = techString ? `CLIENT // ${project.client.toUpperCase()} · ${techString.toUpperCase()}` : `CLIENT // ${project.client.toUpperCase()}`;
-
-  const styleObj = FRACTAL_STYLES[index % FRACTAL_STYLES.length];
 
   return (
     <motion.div
@@ -37,114 +27,110 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <Link 
         href={`/work/${project.slug}`} 
-        className="group relative block w-full aspect-[16/10] overflow-hidden"
-        style={{ cursor: 'none', background: styleObj.bg }}
+        className="group relative block w-full aspect-[16/10] overflow-hidden bg-[#0A0A0A]"
+        style={{ cursor: 'none' }}
         onMouseEnter={() => setCursor('hover', 'VIEW')}
         onMouseLeave={resetCursor}
       >
+        {/* Background Image */}
+        {project.image && (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100"
+            priority={index < 4}
+            style={{ zIndex: 0 }}
+          />
+        )}
+
         {/* Hover Outline */}
-        <div className="absolute inset-0 z-[60] pointer-events-none transition-all duration-300 outline outline-1 outline-transparent group-hover:outline-[rgba(184,149,106,0.2)]" />
-
-        {/* Vertical Rays */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-[1]"
-          style={{
-            background: `repeating-linear-gradient(90deg, transparent 0px, transparent 32px, rgba(255,255,255,${styleObj.ray}) 32px, rgba(255,255,255,${styleObj.ray}) 34px)`
-          }}
-        />
-
-        {/* Light Bloom Effect */}
-        <div 
-          className="absolute pointer-events-none z-[2] transition-transform duration-600 ease-out group-hover:translate-x-[10%] group-hover:scale-110"
-          style={{
-            top: '-20%', left: '30%', width: '40%', height: '80%',
-            background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%)'
-          }}
-        />
+        <div className="absolute inset-0 z-[60] pointer-events-none transition-all duration-300 outline outline-1 outline-transparent group-hover:outline-[rgba(44, 52, 128,0.3)]" />
 
         {/* Category Badge */}
         <div 
-          className="absolute top-[14px] right-[14px] z-[20]"
+          className="absolute top-[14px] right-[14px] z-[20] shadow-md"
           style={{
-            background: 'rgba(184,149,106,0.15)',
-            border: '0.5px solid rgba(184,149,106,0.4)',
-            color: '#B8956A',
+            background: 'rgba(10, 10, 10, 0.85)',
+            border: '1px solid rgba(44, 52, 128, 0.35)',
+            color: '#F5F0E8',
             fontFamily: 'var(--font-mono), monospace',
             fontSize: '9px',
-            letterSpacing: '0.12em',
-            padding: '4px 10px',
+            fontWeight: 500,
+            letterSpacing: '0.14em',
+            padding: '5px 12px',
             textTransform: 'uppercase',
-            backdropFilter: 'blur(8px)'
+            backdropFilter: 'blur(10px)'
           }}
         >
           {project.category}
         </div>
 
-        {/* Card Content Overlay */}
+        {/* Minimal Centered Text Overlay */}
         <div 
-          className="absolute bottom-0 left-0 right-0 z-[10] p-[24px] transition-all duration-300"
-          style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)'
-          }}
+          className="absolute inset-0 z-[10] flex items-center justify-center pointer-events-none transition-all duration-300"
         >
-          {/* Darker hover overlay */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%)' }} />
+          {/* Ambient center scrim for guaranteed legibility across any render */}
+          <div 
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500 bg-black/25 group-hover:bg-black/50" 
+          />
           
-          <div className="relative z-10">
-            <h3 
-              className="block mb-1 transition-colors duration-300 group-hover:text-[#B8956A] font-light italic"
+          <div className="relative z-10 text-center flex flex-col items-center justify-center px-4">
+            <div
+              className="px-5 py-2.5 transition-all duration-300 group-hover:border-[rgba(44, 52, 128,0.6)]"
               style={{
-                fontFamily: 'var(--font-display), serif',
-                fontSize: 'clamp(24px, 2.5vw, 36px)',
-                color: '#F5F0E8',
-                lineHeight: 1.05,
-                fontWeight: 300
+                background: 'rgba(10, 10, 10, 0.72)',
+                border: '1px solid rgba(245, 240, 232, 0.12)',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
               }}
             >
-              {project.title}
-            </h3>
+              <h3 
+                className="block transition-colors duration-300 uppercase font-medium"
+                style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '11px',
+                  color: '#F5F0E8',
+                  lineHeight: 1.4,
+                  letterSpacing: '0.22em',
+                }}
+              >
+                {project.title}
+              </h3>
+            </div>
+
+            {/* View Case Study prompt on hover */}
             <span 
-              className="block"
+              className="mt-3 text-[10px] tracking-[0.18em] uppercase transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0"
               style={{
-                fontFamily: 'var(--font-body), sans-serif',
-                fontSize: '12px',
-                fontWeight: 300,
-                color: '#9A9590'
+                fontFamily: 'var(--font-mono), monospace',
+                color: '#2C3480',
+                fontWeight: 500,
+                textShadow: '0 2px 8px rgba(0,0,0,0.8)',
               }}
             >
-              {project.description}
+              VIEW CASE STUDY &rarr;
             </span>
           </div>
-        </div>
-
-        {/* View Case Study Text */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[30] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{
-            fontFamily: 'var(--font-mono), monospace',
-            fontSize: '10px',
-            color: '#B8956A',
-            letterSpacing: '0.15em'
-          }}
-        >
-          VIEW CASE STUDY &rarr;
         </div>
       </Link>
 
       {/* Metadata Strip BELOW Card */}
       <div 
-        className="flex justify-between items-center"
+        className="flex justify-between items-center border-t border-[rgba(245,240,232,0.06)]"
         style={{
-          background: '#0A0A0A',
-          padding: '10px 16px',
+          background: '#0D0D0D',
+          padding: '12px 18px',
           fontFamily: 'var(--font-mono), monospace',
-          fontSize: '9px',
-          color: '#6B6560',
-          letterSpacing: '0.1em'
+          fontSize: '10px',
+          letterSpacing: '0.12em'
         }}
       >
-        <span className="uppercase">{metadataLeft}</span>
-        <span>{project.year}</span>
+        <span className="uppercase text-[#A39E93]">
+          <span className="text-[#2C3480] font-medium">CLIENT //</span> {project.client.toUpperCase()} {techString ? `· ${techString.toUpperCase()}` : ''}
+        </span>
+        <span className="text-[#F5F0E8] font-medium">{project.year}</span>
       </div>
     </motion.div>
   );
@@ -163,7 +149,7 @@ export default function WorkClient() {
   return (
     <motion.main
       ref={containerRef}
-      className="min-h-screen pb-0 text-[#F5F0E8] selection:bg-[#B8956A]/20"
+      className="min-h-screen pb-0 text-[#F5F0E8] selection:bg-[#2C3480]/20"
       style={{ backgroundColor: '#0A0A0A' }}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
@@ -171,91 +157,62 @@ export default function WorkClient() {
     >
       <Noise opacity={0.03} />
 
-      <section
-        className="relative flex flex-col items-center justify-center text-center w-full"
-        style={{ height: '100vh', paddingTop: '56px' }}
-      >
-        <NeuralBackground color="#B8956A" speed={0.2} trailOpacity={0.15} />
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex flex-col items-center"
-        >
-          <span
-            className="mb-4 uppercase"
-            style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '10px', color: '#6B6560', letterSpacing: '0.3em' }}
-          >
-            <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> SELECTED WORK
-          </span>
-          <AnimatedText
-            splitBy="word"
-            as="h1"
-            className="m-0 mb-4 select-none not-italic font-normal text-[#F5F0E8]"
-            style={{ fontFamily: 'var(--font-display), serif', fontSize: 'clamp(60px, 9vw, 130px)', fontWeight: 500, lineHeight: 0.9 }}
-          >
-            Work
-          </AnimatedText>
-          <span
-            className="mb-3 block uppercase"
-            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#B8956A', letterSpacing: '0.25em' }}
-          >
-            2026
-          </span>
-          <p
-            className="mx-auto max-w-[480px]"
-            style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#6B6560', lineHeight: 1.6 }}
-          >
-            Premium web design & brand identity for businesses across India & beyond.
-          </p>
-        </motion.div>
-        
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50">
-          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '9px', letterSpacing: '0.3em', color: '#6B6560', writingMode: 'vertical-rl' }}>
-            SCROLL
-          </span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-[#6B6560] to-transparent" />
-        </div>
-      </section>
+      {/* ── 1. HERO SECTION ── */}
+      <EditorialPageHero
+        eyebrow="SELECTED WORK · DIGITAL EXPERIENCES"
+        title="Selected"
+        italicWord="Work."
+        description="A curated catalog of bespoke web architecture, brand identity systems, and interactive digital products engineered for conversion and authority."
+        backgroundImage="/images/work%20page%20hero.png"
+      />
 
+      {/* Sticky Category Filter */}
       <div
-        className="sticky z-50 flex items-center justify-center"
+        className="sticky z-50 flex items-center justify-center w-full"
         style={{
           top: '56px',
           height: '52px',
           background: 'rgba(10, 10, 10, 0.95)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '0.5px solid rgba(245, 240, 232, 0.08)',
-          borderTop: '0.5px solid rgba(245, 240, 232, 0.08)',
-          padding: '0 48px',
+          backdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(245, 240, 232, 0.08)',
+          borderTop: '1px solid rgba(245, 240, 232, 0.08)',
         }}
       >
-        <div className="flex flex-nowrap overflow-x-auto no-scrollbar items-center justify-center gap-[32px] w-full max-w-[1800px]">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              onMouseEnter={() => setCursor('link')}
-              onMouseLeave={resetCursor}
-              className="relative cursor-pointer select-none uppercase whitespace-nowrap transition-colors duration-200"
-              style={{
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '9px',
-                letterSpacing: '0.15em',
-                padding: '6px 0',
-                color: activeCategory === category ? '#B8956A' : '#6B6560',
-                borderBottom: activeCategory === category ? '1px solid #B8956A' : '1px solid transparent',
-              }}
-              onMouseOver={(e) => {
-                if (activeCategory !== category) (e.target as HTMLElement).style.color = '#F5F0E8';
-              }}
-              onMouseOut={(e) => {
-                if (activeCategory !== category) (e.target as HTMLElement).style.color = '#6B6560';
-              }}
-            >
-              {category}
-            </button>
-          ))}
+        <div 
+          className="flex flex-nowrap overflow-x-auto items-center justify-start md:justify-center gap-6 md:gap-8 w-full max-w-[1800px] px-4 md:px-12 scrollbar-none"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
+          {categories.map((category) => {
+            const isActive = activeCategory === category;
+            return (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                onMouseEnter={() => setCursor('link')}
+                onMouseLeave={resetCursor}
+                className="relative cursor-pointer select-none uppercase whitespace-nowrap shrink-0 transition-colors duration-200 py-2"
+                style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '10px',
+                  fontWeight: isActive ? 600 : 400,
+                  letterSpacing: '0.15em',
+                  color: isActive ? '#2C3480' : 'rgba(245, 240, 232, 0.55)',
+                  borderBottom: isActive ? '2px solid #2C3480' : '2px solid transparent',
+                }}
+                onMouseOver={(e) => {
+                  if (!isActive) (e.target as HTMLElement).style.color = '#F5F0E8';
+                }}
+                onMouseOut={(e) => {
+                  if (!isActive) (e.target as HTMLElement).style.color = 'rgba(245, 240, 232, 0.55)';
+                }}
+              >
+                {category}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -287,9 +244,9 @@ export default function WorkClient() {
             onMouseLeave={resetCursor}
             className="group relative inline-block text-[clamp(40px,5vw,80px)] transition-colors duration-500"
           >
-            <span className="upright text-[#F5F0E8] group-hover:text-[#B8956A] transition-colors duration-300">Start a </span>
-            <span className="italic text-[#B8956A] group-hover:text-[#F5F0E8] transition-colors duration-300">project.</span>
-            <div className="absolute bottom-1 left-0 right-0 h-px origin-right scale-x-100 bg-[#B8956A] transition-transform duration-700 group-hover:scale-x-0" />
+            <span className="upright text-[#F5F0E8] group-hover:text-[#2C3480] transition-colors duration-300">Start a </span>
+            <span className="italic text-[#2C3480] group-hover:text-[#F5F0E8] transition-colors duration-300">project.</span>
+            <div className="absolute bottom-1 left-0 right-0 h-px origin-right scale-x-100 bg-[#2C3480] transition-transform duration-700 group-hover:scale-x-0" />
             <div className="absolute bottom-1 left-0 right-0 h-px origin-left scale-x-0 bg-[#F5F0E8] transition-transform duration-700 delay-100 group-hover:scale-x-100" />
           </Link>
           <span

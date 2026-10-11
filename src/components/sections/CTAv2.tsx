@@ -94,7 +94,7 @@ export default function CTAv2() {
       <motion.div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle 800px at var(--x) var(--y), rgba(184,149,106,0.08), transparent 80%)',
+          background: 'radial-gradient(circle 800px at var(--x) var(--y), rgba(44, 52, 128,0.08), transparent 80%)',
           // @ts-ignore
           '--x': useTransform(smoothX, x => `${x}px`),
           '--y': useTransform(smoothY, y => `${y}px`),
@@ -128,7 +128,7 @@ export default function CTAv2() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-center gap-6 mb-20"
         >
-          <div className="w-[1px] h-[40px] bg-gradient-to-b from-transparent via-[rgba(184,149,106,0.5)] to-transparent" />
+          <div className="w-[1px] h-[40px] bg-gradient-to-b from-transparent via-[rgba(44, 52, 128,0.5)] to-transparent" />
           <SectionLabel className="text-[#6B6560] tracking-[0.4em] uppercase text-[10px]">
             [ The Next Chapter ]
           </SectionLabel>
@@ -136,15 +136,15 @@ export default function CTAv2() {
 
         {/* ── Elite Typography Section ── */}
         <div className="relative z-10 flex flex-col items-center text-center w-full mb-16">
-          <div className="m-0 flex flex-col items-center justify-center w-full relative">
+          <div className="m-0 flex flex-col items-center justify-center w-full relative" style={{ overflow: 'visible' }}>
             {/* Top Line */}
             <AnimatedText
               splitBy="word"
               as="span"
               className="block tracking-tighter"
               style={{ 
-                fontFamily: 'var(--font-display), serif',
-                fontWeight: 300,
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                fontWeight: 700,
                 fontSize: 'clamp(50px, 12vw, 180px)',
                 color: '#FFFFFF',
                 lineHeight: 0.9,
@@ -156,25 +156,28 @@ export default function CTAv2() {
             
             {/* Vignette effect removed from here, added at the section level below instead of the sharp rectangle */}
 
-            {/* Middle Line - Gold Italic */}
-            <AnimatedText
-              splitBy="word"
-              as="span"
-              className="block italic relative z-10"
-              style={{ 
-                fontFamily: 'var(--font-display), serif',
-                fontWeight: 300,
-                fontSize: 'clamp(54px, 13vw, 200px)',
-                color: '#B8956A',
-                letterSpacing: '-0.02em',
-                lineHeight: 0.9,
-                marginTop: '-0.1em', // Tighter leading
-                textShadow: '0 20px 80px rgba(184,149,106,0.2), 0 0 40px rgba(184,149,106,0.1)',
-                paddingBottom: '20px' // Descender safe space
-              }}
-            >
-              the unforgettable.
-            </AnimatedText>
+            {/* Middle Line - Citadel Script Flourish */}
+            <div style={{ overflow: 'visible', paddingTop: '0.15em', paddingBottom: '0.25em' }}>
+              <AnimatedText
+                splitBy="word"
+                as="span"
+                className="block font-citadel relative z-10"
+                style={{ 
+                  fontFamily: "var(--font-citadel), 'Citadel Script', cursive",
+                  fontWeight: 400,
+                  fontStyle: 'normal',
+                  fontSize: 'clamp(58px, 14vw, 210px)',
+                  color: '#4B5DF5',
+                  letterSpacing: '0.02em',
+                  lineHeight: 1.1,
+                  marginTop: '-0.05em',
+                  textShadow: '0 0 50px rgba(75, 93, 245, 0.4), 0 20px 80px rgba(44, 52, 128,0.2)',
+                  overflow: 'visible',
+                }}
+              >
+                the unforgettable.
+              </AnimatedText>
+            </div>
           </div>
 
           {/* Supporting Text */}
@@ -195,7 +198,7 @@ export default function CTAv2() {
             }}>
               We partner with ambitious brands to design digital experiences that command attention, shift perceptions, and drive measurable revenue.
             </span>
-            <span className="block mt-4 text-[#B8956A]" style={{
+            <span className="block mt-4 text-[#2C3480]" style={{
               fontFamily: 'var(--font-mono), monospace',
               fontSize: '10px',
               letterSpacing: '0.15em',
@@ -225,7 +228,7 @@ export default function CTAv2() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <svg viewBox="0 0 200 200" className="w-full h-full text-[#B8956A] opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+                <svg viewBox="0 0 200 200" className="w-full h-full text-[#2C3480] opacity-40 group-hover:opacity-100 transition-opacity duration-700">
                   <path id="textPath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" fill="none" />
                   <text fill="currentColor" fontSize="12" letterSpacing="4" style={{ fontFamily: 'var(--font-mono)' }}>
                     <textPath href="#textPath" startOffset="0%" textLength="471" lengthAdjust="spacingAndGlyphs">
@@ -236,10 +239,10 @@ export default function CTAv2() {
               </motion.div>
 
               {/* Inner Dark Circle */}
-              <div className="absolute inset-[15px] rounded-full bg-[#050505] border border-[rgba(184,149,106,0.2)] group-hover:border-[rgba(184,149,106,0.8)] group-hover:bg-[rgba(184,149,106,0.08)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center z-10 overflow-hidden shadow-[0_0_30px_rgba(184,149,106,0)] group-hover:shadow-[0_0_40px_rgba(184,149,106,0.15)]">
+              <div className="absolute inset-[15px] rounded-full bg-[#050505] border border-[rgba(44, 52, 128,0.2)] group-hover:border-[rgba(44, 52, 128,0.8)] group-hover:bg-[rgba(44, 52, 128,0.08)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center z-10 overflow-hidden shadow-[0_0_30px_rgba(44, 52, 128,0)] group-hover:shadow-[0_0_40px_rgba(44, 52, 128,0.15)]">
                  
                  {/* Internal Hover Glow */}
-                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,149,106,0.4)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(44, 52, 128,0.4)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
 
                  <span className="relative z-20 text-[#F5F0E8] group-hover:text-[#FFFFFF] transition-colors duration-500" style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.2em' }}>
                    BEGIN
@@ -279,7 +282,7 @@ export default function CTAv2() {
           >
             deepcipherstudio@gmail.com
             {/* Elite underline hover effect */}
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#B8956A] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
+            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#2C3480] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
           </a>
         </div>
 

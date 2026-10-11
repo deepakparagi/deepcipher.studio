@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 /* ========================================
    PageLoader — Cinematic 8-phase loader
@@ -76,12 +77,12 @@ export default function PageLoader() {
               left: '30%',
               right: '30%',
               height: '1px',
-              backgroundColor: 'rgba(184,149,106,0.3)',
+              backgroundColor: 'rgba(44, 52, 128,0.3)',
               transformOrigin: 'center',
             }}
           />
 
-          {/* Phase 2: DC Monogram */}
+          {/* Phase 2: Official DC Emblem */}
           <motion.div
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{
@@ -94,16 +95,22 @@ export default function PageLoader() {
                 : { type: 'spring', stiffness: 160, damping: 18 }
             }
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(72px, 10vw, 120px)',
-              color: '#fff',
               zIndex: 2,
               willChange: 'transform, opacity',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            DC
+            <Image
+              src="/deepcipher_logo.png"
+              alt="DEEPCIPHER Official Logo"
+              width={160}
+              height={120}
+              priority
+              className="object-contain drop-shadow-[0_0_35px_rgba(212,175,106,0.4)]"
+              style={{ width: 'clamp(100px, 14vw, 150px)', height: 'auto' }}
+            />
           </motion.div>
 
           {/* Phase 3: DEEPCIPHER wordmark */}
@@ -132,7 +139,7 @@ export default function PageLoader() {
                   fontFamily: 'var(--font-mono), monospace',
                   fontWeight: 300,
                   fontSize: 'clamp(10px, 1.3vw, 14px)',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   letterSpacing: '0.4em',
                 }}
               >
@@ -191,7 +198,7 @@ export default function PageLoader() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 height: '1px',
-                background: 'linear-gradient(to right, transparent, #B8956A, transparent)',
+                background: 'linear-gradient(to right, transparent, #2C3480, transparent)',
                 transformOrigin: 'left',
               }}
             />
@@ -226,7 +233,7 @@ export default function PageLoader() {
                   width: '4px',
                   height: '4px',
                   borderRadius: '50%',
-                  backgroundColor: 'rgba(184,149,106,0.5)',
+                  backgroundColor: 'rgba(44, 52, 128,0.5)',
                   position: 'absolute',
                   top: 0,
                   left: '50%',

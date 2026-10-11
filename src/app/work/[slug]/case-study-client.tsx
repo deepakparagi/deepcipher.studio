@@ -15,7 +15,7 @@ function NarrativeBlock({ label, text }: { label: string; text: string }) {
       <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}>
         [ {label} ]
       </span>
-      <h2 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400, fontSize: 'clamp(20px, 2.5vw, 32px)', color: '#F5F0E8', lineHeight: 1.3, margin: 0, textTransform: 'none' }}>
+      <h2 style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 32px)', color: '#F5F0E8', lineHeight: 1.3, margin: 0, textTransform: 'none' }}>
         {text}
       </h2>
     </div>
@@ -34,6 +34,7 @@ function getProjectBackground(slug: string) {
       return 'linear-gradient(155deg, #050D1A 0%, #0A2040 25%, #0E3D7A 45%, #1560B8 62%, #2890D8 78%, #5AB8E8 90%, #A0D8F5 100%)';
     case 'cinepulse-ai':
       return 'linear-gradient(158deg, #0A0F0A 0%, #0D2010 25%, #1A4020 45%, #2A7034 62%, #3A9E48 76%, #6AC878 88%, #A8E8B0 100%)';
+    case 'bipin-chikkatti-institutions':
     case 'bipin-chikkatti-college':
       return 'linear-gradient(162deg, #0D0A1A 0%, #1E1040 25%, #3D1A7A 45%, #6828B0 62%, #9040D0 76%, #C060E8 88%, #E0A0F8 100%)';
     default:
@@ -43,6 +44,7 @@ function getProjectBackground(slug: string) {
 
 function getProjectImageFolder(slug: string): string {
   switch (slug) {
+    case 'bipin-chikkatti-institutions':
     case 'bipin-chikkatti-college':
       return 'Bipin Chikkati School';
     case 'cinepulse-ai':
@@ -113,7 +115,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
 
   return (
     <motion.main
-      className="relative text-[#F5F0E8] selection:bg-[#B8956A]/20 pb-0 overflow-x-hidden bg-[#0A0A0A]"
+      className="relative text-[#F5F0E8] selection:bg-[#2C3480]/20 pb-0 overflow-x-hidden bg-[#0A0A0A]"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -150,8 +152,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
             as="h1"
             className="m-0 mb-[16px] italic font-light normal-case"
             style={{
-              fontFamily: 'var(--font-display), serif',
-              fontSize: 'clamp(36px, 10vw, 100px)',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontWeight: 700, fontSize: 'clamp(36px, 10vw, 100px)',
               color: '#F5F0E8',
               letterSpacing: '-0.02em',
               lineHeight: 1.0,
@@ -160,7 +161,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
             {project.title}
           </AnimatedText>
 
-          <div style={{ width: '48px', height: '1px', background: '#B8956A', margin: '0 auto 20px' }} />
+          <div style={{ width: '48px', height: '1px', background: '#2C3480', margin: '0 auto 20px' }} />
 
           <p 
             className="italic font-light m-0 mb-[48px] max-w-[600px]"
@@ -197,7 +198,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           <motion.div 
             animate={{ opacity: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ width: '0.5px', height: '40px', background: '#B8956A' }}
+            style={{ width: '0.5px', height: '40px', background: '#2C3480' }}
           />
         </div>
       </section>
@@ -247,7 +248,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
               </span>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
                 {project.roleResponsibilities.map((role, idx) => (
-                  <span key={idx} style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.12em', color: '#B8956A', border: '0.5px solid rgba(184,149,106,0.3)', background: 'rgba(184,149,106,0.05)', padding: '6px 12px', borderRadius: 0, textTransform: 'uppercase' }}>
+                  <span key={idx} style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.12em', color: '#2C3480', border: '0.5px solid rgba(44, 52, 128,0.3)', background: 'rgba(44, 52, 128,0.05)', padding: '6px 12px', borderRadius: 0, textTransform: 'uppercase' }}>
                     {role}
                   </span>
                 ))}
@@ -260,7 +261,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           </span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
             {techStack.map(t => (
-              <span key={t} style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.12em', color: '#B8956A', border: '0.5px solid rgba(184,149,106,0.3)', background: 'rgba(184,149,106,0.05)', padding: '6px 12px', borderRadius: 0, textTransform: 'uppercase' }}>
+              <span key={t} style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.12em', color: '#2C3480', border: '0.5px solid rgba(44, 52, 128,0.3)', background: 'rgba(44, 52, 128,0.05)', padding: '6px 12px', borderRadius: 0, textTransform: 'uppercase' }}>
                 {t}
               </span>
             ))}
@@ -272,7 +273,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           <div style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingTop: '20px', marginBottom: '32px' }}>
             {modules.map((m, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 0', borderBottom: '0.5px solid rgba(245,240,232,0.04)', fontFamily: 'var(--font-body), sans-serif', fontSize: '13px', fontWeight: 300, color: '#9A9590' }}>
-                <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#B8956A', flexShrink: 0 }} />
+                <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#2C3480', flexShrink: 0 }} />
                 {m.label}
               </div>
             ))}
@@ -302,7 +303,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
                 textDecoration: 'none'
               }}
             >
-              <span className="group-hover:text-[#B8956A] transition-colors duration-300">ENTER LIVE EXPERIENCE →</span>
+              <span className="group-hover:text-[#2C3480] transition-colors duration-300">ENTER LIVE EXPERIENCE →</span>
             </a>
           )}
         </div>
@@ -376,9 +377,9 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       <section className="w-full py-32 md:py-48 lg:py-64" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="max-w-[928px] mx-auto pr-8 md:pr-24 lg:pr-[20%]">
-          <div className="border-l-0 md:border-l-2 border-[#B8956A] pl-0 md:pl-10 text-center md:text-left">
-            <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(22px, 3vw, 34px)', color: '#F5F0E8', lineHeight: 1.4, margin: 0 }}>
-              {project.pullQuote || 'Capturing structural harmony through liquid motion and architectural editorial balance.'}
+          <div className="border-l-0 md:border-l-2 border-[#2C3480] pl-0 md:pl-10 text-center md:text-left">
+            <p style={{ fontFamily: "var(--font-editorial), var(--font-serif, 'Cormorant Garamond'), Georgia, serif", fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(24px, 3vw, 38px)', color: '#F5F0E8', lineHeight: 1.35, margin: 0 }}>
+              &ldquo;{project.pullQuote || 'Capturing structural harmony through liquid motion and architectural editorial balance.'}&rdquo;
             </p>
           </div>
           <p 
@@ -404,13 +405,13 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           {stats.map((stat, i) => (
             <div 
               key={i} 
-              className="p-[32px] md:p-[40px] px-[24px] md:px-[32px] text-center md:text-left" 
-              style={{ background: 'rgba(184,149,106,0.04)', border: '0.5px solid rgba(184,149,106,0.12)', borderRadius: 0 }}
+              className="p-[32px] md:p-[40px] px-[24px] md:px-[32px] text-center md:text-left transition-colors duration-300 hover:border-[rgba(56,84,255,0.35)]" 
+              style={{ background: 'rgba(44, 52, 128, 0.05)', border: '1px solid rgba(56, 84, 255, 0.18)', borderRadius: 0 }}
             >
-              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', letterSpacing: '0.15em', color: '#6B6560', display: 'block', marginBottom: '16px', textTransform: 'uppercase' }}>
+              <span style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontSize: '10px', letterSpacing: '0.18em', color: '#8A8580', display: 'block', marginBottom: '14px', textTransform: 'uppercase', fontWeight: 500 }}>
                 {stat.label}
               </span>
-              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(36px, 10vw, 64px)', color: '#B8956A', margin: 0, lineHeight: 1 }}>
+              <p style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontStyle: 'normal', fontWeight: 700, fontSize: 'clamp(32px, 5.5vw, 54px)', color: '#3854FF', margin: 0, lineHeight: 1.05, letterSpacing: '-0.02em', textShadow: '0 0 28px rgba(56, 84, 255, 0.3)' }}>
                 {stat.value}
               </p>
             </div>
@@ -427,8 +428,8 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
         <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-center justify-between pr-8 md:pr-24 lg:pr-[20%] gap-8 md:gap-0">
         <Link 
           href="/work"
-          style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', color: '#6B6560', letterSpacing: '0.15em', textDecoration: 'none', transition: 'color 0.3s ease' }}
-          className="hover:text-[#B8956A] block"
+          style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontSize: '11px', color: '#8A8580', letterSpacing: '0.16em', textDecoration: 'none', textTransform: 'uppercase', fontWeight: 500, transition: 'color 0.3s ease' }}
+          className="hover:text-[#F5F0E8] block"
           onMouseEnter={() => setCursor('link')}
           onMouseLeave={resetCursor}
         >
@@ -442,14 +443,14 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
           onMouseLeave={resetCursor}
         >
           <span 
-            style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '9px', color: '#6B6560', display: 'block', marginBottom: '4px', letterSpacing: '0.1em' }} 
+            style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontSize: '10px', color: '#8A8580', display: 'block', marginBottom: '6px', letterSpacing: '0.18em', fontWeight: 500, textTransform: 'uppercase' }} 
             className="text-center md:text-right"
           >
             NEXT PROJECT
           </span>
           <span 
-            className="group-hover:text-[#B8956A] transition-colors duration-300 text-center md:text-right block" 
-            style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(20px, 3vw, 32px)', color: '#F5F0E8' }} 
+            className="group-hover:text-[#3854FF] transition-colors duration-300 text-center md:text-right block" 
+            style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontStyle: 'normal', fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 36px)', letterSpacing: '-0.02em', color: '#F5F0E8', lineHeight: 1.1 }} 
           >
             {nextProject.title} →
           </span>
@@ -460,18 +461,18 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       {/* SECTION 7: FOOTER EMAIL CTA */}
       <section className="w-full py-32 md:py-48 lg:py-64 text-center" style={{ borderTop: '0.5px solid rgba(245,240,232,0.06)', paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
         <div className="max-w-[1400px] mx-auto w-full pr-8 md:pr-24 lg:pr-[20%]">
-        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: 'clamp(20px, 4vw, 24px)', color: '#9A9590', marginBottom: '24px', fontWeight: 300, margin: '0 auto 24px' }}>
+        <p style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontStyle: 'normal', fontSize: 'clamp(18px, 2vw, 22px)', color: '#A09B95', marginBottom: '20px', fontWeight: 400, margin: '0 auto 20px', letterSpacing: '0.02em' }}>
           Or start your own project.
         </p>
         <a 
           href="mailto:deepcipherstudio@gmail.com"
           className="group relative inline-block overflow-hidden"
-          style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#B8956A', letterSpacing: '0.18em', textDecoration: 'none' }}
+          style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif", fontSize: '12px', fontWeight: 600, color: '#3854FF', letterSpacing: '0.18em', textDecoration: 'none' }}
           onMouseEnter={() => setCursor('link')}
           onMouseLeave={resetCursor}
         >
           DEEPCIPHERSTUDIO@GMAIL.COM
-          <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
+          <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#3854FF] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
         </a>
       </div>
     </section>

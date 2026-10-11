@@ -66,7 +66,7 @@ function CrystalGeometry() {
 
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
-    uColor: { value: new THREE.Color('#B8956A') },
+    uColor: { value: new THREE.Color('#2C3480') },
   }), []);
 
   // Wireframe edges geometry
@@ -110,7 +110,7 @@ function CrystalGeometry() {
       {/* Wireframe edges — crisp gold lines */}
       <lineSegments ref={wireRef} geometry={edgesGeo}>
         <lineBasicMaterial
-          color="#B8956A"
+          color="#2C3480"
           transparent
           opacity={0.35}
           linewidth={1}
@@ -121,7 +121,7 @@ function CrystalGeometry() {
       <mesh>
         <sphereGeometry args={[0.3, 16, 16]} />
         <meshBasicMaterial
-          color="#B8956A"
+          color="#2C3480"
           transparent
           opacity={0.08}
         />
@@ -188,7 +188,7 @@ function ParticleField({ count = 3000 }: { count?: number }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        color="#B8956A"
+        color="#2C3480"
         size={0.025}
         sizeAttenuation
         transparent
@@ -288,9 +288,9 @@ function SceneContent({ scrollProgress }: HeroSceneProps) {
       <ambientLight intensity={0.15} />
       
       {/* Point light from behind for rim lighting */}
-      <pointLight position={[0, 0, -4]} color="#B8956A" intensity={0.8} />
+      <pointLight position={[0, 0, -4]} color="#2C3480" intensity={0.8} />
       <pointLight position={[3, 2, 2]} color="#F5F0E8" intensity={0.3} />
-      <pointLight position={[-3, -1, 3]} color="#B8956A" intensity={0.2} />
+      <pointLight position={[-3, -1, 3]} color="#2C3480" intensity={0.2} />
 
       {/* 3D Objects */}
       <CrystalGeometry />

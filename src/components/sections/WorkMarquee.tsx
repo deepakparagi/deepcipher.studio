@@ -100,8 +100,8 @@ export default function WorkMarquee({
           height: '1px',
           transform: 'translateY(-50%)',
           background: isLight
-            ? 'linear-gradient(90deg, transparent 0%, rgba(184,149,106,0.0) 20%, rgba(184,149,106,0.3) 50%, rgba(184,149,106,0.0) 80%, transparent 100%)'
-            : 'linear-gradient(90deg, transparent 0%, rgba(184,149,106,0.0) 20%, rgba(184,149,106,0.4) 50%, rgba(184,149,106,0.0) 80%, transparent 100%)',
+            ? 'linear-gradient(90deg, transparent 0%, rgba(44, 52, 128,0.0) 20%, rgba(44, 52, 128,0.3) 50%, rgba(44, 52, 128,0.0) 80%, transparent 100%)'
+            : 'linear-gradient(90deg, transparent 0%, rgba(44, 52, 128,0.0) 20%, rgba(44, 52, 128,0.4) 50%, rgba(44, 52, 128,0.0) 80%, transparent 100%)',
           opacity: 0.6,
         }}
       />
@@ -112,8 +112,8 @@ export default function WorkMarquee({
         style={{
           height: '1px',
           background: isLight
-            ? 'linear-gradient(to right, transparent, rgba(184,149,106,0.12), transparent)'
-            : 'linear-gradient(to right, transparent, rgba(184,149,106,0.08), transparent)',
+            ? 'linear-gradient(to right, transparent, rgba(44, 52, 128,0.12), transparent)'
+            : 'linear-gradient(to right, transparent, rgba(44, 52, 128,0.08), transparent)',
         }}
       />
       <div
@@ -121,8 +121,8 @@ export default function WorkMarquee({
         style={{
           height: '1px',
           background: isLight
-            ? 'linear-gradient(to right, transparent, rgba(184,149,106,0.12), transparent)'
-            : 'linear-gradient(to right, transparent, rgba(184,149,106,0.08), transparent)',
+            ? 'linear-gradient(to right, transparent, rgba(44, 52, 128,0.12), transparent)'
+            : 'linear-gradient(to right, transparent, rgba(44, 52, 128,0.08), transparent)',
         }}
       />
 
@@ -178,7 +178,7 @@ export default function WorkMarquee({
 
         /* ── Text styling ── */
         .${uid}-text {
-          font-family: var(--font-display), serif;
+          font-family: var(--font-helvetica), 'Helvetica', sans-serif;
           font-weight: 300;
           font-style: italic;
           font-size: clamp(10px, 1.1vw, 13px);
@@ -197,8 +197,8 @@ export default function WorkMarquee({
         .${uid}-text:hover {
           color: ${isLight ? 'rgba(10, 10, 10, 0.9)' : 'rgba(255, 255, 255, 0.95)'} !important;
           text-shadow: ${isLight
-            ? '0 0 20px rgba(184, 149, 106, 0.15)'
-            : '0 0 30px rgba(184, 149, 106, 0.3), 0 0 60px rgba(184, 149, 106, 0.1)'};
+            ? '0 0 20px rgba(44, 52, 128, 0.15)'
+            : '0 0 30px rgba(44, 52, 128, 0.3), 0 0 60px rgba(44, 52, 128, 0.1)'};
           letter-spacing: 0.28em;
         }
 
@@ -217,11 +217,11 @@ export default function WorkMarquee({
           height: 4px;
           border-radius: 50%;
           background: ${isLight
-            ? 'linear-gradient(135deg, rgba(184,149,106,0.5), rgba(184,149,106,0.2))'
-            : 'linear-gradient(135deg, rgba(184,149,106,0.6), rgba(184,149,106,0.2))'};
+            ? 'linear-gradient(135deg, rgba(44, 52, 128,0.5), rgba(44, 52, 128,0.2))'
+            : 'linear-gradient(135deg, rgba(44, 52, 128,0.6), rgba(44, 52, 128,0.2))'};
           box-shadow: ${isLight
-            ? '0 0 8px rgba(184,149,106,0.2)'
-            : '0 0 12px rgba(184,149,106,0.3), 0 0 4px rgba(184,149,106,0.5)'};
+            ? '0 0 8px rgba(44, 52, 128,0.2)'
+            : '0 0 12px rgba(44, 52, 128,0.3), 0 0 4px rgba(44, 52, 128,0.5)'};
           transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
           animation: ${uid}-pulse 3s ease-in-out infinite;
         }
@@ -229,8 +229,8 @@ export default function WorkMarquee({
         .${uid}-item:hover .${uid}-sep-dot {
           width: 6px;
           height: 6px;
-          box-shadow: 0 0 16px rgba(184,149,106,0.6), 0 0 32px rgba(184,149,106,0.2);
-          background: linear-gradient(135deg, rgba(184,149,106,0.9), rgba(212,175,55,0.6));
+          box-shadow: 0 0 16px rgba(44, 52, 128,0.6), 0 0 32px rgba(44, 52, 128,0.2);
+          background: linear-gradient(135deg, rgba(44, 52, 128,0.9), rgba(212,175,55,0.6));
         }
 
         @keyframes ${uid}-pulse {

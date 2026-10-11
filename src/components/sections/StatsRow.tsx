@@ -105,7 +105,7 @@ function StatCard({ stat, index, animate }: { stat: typeof stats[0]; index: numb
             right: '-10%',
             width: '120px',
             height: '120px',
-            background: `radial-gradient(circle, rgba(184,149,106,${0.08 + index * 0.02}) 0%, transparent 70%)`,
+            background: `radial-gradient(circle, rgba(44, 52, 128,${0.08 + index * 0.02}) 0%, transparent 70%)`,
             borderRadius: '50%',
             filter: 'blur(30px)',
           }}
@@ -119,8 +119,8 @@ function StatCard({ stat, index, animate }: { stat: typeof stats[0]; index: numb
             right: '12px',
             width: '16px',
             height: '16px',
-            borderTop: '1px solid rgba(184,149,106,0.25)',
-            borderRight: '1px solid rgba(184,149,106,0.25)',
+            borderTop: '1px solid rgba(44, 52, 128,0.25)',
+            borderRight: '1px solid rgba(44, 52, 128,0.25)',
           }}
         />
 
@@ -128,7 +128,7 @@ function StatCard({ stat, index, animate }: { stat: typeof stats[0]; index: numb
         <div className="relative z-10 pt-[24px]">
           <span
             style={{
-              fontFamily: 'var(--font-display), serif',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
               fontWeight: 400,
               fontSize: 'clamp(28px, 3.5vw, 40px)',
               lineHeight: 1.1,
@@ -163,7 +163,7 @@ function StatCard({ stat, index, animate }: { stat: typeof stats[0]; index: numb
             left: 0,
             right: 0,
             height: '2px',
-            background: 'linear-gradient(to right, transparent, #B8956A, transparent)',
+            background: 'linear-gradient(to right, transparent, #2C3480, transparent)',
             transformOrigin: 'center',
           }}
           initial={{ scaleX: 0 }}
@@ -217,7 +217,7 @@ export default function StatsRow() {
               width: orb.size,
               height: orb.size,
               borderRadius: '50%',
-              background: `radial-gradient(circle, rgba(184,149,106,${orb.opacity}) 0%, transparent 70%)`,
+              background: `radial-gradient(circle, rgba(44, 52, 128,${orb.opacity}) 0%, transparent 70%)`,
               filter: 'blur(40px)',
             }}
           />
@@ -247,7 +247,7 @@ export default function StatsRow() {
             style={{
               fontFamily: 'var(--font-mono), monospace',
               fontSize: '9px',
-              color: '#B8956A',
+              color: '#2C3480',
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
               display: 'block',
@@ -264,7 +264,7 @@ export default function StatsRow() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: 'var(--font-display), serif',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
               fontWeight: 300,
               fontStyle: 'italic',
               fontSize: 'clamp(48px, 5.5vw, 80px)',

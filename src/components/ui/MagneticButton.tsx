@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, type ReactNode, type MouseEvent } from 'react';
+import { useState, useRef, type ReactNode, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
 import { useCursor } from './CursorProvider';
@@ -33,14 +33,14 @@ const variantStyles: Record<string, React.CSSProperties> = {
     border: 'none',
   },
   outline: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: 'var(--ink)',
+    color: '#FFFFFF',
     padding: '16px 36px',
     fontFamily: 'var(--font-mono)',
     fontSize: '11px',
     letterSpacing: '0.15em',
     textTransform: 'uppercase' as const,
-    border: '1px solid var(--border-strong)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
   },
   ghost: {
     backgroundColor: 'rgba(0,0,0,0)',
@@ -75,6 +75,7 @@ export default function MagneticButton({
   style = {},
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const { setCursor, resetCursor } = useCursor();
 
   const x = useMotionValue(0);
@@ -97,12 +98,14 @@ export default function MagneticButton({
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
     x.set(0);
     y.set(0);
     resetCursor();
   };
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
     setCursor('hover', cursorLabel);
   };
 
@@ -115,6 +118,8 @@ export default function MagneticButton({
     position: 'relative' as const,
     textDecoration: 'none',
     width: fullWidth ? '100%' : undefined,
+    borderWidth: '1px',
+    borderStyle: 'solid',
     ...style,
   };
 
@@ -123,6 +128,20 @@ export default function MagneticButton({
       ref={ref}
       style={{
         ...combinedStyle,
+        backgroundColor:
+          isHovered
+            ? variant === 'outline' ? '#2C3480' : '#4B5DF5'
+            : variant === 'outline' ? 'rgba(255, 255, 255, 0.06)' : 'var(--ink)',
+        borderColor:
+          isHovered
+            ? '#4B5DF5'
+            : 'rgba(255, 255, 255, 0.3)',
+        boxShadow:
+          isHovered
+            ? '0 0 35px rgba(75, 93, 245, 0.65), 0 8px 24px rgba(0, 0, 0, 0.7)'
+            : '0 4px 16px rgba(0, 0, 0, 0.4)',
+        transform: isHovered ? 'scale(1.03)' : 'scale(1)',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease',
         x: springX,
         y: springY,
       }}
@@ -137,7 +156,6 @@ export default function MagneticButton({
           x: innerX,
           y: innerY,
           display: 'inline-block',
-          transform: 'scale(0.55)',
         }}
       >
         {children}

@@ -1,486 +1,322 @@
 'use client';
 
-import { useRef, useEffect, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
-import * as THREE from 'three';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
-import { ShaderGradientCanvas, ShaderGradient } from 'shadergradient';
-
-const ShaderGradientComponent = ShaderGradient as any;
+import { motion, useReducedMotion } from 'framer-motion';
 
 /* ========================================
-   Three.js Particle Canvas (5000 Particles)
-   ======================================== */
-
-function ParticleField() {
-  const pointsRef = useRef<THREE.Points>(null);
-  const mouseRef = useRef(new THREE.Vector2(0, 0));
-  const { size, viewport } = useThree();
-
-  const [positions, initialPositions, velocities, sizes] = useMemo(() => {
-    const count = 6000;
-    const pos = new Float32Array(count * 3);
-    const init = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    const sz = new Float32Array(count);
-
-    for (let i = 0; i < count; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = 16 * Math.cbrt(Math.random());
-
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi);
-
-      pos[i * 3] = x;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
-
-      init[i * 3] = x;
-      init[i * 3 + 1] = y;
-      init[i * 3 + 2] = z;
-
-      vel[i * 3] = (Math.random() - 0.5) * 0.02;
-      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
-
-      sz[i] = Math.random() * 0.04 + 0.005;
-    }
-    return [pos, init, vel, sz];
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth - 0.5) * viewport.width;
-      mouseRef.current.y = -(e.clientY / window.innerHeight - 0.5) * viewport.height;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [viewport]);
-
-  useFrame((state) => {
-    if (!pointsRef.current) return;
-    const time = state.clock.getElapsedTime();
-    const posAttr = pointsRef.current.geometry.attributes.position;
-
-    for (let i = 0; i < positions.length / 3; i++) {
-      const ix = i * 3;
-      const iy = i * 3 + 1;
-      const iz = i * 3 + 2;
-
-      // 1. Natural Drift
-      positions[ix] += velocities[ix] * Math.sin(time * 0.5);
-      positions[iy] += velocities[iy] * Math.cos(time * 0.5);
-      positions[iz] += velocities[iz];
-
-      // 2. Mouse Interaction (Repulsion)
-      const dx = positions[ix] - mouseRef.current.x;
-      const dy = positions[iy] - mouseRef.current.y;
-      const distSq = dx * dx + dy * dy;
-      
-      if (distSq < 4) {
-        const force = (4 - distSq) / 4;
-        positions[ix] += dx * force * 0.05;
-        positions[iy] += dy * force * 0.05;
-      }
-
-      // 3. Subtle pull back to origin
-      positions[ix] += (initialPositions[ix] - positions[ix]) * 0.01;
-      positions[iy] += (initialPositions[iy] - positions[iy]) * 0.01;
-      positions[iz] += (initialPositions[iz] - positions[iz]) * 0.01;
-    }
-
-    posAttr.needsUpdate = true;
-    pointsRef.current.rotation.y = time * 0.02;
-  });
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-size" args={[sizes, 1]} />
-      </bufferGeometry>
-      <pointsMaterial
-        sizeAttenuation
-        color="#FFFFFF"
-        transparent
-        opacity={0.3}
-        size={0.025}
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
-  );
-}
-
-
-
-
-
-interface StatItem {
-  value: string;
-  label: string;
-}
-
-const HERO_STATS: StatItem[] = [
-  { value: '20+', label: 'WEBSITES LAUNCHED' },
-  { value: '10', label: 'PROJECTS PER YEAR' },
-  { value: '24hr', label: 'RESPONSE TIME' },
-  { value: '95+', label: 'Lighthouse Score' },
-];
-
-/* ========================================
-   Animation Config
-   ======================================== */
-
-const LOADER_DELAY = 3.2;
-const SPRING_CONFIG = { type: 'spring' as const, stiffness: 80, damping: 16 };
-
-/* ========================================
-   Section 1 — Hero Component
+   DEEPCIPHER — Homepage Hero Section
+   Cinematic architectural composition matching
+   the reference visual with editorial typography.
    ======================================== */
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
-  const [btnHover, setBtnHover] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const scrollRotateX = useTransform(scrollYProgress, [0, 0.2], [0, 45]);
-  const scrollYOffset = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
+  const [isHoveredPrimary, setIsHoveredPrimary] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const EASE_CUBIC = [0.16, 1, 0.3, 1] as const;
+
+  const fadeUp = (delay: number) => ({
+    initial: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay, ease: EASE_CUBIC },
+  });
+
+  const fadeIn = (delay: number) => ({
+    initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.6, delay, ease: EASE_CUBIC },
+  });
+
   return (
     <section
-      className="relative w-full flex flex-col overflow-hidden"
+      className="hero-home-section relative w-full flex-1 min-h-0 overflow-hidden flex flex-col justify-between"
       style={{
-        minHeight: 'calc(100svh - 72px)',
         backgroundColor: '#0A0A0A',
-        perspective: '1200px', // Enable section-level 3D depth
+        backgroundImage: "url('/images/HERO%20SECTION.png')",
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* ── Background WebGL ── */}
-      <div className="absolute inset-0 z-0">
-        <ShaderGradientCanvas
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: 'none',
-          }}
-        >
-          <ShaderGradientComponent
-            animate="on"
-            axesHelper="off"
-            bgColor1="#000000"
-            bgColor2="#050505"
-            brightness={1.1}
-            cAzimuthAngle={170}
-            cDistance={4.4}
-            cPolarAngle={70}
-            cameraZoom={1}
-            color1="#0a0a0a"
-            color2="#8a8a8a"
-            color3="#e8e8e8"
-            destination="onCanvas"
-            embedMode="off"
-            envPreset="city"
-            format="gif"
-            fov={45}
-            frameRate={10}
-            gizmoHelper="hide"
-            grain="off"
-            lightType="3d"
-            pixelDensity={1}
-            positionX={0}
-            positionY={0.9}
-            positionZ={-0.3}
-            range="disabled"
-            rangeEnd={40}
-            rangeStart={0}
-            reflection={0.1}
-            rotationX={45}
-            rotationY={0}
-            rotationZ={0}
-            shader="defaults"
-            type="waterPlane"
-            uAmplitude={0}
-            uDensity={1.2}
-            uFrequency={0}
-            uSpeed={0.2}
-            uStrength={3.4}
-            uTime={0}
-            wireframe={false}
-          />
-        </ShaderGradientCanvas>
-      </div>
+      <style jsx>{`
+        .hero-home-section {
+          background-position: 36% center;
+        }
+        @media (min-width: 768px) {
+          .hero-home-section {
+            background-position: right center;
+          }
+        }
+      `}</style>
 
-      {/* ── Dark scrim so text stays readable over bright gradient areas ── */}
+      {/* ── Left-to-right gradient scrim ── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%)',
+          background:
+            'linear-gradient(to right, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.82) 36%, rgba(10, 10, 10, 0.42) 65%, rgba(10, 10, 10, 0.08) 85%, transparent 100%)',
         }}
       />
 
-      {/* ── Mouse glow ── */}
-      <div className="hero-mouse-glow" />
-
-
-
-
-
-      {/* ── Scroll indicator — bottom right ── */}
+      {/* ── Mobile vertical vignette for maximum contrast ── */}
       <div
-        className="hidden md:flex absolute z-20 pointer-events-none flex-col items-center"
-        style={{ bottom: '40px', right: '40px' }}
+        className="absolute inset-0 z-[1] pointer-events-none md:hidden"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(10, 10, 10, 0.75) 0%, rgba(10, 10, 10, 0.3) 30%, rgba(10, 10, 10, 0.2) 60%, rgba(10, 10, 10, 0.85) 100%)',
+        }}
+      />
+
+      {/* ── Subtle bottom vignette ── */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-20 z-[1] pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 10, 0.7) 100%)',
+        }}
+      />
+
+      {/* ── Foreground Content Container ── */}
+      <div
+        className="relative z-10 w-full h-full flex-1 flex flex-col justify-between"
+        style={{
+          paddingLeft: 'clamp(24px, 7.5vw, 116px)',
+          paddingRight: 'clamp(20px, 5vw, 64px)',
+          paddingTop: 'clamp(20px, 3.5vh, 42px)',
+          paddingBottom: 'clamp(24px, 4vh, 40px)',
+        }}
       >
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: LOADER_DELAY + 1.5 }}
+        {/* ── 1. Single Main Hero Content Wrapper (Shared Left Axis) ── */}
+        <div
+          className="my-auto flex flex-col items-start w-full"
           style={{
-            fontFamily: 'var(--font-mono), monospace',
-            fontSize: '9px',
-            color: 'rgba(255,255,255,0.2)',
-            writingMode: 'vertical-rl',
-            letterSpacing: '0.2em',
-            marginBottom: '12px',
+            maxWidth: 'min(92vw, 540px)',
           }}
         >
-          SCROLL
-        </motion.span>
-        <div className="relative" style={{ width: '1px', height: '48px' }}>
+          {/* Top: Brand Eyebrow on shared left axis */}
+          <motion.div
+            {...fadeIn(0.1)}
+            className="flex items-center gap-3 select-none shrink-0"
+            style={{ marginBottom: 'clamp(14px, 2.5vh, 24px)' }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                fontSize: 'clamp(10px, 0.8vw, 11px)',
+                fontWeight: 600,
+                letterSpacing: '0.22em',
+                color: 'rgba(255, 255, 255, 0.72)',
+                textTransform: 'uppercase',
+              }}
+            >
+              DEEPCIPHER
+            </span>
+            <span
+              style={{
+                width: '24px',
+                height: '1px',
+                backgroundColor: 'rgba(255, 255, 255, 0.22)',
+                display: 'inline-block',
+              }}
+              aria-hidden="true"
+            />
+          </motion.div>
+
+          {/* Headline Block with Dedicated Accent Line */}
+          <motion.div
+            {...fadeUp(0.25)}
+            className="relative w-full"
+            style={{ marginBottom: 'clamp(14px, 2.5vh, 20px)' }}
+          >
+            {/* Cobalt Accent Line: 2px wide, cobalt blue, aligned with headline top, height matches 2-line headline */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '-14px',
+                top: '3px',
+                bottom: '3px',
+                width: '2px',
+                backgroundColor: '#3049E8',
+                borderRadius: '1px',
+                boxShadow: '0 0 12px rgba(48, 73, 232, 0.45)',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Headline Text: Editorial serif with balanced proportions */}
+            <h1
+              className="m-0 text-left select-none"
+              style={{
+                fontFamily: "var(--font-editorial), var(--font-serif, 'Cormorant Garamond'), Georgia, serif",
+                fontSize: 'clamp(2.35rem, 5.2vw, 4.8rem)',
+                lineHeight: 1.04,
+                letterSpacing: '-0.02em',
+                fontWeight: 500,
+              }}
+            >
+              {/* Line 1: Ideas into (warm white) */}
+              <span className="block text-[#F5F0E8]">
+                Ideas{' '}
+                <span
+                  style={{
+                    fontFamily: "var(--font-citadel, 'Citadel Script'), cursive",
+                    fontStyle: 'normal',
+                    fontWeight: 400,
+                    fontSize: '1.16em',
+                    marginLeft: '0.08em',
+                    display: 'inline-block',
+                    lineHeight: 1,
+                    color: '#F5F0E8',
+                  }}
+                >
+                  into
+                </span>
+              </span>
+
+              {/* Line 2: Real Products (cobalt blue) */}
+              <span
+                className="block whitespace-nowrap"
+                style={{
+                  color: '#3049E8',
+                  fontWeight: 500,
+                  letterSpacing: '-0.015em',
+                  marginTop: '0.04em',
+                  textShadow: '0 0 32px rgba(48, 73, 232, 0.35)',
+                }}
+              >
+                Real Products
+              </span>
+            </h1>
+          </motion.div>
+
+          {/* Supporting Description: Aligned to headline text left edge */}
+          <motion.p
+            {...fadeUp(0.4)}
+            className="m-0 text-left"
+            style={{
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontSize: 'clamp(11px, 0.85vw, 12px)',
+              fontWeight: 500,
+              letterSpacing: '0.14em',
+              color: '#B8BEC9',
+              lineHeight: 1.6,
+              maxWidth: 'min(86vw, 440px)',
+              textTransform: 'uppercase',
+              marginBottom: 'clamp(20px, 3vh, 26px)',
+            }}
+          >
+            WE BUILD WEBSITES, AI SOLUTIONS &amp;<br />
+            AUTOMATIONS THAT CREATE REAL IMPACT.
+          </motion.p>
+
+          {/* CTA Buttons: Aligned to description left edge */}
+          <motion.div
+            {...fadeUp(0.55)}
+            className="flex flex-wrap items-center"
+            style={{ gap: 'clamp(16px, 2.5vw, 28px)' }}
+          >
+            {/* Primary Pill Button: LET'S BUILD */}
+            <Link
+              href="/contact"
+              onMouseEnter={() => setIsHoveredPrimary(true)}
+              onMouseLeave={() => setIsHoveredPrimary(false)}
+              className="group inline-flex items-center justify-center gap-2.5 transition-all duration-300"
+              style={{
+                height: 'clamp(44px, 5.2vh, 50px)',
+                backgroundColor: isHoveredPrimary ? '#3854FF' : '#3049E8',
+                color: '#FFFFFF',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                fontSize: 'clamp(10.5px, 0.8vw, 11px)',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                padding: '0 clamp(20px, 2vw, 28px)',
+                borderRadius: '9999px',
+                boxShadow: isHoveredPrimary
+                  ? '0 0 24px rgba(56, 84, 255, 0.6), 0 4px 14px rgba(0, 0, 0, 0.4)'
+                  : '0 4px 18px rgba(48, 73, 232, 0.4)',
+                transform: isHoveredPrimary ? 'translateY(-1px)' : 'none',
+              }}
+            >
+              <span>LET&apos;S BUILD</span>
+              <span
+                className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+                style={{ fontSize: '13px', lineHeight: 1 }}
+              >
+                &rarr;
+              </span>
+            </Link>
+
+            {/* Secondary Link: VIEW WORK */}
+            <Link
+              href="/work"
+              className="group inline-flex items-center transition-all duration-300"
+              style={{
+                height: 'clamp(44px, 5.2vh, 50px)',
+                backgroundColor: 'transparent',
+                color: 'rgba(255, 255, 255, 0.85)',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                fontSize: 'clamp(10.5px, 0.8vw, 11px)',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.4)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#FFFFFF';
+                e.currentTarget.style.borderBottomColor = '#FFFFFF';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)';
+                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.4)';
+              }}
+            >
+              <span>VIEW WORK</span>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* ── 2. Bottom Services List: 24-40px above bottom, vertical divider, aligned ── */}
+        <motion.div
+          {...fadeIn(0.7)}
+          className="select-none flex items-stretch shrink-0"
+          style={{ gap: '16px' }}
+        >
+          {/* Vertical Accent Line matching list height */}
           <div
             style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, rgba(255,255,255,0.2), transparent)',
+              width: '1.5px',
+              backgroundColor: 'rgba(255, 255, 255, 0.18)',
+              borderRadius: '1px',
+              flexShrink: 0,
             }}
+            aria-hidden="true"
           />
-          <motion.div
-            animate={{ y: [0, 44, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+          <ul
+            className="list-none m-0 p-0 flex flex-col"
             style={{
-              position: 'absolute',
-              top: 0,
-              left: '-1.5px',
-              width: '4px',
-              height: '4px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(184,149,106,0.6)',
-            }}
-          />
-        </div>
-      </div>
-
-
-      {/* ── Main content — flex flex-col justify-end ── */}
-      <div
-        className="relative z-10 w-full flex-1 flex flex-col justify-center items-center text-center"
-        style={{
-          paddingTop: 'clamp(60px, 8vh, 120px)',
-          paddingBottom: 'clamp(24px, 4vh, 60px)',
-          paddingLeft: 'clamp(16px, 4vw, 80px)',
-          paddingRight: 'clamp(16px, 4vw, 80px)',
-        }}
-      >
-        {/* Headline */}
-        <h1
-          className="m-0 text-center"
-          style={{
-            fontFamily: "var(--font-display), 'Cormorant Garamond', serif",
-            fontWeight: 300,
-            fontStyle: 'italic',
-            fontSize: 'clamp(48px, 12.5vw, 110px)',
-            lineHeight: 0.9,
-            letterSpacing: '-0.02em',
-            color: '#fff',
-            width: '100%',
-          }}
-        >
-          {/* Line 1 — WHERE VISION */}
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block text-center"
-              initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
-              animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
-              transition={{ ...SPRING_CONFIG, delay: LOADER_DELAY }}
-            >
-              WHERE VISION
-            </motion.span>
-          </span>
-
-          {/* Line 2 — MEETS (gold) */}
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block text-center"
-              style={{ color: '#B8956A' }}
-              initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
-              animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
-              transition={{ ...SPRING_CONFIG, delay: LOADER_DELAY + 0.2 }}
-            >
-              MEETS
-            </motion.span>
-          </span>
-
-          {/* Line 3 — EXECUTION. (gold period) */}
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block text-center"
-              initial={{ y: '110%', filter: 'blur(20px)', opacity: 0 }}
-              animate={{ y: '0%', filter: 'blur(0px)', opacity: 1 }}
-              transition={{ ...SPRING_CONFIG, delay: LOADER_DELAY + 0.4 }}
-            >
-              EXECUTION<span style={{ color: '#B8956A' }}>.</span>
-            </motion.span>
-          </span>
-        </h1>
-
-        {/* Subtext */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: LOADER_DELAY + 0.8 }}
-          className="m-0 text-center px-4 md:px-0"
-          style={{
-            fontFamily: 'var(--font-body), sans-serif',
-            fontWeight: 300,
-            fontSize: 'clamp(14px, 4vw, 16px)',
-            color: 'rgba(255,255,255,0.7)',
-            maxWidth: '420px',
-            lineHeight: 1.65,
-            marginTop: 'clamp(24px, 4vh, 48px)',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-        >
-          We engineer ultra-premium web applications and scalable digital identities.
-          Combining editorial-grade design with high-performance architecture, we deliver robust,
-          conversion-focused platforms that command authority and drive measurable business growth.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center w-full sm:w-auto px-6 sm:px-0"
-          style={{ gap: '20px', marginTop: 'clamp(24px, 4vh, 36px)' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: LOADER_DELAY + 1.1 }}
-        >
-          <Link
-            href="/contact"
-            onMouseEnter={() => setBtnHover(true)}
-            onMouseLeave={() => setBtnHover(false)}
-            className="flex items-center justify-center transition-all duration-300 w-full sm:w-auto min-h-[48px]"
-            style={{
-              fontFamily: 'var(--dm-mono), monospace',
-              fontSize: '11px',
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontSize: '10px',
               fontWeight: 500,
-              letterSpacing: '0.15em',
+              letterSpacing: '0.14em',
+              color: 'rgba(255, 255, 255, 0.48)',
               textTransform: 'uppercase',
-              backgroundColor: btnHover ? '#B8956A' : 'transparent',
-              color: btnHover ? '#0A0A0A' : '#F5F0E8',
-              border: btnHover ? '1px solid #B8956A' : '1px solid rgba(184, 149, 106, 0.5)',
-              padding: '0 32px',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              transform: btnHover ? 'translateY(-2px)' : 'none',
-              boxShadow: btnHover ? '0 8px 24px rgba(184,149,106,0.2)' : 'none',
+              lineHeight: 1.5,
+              gap: '2px',
             }}
           >
-            START YOUR PROJECT &rarr;
-          </Link>
-          
-          <Link
-            href="/work"
-            className="hidden sm:inline-block group relative pb-1 select-none"
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '13px',
-              color: '#6B6560',
-              textDecoration: 'none',
-              transition: 'color 0.3s ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#B8956A'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#6B6560'; }}
-          >
-            Explore our work &rarr;
-            <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#B8956A] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
-          </Link>
+            <li>WEBSITES</li>
+            <li>AI AUTOMATION</li>
+            <li>AGENTIC AI</li>
+            <li>PRODUCTS</li>
+          </ul>
         </motion.div>
-
-        {/* Stats row */}
-        <div
-          className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center select-none gap-y-10 gap-x-4 sm:gap-0 w-full max-w-[800px] mx-auto"
-          style={{ marginTop: 'clamp(48px, 6vh, 64px)' }}
-        >
-          {HERO_STATS.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className="flex flex-col items-center text-center sm:border-r last:border-r-0 border-[rgba(245,240,232,0.1)]"
-              style={{ 
-                gap: '8px',
-                padding: '0 clamp(8px, 2.5vw, 40px)',
-              }}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: LOADER_DELAY + 1.3 + i * 0.1 }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontWeight: 300,
-                  fontStyle: 'italic',
-                  fontSize: 'clamp(28px, 8vw, 64px)',
-                  color: '#F5F0E8',
-                  lineHeight: 1,
-                }}
-              >
-                {stat.value}
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '9px',
-                  color: '#B8956A',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {stat.label}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Vertical Side Text (far right edge, fixed & vertically centered) ── */}
-      <div 
-        className="hidden lg:flex fixed z-30 pointer-events-none items-center justify-center"
-        style={{
-          right: '24px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--dm-mono), monospace',
-            fontSize: '9px',
-            color: 'rgba(245,240,232,0.2)',
-            writingMode: 'vertical-rl',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-          }}
-        >
-          WEB &amp; BRAND STUDIO
-        </span>
       </div>
     </section>
   );

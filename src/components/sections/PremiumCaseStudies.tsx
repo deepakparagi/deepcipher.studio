@@ -181,11 +181,11 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
             >
               <span
                 style={{
-                  fontFamily: 'var(--font-display), serif',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                   fontSize: '32px',
                   fontWeight: 300,
                   fontStyle: 'italic',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   lineHeight: 1,
                 }}
               >
@@ -211,7 +211,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
             >
               <span
                 style={{
-                  fontFamily: 'var(--font-display), serif',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                   fontSize: '28px',
                   fontWeight: 300,
                   fontStyle: 'italic',
@@ -232,7 +232,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '9px',
-                  color: '#B8956A',
+                  color: '#2C3480',
                   letterSpacing: '0.2em',
                   textTransform: 'uppercase',
                 }}
@@ -243,7 +243,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
                 style={{
                   width: '40px',
                   height: '0.5px',
-                  backgroundColor: 'rgba(184,149,106,0.3)',
+                  backgroundColor: 'rgba(44, 52, 128,0.3)',
                   display: 'inline-block',
                 }}
               />
@@ -263,7 +263,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
             <h3
               className="m-0"
               style={{
-                fontFamily: 'var(--font-display), serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontSize: 'clamp(28px, 3vw, 48px)',
                 fontWeight: 300,
                 fontStyle: 'italic',
@@ -381,7 +381,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '10px',
-                  color: isHovered ? '#B8956A' : '#6B6560',
+                  color: isHovered ? '#2C3480' : '#6B6560',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   transition: 'color 0.3s ease',
@@ -392,7 +392,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
               <motion.span
                 animate={{ x: isHovered ? 4 : 0, opacity: isHovered ? 1 : 0.5 }}
                 transition={{ duration: 0.3 }}
-                style={{ color: '#B8956A', fontSize: '14px' }}
+                style={{ color: '#2C3480', fontSize: '14px' }}
               >
                 →
               </motion.span>
@@ -432,13 +432,13 @@ export default function PremiumCaseStudies() {
                 textTransform: 'uppercase',
               }}
             >
-              <span style={{ color: '#B8956A', marginRight: '4px' }}>—</span> FEATURED CASE STUDIES
+              <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> FEATURED CASE STUDIES
             </span>
 
             <h2
               className="m-0"
               style={{
-                fontFamily: 'var(--font-display), serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontWeight: 300,
                 fontStyle: 'italic',
                 fontSize: 'clamp(40px, 5vw, 80px)',
@@ -447,7 +447,7 @@ export default function PremiumCaseStudies() {
               }}
             >
               Engineered<br />
-              <span style={{ color: '#B8956A' }}>Experiences.</span>
+              <span style={{ color: '#2C3480' }}>Experiences.</span>
             </h2>
           </div>
 
@@ -497,7 +497,7 @@ export default function PremiumCaseStudies() {
               padding: '16px 36px',
               border: '0.5px solid rgba(245,240,232,0.08)',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.color = '#B8956A')}
+            onMouseOver={(e) => (e.currentTarget.style.color = '#2C3480')}
             onMouseOut={(e) => (e.currentTarget.style.color = '#6B6560')}
           >
             VIEW COMPLETE ARCHIVE →

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Pause, Play } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 /* ==========================================================
    DEEPCIPHER — Client Reviews Showcase
@@ -144,8 +144,8 @@ export default function TestimonialsGrid() {
         id="testimonials"
         className="relative w-full overflow-hidden bg-[#0A0A0A] text-[#F5F0E8]"
         style={{
-          paddingTop: 'clamp(24px, 3.5vw, 44px)',
-          paddingBottom: 'clamp(72px, 8vw, 120px)',
+          paddingTop: 'clamp(48px, 6vw, 84px)',
+          paddingBottom: 'clamp(80px, 9vw, 130px)',
           borderTop: '0.5px solid rgba(245, 240, 232, 0.06)',
         }}
       >
@@ -163,58 +163,40 @@ export default function TestimonialsGrid() {
           aria-hidden="true"
         />
 
-        {/* Section Header with Proper Whitespace */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 mb-8 sm:mb-10 md:mb-14">
+        {/* Section Header with Proper Alignment & Clean Spacing */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 mb-12 sm:mb-16 md:mb-20">
           {/* Eyebrow Label */}
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4 sm:mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4565FF] inline-block animate-pulse shrink-0" />
             <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#8E8882]">
               CLIENT RESULTS // TESTIMONIALS
             </span>
           </div>
 
-          {/* Heading & Subtitle */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <div>
-              <h2
-                className="m-0 upright"
-                style={{
-                  fontSize: 'clamp(38px, 5.2vw, 72px)',
-                  color: '#F5F0E8',
-                  lineHeight: 1.05,
-                  letterSpacing: '-0.025em',
-                }}
-              >
-                <span className="block">What Our</span>
-                <span className="block font-citadel italic mt-0.5">
-                  <span style={{ color: '#4565FF' }}>Clients</span>{' '}
-                  <span style={{ color: '#F5F0E8' }}>Say.</span>
-                </span>
-              </h2>
-              <p
-                className="m-0 mt-4 max-w-2xl text-[14px] sm:text-[15px] text-[#A6A099] font-light leading-relaxed"
-                style={{ fontFamily: 'var(--font-body), sans-serif' }}
-              >
-                Understated, genuine partnerships with founders and institutions who value obsessive craft and measurable digital authority.
-              </p>
-            </div>
+          {/* Heading */}
+          <h2
+            className="m-0 upright"
+            style={{
+              fontSize: 'clamp(40px, 5.5vw, 76px)',
+              color: '#F5F0E8',
+              lineHeight: 1.05,
+              letterSpacing: '-0.025em',
+            }}
+          >
+            <span className="block">What Our</span>
+            <span className="block font-citadel italic mt-1 sm:mt-1.5">
+              <span style={{ color: '#4565FF' }}>Clients</span>{' '}
+              <span style={{ color: '#F5F0E8' }}>Say.</span>
+            </span>
+          </h2>
 
-            {/* Quick Stats Tags & Motion Toggle */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-1">
-              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#A6A099] bg-[#121316] border border-white/[0.08]">
-                06 Verified Reviews
-              </span>
-              <button
-                type="button"
-                onClick={() => setIsPaused((prev) => !prev)}
-                aria-label={isPaused ? 'Resume sliding reviews' : 'Pause sliding reviews'}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#A6A099] hover:text-[#F5F0E8] bg-[#121316] hover:bg-[#18191E] border border-white/[0.08] transition-colors cursor-pointer"
-              >
-                {isPaused ? <Play size={10} className="fill-current" /> : <Pause size={10} className="fill-current" />}
-                <span>{isPaused ? 'Resume Motion' : 'Hover / Tap to Pause'}</span>
-              </button>
-            </div>
-          </div>
+          {/* Subtitle */}
+          <p
+            className="m-0 mt-5 sm:mt-6 max-w-2xl text-[14px] sm:text-[15.5px] text-[#A6A099] font-light leading-relaxed"
+            style={{ fontFamily: 'var(--font-body), sans-serif' }}
+          >
+            Understated, genuine partnerships with founders and institutions who value obsessive craft and measurable digital authority.
+          </p>
         </div>
 
         {/* Continuous Sliding Cards Container */}

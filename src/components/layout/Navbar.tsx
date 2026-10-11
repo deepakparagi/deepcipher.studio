@@ -167,10 +167,11 @@ function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'rgba(10, 10, 10, 0.4)',
+            background: scrolled ? 'rgba(10, 10, 10, 0.75)' : 'rgba(10, 10, 10, 0.35)',
             WebkitBackdropFilter: 'blur(24px)',
             backdropFilter: 'blur(24px)',
-            borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: scrolled ? '0.5px solid rgba(255, 255, 255, 0.08)' : '0.5px solid transparent',
+            transition: 'background 0.3s ease, border-color 0.3s ease',
           }}
         >
           <div
@@ -337,7 +338,8 @@ function Navbar() {
             backgroundColor: 'var(--accent-warm)',
             transformOrigin: 'left',
             scaleX,
-            opacity: 0.15,
+            opacity: scrolled ? 0.2 : 0,
+            transition: 'opacity 0.3s ease',
           }}
         />
 

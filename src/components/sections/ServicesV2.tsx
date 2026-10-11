@@ -69,6 +69,13 @@ const services: ServiceItem[] = [
     capabilities: ['CRM Workflows', 'API Bridges', 'Business Logic'],
     accent: '#A8845A',
   },
+  {
+    no: '08',
+    title: 'Smart QR Menu & Reviews',
+    subtitle: 'We engineer interactive digital QR menus paired with automated 1-tap Google Review acceleration systems for hospitality and retail.',
+    capabilities: ['Dynamic QR Menus', 'Google Review Routing', 'NFC Smart Cards', 'Live Menu CMS'],
+    accent: '#3854FF',
+  },
 ];
 
 /* ========================================

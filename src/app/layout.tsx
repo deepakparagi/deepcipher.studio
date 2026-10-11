@@ -133,7 +133,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <ClientLayout>
-          <main id="main-content" style={{ paddingTop: '72px' }}>
+          <main id="main-content">
             {children}
           </main>
         </ClientLayout>

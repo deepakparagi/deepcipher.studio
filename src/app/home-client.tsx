@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 
 const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false, loading: () => null });
 const SelectedProjects = dynamic(() => import('@/components/sections/SelectedProjects'), { loading: () => null });
-const TestimonialsGrid = dynamic(() => import('@/components/sections/TestimonialsGrid'), { loading: () => null });
 const ServicesV2 = dynamic(() => import('@/components/sections/ServicesV2'), { loading: () => null });
 
 const CTAv2 = dynamic(() => import('@/components/sections/CTAv2'), { ssr: false, loading: () => null });
@@ -104,8 +103,8 @@ export default function HomeClient() {
       <div
         className="hero-marquee-wrapper relative w-full overflow-hidden flex flex-col justify-between"
         style={{
-          height: 'calc(100dvh - 72px)',
-          minHeight: '480px',
+          height: '100dvh',
+          minHeight: '520px',
         }}
       >
         <SectionErrorBoundary fallback={<HeroFallback />}>
@@ -115,9 +114,6 @@ export default function HomeClient() {
       </div>
       <SectionErrorBoundary>
         <SelectedProjects />
-      </SectionErrorBoundary>
-      <SectionErrorBoundary>
-        <TestimonialsGrid />
       </SectionErrorBoundary>
       <SectionErrorBoundary>
         <ServicesV2 />

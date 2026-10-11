@@ -34,12 +34,12 @@ export default function EditorialPageHero({
     <section
       className="relative w-full px-6 overflow-hidden flex flex-col justify-between items-center text-center"
       style={{
-        height: 'calc(100dvh - 72px)',
-        minHeight: '480px',
+        height: '100dvh',
+        minHeight: '520px',
         borderBottom: '0.5px solid rgba(245, 240, 232, 0.06)',
         backgroundColor: '#0A0A0A',
-        paddingTop: 'clamp(20px, 3.5vh, 44px)',
-        paddingBottom: 'clamp(16px, 2.8vh, 32px)',
+        paddingTop: 'clamp(56px, 8vh, 80px)',
+        paddingBottom: 'clamp(20px, 4vh, 40px)',
       }}
     >
       {/* ── Background image layer with 40% dreamy blur effect ── */}

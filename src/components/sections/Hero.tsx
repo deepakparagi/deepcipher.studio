@@ -70,8 +70,8 @@ export default function Hero() {
       <div
         className="relative z-10 flex flex-col items-center text-center w-full max-w-[680px] mx-auto my-auto px-5 sm:px-6"
         style={{
-          paddingTop: 'clamp(20px, 3vh, 38px)',
-          paddingBottom: 'clamp(28px, 4vh, 46px)',
+          paddingTop: 'clamp(56px, 8vh, 76px)',
+          paddingBottom: 'clamp(20px, 3.5vh, 40px)',
         }}
       >
         {/* Top: Brand Eyebrow on centered axis */}

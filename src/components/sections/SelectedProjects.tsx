@@ -196,7 +196,7 @@ export default function SelectedProjects() {
       style={{
         backgroundColor: '#0A0A0A',
         minHeight: isMobile ? 'auto' : '100svh',
-        padding: isMobile ? '36px 0 20px' : 'clamp(40px, 6vw, 72px) 0 clamp(20px, 3vw, 36px)',
+        padding: isMobile ? '48px 0 40px' : 'clamp(64px, 7vw, 100px) 0 clamp(48px, 6vw, 80px)',
       }}
     >
       {/* Ambient background glow */}

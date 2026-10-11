@@ -76,16 +76,8 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pageOffset = useMemo(
-    () =>
-      pathname === '/' ||
-      pathname.startsWith('/work') ||
-      pathname === '/services' ||
-      pathname === '/process' ||
-      pathname === '/about' ||
-      pathname === '/contact'
-        ? '0px'
-        : '68px',
-    [pathname]
+    () => '0px',
+    []
   );
 
   useEffect(() => {

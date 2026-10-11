@@ -137,4 +137,29 @@ export const services: Service[] = [
     icon: '⬡',
     image: '/images/services/services_ai.jpg',
   },
+  {
+    id: 6,
+    number: '06',
+    title: 'Smart QR Menu & Review Engine',
+    shortTitle: 'QR Menu & Reviews',
+    description: [
+      "The modern dining and hospitality experience redefined. We combine ultra-fast, branded digital QR menus with an automated 1-tap Google Review acceleration funnel — turning first-time diners into loyal advocates.",
+      "No app downloads, no friction. Diners scan a bespoke designer QR table tent to browse high-definition menus with instant dietary filters and live item updates. When they finish, our intelligent review router guides happy guests straight to your 5-star Google Maps profile.",
+      "Includes custom physical tabletop collateral (acrylic stands / NFC table cards), cloud-based instant menu CMS, and automated reputation tracking designed specifically for high-growth restaurants, cafes, and luxury lounges."
+    ],
+    deliverables: [
+      'Custom Web QR Menu',
+      '1-Tap Google Review Funnel',
+      'Smart 5-Star Review Router',
+      'Bespoke Table QR Stands',
+      'NFC Tap-to-Review Cards',
+      'Real-Time Menu CMS',
+      'Dietary & Special Tags',
+      'Scan & Review Analytics'
+    ],
+    duration: '1–2 WEEKS',
+    startingFrom: '₹15,000',
+    icon: '❖',
+    image: '/images/services/qr_hospitality.jpg',
+  },
 ];

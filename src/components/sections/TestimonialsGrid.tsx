@@ -116,19 +116,18 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
       }}
     >
       <div
-        className="relative overflow-hidden flex flex-col justify-between h-full w-full rounded-2xl"
+        className="relative overflow-hidden flex flex-col justify-between h-full w-full rounded-none"
         style={{
-          padding: 'clamp(24px, 2.5vw, 36px)',
-          minHeight: '520px',
+          padding: 'clamp(18px, 1.8vw, 24px)',
           height: '100%',
           background: isHovered
-            ? 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(44, 52, 128,0.12) 50%, rgba(255,255,255,0.03) 100%)'
-            : 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+            ? 'linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(48, 73, 232, 0.1) 50%, rgba(255,255,255,0.02) 100%)'
+            : 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.008) 100%)',
           border: '1px solid',
-          borderColor: isHovered ? 'rgba(75, 93, 245, 0.4)' : 'rgba(255,255,255,0.08)',
+          borderColor: isHovered ? 'rgba(56, 84, 255, 0.45)' : 'rgba(255,255,255,0.08)',
           backdropFilter: 'blur(16px)',
-          transition: 'background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease',
-          boxShadow: isHovered ? '0 16px 40px rgba(0,0,0,0.6)' : 'none',
+          transition: 'background 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+          boxShadow: isHovered ? '0 12px 32px rgba(0,0,0,0.6), 0 0 20px rgba(48, 73, 232, 0.15)' : 'none',
         }}
       >
         {/* Glow effect on hover */}
@@ -137,26 +136,26 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
           style={{
             top: '-30%',
             left: '-20%',
-            width: '240px',
-            height: '240px',
-            background: 'radial-gradient(circle, rgba(75, 93, 245, 0.15) 0%, transparent 70%)',
+            width: '200px',
+            height: '200px',
+            background: 'radial-gradient(circle, rgba(56, 84, 255, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
             filter: 'blur(40px)',
             opacity: isHovered ? 1 : 0,
-            transition: 'opacity 0.5s ease',
+            transition: 'opacity 0.4s ease',
           }}
         />
 
-        {/* Corner brackets */}
+        {/* Sharp corner brackets */}
         <div
           style={{
             position: 'absolute',
-            top: '12px',
-            left: '12px',
-            width: '14px',
-            height: '14px',
-            borderTop: '1px solid rgba(75, 93, 245, 0.4)',
-            borderLeft: '1px solid rgba(75, 93, 245, 0.4)',
+            top: '8px',
+            left: '8px',
+            width: '10px',
+            height: '10px',
+            borderTop: '1.5px solid rgba(56, 84, 255, 0.45)',
+            borderLeft: '1.5px solid rgba(56, 84, 255, 0.45)',
             opacity: isHovered ? 1 : 0.4,
             transition: 'opacity 0.3s ease',
           }}
@@ -164,12 +163,12 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
         <div
           style={{
             position: 'absolute',
-            bottom: '12px',
-            right: '12px',
-            width: '14px',
-            height: '14px',
-            borderBottom: '1px solid rgba(75, 93, 245, 0.4)',
-            borderRight: '1px solid rgba(75, 93, 245, 0.4)',
+            bottom: '8px',
+            right: '8px',
+            width: '10px',
+            height: '10px',
+            borderBottom: '1.5px solid rgba(56, 84, 255, 0.45)',
+            borderRight: '1.5px solid rgba(56, 84, 255, 0.45)',
             opacity: isHovered ? 1 : 0.4,
             transition: 'opacity 0.3s ease',
           }}
@@ -178,16 +177,15 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
         {/* Top — metric highlight */}
         <div className="relative z-10 shrink-0">
           {/* Metric badge */}
-          <div className="flex items-baseline justify-between gap-3 mb-4">
+          <div className="flex items-baseline justify-between gap-3 mb-2">
             <span
               style={{
-                fontFamily: 'var(--font-helvetica), sans-serif',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontWeight: 700,
-                fontStyle: 'normal',
-                letterSpacing: '-0.03em',
-                fontSize: '36px',
-                color: '#4B5DF5',
-                textShadow: '0 0 24px rgba(75, 93, 245, 0.4)',
+                letterSpacing: '-0.02em',
+                fontSize: 'clamp(26px, 2.2vw, 32px)',
+                color: '#3854FF',
+                textShadow: '0 0 20px rgba(56, 84, 255, 0.35)',
                 lineHeight: 1,
               }}
             >
@@ -195,10 +193,10 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
             </span>
             <span
               style={{
-                fontFamily: 'var(--font-mono), monospace',
+                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                 fontSize: '8px',
-                color: 'rgba(255,255,255,0.5)',
-                letterSpacing: '0.14em',
+                color: 'rgba(255,255,255,0.48)',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 fontWeight: 600,
                 textAlign: 'right',
@@ -213,23 +211,22 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
             style={{
               width: '100%',
               height: '1px',
-              background: 'linear-gradient(to right, rgba(75, 93, 245, 0.4), transparent)',
-              marginBottom: '20px',
+              background: 'linear-gradient(to right, rgba(56, 84, 255, 0.4), transparent)',
+              marginBottom: '12px',
             }}
           />
         </div>
 
         {/* Middle — Quote */}
-        <div className="relative z-10 flex-1 flex flex-col justify-start my-2">
+        <div className="relative z-10 flex-1 flex flex-col justify-start">
           <p
             className="m-0"
             style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: '13.5px',
-              color: 'rgba(255,255,255,0.8)',
-              lineHeight: 1.7,
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontWeight: 400,
+              fontSize: '12.5px',
+              color: 'rgba(245, 240, 232, 0.82)',
+              lineHeight: 1.55,
             }}
           >
             &ldquo;{t.quote}&rdquo;
@@ -237,23 +234,26 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
         </div>
 
         {/* Bottom — attribution pinned to baseline */}
-        <div className="relative z-10 shrink-0 mt-auto pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <div className="flex items-center gap-3">
-            {/* Avatar initials */}
+        <div
+          className="relative z-10 shrink-0 mt-4 pt-3.5"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <div className="flex items-center gap-2.5">
+            {/* Avatar initials with sharp corners */}
             <div
-              className="flex items-center justify-center shrink-0 rounded-md"
+              className="flex items-center justify-center shrink-0 rounded-none"
               style={{
-                width: '38px',
-                height: '38px',
-                border: '1px solid rgba(75, 93, 245, 0.4)',
-                backgroundColor: 'rgba(44, 52, 128, 0.2)',
+                width: '32px',
+                height: '32px',
+                border: '1px solid rgba(56, 84, 255, 0.4)',
+                backgroundColor: 'rgba(48, 73, 232, 0.15)',
               }}
             >
               <span
                 style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '11px',
-                  fontWeight: 600,
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                  fontSize: '10.5px',
+                  fontWeight: 700,
                   color: '#FFFFFF',
                 }}
               >
@@ -262,11 +262,11 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
             </div>
             <div className="flex-1 min-w-0">
               <span
-                className="block m-0"
+                className="block m-0 truncate"
                 style={{
                   fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                  fontWeight: 500,
-                  fontSize: '14px',
+                  fontWeight: 600,
+                  fontSize: '13px',
                   color: '#FFFFFF',
                   lineHeight: 1.2,
                 }}
@@ -274,19 +274,19 @@ function TestimonialCard({ t, index }: { t: TestimonialData; index: number }) {
                 {t.name}
               </span>
               <div
-                className="mt-1"
+                className="mt-0.5"
                 style={{
-                  fontFamily: 'var(--font-mono), monospace',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
                   fontSize: '8.5px',
                   color: 'rgba(255,255,255,0.45)',
-                  letterSpacing: '0.08em',
+                  letterSpacing: '0.06em',
                   textTransform: 'uppercase',
-                  lineHeight: 1.35,
+                  lineHeight: 1.3,
                 }}
               >
                 <span>{t.role}</span>
                 <span className="mx-1 text-white/20">·</span>
-                <span style={{ color: '#4B5DF5', fontWeight: 600 }}>{t.company}</span>
+                <span style={{ color: '#3854FF', fontWeight: 600 }}>{t.company}</span>
               </div>
             </div>
           </div>
@@ -342,22 +342,23 @@ export default function TestimonialsGrid() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 mb-16" style={{ maxWidth: '1400px', margin: '0 auto 64px' }}>
+      <div className="relative z-10 mb-8 sm:mb-12" style={{ maxWidth: '1400px', margin: '0 auto clamp(28px, 4vw, 48px)' }}>
         <span
           style={{
-            fontFamily: 'var(--font-body), sans-serif',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
             fontSize: '10px',
-            color: '#6B6560',
-            letterSpacing: '0.3em',
+            color: 'rgba(245, 240, 232, 0.45)',
+            letterSpacing: '0.22em',
             display: 'block',
-            marginBottom: '24px',
+            marginBottom: '16px',
             textTransform: 'uppercase',
+            fontWeight: 600,
           }}
         >
-          <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> CLIENT RESULTS
+          <span style={{ color: '#3854FF', marginRight: '6px' }}>—</span> CLIENT RESULTS
         </span>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 sm:gap-6">
           <motion.h2
             className="m-0"
             initial={{ opacity: 0, y: 20 }}
@@ -365,16 +366,16 @@ export default function TestimonialsGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-helvetica), sans-serif",
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
               fontWeight: 700,
-              fontSize: 'clamp(36px, 5vw, 72px)',
-              lineHeight: 1,
+              fontSize: 'clamp(32px, 4.5vw, 64px)',
+              lineHeight: 1.05,
               letterSpacing: '-0.03em',
               color: '#F5F0E8',
             }}
           >
             What Our<br />
-            <span className="font-citadel italic" style={{ color: '#4B5DF5', textShadow: '0 0 30px rgba(75, 93, 245, 0.4)' }}>Clients Say.</span>
+            <span className="font-citadel italic" style={{ color: '#3854FF', textShadow: '0 0 30px rgba(56, 84, 255, 0.4)' }}>Clients Say.</span>
           </motion.h2>
 
           <motion.span
@@ -383,13 +384,13 @@ export default function TestimonialsGrid() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '14px',
-              fontWeight: 300,
-              color: 'rgba(255,255,255,0.45)',
-              maxWidth: '280px',
-              textAlign: 'right',
-              lineHeight: 1.6,
+              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+              fontSize: 'clamp(12px, 0.9vw, 13.5px)',
+              fontWeight: 400,
+              color: 'rgba(255,255,255,0.48)',
+              maxWidth: '320px',
+              textAlign: 'left',
+              lineHeight: 1.55,
             }}
           >
             Measured by impact, validated by trust. Every project speaks for itself.
@@ -400,7 +401,7 @@ export default function TestimonialsGrid() {
       {/* 3D Testimonial Cards */}
       <div
         className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch"
-        style={{ gap: 'clamp(14px, 1.5vw, 20px)', maxWidth: '1750px', margin: '0 auto' }}
+        style={{ gap: 'clamp(12px, 1.2vw, 18px)', maxWidth: '1750px', margin: '0 auto' }}
       >
         {testimonials.map((t, i) => (
           <TestimonialCard key={i} t={t} index={i} />

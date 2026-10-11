@@ -198,13 +198,11 @@ function Navbar() {
                 style={{ transform: 'translate3d(0,0,0)', width: 'auto', height: '28px' }}
               />
               <span
-                className="hidden md:inline-block tracking-[0.14em] text-[#F5F0E8] font-bold"
+                className="inline-flex items-center tracking-[0.14em] text-[#F5F0E8] font-bold"
                 style={{
                   fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                  fontSize: '16px',
+                  fontSize: 'clamp(14px, 1.2vw, 16px)',
                   lineHeight: 1,
-                  display: 'flex',
-                  alignItems: 'center',
                 }}
               >
                 DEEPCIPHER

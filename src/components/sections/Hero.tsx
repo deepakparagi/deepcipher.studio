@@ -45,7 +45,7 @@ export default function Hero() {
     >
       <style jsx>{`
         .hero-home-section {
-          background-position: 36% center;
+          background-position: 30% center;
         }
         @media (min-width: 768px) {
           .hero-home-section {
@@ -59,7 +59,7 @@ export default function Hero() {
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(to right, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.82) 36%, rgba(10, 10, 10, 0.42) 65%, rgba(10, 10, 10, 0.08) 85%, transparent 100%)',
+            'linear-gradient(to right, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.84) 40%, rgba(10, 10, 10, 0.45) 68%, rgba(10, 10, 10, 0.08) 88%, transparent 100%)',
         }}
       />
 
@@ -84,8 +84,8 @@ export default function Hero() {
       <div
         className="relative z-10 w-full h-full flex-1 flex flex-col justify-between"
         style={{
-          paddingLeft: 'clamp(24px, 7.5vw, 116px)',
-          paddingRight: 'clamp(20px, 5vw, 64px)',
+          paddingLeft: 'clamp(28px, 7.5vw, 116px)',
+          paddingRight: 'clamp(24px, 5vw, 64px)',
           paddingTop: 'clamp(20px, 3.5vh, 42px)',
           paddingBottom: 'clamp(24px, 4vh, 40px)',
         }}
@@ -266,35 +266,39 @@ export default function Hero() {
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
                 textDecoration: 'none',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.4)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#FFFFFF';
-                e.currentTarget.style.borderBottomColor = '#FFFFFF';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)';
-                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.4)';
               }}
             >
-              <span>VIEW WORK</span>
+              <span
+                className="transition-all duration-300 group-hover:text-white"
+                style={{
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.45)',
+                  paddingBottom: '3px',
+                }}
+              >
+                VIEW WORK
+              </span>
             </Link>
           </motion.div>
         </div>
 
-        {/* ── 2. Bottom Services List: 24-40px above bottom, vertical divider, aligned ── */}
+        {/* ── 2. Bottom Services List: Colinear with top accent line & shared left text axis ── */}
         <motion.div
           {...fadeIn(0.7)}
-          className="select-none flex items-stretch shrink-0"
-          style={{ gap: '16px' }}
+          className="relative select-none shrink-0"
+          style={{
+            maxWidth: 'min(92vw, 540px)',
+          }}
         >
-          {/* Vertical Accent Line matching list height */}
+          {/* Vertical Divider Line: Exactly colinear with headline's cobalt accent line at left: -14px */}
           <div
             style={{
+              position: 'absolute',
+              left: '-14px',
+              top: '2px',
+              bottom: '2px',
               width: '1.5px',
-              backgroundColor: 'rgba(255, 255, 255, 0.18)',
+              backgroundColor: 'rgba(255, 255, 255, 0.22)',
               borderRadius: '1px',
-              flexShrink: 0,
             }}
             aria-hidden="true"
           />
@@ -307,7 +311,7 @@ export default function Hero() {
               letterSpacing: '0.14em',
               color: 'rgba(255, 255, 255, 0.48)',
               textTransform: 'uppercase',
-              lineHeight: 1.5,
+              lineHeight: 1.55,
               gap: '2px',
             }}
           >

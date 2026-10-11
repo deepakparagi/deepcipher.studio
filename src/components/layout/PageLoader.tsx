@@ -105,10 +105,10 @@ export default function PageLoader() {
             <Image
               src="/deepcipher_logo.png"
               alt="DEEPCIPHER Official Logo"
-              width={160}
+              width={180}
               height={120}
               priority
-              className="object-contain drop-shadow-[0_0_35px_rgba(212,175,106,0.4)]"
+              className="object-contain drop-shadow-[0_0_35px_rgba(48,73,232,0.45)]"
               style={{ width: 'clamp(100px, 14vw, 150px)', height: 'auto' }}
             />
           </motion.div>

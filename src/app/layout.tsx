@@ -80,8 +80,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/deepcipher_logo.png',
-        width: 1448,
-        height: 1086,
+        width: 1536,
+        height: 1024,
         alt: 'DEEPCIPHER Official Logo',
       },
     ],

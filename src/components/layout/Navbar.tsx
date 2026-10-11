@@ -191,8 +191,8 @@ function Navbar() {
               <Image
                 src="/deepcipher_logo.png"
                 alt="DeepCipher Official Logo"
-                width={36}
-                height={27}
+                width={42}
+                height={28}
                 priority
                 className="object-contain object-left transition-transform duration-300 group-hover:scale-105"
                 style={{ transform: 'translate3d(0,0,0)', width: 'auto', height: '28px' }}
@@ -368,7 +368,7 @@ function Navbar() {
               <Image
                 src="/deepcipher_logo.png"
                 alt="DeepCipher"
-                width={38}
+                width={42}
                 height={28}
                 className="object-contain"
                 style={{ width: 'auto', height: '28px' }}

@@ -39,10 +39,10 @@ function RouteLoader({ show }: { show: boolean }) {
               <Image
                 src="/deepcipher_logo.png"
                 alt="DEEPCIPHER"
-                width={88}
-                height={66}
+                width={96}
+                height={64}
                 priority
-                className="object-contain drop-shadow-[0_0_25px_rgba(212,175,106,0.3)]"
+                className="object-contain drop-shadow-[0_0_25px_rgba(48,73,232,0.35)]"
                 style={{ width: 'auto', height: '64px' }}
               />
             </div>

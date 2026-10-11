@@ -90,8 +90,8 @@ export default function Footer() {
               <Image
                 src="/deepcipher_logo.png"
                 alt="DEEPCIPHER Official Logo"
-                width={52}
-                height={39}
+                width={54}
+                height={36}
                 className="object-contain transition-transform duration-300 group-hover:scale-105"
                 style={{ width: 'auto', height: '36px' }}
               />

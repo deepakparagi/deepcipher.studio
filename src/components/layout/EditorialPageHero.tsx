@@ -4,9 +4,9 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 /* ==========================================================
-   EditorialPageHero — Minimal Cinematic Hero for Inner Pages
-   Pairs high-contrast dark negative-space typography with 
-   DeepCipher's 3D architectural render backgrounds.
+   EditorialPageHero — Cinematic Centered Hero for Inner Pages
+   Matches the signature contact hero style: centered typography,
+   dreamy 40% blur background, blue cursive accent, and scroll cue.
    ========================================================== */
 
 interface EditorialPageHeroProps {
@@ -18,7 +18,7 @@ interface EditorialPageHeroProps {
   children?: ReactNode;
 }
 
-const EASE_CUBIC = [0.16, 1, 0.3, 1] as const;
+const EASE_CUBIC = [0.22, 1, 0.36, 1] as const;
 
 export default function EditorialPageHero({
   eyebrow,
@@ -32,13 +32,14 @@ export default function EditorialPageHero({
 
   return (
     <section
-      className="relative w-full overflow-hidden flex flex-col justify-between"
+      className="relative w-full px-6 overflow-hidden flex flex-col justify-between items-center text-center"
       style={{
         height: 'calc(100dvh - 72px)',
-        minHeight: '520px',
-        maxHeight: '960px',
+        minHeight: '480px',
         borderBottom: '0.5px solid rgba(245, 240, 232, 0.06)',
         backgroundColor: '#0A0A0A',
+        paddingTop: 'clamp(20px, 3.5vh, 44px)',
+        paddingBottom: 'clamp(16px, 2.8vh, 32px)',
       }}
     >
       {/* ── Background image layer with 40% dreamy blur effect ── */}
@@ -53,150 +54,110 @@ export default function EditorialPageHero({
           transform: 'scale(1.08)',
         }}
       />
-      {/* ── Localized Left Gradient Scrim (preserves right-side 3D artwork) ── */}
+
+      {/* ── Dark overlay to ensure text contrast ── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          background:
-            'linear-gradient(to right, rgba(10, 10, 10, 0.88) 0%, rgba(10, 10, 10, 0.62) 36%, rgba(10, 10, 10, 0.22) 65%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.82) 100%)',
+          backgroundColor: 'rgba(10, 10, 10, 0.45)',
         }}
       />
 
-      {/* ── Subtle bottom vignette to blend seamlessly into content below ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-24 z-[1] pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 10, 0.85) 100%)',
-        }}
-      />
+      {/* Top spacer for balanced vertical centering */}
+      <div aria-hidden="true" className="w-full h-2 shrink-0 pointer-events-none" />
 
-      {/* ── Foreground Content ── */}
-      <div
-        className="relative z-10 w-full h-full flex-1 flex flex-col justify-between"
-        style={{
-          paddingLeft: 'clamp(24px, 7.5vw, 112px)',
-          paddingRight: 'clamp(24px, 5vw, 64px)',
-          paddingTop: 'clamp(24px, 4vh, 48px)',
-          paddingBottom: 'clamp(20px, 3vh, 36px)',
-        }}
+      {/* ── Center Content Block ── */}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.1, ease: EASE_CUBIC }}
+        className="relative z-10 flex flex-col items-center max-w-[1000px] my-auto px-4"
       >
-        {/* Top spacer */}
-        <div aria-hidden="true" className="w-full h-2 shrink-0 pointer-events-none" />
-
-        {/* ── Main Text Block (Left-Third Column) ── */}
-        <div
-          className="my-auto flex flex-col"
+        {/* Eyebrow Label */}
+        <span
           style={{
-            maxWidth: 'min(92vw, 580px)',
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+            fontSize: '10px',
+            letterSpacing: '0.3em',
+            color: '#E0DCD6',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            marginBottom: '16px',
+            display: 'inline-block',
           }}
         >
-          {/* Eyebrow Label */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: EASE_CUBIC }}
-            className="flex items-center gap-2.5 select-none mb-4 sm:mb-5"
-          >
-            <span
-              style={{
-                width: '5px',
-                height: '5px',
-                borderRadius: '50%',
-                backgroundColor: '#4B5DF5',
-                display: 'inline-block',
-                boxShadow: '0 0 10px rgba(75, 93, 245, 0.85)',
-                flexShrink: 0,
-              }}
-              aria-hidden="true"
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(10px, 0.85vw, 12px)',
-                fontWeight: 500,
-                letterSpacing: '0.2em',
-                color: '#C8CEDA',
-                textTransform: 'uppercase',
-                lineHeight: 1.4,
-              }}
-            >
-              {eyebrow}
-            </span>
-          </motion.div>
+          <span style={{ color: '#3854FF', marginRight: '6px' }}>—</span> {eyebrow}
+        </span>
 
-          {/* Main Headline */}
-          <motion.h1
-            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: EASE_CUBIC }}
-            className="m-0 text-left select-none"
-            style={{
-              fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-              fontSize: 'clamp(42px, 5.8vw, 84px)',
-              lineHeight: 1.02,
-              letterSpacing: '-0.03em',
-              color: '#F5F0E8',
-              marginBottom: '18px',
-              textShadow: '0 4px 28px rgba(0,0,0,0.6)',
-            }}
-          >
-            <span className="font-bold">{title}</span>
-            {italicWord && (
-              <span
-                className="font-citadel italic font-normal ml-2 sm:ml-3"
-                style={{
-                  fontFamily: "var(--font-citadel, 'Citadel Script'), 'Citadel Script', cursive",
-                  color: '#4B5DF5',
-                  textShadow: '0 0 35px rgba(75, 93, 245, 0.65)',
-                }}
-              >
-                {italicWord}
-              </span>
-            )}
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: EASE_CUBIC }}
-            className="m-0 text-left"
-            style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontSize: 'clamp(13px, 1.1vw, 16px)',
-              fontWeight: 300,
-              lineHeight: 1.65,
-              color: 'rgba(245, 240, 232, 0.65)',
-              maxWidth: '520px',
-              letterSpacing: '0.01em',
-              textShadow: '0 2px 14px rgba(0,0,0,0.6)',
-            }}
-          >
-            {description}
-          </motion.p>
-
-          {children && (
-            <motion.div
-              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: EASE_CUBIC }}
-              className="mt-6"
-            >
-              {children}
-            </motion.div>
-          )}
-        </div>
-
-        {/* ── Bottom Bar / Scroll Cue ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex items-center gap-3 select-none text-[9px] font-mono tracking-[0.25em] text-[#C8CEDA]/40 uppercase shrink-0"
+        {/* Main H1 */}
+        <h1
+          style={{
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+            fontSize: 'clamp(34px, 5.6vw, 86px)',
+            color: '#F5F0E8',
+            letterSpacing: '-0.025em',
+            lineHeight: 1.05,
+            margin: 0,
+            marginBottom: '16px',
+            userSelect: 'none',
+            textShadow: '0 4px 24px rgba(0,0,0,0.5)',
+          }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4B5DF5]/60" />
-          <span>DEEPCIPHER STUDIO // 2026</span>
-        </motion.div>
+          <span className="font-bold text-[#F5F0E8]">{title}</span>
+          {italicWord && (
+            <span
+              className="font-citadel italic font-normal inline-block ml-1 sm:ml-2.5"
+              style={{
+                fontFamily: "var(--font-citadel, 'Citadel Script'), cursive",
+                color: '#3854FF',
+                textShadow: '0 0 40px rgba(56, 84, 255, 0.7), 0 2px 20px rgba(0, 0, 0, 0.8)',
+              }}
+            >
+              {italicWord}
+            </span>
+          )}
+        </h1>
+
+        {/* Tagline / Subtitle */}
+        <p
+          style={{
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+            fontSize: 'clamp(13px, 1.1vw, 16px)',
+            color: '#F5F0E8',
+            fontWeight: 400,
+            letterSpacing: '0.04em',
+            maxWidth: '560px',
+            margin: '8px auto 0',
+            lineHeight: '1.6',
+            textShadow: '0 2px 12px rgba(0,0,0,0.6)',
+          }}
+        >
+          {description}
+        </p>
+
+        {children && <div className="mt-6 w-full flex justify-center">{children}</div>}
+      </motion.div>
+
+      {/* ── Scroll Indicator — docked cleanly at bottom of viewport ── */}
+      <div className="relative flex flex-col items-center gap-2 z-20 select-none shrink-0">
+        <span
+          style={{
+            fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+            fontSize: '9px',
+            color: '#E0DCD6',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            fontWeight: 500,
+          }}
+        >
+          SCROLL
+        </span>
+        <motion.div
+          animate={{ opacity: [1, 0.3, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ height: '32px', width: '1px', background: '#3854FF' }}
+        />
       </div>
     </section>
   );

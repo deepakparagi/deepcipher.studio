@@ -177,10 +177,10 @@ export default function AboutClient() {
 
       {/* ── 1. HERO SECTION ── */}
       <EditorialPageHero
-        eyebrow="INDEPENDENT THINKING. INTENTIONAL BUILDING."
-        title="The"
-        italicWord="Studio."
-        description="Independent digital studio architecting digital authority, high-performance web systems, and enduring brand identities globally."
+        eyebrow="THE STUDIO"
+        title="Architecting digital authority for "
+        italicWord="brands."
+        description="Independent thinking, intentional craft, and enduring market impact."
         backgroundImage="/images/about%20page%20hero.png"
       />
 

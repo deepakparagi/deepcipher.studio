@@ -62,10 +62,10 @@ export default function ServicesClient() {
 
       {/* ── 1. HERO SECTION ── */}
       <EditorialPageHero
-        eyebrow="INTELLIGENCE · ENGINEERING · AUTOMATION"
-        title="Our"
-        italicWord="Services."
-        description="End-to-end design, digital architecture, and AI-powered automation engineered for industry leaders seeking lasting market dominance."
+        eyebrow="OUR DISCIPLINES"
+        title="Disciplines built to accelerate "
+        italicWord="growth."
+        description="End-to-end web design, brand systems & AI-driven digital products."
         backgroundImage="/images/services%20page%20hero.png"
       />
 

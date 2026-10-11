@@ -119,10 +119,10 @@ export default function ProcessClient() {
 
       {/* ── 1. HERO SECTION ── */}
       <EditorialPageHero
-        eyebrow="FROM FIRST PRINCIPLES TO FINAL PRODUCT"
-        title="The"
-        italicWord="Process."
-        description="A rigorous four-phase engineering methodology bridging strategic discovery, interface craft, and production-grade deployment."
+        eyebrow="OUR METHODOLOGY"
+        title="A structured journey from concept to "
+        italicWord="launch."
+        description="Four disciplined phases. Zero wasted movement."
         backgroundImage="/images/process%20page%20hero.png"
       />
 

@@ -159,10 +159,10 @@ export default function WorkClient() {
 
       {/* ── 1. HERO SECTION ── */}
       <EditorialPageHero
-        eyebrow="SELECTED WORK · DIGITAL EXPERIENCES"
-        title="Selected"
-        italicWord="Work."
-        description="A curated catalog of bespoke web architecture, brand identity systems, and interactive digital products engineered for conversion and authority."
+        eyebrow="SELECTED WORK"
+        title="Crafted for ambition, built to "
+        italicWord="endure."
+        description="Selected digital experiences engineered for lasting market authority."
         backgroundImage="/images/work%20page%20hero.png"
       />
 

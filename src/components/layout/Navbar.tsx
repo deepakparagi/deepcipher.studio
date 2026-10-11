@@ -398,11 +398,22 @@ function Navbar() {
             </button>
 
             {/* Background Decoration */}
-            <div className="absolute inset-x-0 bottom-0 top-0 opacity-[0.02] flex items-center justify-center pointer-events-none select-none">
-              <span className="font-display font-black text-[30vw] uppercase tracking-tighter italic">MENU</span>
+            <div className="absolute inset-x-0 bottom-0 top-0 opacity-[0.03] flex items-center justify-center pointer-events-none select-none">
+              <span
+                style={{
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                  fontWeight: 900,
+                  fontSize: '26vw',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.04em',
+                  color: '#FFFFFF',
+                }}
+              >
+                MENU
+              </span>
             </div>
 
-            <div className="flex flex-col gap-8 relative z-10 items-center">
+            <div className="flex flex-col gap-6 sm:gap-8 relative z-10 items-center">
               {navLinks.map((link, i) => {
                 const isActive = pathname === link.href;
                 const isHovered = hoveredIndex === i;
@@ -417,20 +428,24 @@ function Navbar() {
                       onClick={() => setMobileOpen(false)}
                       onMouseEnter={() => setHoveredIndex(i)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className="font-display font-light italic tracking-tighter uppercase inline-block"
+                      className="uppercase inline-block transition-all duration-300"
                       style={{
-                        fontSize: 'clamp(36px, 8vw, 48px)',
+                        fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                        fontWeight: 700,
+                        fontSize: 'clamp(32px, 7.5vw, 44px)',
+                        letterSpacing: '-0.01em',
+                        lineHeight: 1.15,
                         color: isActive 
-                          ? '#2C3480' 
+                          ? '#3854FF' 
                           : isHovered 
-                            ? '#F5F0E8' 
-                            : 'rgba(245, 240, 232, 0.4)',
+                            ? '#FFFFFF' 
+                            : 'rgba(245, 240, 232, 0.45)',
                         textDecoration: 'none',
-                        transition: 'color 0.4s ease',
-                        cursor: 'none',
+                        cursor: 'pointer',
                         pointerEvents: 'all',
                         zIndex: 9999,
-                        position: 'relative'
+                        position: 'relative',
+                        textShadow: isActive ? '0 0 24px rgba(56, 84, 255, 0.4)' : 'none',
                       }}
                     >
                       {link.label}.
@@ -440,14 +455,15 @@ function Navbar() {
               })}
             </div>
 
-            <div className="absolute bottom-12 left-12 flex flex-col gap-4">
+            <div className="absolute bottom-10 left-8 sm:left-12 flex flex-col gap-3">
               <span
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '9px',
-                  color: '#6B6560',
-                  letterSpacing: '0.15em',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                  fontSize: '10px',
+                  color: 'rgba(245, 240, 232, 0.45)',
+                  letterSpacing: '0.18em',
                   textTransform: 'uppercase',
+                  fontWeight: 500,
                 }}
               >
                 Ready to start?
@@ -455,20 +471,24 @@ function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
+                className="group flex items-center gap-2"
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
+                  fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
+                  fontSize: '12px',
+                  fontWeight: 700,
                   color: '#F5F0E8',
-                  letterSpacing: '0.15em',
+                  letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  borderBottom: '0.5px solid rgba(245,240,232,0.1)',
-                  paddingBottom: '4px',
+                  borderBottom: '1px solid rgba(245,240,232,0.2)',
+                  paddingBottom: '3px',
                   pointerEvents: 'all',
                   zIndex: 9999,
-                  position: 'relative'
+                  position: 'relative',
+                  textDecoration: 'none',
                 }}
               >
-                START A PROJECT →
+                <span>START A PROJECT</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
             </div>
           </motion.div>

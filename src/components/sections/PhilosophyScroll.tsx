@@ -204,7 +204,7 @@ export default function PhilosophyScroll() {
               READY?
             </h3>
             <motion.a
-              href="/start-a-project"
+              href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="mt-8 text-label text-accent-warm border border-accent-warm/30 px-10 py-5 hover:bg-accent-warm hover:text-white transition-colors duration-500 uppercase tracking-[0.3em]"

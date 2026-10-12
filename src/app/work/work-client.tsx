@@ -249,12 +249,13 @@ export default function WorkClient() {
             <div className="absolute bottom-1 left-0 right-0 h-px origin-right scale-x-100 bg-[#2C3480] transition-transform duration-700 group-hover:scale-x-0" />
             <div className="absolute bottom-1 left-0 right-0 h-px origin-left scale-x-0 bg-[#F5F0E8] transition-transform duration-700 delay-100 group-hover:scale-x-100" />
           </Link>
-          <span
-            className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#6B6560]"
+          <a
+            href="mailto:deepcipherstudio@gmail.com"
+            className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#6B6560] hover:text-[#F1EEE8] transition-colors duration-300"
             style={{ fontFamily: 'var(--font-body), sans-serif' }}
           >
             deepcipherstudio@gmail.com
-          </span>
+          </a>
         </div>
       </section>
     </motion.main>

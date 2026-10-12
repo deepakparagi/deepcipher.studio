@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 /* ==========================================================
    DEEPCIPHER — Premium Hero Section
-   Centered luxury composition with 20% dreamy blurred backdrop,
+   Centered luxury composition with 10% dreamy blurred backdrop,
    refined typography, and micro-interactions.
    ========================================================== */
 
@@ -35,14 +35,15 @@ export default function Hero() {
         backgroundColor: '#0A0A0A',
       }}
     >
-      {/* ── 1. Crisp Background Image Layer (No Blur) ── */}
+      {/* ── 1. Background Image Layer (10% Blur — Focused on tree & ball on mobile) ── */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        className="hero-home-bg absolute inset-0 z-0 pointer-events-none bg-[position:90%_center] md:bg-[position:center_center]"
         style={{
           backgroundImage: "url('/images/HERO%20SECTION.png')",
-          backgroundPosition: 'center center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
+          filter: 'blur(3px)',
+          transform: 'scale(1.03)',
         }}
         aria-hidden="true"
       />

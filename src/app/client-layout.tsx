@@ -2,9 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { CursorProvider } from '@/components/ui/CursorProvider';
 import LenisProvider from '@/components/layout/LenisProvider';
 import Navbar from '@/components/layout/Navbar';
@@ -14,58 +13,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr: false });
 const GrainOverlay = dynamic(() => import('@/components/layout/GrainOverlay'), { ssr: false });
-const LoadingScreen = dynamic(() => import('@/components/ui/LoadingScreen'), { ssr: false });
-
-function RouteLoader({ show }: { show: boolean }) {
-  return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          className="fixed inset-0 z-[9998] flex items-center justify-center bg-[#0A0A0A]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22, ease: 'easeOut' }}
-          aria-hidden="true"
-        >
-          <motion.div
-            className="relative flex flex-col items-center gap-5"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="relative w-24 h-20 flex items-center justify-center">
-              <Image
-                src="/deepcipher_logo.png"
-                alt="DEEPCIPHER"
-                width={96}
-                height={64}
-                priority
-                className="object-contain drop-shadow-[0_0_25px_rgba(48,73,232,0.35)]"
-                style={{ width: 'auto', height: '64px' }}
-              />
-            </div>
-            <div className="h-px w-36 overflow-hidden bg-white/10">
-              <motion.div
-                className="h-full w-full origin-left bg-[#2C3480]"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </div>
-            <span
-              className="text-[9px] uppercase tracking-[0.34em] text-[#2C3480]/70"
-              style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300 }}
-            >
-              Loading
-            </span>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+const WebsiteLoader = dynamic(() => import('@/components/ui/WebsiteLoader'), { ssr: false });
 
 /* ========================================
    Client Layout — wraps providers + chrome
@@ -75,10 +23,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const pageOffset = useMemo(
-    () => '0px',
-    []
-  );
+  const pageOffset = useMemo(() => '0px', []);
 
   useEffect(() => {
     setMounted(true);
@@ -106,7 +51,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <LenisProvider>
         {mounted && loading && (
           <AnimatePresence>
-            <LoadingScreen onFinished={() => setLoading(false)} />
+            <WebsiteLoader onFinished={() => setLoading(false)} />
           </AnimatePresence>
         )}
         

@@ -88,7 +88,7 @@ export default function Footer() {
               onMouseLeave={resetCursor}
             >
               <Image
-                src="/deepcipher_logo.png"
+                src="/images/deepcipher logo final.png"
                 alt="DEEPCIPHER Official Logo"
                 width={54}
                 height={36}
@@ -201,22 +201,37 @@ export default function Footer() {
             </span>
             <div className="flex flex-col gap-4">
               {[
-                { label: 'Start a Project', href: '/contact' },
-                { label: 'View Pricing', href: '/contact' },
-                { label: 'Get in Touch', href: 'mailto:deepcipherstudio@gmail.com' },
+                { label: 'Start a Project', href: '/contact', isExternal: false },
+                { label: 'View Pricing', href: '/contact', isExternal: false },
+                { label: 'Get in Touch', href: 'mailto:deepcipherstudio@gmail.com', isExternal: true },
               ].map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onMouseEnter={() => setCursor('link')}
-                  onMouseLeave={resetCursor}
-                  className="footer-nav-link"
-                  style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.4, transition: 'color 0.3s ease' }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
-                  onMouseOut={(e) => e.currentTarget.style.color = '#9A9590'}
-                >
-                  {link.label}
-                </Link>
+                link.isExternal ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onMouseEnter={() => setCursor('link')}
+                    onMouseLeave={resetCursor}
+                    className="footer-nav-link"
+                    style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.4, transition: 'color 0.3s ease' }}
+                    onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
+                    onMouseOut={(e) => e.currentTarget.style.color = '#9A9590'}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onMouseEnter={() => setCursor('link')}
+                    onMouseLeave={resetCursor}
+                    className="footer-nav-link"
+                    style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.4, transition: 'color 0.3s ease' }}
+                    onMouseOver={(e) => e.currentTarget.style.color = '#2C3480'}
+                    onMouseOut={(e) => e.currentTarget.style.color = '#9A9590'}
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
             </div>
           </div>
@@ -245,7 +260,7 @@ export default function Footer() {
 
               <div className="flex flex-col gap-4">
                 <span className="text-[#2C3480]/60 text-[9px] font-mono tracking-[0.15em]">AVAILABILITY</span>
-                <span className="text-[#2C3480] font-medium text-[12px] font-mono tracking-[0.1em]">Open for projects — 2026</span>
+                <span className="text-[#2C3480] font-medium text-[12px] font-mono tracking-[0.1em]">Open for projects — {new Date().getFullYear()}</span>
               </div>
             </div>
           </div>
@@ -310,7 +325,7 @@ export default function Footer() {
               fontFamily: 'var(--font-mono), monospace'
             }} 
           >
-            © 2026 DEEPCIPHER STUDIO
+            © {new Date().getFullYear()} DEEPCIPHER STUDIO
           </div>
           <div 
             className="bottom-center"

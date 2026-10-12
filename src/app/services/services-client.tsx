@@ -28,7 +28,7 @@ function StartProjectLink() {
   const { setCursor, resetCursor } = useCursor();
   return (
     <Link
-      href="/start-a-project"
+      href="/contact"
       onMouseEnter={() => { setHovered(true); setCursor('link'); }}
       onMouseLeave={() => { setHovered(false); resetCursor(); }}
       style={{

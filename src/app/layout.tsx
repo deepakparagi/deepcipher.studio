@@ -62,25 +62,31 @@ const citadelScript = localFont({
    ======================================== */
 
 export const metadata: Metadata = {
-  title: 'DEEPCIPHER — Web Design & Brand Identity Studio',
+  title: {
+    default: 'DEEPCIPHER — High-Impact Web Design & AI Engineering Studio',
+    template: '%s | DEEPCIPHER',
+  },
   description:
-    'Premium website design, brand identity, and logo design studio. We help ambitious brands launch websites that convert and identities that endure.',
+    'DEEPCIPHER is an elite digital product and AI engineering studio architecting bespoke web flagships, robust brand identities, and production-grade intelligent systems.',
+  metadataBase: new URL('https://deepcipher.studio'),
   icons: {
     icon: [
-      { url: '/favicon.png' },
-      { url: '/favicon.ico' },
-      { url: '/icon.png' },
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: 'DEEPCIPHER',
-    description: 'Web Design & Brand Identity Studio',
+    title: 'DEEPCIPHER — Web Design & Brand Identity Studio',
+    description: 'Architecting digital authority for ambitious brands globally.',
     type: 'website',
+    url: 'https://deepcipher.studio',
+    siteName: 'DEEPCIPHER',
     images: [
       {
-        url: '/deepcipher_logo.png',
+        url: '/images/deepcipher logo final.png',
         width: 1536,
         height: 1024,
         alt: 'DEEPCIPHER Official Logo',
@@ -90,7 +96,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0C0C0C',
+  themeColor: '#0A0A0A',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 const jsonLd = {
@@ -98,8 +106,8 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'DEEPCIPHER',
   url: 'https://deepcipher.studio',
-  logo: 'https://deepcipher.studio/deepcipher_logo.png',
-  description: 'Premium website design, brand identity, and logo design studio.',
+  logo: 'https://deepcipher.studio/images/deepcipher%20logo%20final.png',
+  description: 'Premium website design, brand identity, and cognitive AI architecture studio.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'deepcipherstudio@gmail.com',
@@ -123,6 +131,9 @@ export default function RootLayout({
     >
       <head>
         <meta name="view-transition" content="same-origin" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script

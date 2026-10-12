@@ -33,7 +33,7 @@ export default function DarkCTA() {
              onMouseEnter={() => setCursor('link')}
              onMouseLeave={resetCursor}
         >
-          <MagneticButton variant="filled" href="/start-a-project" cursorLabel="START">
+          <MagneticButton variant="filled" href="/contact" cursorLabel="START">
             START YOUR PROJECT
           </MagneticButton>
         </div>

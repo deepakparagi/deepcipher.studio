@@ -2225,3 +2225,15 @@ img, svg, video, canvas {
   }
 }
 
+/* =================================================
+   HOMEPAGE HERO — RESPONSIVE BACKGROUND POSITION
+   ================================================= */
+.hero-home-bg {
+  background-position: 90% center;
+}
+@media (min-width: 768px) {
+  .hero-home-bg {
+    background-position: center center;
+  }
+}
+

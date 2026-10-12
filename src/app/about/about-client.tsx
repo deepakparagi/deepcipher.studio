@@ -124,8 +124,6 @@ const timeline = [
 interface CapabilityItem {
   name: string;
   category: string;
-  detail: string;
-  highlight?: boolean;
 }
 
 interface CapabilityCategory {
@@ -136,7 +134,6 @@ interface CapabilityCategory {
   accent: string;
   description: string;
   items: CapabilityItem[];
-  keyTools: string[];
 }
 
 const capabilities: CapabilityCategory[] = [
@@ -147,41 +144,11 @@ const capabilities: CapabilityCategory[] = [
     title: 'Design & Prototyping',
     accent: '#4565FF',
     description: 'Bespoke visual identities, fluid interactive prototypes, and production-grade brand systems.',
-    keyTools: ['Figma', 'Framer', 'Canva', 'Adobe CC', 'Spline 3D', 'Design Tokens'],
     items: [
-      {
-        name: 'Figma',
-        category: 'UI/UX & Design Systems',
-        detail: 'Design system architectures, auto-layout 5.0, variables, responsive components, and interactive prototypes.',
-        highlight: true,
-      },
-      {
-        name: 'Framer',
-        category: 'Interactive Motion Sites',
-        detail: 'High-fidelity motion prototypes, micro-interactions, dynamic responsive canvas, and production micro-sites.',
-        highlight: true,
-      },
-      {
-        name: 'Canva',
-        category: 'Brand Collateral & Marketing',
-        detail: 'Rapid marketing collateral, multi-channel social suites, investor decks, and branded campaign toolkits.',
-        highlight: true,
-      },
-      {
-        name: 'Adobe Creative Cloud',
-        category: 'Vector & Raster Craft',
-        detail: 'Photoshop, Illustrator, and After Effects for luxury typography, vector emblems, and kinetic brand assets.',
-      },
-      {
-        name: 'Spline 3D & Blender',
-        category: 'Spatial & 3D Web Assets',
-        detail: 'Interactive 3D web scenes, procedural shaders, lighting environments, and optimized WebGL models.',
-      },
-      {
-        name: 'Design Systems & Tokens',
-        category: 'Scalable Foundations',
-        detail: 'Atomic design tokens, responsive typography scales, WCAG AAA accessibility, and unified cross-platform systems.',
-      },
+      { name: 'Figma', category: 'Design Systems' },
+      { name: 'Framer', category: 'Interactive Motion' },
+      { name: 'Spline 3D', category: 'Spatial Canvas' },
+      { name: 'Adobe CC', category: 'Visual Craft' },
     ],
   },
   {
@@ -191,41 +158,11 @@ const capabilities: CapabilityCategory[] = [
     title: 'Web Development',
     accent: '#4565FF',
     description: 'Ultra-fast, responsive web applications engineered with modern standards and fluid 3D interaction.',
-    keyTools: ['Next.js 16', 'React 19', 'TypeScript', 'Three.js', 'Tailwind CSS', 'GSAP'],
     items: [
-      {
-        name: 'Next.js 16 & React 19',
-        category: 'Full-Stack Framework',
-        detail: 'App Router architecture, React Server Components (RSC), Server Actions, dynamic SSR/SSG & ISR caching.',
-        highlight: true,
-      },
-      {
-        name: 'TypeScript',
-        category: 'Strict Type Safety',
-        detail: 'End-to-end type contracts, zero runtime type errors, strict compiler configurations, and scalable abstractions.',
-        highlight: true,
-      },
-      {
-        name: 'Tailwind CSS & Modern CSS',
-        category: 'Design Engineering',
-        detail: 'Tailored dark mode systems, fluid responsive typography, glassmorphism, and performance-first CSS modules.',
-      },
-      {
-        name: 'Three.js & WebGL / GLSL',
-        category: '3D & Creative Canvas',
-        detail: 'Interactive 3D canvas, custom GLSL fragment shaders, physics simulations, and GPU-accelerated graphics.',
-        highlight: true,
-      },
-      {
-        name: 'GSAP & Framer Motion',
-        category: 'Kinetic Motion Engine',
-        detail: 'Cinema-grade ScrollTrigger timelines, smooth layout animations, and physics-based micro-interactions.',
-      },
-      {
-        name: 'Core Web Vitals & SEO',
-        category: 'Performance Engineering',
-        detail: 'Sub-second LCP, zero layout shifts (CLS), semantic HTML5 hierarchy, and automated structured schema data.',
-      },
+      { name: 'Next.js & React 19', category: 'Full-Stack Core' },
+      { name: 'TypeScript', category: 'Type Safety' },
+      { name: 'Three.js & GLSL', category: '3D WebGL' },
+      { name: 'GSAP & Motion', category: 'Kinetic Physics' },
     ],
   },
   {
@@ -235,41 +172,11 @@ const capabilities: CapabilityCategory[] = [
     title: 'AI & Machine Learning',
     accent: '#4565FF',
     description: 'Frontier LLM orchestration, autonomous agent swarms, and production-grade neural networks.',
-    keyTools: ['OpenRouter', 'Claude & GPT-4o', 'Agentic AI', 'PyTorch', 'RAG & Vectors', 'FastAPI'],
     items: [
-      {
-        name: 'OpenRouter & Frontier LLMs',
-        category: 'Multi-Model Orchestration',
-        detail: 'Dynamic multi-model routing across Claude 3.5 Sonnet, GPT-4o, DeepSeek-V3/R1, and Gemini 1.5 Pro.',
-        highlight: true,
-      },
-      {
-        name: 'Agentic AI & Swarms',
-        category: 'Autonomous Workflows',
-        detail: 'Autonomous multi-agent swarms, tool calling, recursive self-correction, LangChain, and structured reasoning.',
-        highlight: true,
-      },
-      {
-        name: 'Python & FastAPI',
-        category: 'High-Throughput ML Services',
-        detail: 'Asynchronous microservices, low-latency model inference pipelines, and type-validated Pydantic schemas.',
-        highlight: true,
-      },
-      {
-        name: 'PyTorch & TensorFlow / Keras',
-        category: 'Deep Learning & Neural Nets',
-        detail: 'Custom neural architectures, LSTM sequential modeling, Random Forest, and predictive forecasting.',
-      },
-      {
-        name: 'RAG & Vector Databases',
-        category: 'Semantic Knowledge Retrieval',
-        detail: 'Pinecone, pgvector, ChromaDB, dense semantic embeddings, hybrid search, and context-aware reranking.',
-      },
-      {
-        name: 'NLP & Scikit-Learn',
-        category: 'Transformers & Analytics',
-        detail: 'Hugging Face Transformers, DistilBERT sentiment extraction, text classification, and ensemble statistical algorithms.',
-      },
+      { name: 'Frontier LLMs', category: 'Model Routing' },
+      { name: 'Agentic AI', category: 'Autonomous Swarms' },
+      { name: 'Python & FastAPI', category: 'ML Inference' },
+      { name: 'Vector Stores & RAG', category: 'Semantic Memory' },
     ],
   },
   {
@@ -279,41 +186,11 @@ const capabilities: CapabilityCategory[] = [
     title: 'Backend & Cloud',
     accent: '#4565FF',
     description: 'Resilient distributed backends, type-safe data pipelines, and global edge delivery infrastructure.',
-    keyTools: ['Node.js & Bun', 'PostgreSQL', 'MongoDB', 'Prisma ORM', 'Docker', 'AWS & Vercel'],
     items: [
-      {
-        name: 'Node.js, Bun & Python',
-        category: 'Server Runtimes',
-        detail: 'Event-driven backend services, ultra-fast Bun scripts, and real-time bidirectional WebSocket channels.',
-        highlight: true,
-      },
-      {
-        name: 'PostgreSQL & MongoDB',
-        category: 'Relational & Document Stores',
-        detail: 'ACID-compliant relational models, high-performance indexing, JSONB storage, and distributed document clusters.',
-        highlight: true,
-      },
-      {
-        name: 'Prisma ORM & Supabase',
-        category: 'Type-Safe Data Layer',
-        detail: 'Declarative schema modeling, automated migrations, type-safe queries, and real-time Postgres subscriptions.',
-      },
-      {
-        name: 'Redis & In-Memory Cache',
-        category: 'Sub-Millisecond Cache',
-        detail: 'High-throughput caching layer, distributed session storage, pub/sub messaging, and rate limiting.',
-      },
-      {
-        name: 'Vercel, AWS & Cloudflare',
-        category: 'Global Edge Infrastructure',
-        detail: 'Anycast global edge network, serverless compute functions, AWS S3 object stores, and Cloudflare DNS.',
-        highlight: true,
-      },
-      {
-        name: 'Docker & CI/CD Automation',
-        category: 'DevOps & Reliability',
-        detail: 'Multi-stage containerization, GitHub Actions pipelines, automated regression tests, and zero-downtime deploys.',
-      },
+      { name: 'Node.js & Python', category: 'Server Runtimes' },
+      { name: 'PostgreSQL & Redis', category: 'Data & Cache' },
+      { name: 'Supabase & Prisma', category: 'Modern Data Layer' },
+      { name: 'Vercel & AWS', category: 'Global Edge' },
     ],
   },
 ];
@@ -895,84 +772,105 @@ export default function AboutClient() {
         id="capabilities"
         className="relative overflow-hidden"
         style={{
-          padding: 'clamp(80px, 8vw, 128px) clamp(24px, 5vw, 64px)',
+          padding: 'clamp(80px, 8vw, 120px) clamp(24px, 5vw, 64px)',
           borderTop: '0.5px solid rgba(245,240,232,0.06)',
           backgroundColor: '#0A0A0A',
         }}
       >
-        <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
-          {/* Eyebrow Label */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#4565FF] inline-block animate-pulse shrink-0" />
-            <span
-              className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#8E8882]"
-            >
-              WHAT WE USE // PRODUCTION TECH STACK
-            </span>
-          </div>
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontSize: '10px',
+              color: '#6B6560',
+              letterSpacing: '0.3em',
+              display: 'block',
+              marginBottom: '48px',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span style={{ color: '#2C3480', marginRight: '4px' }}>—</span> WHAT WE USE // PRODUCTION TECH STACK
+          </span>
 
-          {/* Section Heading & Subtitle */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 md:mb-16">
-            <div>
-              <h2
-                className="m-0 upright"
-                style={{
-                  fontSize: 'clamp(40px, 5.5vw, 76px)',
-                  color: '#F5F0E8',
-                  lineHeight: 0.95,
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Capabilities<span style={{ color: '#4565FF' }}>.</span>
-              </h2>
-              <p
-                className="m-0 mt-4 max-w-2xl text-[14px] sm:text-[15px] text-[#A6A099] font-light leading-relaxed"
-                style={{ fontFamily: 'var(--font-body), sans-serif' }}
-              >
-                An enterprise-grade ecosystem of modern design software, engineering frameworks, and cognitive AI architectures engineered to build bespoke digital flagships.
-              </p>
-            </div>
+          <h2
+            className="m-0 upright"
+            style={{
+              fontSize: 'clamp(40px, 5vw, 80px)',
+              color: '#F5F0E8',
+              lineHeight: 0.95,
+            }}
+          >
+            Capabilities.
+          </h2>
 
-            {/* Quick Domain Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#BDB8B3] bg-[#121316] border border-white/[0.08]">
-                04 Core Pillars
-              </span>
-              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#BDB8B3] bg-[#121316] border border-white/[0.08]">
-                Figma & Framer Native
-              </span>
-              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#BDB8B3] bg-[#121316] border border-white/[0.08]">
-                Agentic AI Systems
-              </span>
-              <span className="px-3 py-1.5 rounded-full text-[10.5px] font-mono uppercase tracking-wider text-[#BDB8B3] bg-[#121316] border border-white/[0.08]">
-                Edge Distributed
-              </span>
-            </div>
-          </div>
+          <p
+            className="m-0 mt-6 max-w-2xl mx-auto font-light leading-relaxed text-[13px] sm:text-[14px]"
+            style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              color: '#BDB8B3',
+            }}
+          >
+            An enterprise-grade ecosystem of modern design software, engineering frameworks, and cognitive AI architectures engineered to build bespoke digital flagships.
+          </p>
+        </div>
 
-          {/* 4-column Luxury Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-            {capabilities.map((cap) => (
+        {/* 4-column Grid matching Operational Principles */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 items-stretch"
+          style={{
+            gap: '2px',
+            backgroundColor: 'rgba(245,240,232,0.06)',
+            maxWidth: '1400px',
+            margin: '0 auto',
+          }}
+        >
+          {capabilities.map((cap) => {
+            let first = "";
+            let second = "";
+            let isFirstItalic = false;
+
+            if (cap.title === "Design & Prototyping") {
+              first = "Design &";
+              second = "Prototyping";
+              isFirstItalic = true;
+            } else if (cap.title === "Web Development") {
+              first = "Web";
+              second = "Development";
+              isFirstItalic = false;
+            } else if (cap.title === "AI & Machine Learning") {
+              first = "AI &";
+              second = "Machine Learning";
+              isFirstItalic = false;
+            } else if (cap.title === "Backend & Cloud") {
+              first = "Backend &";
+              second = "Cloud";
+              isFirstItalic = true;
+            } else {
+              const parts = cap.title.split(' ');
+              first = parts[0];
+              second = parts.slice(1).join(' ');
+            }
+
+            return (
               <div
                 key={cap.id}
-                className="group relative rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#0E0F12] hover:bg-[#121317] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300"
+                className="flex flex-col justify-between h-full transition-all duration-300 hover:bg-[#0D0E12] group"
                 style={{
-                  boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.5)',
+                  border: '0.5px solid rgba(245,240,232,0.06)',
+                  padding: 'clamp(44px, 4.2vw, 56px) clamp(28px, 2.8vw, 38px)',
+                  backgroundColor: '#0A0A0A',
                 }}
               >
-                {/* Top Subtle Gradient Hover Line */}
-                <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#4565FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                {/* Top Meta: Number + Domain */}
                 <div>
-                  <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
+                  {/* Number & Domain Eyebrow */}
+                  <div className="flex items-center justify-between mb-8">
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), monospace',
                         fontSize: '11px',
                         color: '#4565FF',
-                        letterSpacing: '0.15em',
-                        fontWeight: 600,
+                        letterSpacing: '0.22em',
+                        display: 'block',
                       }}
                     >
                       {cap.number}
@@ -980,9 +878,9 @@ export default function AboutClient() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono), monospace',
-                        fontSize: '9.5px',
-                        color: '#8E8882',
-                        letterSpacing: '0.12em',
+                        fontSize: '9px',
+                        color: '#6B6560',
+                        letterSpacing: '0.2em',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -990,124 +888,154 @@ export default function AboutClient() {
                     </span>
                   </div>
 
-                  {/* Column Title & Lead */}
-                  <div className="mb-6">
-                    <h3
-                      className="m-0 mb-2 font-medium"
-                      style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontSize: '20px',
-                        color: '#F5F0E8',
-                        letterSpacing: '-0.01em',
-                      }}
-                    >
-                      {cap.title}
-                    </h3>
-                    <p
-                      className="m-0 text-[12.5px] text-[#8E8882] font-light leading-relaxed"
-                      style={{ fontFamily: 'var(--font-body), sans-serif' }}
-                    >
-                      {cap.description}
-                    </p>
-                  </div>
+                  {/* Title matching Operational Principles typography */}
+                  <h3
+                    className="m-0 mb-5"
+                    style={{
+                      fontSize: 'clamp(26px, 2.3vw, 30px)',
+                      color: '#F5F0E8',
+                      lineHeight: 1.08,
+                    }}
+                  >
+                    <span className={isFirstItalic ? "italic text-[#4565FF] block" : "upright block"}>{first}</span>
+                    <span className={isFirstItalic ? "upright block mt-1" : "italic text-[#4565FF] block mt-1"}>{second}</span>
+                  </h3>
 
-                  {/* Items List */}
-                  <div className="flex flex-col gap-3 mb-6">
-                    {cap.items.map((item) => (
+                  {/* Description matching Operational Principles body */}
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontSize: '13px',
+                      fontWeight: 300,
+                      color: '#BDB8B3',
+                      lineHeight: '1.75',
+                      margin: 0,
+                      minHeight: '66px',
+                    }}
+                  >
+                    {cap.description}
+                  </p>
+                </div>
+
+                {/* Tech Stack Items — Refined, generous spacing, zero clutter */}
+                <div
+                  style={{
+                    marginTop: 'clamp(36px, 4vw, 48px)',
+                    paddingTop: '22px',
+                    borderTop: '0.5px solid rgba(245,240,232,0.06)',
+                  }}
+                >
+                  <div className="flex flex-col">
+                    {cap.items.map((item, idx) => (
                       <div
                         key={item.name}
-                        className="flex flex-col gap-1.5 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all"
+                        className="flex items-center justify-between gap-3 py-3 transition-colors group/row"
+                        style={{
+                          borderBottom: idx !== cap.items.length - 1 ? '0.5px solid rgba(245,240,232,0.03)' : 'none',
+                        }}
                       >
-                        <div className="flex items-center justify-between gap-2">
-                          <span
-                            className="text-[13px] font-medium text-[#F5F0E8] group-hover:text-white"
-                            style={{ fontFamily: 'var(--font-body), sans-serif' }}
-                          >
-                            {item.name}
-                          </span>
-                          {item.highlight ? (
-                            <span className="px-1.5 py-0.5 rounded text-[8.5px] font-mono uppercase tracking-wider text-[#7B91FF] bg-[#3854FF]/15 border border-[#3854FF]/30 shrink-0">
-                              Core
-                            </span>
-                          ) : null}
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[9.5px] font-mono text-[#75706A] uppercase tracking-wider">
-                          <span>{item.category}</span>
-                        </div>
                         <span
-                          className="text-[11.5px] text-[#A6A099] leading-relaxed font-light"
-                          style={{ fontFamily: 'var(--font-body), sans-serif' }}
+                          style={{
+                            fontFamily: 'var(--font-body), sans-serif',
+                            fontSize: '13px',
+                            fontWeight: 400,
+                            color: '#F5F0E8',
+                            lineHeight: 1.4,
+                          }}
+                          className="group-hover/row:text-white transition-colors"
                         >
-                          {item.detail}
+                          {item.name}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono), monospace',
+                            fontSize: '10px',
+                            color: '#6B6560',
+                            letterSpacing: '0.08em',
+                            lineHeight: 1,
+                          }}
+                          className="shrink-0 text-right group-hover/row:text-[#4565FF] transition-colors uppercase whitespace-nowrap"
+                        >
+                          {item.category}
                         </span>
                       </div>
                     ))}
                   </div>
                 </div>
-
-                {/* Bottom Quick Badges */}
-                <div className="pt-4 border-t border-white/[0.06] flex flex-wrap gap-1.5 mt-auto">
-                  {cap.keyTools.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded text-[9.5px] font-mono text-[#A09B95] bg-[#141518] border border-white/[0.06]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
-            ))}
+            );
+          })}
+        </div>
+
+        {/* Bottom Status Bar matching Operational Principles aesthetic */}
+        <div
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
+          style={{
+            maxWidth: '1400px',
+            margin: 'clamp(36px, 4vw, 48px) auto 0',
+            padding: 'clamp(22px, 2.5vw, 28px) clamp(28px, 3vw, 40px)',
+            backgroundColor: '#0A0A0A',
+            border: '0.5px solid rgba(245,240,232,0.06)',
+          }}
+        >
+          <div className="flex items-start sm:items-center gap-3.5 max-w-3xl">
+            <div
+              className="w-7 h-7 rounded flex items-center justify-center shrink-0 mt-0.5 sm:mt-0"
+              style={{
+                border: '0.5px solid rgba(69, 101, 255, 0.35)',
+                backgroundColor: 'rgba(69, 101, 255, 0.08)',
+                color: '#4565FF',
+              }}
+            >
+              <CheckCircle2 size={14} />
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2.5">
+              <h4
+                className="m-0 text-[13.5px] sm:text-[14px] font-medium text-[#F5F0E8] tracking-wider uppercase font-mono"
+              >
+                Zero-Bloat Architecture
+              </h4>
+              <span className="hidden sm:inline text-white/20">—</span>
+              <p
+                className="m-0 text-[12.5px] sm:text-[13px] font-light leading-relaxed"
+                style={{
+                  fontFamily: 'var(--font-body), sans-serif',
+                  color: '#BDB8B3',
+                }}
+              >
+                Audited for sub-second execution speeds, enterprise security protocols, and long-term maintainability.
+              </p>
+            </div>
           </div>
 
-          {/* Architectural Guarantee / Bottom Strip */}
-          <div className="mt-12 md:mt-16 p-6 sm:p-8 rounded-2xl border border-white/[0.08] bg-[#0E0F12] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-4 max-w-2xl">
-              <div className="w-10 h-10 rounded-xl bg-[#141518] border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5 text-[#4565FF]">
-                <CheckCircle2 size={18} />
-              </div>
-              <div>
-                <h4
-                  className="m-0 text-sm sm:text-base font-medium text-[#F5F0E8]"
-                  style={{ fontFamily: 'var(--font-body), sans-serif' }}
-                >
-                  Zero-Bloat Architecture & Strict Performance Standards
-                </h4>
-                <p
-                  className="m-0 mt-1 text-xs sm:text-[13px] text-[#8E8882] font-light leading-relaxed"
-                  style={{ fontFamily: 'var(--font-body), sans-serif' }}
-                >
-                  Every library, runtime, and model in our stack is audited for sub-second execution speeds, enterprise security protocols, and long-term maintainability.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <Link
-                href="/contact"
-                onMouseEnter={() => setCursor('link')}
-                onMouseLeave={() => resetCursor()}
-                style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '11px',
-                  letterSpacing: '0.12em',
-                  padding: '12px 24px',
-                  backgroundColor: '#F5F0E8',
-                  color: '#0A0A0A',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  borderRadius: '9999px',
-                  fontWeight: 600,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  transition: 'all 0.25s ease',
-                }}
-                className="hover:opacity-90"
-              >
-                <span style={{ color: '#0A0A0A' }}>Start A Build</span>
-                <ArrowUpRight size={14} color="#0A0A0A" />
-              </Link>
-            </div>
+          <div className="shrink-0 w-full md:w-auto">
+            <Link
+              href="/contact"
+              onMouseEnter={() => setCursor('link')}
+              onMouseLeave={() => resetCursor()}
+              style={{
+                fontFamily: 'var(--font-mono), monospace',
+                fontSize: '11px',
+                letterSpacing: '0.14em',
+                padding: '10px 22px',
+                backgroundColor: 'rgba(245,240,232,0.04)',
+                color: '#F5F0E8',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderRadius: '9999px',
+                fontWeight: 500,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                border: '0.5px solid rgba(245,240,232,0.12)',
+                transition: 'all 0.25s ease',
+              }}
+              className="hover:border-[#2C3480] hover:text-white hover:bg-[#2C3480]/20 w-full md:w-auto"
+            >
+              <span>Start A Build</span>
+              <ArrowUpRight size={13} />
+            </Link>
           </div>
         </div>
       </section>
@@ -1175,7 +1103,7 @@ export default function AboutClient() {
         >
           {/* Button 1 */}
           <Link
-            href="/start-a-project"
+            href="/contact"
             onMouseEnter={() => {
               setCursor('link');
               setCtaHovered(true);

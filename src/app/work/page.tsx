@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import WorkClient from './work-client';
 
 export const metadata: Metadata = {
-  title: 'Work — Selected Projects | DEEPCIPHER',
+  title: 'Selected Work & Flagship Projects',
   description:
-    'Premium web design & brand identity projects for businesses across India & beyond. View our selected work.',
+    'Explore selected client flagships, 3D interactive experiences, and cognitive AI architectures engineered by DEEPCIPHER Studio.',
 };
 
 export default function WorkPage() {

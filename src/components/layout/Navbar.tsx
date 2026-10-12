@@ -186,7 +186,7 @@ function Navbar() {
               onMouseLeave={resetCursor}
             >
               <Image
-                src="/deepcipher_logo.png"
+                src="/images/deepcipher logo final.png"
                 alt="DeepCipher Official Logo"
                 width={42}
                 height={28}
@@ -362,19 +362,23 @@ function Navbar() {
             }}
           >
             {/* Brand Header — top left */}
-            <div className="absolute top-5 left-6 z-20 flex items-center gap-3">
+            <Link
+              href="/"
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-5 left-6 z-20 flex items-center gap-3 cursor-pointer group"
+            >
               <Image
-                src="/deepcipher_logo.png"
+                src="/images/deepcipher logo final.png"
                 alt="DeepCipher"
                 width={42}
                 height={28}
-                className="object-contain"
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
                 style={{ width: 'auto', height: '28px' }}
               />
               <span style={{ fontFamily: 'var(--font-helvetica), sans-serif', fontSize: '15px', letterSpacing: '0.12em', color: '#F5F0E8', fontWeight: 700 }}>
                 DEEPCIPHER
               </span>
-            </div>
+            </Link>
 
             {/* Close button — top right */}
             <button

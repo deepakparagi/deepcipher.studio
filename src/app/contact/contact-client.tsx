@@ -31,6 +31,7 @@ export default function ContactClient() {
   const { setCursor, resetCursor } = useCursor();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; brief?: string; general?: string }>({});
 
   const [form, setForm] = useState({
     name: '',
@@ -40,16 +41,26 @@ export default function ContactClient() {
 
   const handleInputChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors] || errors.general) {
+      setErrors((prev) => ({ ...prev, [field]: undefined, general: undefined }));
+    }
   };
 
   const handleSubmit = async (e?: FormEvent | React.MouseEvent) => {
     if (e) e.preventDefault();
     if (isSubmitting) return;
 
-    if (!form.name.trim() || !form.phone.trim() || !form.brief.trim()) {
+    const newErrors: { name?: string; phone?: string; brief?: string } = {};
+    if (!form.name.trim()) newErrors.name = 'Full name is required';
+    if (!form.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!form.brief.trim()) newErrors.brief = 'Please share a brief description of your project';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
+    setErrors({});
     setIsSubmitting(true);
 
     try {
@@ -72,7 +83,9 @@ export default function ContactClient() {
       setSubmitted(true);
     } catch (error: any) {
       console.error('Submission failed:', error);
-      alert(error?.message || 'Something went wrong. Please try again or email us directly.');
+      setErrors({
+        general: error?.message || 'Transmission failed. Please try again or reach us at deepcipherstudio@gmail.com.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -247,7 +260,7 @@ export default function ContactClient() {
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.05 }}
                   style={{ display: 'flex', flexDirection: 'column' }}
                 >
                   {/* REACH US Label */}
@@ -380,7 +393,7 @@ export default function ContactClient() {
                           flexShrink: 0,
                         }}
                       />
-                      Currently accepting projects for Q3 2026
+                      Currently accepting projects for {new Date().getFullYear()}
                     </span>
                   </motion.div>
 
@@ -466,10 +479,11 @@ export default function ContactClient() {
                 {/* ── RIGHT COLUMN: Contact Form ── */}
                 <motion.form
                   onSubmit={handleSubmit}
+                  noValidate
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.05 }}
                   style={{ display: 'flex', flexDirection: 'column' }}
                 >
 
@@ -496,7 +510,15 @@ export default function ContactClient() {
                       placeholder="Your full name"
                       className="contact-form-input"
                       required
+                      style={{
+                        borderColor: errors.name ? '#FF5449' : undefined,
+                      }}
                     />
+                    {errors.name && (
+                      <span className="text-[10px] text-[#FF5449] font-mono tracking-wider mt-2 block">
+                        {errors.name}
+                      </span>
+                    )}
                   </motion.div>
 
                   {/* PHONE */}
@@ -522,7 +544,15 @@ export default function ContactClient() {
                       placeholder="Your phone number"
                       className="contact-form-input"
                       required
+                      style={{
+                        borderColor: errors.phone ? '#FF5449' : undefined,
+                      }}
                     />
+                    {errors.phone && (
+                      <span className="text-[10px] text-[#FF5449] font-mono tracking-wider mt-2 block">
+                        {errors.phone}
+                      </span>
+                    )}
                   </motion.div>
 
 
@@ -549,8 +579,27 @@ export default function ContactClient() {
                       rows={4}
                       className="contact-form-textarea"
                       required
+                      style={{
+                        borderColor: errors.brief ? '#FF5449' : undefined,
+                      }}
                     />
+                    {errors.brief && (
+                      <span className="text-[10px] text-[#FF5449] font-mono tracking-wider mt-2 block">
+                        {errors.brief}
+                      </span>
+                    )}
                   </motion.div>
+
+                  {/* GENERAL ERROR BANNER */}
+                  {errors.general && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-6 p-4 rounded bg-[#1A0B0B] border border-[#FF5449]/40 text-[#FF857C] text-[11px] font-mono tracking-wide leading-relaxed"
+                    >
+                      {errors.general}
+                    </motion.div>
+                  )}
 
                   {/* SUBMIT BUTTON */}
                   <motion.button

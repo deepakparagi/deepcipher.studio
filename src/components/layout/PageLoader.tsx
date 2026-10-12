@@ -103,7 +103,7 @@ export default function PageLoader() {
             }}
           >
             <Image
-              src="/deepcipher_logo.png"
+              src="/images/deepcipher logo final.png"
               alt="DEEPCIPHER Official Logo"
               width={180}
               height={120}

@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import HomeClient from './home-client';
 
 export const metadata: Metadata = {
-  title: 'DEEPCIPHER — Web Design & Brand Identity Studio',
+  title: 'DEEPCIPHER — High-Impact Web Design & AI Engineering Studio',
   description:
-    'Premium website design, brand identity, and logo design studio. We help ambitious brands launch websites that convert and identities that endure.',
+    'DEEPCIPHER is an elite digital product and AI engineering studio architecting bespoke web flagships, robust brand identities, and production-grade intelligent systems.',
 };
 
 export default function Home() {

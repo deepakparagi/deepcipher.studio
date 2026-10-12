@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = getProjectBySlug(slug);
   if (!project) return { title: 'Project Not Found' };
   return {
-    title: `${project.title} — DEEPCIPHER`,
-    description: project.description,
+    title: `${project.title} — Case Study`,
+    description: `${project.description} Engineered with precision by DEEPCIPHER Studio.`,
   };
 }
 

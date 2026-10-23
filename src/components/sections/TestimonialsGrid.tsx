@@ -5,15 +5,15 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
 /* ==========================================================
-   DEEPCIPHER — Client Stories / Selected Results
-   Editorial Minimal Luxury 4-Card Showcase
-   - 2-word punchy headline: "Proven Impact."
-   - Curated 4 flagship client reviews in a balanced 2x2 grid
-   - Elevated card styling: subtle numbering, refined badges,
-     tactile case study pills, and aligned attribution
+   DEEPCIPHER — Client Stories
+   Minimalist Editorial Architecture
+   - Header: 2 words with Citadel script accent matching "Our Services."
+   - Full-bleed stretch: Matches homepage rhythm (clamp(24px, 5vw, 80px))
+   - Redesigned Case Study action: Architectural badge with hover glow
+   - Precision alignment: Verified client badge, balanced quote typography
    ========================================================== */
 
-export interface ClientReview {
+export interface TestimonialItem {
   id: string;
   number: string;
   client: string;
@@ -24,7 +24,7 @@ export interface ClientReview {
   slug: string;
 }
 
-export const clientReviews: ClientReview[] = [
+export const testimonials: TestimonialItem[] = [
   {
     id: 'gadag-info',
     number: '01',
@@ -33,7 +33,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag, India',
     year: '2026',
     quote:
-      'Managing 120k followers on Instagram was getting chaotic. Deepcipher gave us a proper digital home. Now when brands reach out for sponsor deals, we just send them our site — it immediately sets a professional tone and closes partnerships faster.',
+      '“Managing 120k followers on Instagram was getting chaotic. DEEPCIPHER gave us a proper digital home. Now when brands reach out for sponsor deals, we just send them our site — it immediately sets a professional tone and closes partnerships faster.”',
     slug: 'gadag-info',
   },
   {
@@ -44,7 +44,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag-Betageri',
     year: '2026',
     quote:
-      'Most gym sites look like cheap templates from ten years ago. Deepak built something dark, aggressive, and razor-sharp that matches the exact energy of our gym floor. People sign up for memberships before even stepping inside.',
+      '“Most gym sites look like cheap templates from ten years ago. Deepak built something dark, aggressive, and razor-sharp that matches the exact energy of our gym floor. People sign up for memberships before even stepping inside.”',
     slug: 'khans-fitness',
   },
   {
@@ -55,7 +55,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag-Betageri',
     year: '2026',
     quote:
-      'People walk into our cafe and say, "We saw your website and had to visit." The mobile menu is lightning-fast, and the 3D design blew everyone away. We saw an immediate spike in table reservations the weekend after launch.',
+      '“People walk into our cafe and say, \'We saw your website and had to visit.\' The mobile menu is lightning-fast, and the 3D design blew everyone away. We saw an immediate spike in table reservations the weekend after launch.”',
     slug: 'brown-sugar-fusion-cafe',
   },
   {
@@ -66,332 +66,160 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag, India',
     year: '2024',
     quote:
-      'Our institution has over 30 years of history. We needed a site that reflects our academic dignity while staying fast and intuitive for modern students and parents. The feedback from faculty and alumni has been wonderful.',
+      '“Our institution has over 30 years of history. We needed a site that reflects our academic dignity while staying fast and intuitive for modern students and parents. The feedback from faculty and alumni has been wonderful.”',
     slug: 'bipin-chikkatti-institutions',
   },
 ];
 
 export default function TestimonialsGrid() {
   return (
-    <>
-      <style jsx global>{`
-        /* ==================================================
-           TESTIMONIALS SECTION — Layout & Container
-           ================================================== */
-        .testimonials-section {
-          background-color: #0A0A0A;
-          border-top: 1px solid rgba(245, 240, 232, 0.08);
-          padding-top: 72px;
-          padding-bottom: 72px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-
-        .testimonials-container {
-          width: 100%;
-          max-width: 1440px;
-          margin-inline: auto;
-        }
-
-        .testimonials-header {
-          margin-bottom: 36px;
-        }
-
-        /* 4-Card Balanced Responsive Grid (2x2 on Desktop/Tablet, 1-col on Mobile) */
-        .testimonials-grid-4 {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr);
-          gap: 18px;
-        }
-
-        @media (min-width: 480px) {
-          .testimonials-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-            padding-left: 24px;
-            padding-right: 24px;
-          }
-          .testimonials-header {
-            margin-bottom: 40px;
-          }
-          .testimonials-grid-4 {
-            gap: 22px;
-          }
-        }
-
-        @media (min-width: 768px) {
-          .testimonials-section {
-            padding-top: 96px;
-            padding-bottom: 96px;
-            padding-left: 32px;
-            padding-right: 32px;
-          }
-          .testimonials-header {
-            margin-bottom: 48px;
-          }
-          .testimonials-grid-4 {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 28px;
-          }
-        }
-
-        @media (min-width: 1280px) {
-          .testimonials-section {
-            padding-top: 110px;
-            padding-bottom: 110px;
-            padding-left: 48px;
-            padding-right: 48px;
-          }
-          .testimonials-header {
-            margin-bottom: 54px;
-          }
-          .testimonials-grid-4 {
-            gap: 32px;
-          }
-        }
-
-        @media (min-width: 1536px) {
-          .testimonials-section {
-            padding-left: 64px;
-            padding-right: 64px;
-          }
-          .testimonials-grid-4 {
-            gap: 36px;
-          }
-        }
-
-        @media (min-width: 1920px) {
-          .testimonials-container {
-            width: min(100% - 128px, 1440px);
-            margin-inline: auto;
-          }
-        }
-
-        /* ==================================================
-           REDESIGNED CARD STYLE — Minimal Luxury Aesthetic
-           ================================================== */
-        .testimonial-card-v2 {
-          position: relative;
-          background: #0C0D12;
-          border: 1px solid rgba(245, 240, 232, 0.08);
-          border-radius: 12px;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          padding: 24px;
-          box-sizing: border-box;
-          transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-          overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-          .testimonial-card-v2 {
-            padding: 32px;
-          }
-        }
-
-        @media (min-width: 1280px) {
-          .testimonial-card-v2 {
-            padding: 36px 38px;
-          }
-        }
-
-        .testimonial-card-v2:hover {
-          border-color: rgba(53, 75, 255, 0.35);
-          background-color: #101118;
-        }
-
-        /* Subtle top hover hairline */
-        .card-hairline-accent {
-          position: absolute;
-          top: 0;
-          left: 10%;
-          right: 10%;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, #354BFF, transparent);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .testimonial-card-v2:hover .card-hairline-accent {
-          opacity: 1;
-        }
-
-        /* Card Header */
-        .card-header-v2 {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 10px;
-          padding-bottom: 18px;
-          border-bottom: 1px solid rgba(245, 240, 232, 0.06);
-        }
-
-        /* Card Body */
-        .card-body-v2 {
-          flex: 1 1 auto;
-          display: flex;
-          align-items: flex-start;
-          padding-top: 24px;
-          padding-bottom: 24px;
-        }
-
-        .card-quote-v2 {
-          font-family: var(--font-helvetica), 'Helvetica', sans-serif;
-          font-size: 15px;
-          line-height: 1.7;
-          color: #EDE8E1;
-          font-weight: 400;
-          letter-spacing: -0.01em;
-          margin: 0;
-        }
-
-        @media (min-width: 768px) {
-          .card-quote-v2 {
-            font-size: 15.5px;
-          }
-        }
-
-        @media (min-width: 1280px) {
-          .card-quote-v2 {
-            font-size: 16px;
-          }
-        }
-
-        /* Card Footer */
-        .card-footer-v2 {
-          margin-top: auto;
-          padding-top: 20px;
-          border-top: 1px solid rgba(245, 240, 232, 0.06);
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          flex-wrap: wrap;
-          gap: 14px;
-        }
-      `}</style>
-
-      <section
-        id="testimonials"
-        className="testimonials-section relative w-full text-[#F5F0E8]"
-        aria-labelledby="testimonials-heading"
-      >
-        <div className="testimonials-container">
-          {/* Section Header with 2-word Punchy Title */}
-          <div className="testimonials-header max-w-[820px]">
-            {/* Eyebrow Label */}
-            <div className="flex items-center gap-2.5 mb-3.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#354BFF] inline-block shrink-0" aria-hidden="true" />
-              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#9E9891]">
-                CLIENT STORIES / SELECTED RESULTS
+    <section
+      id="testimonials"
+      className="relative w-full bg-[#0A0A0A] text-[#F5F0E8] border-t border-[rgba(245,240,232,0.08)] box-border"
+      style={{
+        padding: 'clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)',
+      }}
+      aria-labelledby="testimonials-heading"
+    >
+      <div className="w-full max-w-full mx-auto">
+        
+        {/* ==================================================
+            SECTION HEADER — 2-Word Editorial Layout
+            Matches "Our Services." styling and alignment
+            ================================================== */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
+          <div>
+            {/* Eyebrow */}
+            <div className="flex items-center gap-2 mb-3">
+              <span
+                className="w-1.5 h-1.5 rounded-[1px] bg-[#3854FF] inline-block shrink-0"
+                aria-hidden="true"
+              />
+              <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.24em] text-[#8E8982]">
+                CLIENT STORIES
               </span>
             </div>
 
-            {/* 2-Word Main Heading */}
+            {/* 2-Word Heading Designed like "Our Services." */}
             <h2
               id="testimonials-heading"
               className="m-0 text-[#F5F0E8] font-bold tracking-tight"
               style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(36px, 5.5vw, 68px)',
-                lineHeight: 1.05,
+                fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                fontSize: 'clamp(36px, 5.2vw, 76px)',
+                lineHeight: 1.02,
                 letterSpacing: '-0.03em',
               }}
             >
-              Proven Impact.
+              <span>Client </span>
+              <span
+                className="font-citadel italic font-normal text-[#3854FF]"
+                style={{
+                  fontFamily: "var(--font-citadel, 'Citadel Script'), cursive",
+                  textShadow: '0 0 32px rgba(56, 84, 255, 0.45)',
+                  marginLeft: '0.04em',
+                }}
+              >
+                Stories.
+              </span>
             </h2>
-
-            {/* Supporting Text */}
-            <p
-              className="m-0 mt-4 max-w-[620px] text-[#A6A099] font-light"
-              style={{
-                fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(14.5px, 1.2vw, 16px)',
-                lineHeight: 1.65,
-              }}
-            >
-              Thoughtful digital experiences built around real businesses, real people, and measurable outcomes.
-            </p>
           </div>
 
-          {/* 4-Card Showcase Grid */}
-          <div className="testimonials-grid-4 w-full">
-            {clientReviews.map((item) => (
-              <article
-                key={item.id}
-                className="testimonial-card-v2"
-              >
-                {/* Subtle top hairline on hover */}
-                <div className="card-hairline-accent" aria-hidden="true" />
+          {/* Editorial Subline */}
+          <div className="hidden md:block pb-1">
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-[#8E8982]">
+              Real Businesses · Measurable Impact
+            </span>
+          </div>
+        </div>
 
-                {/* A. Header: Number, Category Tag & 5-Star Rating */}
-                <div className="card-header-v2">
+        {/* ==================================================
+            TESTIMONIAL GRID (Full-bleed 2-Column Desktop Grid)
+            ================================================== */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 w-full">
+          {testimonials.map((item) => (
+            <article
+              key={item.id}
+              className="group/card flex flex-col justify-between h-full bg-[#0D0E12] border border-[rgba(245,240,232,0.08)] hover:border-[#3854FF]/40 rounded-[2px] p-6 sm:p-7 lg:p-8 transition-colors duration-300 relative box-border"
+            >
+              <div>
+                {/* 1. Header: Number + Category on Left | Verified on Right */}
+                <div className="flex items-center justify-between pb-3.5 border-b border-[rgba(245,240,232,0.07)] gap-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="text-[10px] font-mono text-[#8E8982] tracking-wider">
+                    <span
+                      className="font-mono text-[11px] text-[#6B6560] tracking-wider"
+                      aria-label={`Story index ${item.number}`}
+                    >
                       {item.number}
                     </span>
-                    <span className="text-[9.5px] font-mono uppercase tracking-[0.16em] text-[#354BFF] bg-[#354BFF]/10 border border-[#354BFF]/20 px-2.5 py-1 rounded-sm font-medium">
+                    <span
+                      className="w-[1px] h-3 bg-white/10"
+                      aria-hidden="true"
+                    />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9E9891] font-medium">
                       {item.category}
                     </span>
                   </div>
 
-                  {/* Subtle 5-Star Rating */}
-                  <div
-                    className="flex items-center gap-1 text-[#E0A838]"
-                    aria-label="5 out of 5 stars"
-                  >
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <svg
-                        key={i}
-                        className="w-3.5 h-3.5 fill-current"
-                        viewBox="0 0 20 20"
-                        aria-hidden="true"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                </div>
-
-                {/* B. Testimonial Body */}
-                <div className="card-body-v2">
-                  <blockquote className="card-quote-v2">
-                    &ldquo;{item.quote}&rdquo;
-                  </blockquote>
-                </div>
-
-                {/* C. Attribution Footer */}
-                <div className="card-footer-v2">
-                  <div className="flex flex-col min-w-0 pr-2">
+                  {/* Verification Indicator */}
+                  <div className="flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[#6B6560]">
                     <span
-                      className="text-[14px] sm:text-[15px] font-medium text-[#F5F0E8] tracking-tight truncate"
-                      style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif" }}
-                    >
-                      {item.client}
-                    </span>
-                    <span className="text-[11.5px] font-mono text-[#8E8982] mt-0.5 tracking-wider">
-                      {item.location} · {item.year}
-                    </span>
+                      className="w-1.5 h-1.5 rounded-full bg-[#3854FF] inline-block shrink-0 shadow-[0_0_8px_rgba(56,84,255,0.6)]"
+                      aria-hidden="true"
+                    />
+                    <span>Verified Client</span>
                   </div>
-
-                  {/* Case Study Pill Link */}
-                  {item.slug && (
-                    <Link
-                      href={`/work/${item.slug}`}
-                      className="inline-flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-[0.14em] text-[#F5F0E8]/90 hover:text-white bg-[rgba(245,240,232,0.04)] hover:bg-[#354BFF] border border-[rgba(245,240,232,0.1)] hover:border-[#354BFF] px-3.5 py-1.5 rounded-full transition-all duration-200 shrink-0 focus:outline-none focus:ring-1 focus:ring-[#354BFF]"
-                    >
-                      <span>CASE STUDY</span>
-                      <ArrowUpRight size={12} className="shrink-0" aria-hidden="true" />
-                    </Link>
-                  )}
                 </div>
-              </article>
-            ))}
-          </div>
+
+                {/* 2. Quote */}
+                <div className="my-5 sm:my-6">
+                  <p
+                    className="m-0 text-[#EDE8E1] font-normal leading-[1.62] tracking-[-0.01em]"
+                    style={{
+                      fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                      fontSize: 'clamp(15px, 1.15vw, 16.5px)',
+                    }}
+                  >
+                    {item.quote}
+                  </p>
+                </div>
+              </div>
+
+              {/* 3. Attribution Footer: Client Name + Location & Year (Left) | Case Study Action (Right) */}
+              <div className="mt-auto pt-4 border-t border-[rgba(245,240,232,0.07)] flex items-center justify-between gap-4">
+                <div className="flex flex-col min-w-0 pr-2">
+                  <span
+                    className="text-[14.5px] sm:text-[15px] font-semibold text-[#F5F0E8] tracking-tight truncate leading-tight"
+                    style={{
+                      fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                    }}
+                  >
+                    {item.client}
+                  </span>
+                  <span className="font-mono text-[10px] sm:text-[10.5px] text-[#8E8982] tracking-wider uppercase mt-1">
+                    {item.location} · {item.year}
+                  </span>
+                </div>
+
+                {item.slug && (
+                  <Link
+                    href={`/work/${item.slug}`}
+                    className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-[2px] border border-[rgba(245,240,232,0.14)] hover:border-[#3854FF] bg-[rgba(245,240,232,0.02)] hover:bg-[#3854FF]/12 text-[#EDE8E1] hover:text-white transition-all duration-300 shrink-0 whitespace-nowrap text-[11px] font-mono tracking-[0.14em] uppercase no-underline shadow-[0_0_0_transparent] hover:shadow-[0_0_20px_rgba(56,84,255,0.25)]"
+                  >
+                    <span>Case Study</span>
+                    <ArrowUpRight
+                      size={13}
+                      className="shrink-0 text-[#3854FF] transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
-    </>
+
+      </div>
+    </section>
   );
 }

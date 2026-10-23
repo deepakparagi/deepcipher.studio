@@ -33,7 +33,7 @@ function ManifestoVisual() {
               stroke="#2C3480" strokeWidth="0.5" opacity="0.06"/>
       <text x="400" y="780" fontFamily="DM Mono, monospace"
             fontSize="9" fill="#6B6560" textAnchor="middle"
-            letterSpacing="4">EST. 2026 — GLOBAL REACH</text>
+            letterSpacing="4">EST. 2024 — GLOBAL REACH</text>
     </svg>
   );
 }

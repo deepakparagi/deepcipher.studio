@@ -113,7 +113,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
     { label: 'CUSTOM WEB DESIGN', value: '', description: '' },
     { label: 'DEVELOPMENT & DEPLOYMENT', value: '', description: '' },
     { label: 'BRAND IDENTITY SYSTEM', value: '', description: '' },
-    { label: 'PERFORMANCE OPTIMISATION', value: '', description: '' }
+    { label: 'PERFORMANCE OPTIMIZATION', value: '', description: '' }
   ];
 
   const techStack = project.techStack || [];
@@ -392,7 +392,7 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
             className="pl-0 md:pl-10 text-center md:text-left mt-6"
             style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '14px', fontWeight: 300, color: '#9A9590', lineHeight: 1.8, marginBottom: 0 }}
           >
-            We believe that every technical platform deserves a luxury execution. By implementing bespoke micro-interactions, Variable typeface sizing parameters, and organic WebGL shaders, we guarantee that the final digital artifact is not just usable—it is a landmark in visual storytelling and digital authority.
+            We believe that every technical platform deserves a luxury execution. By implementing bespoke micro-interactions, variable typeface sizing parameters, and organic WebGL shaders, we guarantee that the final digital artifact is not just usable—it is a landmark in visual storytelling and digital authority.
           </p>
         </div>
       </div>

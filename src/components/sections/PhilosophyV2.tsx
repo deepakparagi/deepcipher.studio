@@ -272,7 +272,7 @@ export default function PhilosophyV2() {
           >
             We don&apos;t assemble websites from templates and call it design. Every
             layout, every interaction, every word on every page is a deliberate
-            decision — made in service of one goal. Moving your visitor one step
+            decision — made in service of one goal: moving your visitor one step
             closer to choosing you.
           </p>
 

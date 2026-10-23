@@ -319,7 +319,7 @@ export default function ServicesClient() {
           <StartProjectLink />
         </div>
 
-        {/* FIVE DISCIPLINES watermark — pinned to bottom */}
+        {/* SIX DISCIPLINES watermark — pinned to bottom */}
         <span
           className="select-none"
           style={{
@@ -336,7 +336,7 @@ export default function ServicesClient() {
             whiteSpace: 'nowrap',
           }}
         >
-          FIVE DISCIPLINES
+          SIX DISCIPLINES
         </span>
       </section>
     </motion.main>

@@ -43,7 +43,7 @@ export default function AboutReveal() {
   }, []);
 
   // Split text into words for animation
-  const text = 'I am Deepak Paragi — an AI & Software Engineering student, designer, and builder. Deepcipher is my independent studio, driven by an absolute obsession with digital craft, uncompromising development quality, and the architecture of modern web experiences.';
+  const text = 'I am Deepak Paragi — an AI & Software Engineering student, designer, and builder. DEEPCIPHER is my independent studio, driven by an absolute obsession with digital craft, uncompromising development quality, and the architecture of modern web experiences.';
   const words = text.split(' ');
 
   return (
@@ -80,7 +80,7 @@ export default function AboutReveal() {
               wordClass = "upright font-medium";
             } else if (cleanWord === "Paragi") {
               wordClass = "italic text-[#2C3480]";
-            } else if (cleanWord === "Deepcipher") {
+            } else if (cleanWord.toUpperCase() === "DEEPCIPHER") {
               wordClass = "upright font-medium";
             } else if (["obsession", "craft", "modern", "design", "designer", "builder", "independent"].includes(cleanWord.toLowerCase())) {
               wordClass = "italic text-[#2C3480]";

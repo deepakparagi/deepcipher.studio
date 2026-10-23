@@ -297,7 +297,7 @@ export default function ServicesV2() {
             textAlign: 'right',
           }}
         >
-          Seven disciplines. Each one obsessed over.
+          Eight disciplines. Each one obsessed over.
         </motion.p>
       </div>
 

@@ -33,14 +33,14 @@ const phases = [
   {
     id: 2,
     number: '02 / 04',
-    title: 'Strategise',
+    title: 'Strategize',
     quote: 'We define the blueprint before we touch Figma.',
     body: 'We map every page, every user journey, and every conversion point before a single design is drawn. This phase ends with your full sign-off on direction, structure, and visual strategy.',
     image: '/images/process-strategise-3d.jpg',
     deliverables: [
       'Sitemap & page structure',
       'User journey logic mapping',
-      'Conversion goal prioritising',
+      'Conversion goal prioritizing',
       'Content structure per page',
       'Visual direction moodboard',
     ],
@@ -71,7 +71,7 @@ const phases = [
       'Development in Next.js or Framer',
       'CMS & dynamic content setup',
       'Motion & interaction implementation',
-      'Performance optimisation (95+ Lighthouse)',
+      'Performance optimization (95+ Lighthouse)',
       'Launch & 30-day monitoring',
     ],
   },
@@ -204,8 +204,8 @@ export default function ProcessClient() {
                       {phase.title === "Discover" && (
                         <span className="italic text-[#2C3480]">Discover</span>
                       )}
-                      {phase.title === "Strategise" && (
-                        <span className="upright text-[#F5F0E8]">Strategise</span>
+                      {phase.title === "Strategize" && (
+                        <span className="upright text-[#F5F0E8]">Strategize</span>
                       )}
                       {phase.title === "Design" && (
                         <span className="italic text-[#2C3480]">Design</span>

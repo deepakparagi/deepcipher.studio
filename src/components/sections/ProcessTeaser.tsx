@@ -28,7 +28,7 @@ const phases: ProcessPhase[] = [
   },
   {
     no: '02',
-    name: 'Strategise',
+    name: 'Strategize',
     tagline: 'Architect the journey.',
     desc: 'Every page, every scroll, every click is mapped to a conversion goal. Nothing is accidental.',
     deliverables: ['Site Architecture', 'Content Strategy', 'Conversion Map'],
@@ -603,7 +603,7 @@ export default function ProcessTeaser() {
               textTransform: 'uppercase',
             }}
           >
-            4 Phases · 8-12 Weeks · 1 Goal
+            4 Phases · 2–4 Weeks · 1 Goal
           </span>
         </motion.div>
       </div>

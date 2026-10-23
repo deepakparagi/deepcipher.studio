@@ -29,7 +29,7 @@ export const services: Service[] = [
       'UI Redesign',
       'E-Commerce Engines',
       'CMS Architecture',
-      'Performance Optimisation',
+      'Performance Optimization',
       'SEO Foundation'
     ],
     duration: '2–4 WEEKS',
@@ -43,9 +43,9 @@ export const services: Service[] = [
     title: 'Brand Identity & Logo Design',
     shortTitle: 'Brand Identity',
     description: [
-      "Identity systems built to be remembered. We craft logos, colour palettes, typography hierarchies, and brand guidelines that hold authority across every touchpoint — digital and print.",
+      "Identity systems built to be remembered. We craft logos, color palettes, typography hierarchies, and brand guidelines that hold authority across every touchpoint — digital and print.",
       "We start with strategy — understanding your positioning, audience, and competitive landscape. Then we design a visual system: logo, typography, color, photography direction, and usage guidelines that ensure consistency as your brand grows.",
-      "Whether you're launching a new brand or redesigning an existing one, we deliver a complete identity kit that works everywhere — from a 16px favicon to a conference stage backdrop."
+      "Whether you're launching a new brand or redesigning an existing one, we deliver a complete identity kit that works everywhere — from a 16px favicon to a conference stage backdrop.",
     ],
     deliverables: [
       'Brand Strategy',
@@ -54,8 +54,8 @@ export const services: Service[] = [
       'Asset Library',
       'Stationery Assets',
       'Typography Hierarchy',
-      'Colour Palettes',
-      'Brand Book (PDF)'
+      'Color Palettes',
+      'Brand Book (PDF)',
     ],
     duration: '4–6 WEEKS',
     startingFrom: '₹25,000',
@@ -70,7 +70,7 @@ export const services: Service[] = [
     description: [
       "Before a single pixel is placed, we study your market. Positioning, messaging, and competitive intelligence — so your brand doesn't just look premium, it occupies premium ground.",
       "We conduct competitive analysis, audience research, and brand audits. We define your positioning, voice, and visual direction. We deliver a strategy document that becomes the reference point for every future brand decision.",
-      "This service is often the first phase of a larger engagement, but it also works as a standalone for brands that need strategic clarity before committing to design."
+      "This service is often the first phase of a larger engagement, but it also works as a standalone for brands that need strategic clarity before committing to design.",
     ],
     deliverables: [
       'Market Analysis',
@@ -79,8 +79,8 @@ export const services: Service[] = [
       'Creative Direction',
       'Competitor Audit',
       'Target Audience Personas',
-      'Brand voice & tone guide',
-      'Visual direction moodboards'
+      'Brand Voice & Tone Guide',
+      'Visual Direction Moodboards',
     ],
     duration: '2–3 WEEKS',
     startingFrom: '₹40,000',
@@ -90,12 +90,12 @@ export const services: Service[] = [
   {
     id: 4,
     number: '04',
-    title: 'SEO & Performance Optimisation',
+    title: 'SEO & Performance Optimization',
     shortTitle: 'SEO & Performance',
     description: [
-      "A beautiful site that no one finds is a silent luxury. We optimise for speed, structure, and search — so your business ranks where it belongs and loads before impatience sets in.",
+      "A beautiful site that no one finds is a silent luxury. We optimize for speed, structure, and search — so your business ranks where it belongs and loads before impatience sets in.",
       "We build robust SEO architecture into the core of your platform—focusing on indexability, speed diagnostics (Core Web Vitals), keyword hierarchy, and technical structure. Your brand won't just exist on the web; it will dominate the search index.",
-      "From semantic HTML layouts to high-performance content delivery systems, we ensure your site is completely ready for organic traffic growth."
+      "From semantic HTML layouts to high-performance content delivery systems, we ensure your site is completely ready for organic traffic growth.",
     ],
     deliverables: [
       'Technical SEO',
@@ -103,9 +103,9 @@ export const services: Service[] = [
       'Local SEO Search',
       'Content Audit & Mapping',
       'Analytics Setup',
-      'Google Search Console sync',
-      'Structured data (JSON-LD)',
-      'XML sitemap & robots setup'
+      'Google Search Console Sync',
+      'Structured Data (JSON-LD)',
+      'XML Sitemap & Robots Setup',
     ],
     duration: '3–5 WEEKS',
     startingFrom: '₹20,000',
@@ -120,7 +120,7 @@ export const services: Service[] = [
     description: [
       "Intelligence, built in. We engineer AI-powered tools — chatbots, lead pipelines, automated dashboards, and workflow systems — that make your business run sharper while you sleep.",
       "We build secure, custom AI pipelines using large language models, API integrations, structured database synchronization, and agentic frameworks. Your operations will shift from passive execution to automated authority.",
-      "From AI consulting and prompt architectures to full-stack automated operations (AIOps), we bring custom intelligence to your business."
+      "From AI consulting and prompt architectures to full-stack automated operations (AIOps), we bring custom intelligence to your business.",
     ],
     deliverables: [
       'AI Chatbots',
@@ -128,9 +128,9 @@ export const services: Service[] = [
       'CRM Workflows',
       'AI Dashboards',
       'WhatsApp Bots',
-      'LLM integration & fine-tuning',
-      'Custom agent orchestrations',
-      'Workflow automation (n8n)'
+      'LLM Integration & Fine-Tuning',
+      'Custom Agent Orchestrations',
+      'Workflow Automation (n8n)',
     ],
     duration: '4–8 WEEKS',
     startingFrom: '₹45,000',

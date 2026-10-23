@@ -117,9 +117,9 @@ export const projects: Project[] = [
     pullQuote: 'A timeless, sophisticated aesthetic inspired by Ivy League universities.',
     liveUrl: 'https://www.chikkattieducation.co.in/',
     paragraphs: [
-      'This is the official website for Bipin Chikkatti Institutions, part of the Chikkatti Group of Institutions founded by Prof. S. Y. Chikkatti in 1994. Located on a 7-acre lush green campus in Gadag, Karnataka.',
-      'The website embodies a timeless, sophisticated aesthetic inspired by Ivy League university websites, Luxury editorial design, and Heritage academic institutions.',
-      'Color Palette includes Cream/Off-white backgrounds, Deep charcoal/navy accents, and Muted gold highlights.'
+      'This is the official website for Bipin Chikkatti Institutions, part of the Chikkatti Group of Institutions founded by Prof. S. Y. Chikkatti in 1994, located on a 7-acre lush green campus in Gadag, Karnataka.',
+      'The website embodies a timeless, sophisticated aesthetic inspired by Ivy League university websites, luxury editorial design, and heritage academic institutions.',
+      'The color palette includes cream/off-white backgrounds, deep charcoal/navy accents, and muted gold highlights.'
     ]
   },
   {
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     tags: ['Next.js 14', 'Tailwind CSS', 'GSAP'],
     description: 'A dynamic digital hub built for Gadag\'s largest social media community, designed to elevate their brand and streamline partnerships.',
     challenge: 'With over 120k Instagram followers, the client needed a centralized platform to showcase their content, highlight Gadag city\'s heritage, and manage brand promotions effectively.',
-    solution: 'Developed a premium, highly-performant website that serves as a digital portfolio and business inquiry portal, consolidating their social influence into a professional brand presence.',
+    solution: 'Developed a premium, highly performant website that serves as a digital portfolio and business inquiry portal, consolidating their social influence into a professional brand presence.',
     result: 'Enhanced brand value and streamlined brand partnerships.',
     image: '/project-covers/gadag-info.jpg',
     size: 'large',
@@ -193,7 +193,7 @@ export const projects: Project[] = [
     liveUrl: 'https://cinepulse-ai-sentiment-analysis.vercel.app/',
     githubUrl: 'https://github.com/deepakparagi/cinepulse-ai-sentiment-analysis.git',
     paragraphs: [
-      'CinePulse AI is a high-fidelity, production-grade sentiment analysis platform designed for the cinematic industry. Leveraging state-of-the-art machine learning (TF-IDF + Logistic Regression) and a premium "Bloomberg-Vercel" hybrid aesthetic.',
+      'CinePulse AI is a high-fidelity, production-grade sentiment analysis platform designed for the cinematic industry, leveraging state-of-the-art machine learning (TF-IDF + Logistic Regression) and a premium "Bloomberg-Vercel" hybrid aesthetic.',
       'It provides deep emotional insights into movie reviews with explainable AI metrics, featuring a Neural Analyzer for real-time sentiment extraction with character-by-character neural visualization.',
       'The intelligence core utilizes a TF-IDF vectorization pipeline coupled with a Logistic Regression classifier, selected for its high interpretability and extremely low latency (< 45ms per review).'
     ],
@@ -227,7 +227,7 @@ export const projects: Project[] = [
     ],
     paragraphs: [
       'Brown Sugar Fusion Cafe is a highly-rated, pure vegetarian dining spot located at Datta Prime near Mulgund Naka in Gadag-Betageri, Karnataka. Spanning a comfortable price range of ₹200–400 per person, it has quickly become a local favorite for its trendy, casual ambiance, lively vibes, and an extensive fusion menu that expertly blends Pan-Asian, Continental, and authentic North Indian cuisines.',
-      'Welcome to the digital storefront of the Brown Sugar Fusion Cafe. This repository houses a meticulously crafted, ultra-premium web application designed to transcend traditional restaurant websites.',
+      'Welcome to the digital storefront of the Brown Sugar Fusion Cafe. This platform houses a meticulously crafted, ultra-premium web application designed to transcend traditional restaurant websites.',
       'By merging cinematic 3D environmental design with editorial-grade typography, this platform delivers an immersive, high-fidelity user experience that reflects the unparalleled quality of the Brown Sugar brand.',
       'Powered by @react-three/fiber and custom WebGL shaders, the background environments feature abstract architectural models with zero-gravity physics and mouse-driven parallax.'
     ],

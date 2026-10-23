@@ -31,7 +31,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Hubli, India',
     year: '2026',
     quote:
-      'DEEPCIPHER architected an immersive digital experience that genuinely captures the luxury of our properties. Client enquiries increased dramatically in the first month.',
+      'Finding a team that understands luxury real estate without making things look cheesy or overdone is rare. They built a 3D walkthrough experience that our buyers actually spend time on. It brought in several serious NRI enquiries in our very first month.',
     slug: 'shingri-developers',
   },
   {
@@ -41,7 +41,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag, India',
     year: '2026',
     quote:
-      'They gave our 120k community a real digital home. It streamlined brand partnerships and established our authority across the region.',
+      'Managing 120k followers on Instagram was getting chaotic. Deepcipher gave us a proper digital home. Now when brands reach out for sponsor deals, we just send them our site — it immediately sets a professional tone and closes partnerships faster.',
     slug: 'gadag-info',
   },
   {
@@ -51,7 +51,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag-Betageri',
     year: '2026',
     quote:
-      'The platform delivers the same high-performance intensity as our physical gym. It completely transformed our member onboarding and digital presence.',
+      'Most gym sites look like cheap templates from ten years ago. Deepak built something dark, aggressive, and razor-sharp that matches the exact energy of our gym floor. People sign up for memberships before even stepping inside.',
     slug: 'khans-fitness',
   },
   {
@@ -61,7 +61,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag, India',
     year: '2024',
     quote:
-      'A digital presence carrying the dignity and heritage of our institutions. Clean, reliable, and praised by parents and faculty alike.',
+      'Our institution has over 30 years of history. We needed a site that reflects our academic dignity while staying fast and intuitive for modern students and parents. The feedback from faculty and alumni has been wonderful.',
     slug: 'bipin-chikkatti-institutions',
   },
   {
@@ -71,7 +71,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Gadag-Betageri',
     year: '2026',
     quote:
-      'Jaw-dropping 3D visual design with seamless mobile ordering. Table reservations and digital visits jumped over four times in our opening week.',
+      'People walk into our cafe and say, "We saw your website and had to visit." The mobile menu is lightning-fast, and the 3D design blew everyone away. We saw an immediate spike in table reservations the weekend after launch.',
     slug: 'brown-sugar-fusion-cafe',
   },
   {
@@ -81,7 +81,7 @@ export const clientReviews: ClientReview[] = [
     location: 'Global Platform',
     year: '2026',
     quote:
-      'Real-time sentiment telemetry delivered with world-class polish. The platform feels like a Bloomberg terminal merged with contemporary editorial craft.',
+      'We needed a front-end that could visualize deep machine learning models without looking like a dry academic paper or a generic dashboard. Deepcipher nailed the dark editorial aesthetic on the first pass. Super clean code and delivery.',
     slug: 'cinepulse-ai',
   },
 ];

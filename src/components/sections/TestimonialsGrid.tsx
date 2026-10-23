@@ -8,9 +8,9 @@ import { ArrowUpRight } from 'lucide-react';
    DEEPCIPHER — Client Stories
    Minimalist Editorial Architecture
    - Header: 2 words with Citadel script accent matching "Our Services."
-   - Full-bleed stretch: Matches homepage rhythm (clamp(24px, 5vw, 80px))
-   - Redesigned Case Study action: Architectural badge with hover glow
-   - Precision alignment: Verified client badge, balanced quote typography
+   - Uncluttered: Zero redundant metrics or marketing paragraphs
+   - Controlled proportions: Balanced 2-column grid, natural card height
+   - Clean spacing: Exact 56–72px vertical rhythm without empty voids
    ========================================================== */
 
 export interface TestimonialItem {
@@ -73,29 +73,189 @@ export const testimonials: TestimonialItem[] = [
 
 export default function TestimonialsGrid() {
   return (
-    <section
-      id="testimonials"
-      className="relative w-full bg-[#0A0A0A] text-[#F5F0E8] border-t border-[rgba(245,240,232,0.08)] box-border"
-      style={{
-        padding: 'clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)',
-      }}
-      aria-labelledby="testimonials-heading"
-    >
-      <div className="w-full max-w-full mx-auto">
-        
-        {/* ==================================================
-            SECTION HEADER — 2-Word Editorial Layout
-            Matches "Our Services." styling and alignment
-            ================================================== */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
-          <div>
+    <>
+      <style jsx>{`
+        /* ==================================================
+           CONTAINER & BREAKPOINTS
+           ================================================== */
+        .testimonials-section {
+          background-color: #0A0A0A;
+          border-top: 1px solid rgba(245, 240, 232, 0.08);
+          padding-top: 52px;
+          padding-bottom: 64px;
+          padding-left: clamp(20px, 3vw, 44px);
+          padding-right: clamp(20px, 3vw, 44px);
+        }
+
+        .testimonials-container {
+          width: 100%;
+          max-width: 1680px;
+          margin-inline: auto;
+        }
+
+        .testimonials-header-zone {
+          margin-bottom: 28px;
+        }
+
+        .testimonials-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 18px;
+          width: 100%;
+        }
+
+        @media (min-width: 480px) {
+          .testimonials-grid {
+            gap: 20px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .testimonials-section {
+            padding-top: 64px;
+            padding-bottom: 72px;
+          }
+          .testimonials-header-zone {
+            margin-bottom: 36px;
+          }
+          .testimonials-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+          }
+        }
+
+        @media (min-width: 1536px) {
+          .testimonials-section {
+            padding-top: 72px;
+            padding-bottom: 80px;
+          }
+        }
+
+        /* ==================================================
+           CARD STYLING — Precision Minimalist Structure
+           ================================================== */
+        .testimonial-card-editorial {
+          background-color: #0D0E12;
+          border: 1px solid rgba(245, 240, 232, 0.08);
+          border-radius: 2px;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          padding: 20px 22px;
+          box-sizing: border-box;
+          transition: border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        @media (min-width: 768px) {
+          .testimonial-card-editorial {
+            padding: 24px 28px;
+          }
+        }
+
+        .testimonial-card-editorial:hover {
+          border-color: rgba(56, 84, 255, 0.35);
+          background-color: #101217;
+        }
+
+        /* Card Header */
+        .card-header-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 14px;
+          border-bottom: 1px solid rgba(245, 240, 232, 0.06);
+          margin-bottom: 18px;
+        }
+
+        /* Card Quote Body */
+        .card-quote-body {
+          flex: 1 1 auto;
+          margin-bottom: 20px;
+        }
+
+        .card-quote-text {
+          font-family: var(--font-helvetica), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-size: 15px;
+          line-height: 1.62;
+          color: #EDE8E1;
+          font-weight: 400;
+          letter-spacing: -0.01em;
+          margin: 0;
+        }
+
+        @media (min-width: 768px) {
+          .card-quote-text {
+            font-size: 16px;
+            line-height: 1.65;
+          }
+        }
+
+        /* Card Footer */
+        .card-footer-bar {
+          margin-top: auto;
+          padding-top: 14px;
+          border-top: 1px solid rgba(245, 240, 232, 0.06);
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        /* Case study link */
+        .case-study-action {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #A39E97;
+          border: 1px solid rgba(245, 240, 232, 0.12);
+          border-radius: 2px;
+          padding: 6px 12px;
+          background-color: rgba(245, 240, 232, 0.02);
+          text-decoration: none;
+          transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .case-study-action:hover {
+          color: #FFFFFF;
+          border-color: #3854FF;
+          background-color: rgba(56, 84, 255, 0.15);
+        }
+
+        .case-study-action:focus-visible {
+          outline: 1px solid #3854FF;
+          outline-offset: 2px;
+        }
+      `}</style>
+
+      <section
+        id="testimonials"
+        className="testimonials-section relative w-full text-[#F5F0E8]"
+        aria-labelledby="testimonials-heading"
+      >
+        <div className="testimonials-container">
+          
+          {/* ==================================================
+              SECTION HEADER — Clean & Uncluttered
+              ================================================== */}
+          <div className="testimonials-header-zone">
             {/* Eyebrow */}
-            <div className="flex items-center gap-2 mb-3">
+            <div
+              className="flex items-center gap-2"
+              style={{ marginBottom: '12px' }}
+            >
               <span
                 className="w-1.5 h-1.5 rounded-[1px] bg-[#3854FF] inline-block shrink-0"
                 aria-hidden="true"
               />
-              <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.24em] text-[#8E8982]">
+              <span
+                className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.24em] text-[#8E8982]"
+              >
                 CLIENT STORIES
               </span>
             </div>
@@ -106,8 +266,8 @@ export default function TestimonialsGrid() {
               className="m-0 text-[#F5F0E8] font-bold tracking-tight"
               style={{
                 fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: 'clamp(36px, 5.2vw, 76px)',
-                lineHeight: 1.02,
+                fontSize: 'clamp(36px, 5vw, 68px)',
+                lineHeight: 1.05,
                 letterSpacing: '-0.03em',
               }}
             >
@@ -125,26 +285,17 @@ export default function TestimonialsGrid() {
             </h2>
           </div>
 
-          {/* Editorial Subline */}
-          <div className="hidden md:block pb-1">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-[#8E8982]">
-              Real Businesses · Measurable Impact
-            </span>
-          </div>
-        </div>
-
-        {/* ==================================================
-            TESTIMONIAL GRID (Full-bleed 2-Column Desktop Grid)
-            ================================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 w-full">
-          {testimonials.map((item) => (
-            <article
-              key={item.id}
-              className="group/card flex flex-col justify-between h-full bg-[#0D0E12] border border-[rgba(245,240,232,0.08)] hover:border-[#3854FF]/40 rounded-[2px] p-6 sm:p-7 lg:p-8 transition-colors duration-300 relative box-border"
-            >
-              <div>
-                {/* 1. Header: Number + Category on Left | Verified on Right */}
-                <div className="flex items-center justify-between pb-3.5 border-b border-[rgba(245,240,232,0.07)] gap-3">
+          {/* ==================================================
+              TESTIMONIAL GRID (2-Column Desktop Matrix)
+              ================================================== */}
+          <div className="testimonials-grid">
+            {testimonials.map((item) => (
+              <article
+                key={item.id}
+                className="testimonial-card-editorial"
+              >
+                {/* 1. Header: Sequence number + Category Label */}
+                <div className="card-header-bar">
                   <div className="flex items-center gap-2.5">
                     <span
                       className="font-mono text-[11px] text-[#6B6560] tracking-wider"
@@ -153,73 +304,60 @@ export default function TestimonialsGrid() {
                       {item.number}
                     </span>
                     <span
-                      className="w-[1px] h-3 bg-white/10"
+                      className="w-[1px] h-3 bg-white/[0.1]"
                       aria-hidden="true"
                     />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9E9891] font-medium">
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9E9891] font-medium"
+                    >
                       {item.category}
                     </span>
-                  </div>
-
-                  {/* Verification Indicator */}
-                  <div className="flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[#6B6560]">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full bg-[#3854FF] inline-block shrink-0 shadow-[0_0_8px_rgba(56,84,255,0.6)]"
-                      aria-hidden="true"
-                    />
-                    <span>Verified Client</span>
                   </div>
                 </div>
 
                 {/* 2. Quote */}
-                <div className="my-5 sm:my-6">
-                  <p
-                    className="m-0 text-[#EDE8E1] font-normal leading-[1.62] tracking-[-0.01em]"
-                    style={{
-                      fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: 'clamp(15px, 1.15vw, 16.5px)',
-                    }}
-                  >
+                <div className="card-quote-body">
+                  <p className="card-quote-text">
                     {item.quote}
                   </p>
                 </div>
-              </div>
 
-              {/* 3. Attribution Footer: Client Name + Location & Year (Left) | Case Study Action (Right) */}
-              <div className="mt-auto pt-4 border-t border-[rgba(245,240,232,0.07)] flex items-center justify-between gap-4">
-                <div className="flex flex-col min-w-0 pr-2">
-                  <span
-                    className="text-[14.5px] sm:text-[15px] font-semibold text-[#F5F0E8] tracking-tight truncate leading-tight"
-                    style={{
-                      fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                    }}
-                  >
-                    {item.client}
-                  </span>
-                  <span className="font-mono text-[10px] sm:text-[10.5px] text-[#8E8982] tracking-wider uppercase mt-1">
-                    {item.location} · {item.year}
-                  </span>
+                {/* 3. Attribution Footer: Client Name, Location & Year, Case Study Link */}
+                <div className="card-footer-bar">
+                  <div className="flex flex-col min-w-0 pr-2">
+                    <span
+                      className="text-[14.5px] sm:text-[15px] font-medium text-[#F5F0E8] tracking-tight truncate leading-tight"
+                      style={{
+                        fontFamily: "var(--font-helvetica), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                      }}
+                    >
+                      {item.client}
+                    </span>
+                    <span className="font-mono text-[10.5px] text-[#6B6560] tracking-wider uppercase mt-1">
+                      {item.location} · {item.year}
+                    </span>
+                  </div>
+
+                  {item.slug && (
+                    <Link
+                      href={`/work/${item.slug}`}
+                      className="case-study-action group"
+                    >
+                      <span>Case Study</span>
+                      <ArrowUpRight
+                        size={12}
+                        className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#3854FF]"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  )}
                 </div>
+              </article>
+            ))}
+          </div>
 
-                {item.slug && (
-                  <Link
-                    href={`/work/${item.slug}`}
-                    className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-[2px] border border-[rgba(245,240,232,0.14)] hover:border-[#3854FF] bg-[rgba(245,240,232,0.02)] hover:bg-[#3854FF]/12 text-[#EDE8E1] hover:text-white transition-all duration-300 shrink-0 whitespace-nowrap text-[11px] font-mono tracking-[0.14em] uppercase no-underline shadow-[0_0_0_transparent] hover:shadow-[0_0_20px_rgba(56,84,255,0.25)]"
-                  >
-                    <span>Case Study</span>
-                    <ArrowUpRight
-                      size={13}
-                      className="shrink-0 text-[#3854FF] transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                )}
-              </div>
-            </article>
-          ))}
         </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

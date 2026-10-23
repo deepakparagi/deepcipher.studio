@@ -49,6 +49,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Hover Outline */}
         <div className="absolute inset-0 z-[60] pointer-events-none transition-all duration-300 outline outline-1 outline-transparent group-hover:outline-[rgba(44, 52, 128,0.3)]" />
 
+        {/* Priority Index Number Badge */}
+        <div 
+          className="absolute top-[14px] left-[14px] z-[20] shadow-md"
+          style={{
+            background: 'rgba(10, 10, 10, 0.85)',
+            border: '1px solid rgba(245, 240, 232, 0.14)',
+            color: '#F5F0E8',
+            fontFamily: 'var(--font-mono), monospace',
+            fontSize: '9.5px',
+            fontWeight: 600,
+            letterSpacing: '0.14em',
+            padding: '5px 12px',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </div>
+
         {/* Category Badge */}
         <div 
           className="absolute top-[14px] right-[14px] z-[20] shadow-md"
@@ -106,7 +124,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               className="mt-3 text-[10px] tracking-[0.18em] uppercase transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0"
               style={{
                 fontFamily: 'var(--font-mono), monospace',
-                color: '#2C3480',
+                color: '#3854FF',
                 fontWeight: 500,
                 textShadow: '0 2px 8px rgba(0,0,0,0.8)',
               }}
@@ -129,7 +147,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         }}
       >
         <span className="uppercase text-[#A39E93]">
-          <span className="text-[#2C3480] font-medium">CLIENT //</span> {project.client.toUpperCase()} {techString ? `· ${techString.toUpperCase()}` : ''}
+          <span className="text-[#3854FF] font-medium mr-2">{String(index + 1).padStart(2, '0')} //</span>
+          <span className="text-[#3854FF] font-medium">CLIENT //</span> {project.client.toUpperCase()} {techString ? `· ${techString.toUpperCase()}` : ''}
         </span>
         <span className="text-[#F5F0E8] font-medium">{project.year}</span>
       </div>

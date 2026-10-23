@@ -453,7 +453,7 @@ export default function AboutClient() {
                   margin: 0,
                 }}
               >
-                Deepak operates at the precise intersection of <span style={{ color: '#F5F0E8' }}>Artificial Intelligence</span> and <span style={{ color: '#F5F0E8' }}>Production-Grade Engineering</span>. He doesn&apos;t just build models — he architects the ecosystems that allow them to live, breathe, and act autonomously.
+                I build at the intersection of <span style={{ color: '#F5F0E8' }}>Artificial Intelligence</span> and <span style={{ color: '#F5F0E8' }}>production engineering</span>. Rather than just deploying raw models, I design complete digital systems — software that feels intuitive, runs reliably, and solves genuine business problems.
               </p>
               <p
                 style={{
@@ -466,7 +466,7 @@ export default function AboutClient() {
                   margin: 0,
                 }}
               >
-                His engineering philosophy is rooted in materiality and precision — whether orchestrating complex RAG pipelines, designing agentic workflows with zero-latency execution, or crafting motion-driven interfaces that prioritize kinetic feedback and editorial typographic scales.
+                My approach is grounded in craft and precision. Whether I am engineering agentic workflows, building real-time pipelines, or crafting fast, motion-driven web interfaces, I focus on creating work that respects people&apos;s time and delivers measurable results.
               </p>
               <p
                 style={{
@@ -480,7 +480,7 @@ export default function AboutClient() {
                   fontStyle: 'italic',
                 }}
               >
-                &ldquo;The next generation of digital experiences won&apos;t just be smart — they will be sentient-like, proactive, and perfectly integrated into our physical reality.&rdquo;
+                &ldquo;Great software shouldn&apos;t feel complex or loud — it should feel quiet, effortless, and distinctly human.&rdquo;
               </p>
             </div>
 

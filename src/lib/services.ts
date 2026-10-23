@@ -32,7 +32,7 @@ export const services: Service[] = [
       'Performance Optimisation',
       'SEO Foundation'
     ],
-    duration: '6–10 WEEKS',
+    duration: '2–4 WEEKS',
     startingFrom: '₹40,000',
     icon: '◈',
     image: '/images/services/web_design.png',

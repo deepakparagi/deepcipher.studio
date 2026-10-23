@@ -81,7 +81,7 @@ const faqs = [
   {
     id: 1,
     q: 'How long does a typical project take?',
-    a: 'Most projects take 6–10 weeks from kickoff to launch. We agree on a timeline before we start and we hold to it.',
+    a: 'Most projects take 2–4 weeks from kickoff to launch. We agree on a timeline before we start and we hold to it.',
   },
   {
     id: 2,

@@ -154,7 +154,6 @@ export function useResourceLoader<T = unknown>({
         abortControllerRef.current.abort();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...dependencies, autoStart]);
 
   return {

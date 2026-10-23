@@ -6,15 +6,16 @@ import { ArrowUpRight } from 'lucide-react';
 
 /* ==========================================================
    DEEPCIPHER — Client Stories / Selected Results
-   Editorial Minimal Luxury Grid & Card Architecture
-   - Strict 3-part card layout: Header, Body (quote), Footer (attribution)
-   - CSS Grid with exact responsive breakpoints
-   - Flexbox with margin-top: auto for aligned footers in every row
-   - Consistent typography, zero awkward overlaps, zero clipping
+   Editorial Minimal Luxury 4-Card Showcase
+   - 2-word punchy headline: "Proven Impact."
+   - Curated 4 flagship client reviews in a balanced 2x2 grid
+   - Elevated card styling: subtle numbering, refined badges,
+     tactile case study pills, and aligned attribution
    ========================================================== */
 
 export interface ClientReview {
   id: string;
+  number: string;
   client: string;
   category: string;
   location: string;
@@ -25,17 +26,8 @@ export interface ClientReview {
 
 export const clientReviews: ClientReview[] = [
   {
-    id: 'shingri-developers',
-    client: 'Shingri Developers',
-    category: 'Luxury Real Estate',
-    location: 'Hubli, India',
-    year: '2026',
-    quote:
-      'Finding a team that understands luxury real estate without making things look cheesy or overdone is rare. They built a 3D walkthrough experience that our buyers actually spend time on. It brought in several serious NRI enquiries in our very first month.',
-    slug: 'shingri-developers',
-  },
-  {
     id: 'gadag-info',
+    number: '01',
     client: 'Gadag Info Community',
     category: 'Regional Media',
     location: 'Gadag, India',
@@ -46,6 +38,7 @@ export const clientReviews: ClientReview[] = [
   },
   {
     id: 'khans-fitness',
+    number: '02',
     client: "Khan's Fitness",
     category: 'Performance Athletic',
     location: 'Gadag-Betageri',
@@ -55,17 +48,8 @@ export const clientReviews: ClientReview[] = [
     slug: 'khans-fitness',
   },
   {
-    id: 'bipin-chikkatti',
-    client: 'Bipin Chikkatti Institutions',
-    category: 'Higher Education',
-    location: 'Gadag, India',
-    year: '2024',
-    quote:
-      'Our institution has over 30 years of history. We needed a site that reflects our academic dignity while staying fast and intuitive for modern students and parents. The feedback from faculty and alumni has been wonderful.',
-    slug: 'bipin-chikkatti-institutions',
-  },
-  {
     id: 'brown-sugar',
+    number: '03',
     client: 'Brown Sugar Fusion Cafe',
     category: 'Luxury Hospitality',
     location: 'Gadag-Betageri',
@@ -75,14 +59,15 @@ export const clientReviews: ClientReview[] = [
     slug: 'brown-sugar-fusion-cafe',
   },
   {
-    id: 'cinepulse-ai',
-    client: 'CinePulse AI Network',
-    category: 'Machine Learning',
-    location: 'Global Platform',
-    year: '2026',
+    id: 'bipin-chikkatti',
+    number: '04',
+    client: 'Bipin Chikkatti Institutions',
+    category: 'Higher Education',
+    location: 'Gadag, India',
+    year: '2024',
     quote:
-      'We needed a front-end that could visualize deep machine learning models without looking like a dry academic paper or a generic dashboard. Deepcipher nailed the dark editorial aesthetic on the first pass. Super clean code and delivery.',
-    slug: 'cinepulse-ai',
+      'Our institution has over 30 years of history. We needed a site that reflects our academic dignity while staying fast and intuitive for modern students and parents. The feedback from faculty and alumni has been wonderful.',
+    slug: 'bipin-chikkatti-institutions',
   },
 ];
 
@@ -91,13 +76,13 @@ export default function TestimonialsGrid() {
     <>
       <style jsx global>{`
         /* ==================================================
-           TESTIMONIALS SECTION — Responsive Layout & Breakpoints
+           TESTIMONIALS SECTION — Layout & Container
            ================================================== */
         .testimonials-section {
           background-color: #0A0A0A;
           border-top: 1px solid rgba(245, 240, 232, 0.08);
-          padding-top: 64px;
-          padding-bottom: 64px;
+          padding-top: 72px;
+          padding-bottom: 72px;
           padding-left: 20px;
           padding-right: 20px;
         }
@@ -109,51 +94,32 @@ export default function TestimonialsGrid() {
         }
 
         .testimonials-header {
-          margin-bottom: 28px;
+          margin-bottom: 36px;
         }
 
-        /* Responsive Grid: Base (320px–479px) */
-        .testimonials-grid {
+        /* 4-Card Balanced Responsive Grid (2x2 on Desktop/Tablet, 1-col on Mobile) */
+        .testimonials-grid-4 {
           display: grid;
           grid-template-columns: minmax(0, 1fr);
-          gap: 16px;
+          gap: 18px;
         }
 
-        /* Large mobile: 480px–767px */
         @media (min-width: 480px) {
           .testimonials-section {
-            padding-top: 72px;
-            padding-bottom: 72px;
+            padding-top: 80px;
+            padding-bottom: 80px;
             padding-left: 24px;
             padding-right: 24px;
           }
           .testimonials-header {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
           }
-          .testimonials-grid {
-            gap: 20px;
+          .testimonials-grid-4 {
+            gap: 22px;
           }
         }
 
-        /* Tablet: 768px–1023px */
         @media (min-width: 768px) {
-          .testimonials-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-            padding-left: 32px;
-            padding-right: 32px;
-          }
-          .testimonials-header {
-            margin-bottom: 36px;
-          }
-          .testimonials-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
-          }
-        }
-
-        /* Laptop / Small Desktop: 1024px–1279px */
-        @media (min-width: 1024px) {
           .testimonials-section {
             padding-top: 96px;
             padding-bottom: 96px;
@@ -161,40 +127,39 @@ export default function TestimonialsGrid() {
             padding-right: 32px;
           }
           .testimonials-header {
-            margin-bottom: 44px;
-          }
-          .testimonials-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
-          }
-        }
-
-        /* Desktop: 1280px–1535px */
-        @media (min-width: 1280px) {
-          .testimonials-section {
-            padding-left: 48px;
-            padding-right: 48px;
-          }
-          .testimonials-header {
             margin-bottom: 48px;
           }
-          .testimonials-grid {
+          .testimonials-grid-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 28px;
           }
         }
 
-        /* Large Desktop: 1536px–1919px */
+        @media (min-width: 1280px) {
+          .testimonials-section {
+            padding-top: 110px;
+            padding-bottom: 110px;
+            padding-left: 48px;
+            padding-right: 48px;
+          }
+          .testimonials-header {
+            margin-bottom: 54px;
+          }
+          .testimonials-grid-4 {
+            gap: 32px;
+          }
+        }
+
         @media (min-width: 1536px) {
           .testimonials-section {
             padding-left: 64px;
             padding-right: 64px;
           }
-          .testimonials-grid {
-            gap: 32px;
+          .testimonials-grid-4 {
+            gap: 36px;
           }
         }
 
-        /* Wide Desktop: 1920px and above */
         @media (min-width: 1920px) {
           .testimonials-container {
             width: min(100% - 128px, 1440px);
@@ -203,83 +168,108 @@ export default function TestimonialsGrid() {
         }
 
         /* ==================================================
-           TESTIMONIAL CARD — Three-Part Flex Structure
+           REDESIGNED CARD STYLE — Minimal Luxury Aesthetic
            ================================================== */
-        .testimonial-card {
-          background-color: #0C0D11;
+        .testimonial-card-v2 {
+          position: relative;
+          background: #0C0D12;
           border: 1px solid rgba(245, 240, 232, 0.08);
-          border-radius: 10px;
+          border-radius: 12px;
           display: flex;
           flex-direction: column;
           height: 100%;
-          padding: 20px;
+          padding: 24px;
           box-sizing: border-box;
-          transition: border-color 0.25s ease, background-color 0.25s ease;
+          transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+          overflow: hidden;
         }
 
         @media (min-width: 768px) {
-          .testimonial-card {
-            padding: 24px;
+          .testimonial-card-v2 {
+            padding: 32px;
           }
         }
 
         @media (min-width: 1280px) {
-          .testimonial-card {
-            padding: 28px;
+          .testimonial-card-v2 {
+            padding: 36px 38px;
           }
         }
 
-        .testimonial-card:hover {
-          border-color: rgba(69, 101, 255, 0.35);
-          background-color: #101117;
+        .testimonial-card-v2:hover {
+          border-color: rgba(53, 75, 255, 0.35);
+          background-color: #101118;
         }
 
-        /* A. Card Header: Category & Rating */
-        .card-header {
+        /* Subtle top hover hairline */
+        .card-hairline-accent {
+          position: absolute;
+          top: 0;
+          left: 10%;
+          right: 10%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #354BFF, transparent);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        .testimonial-card-v2:hover .card-hairline-accent {
+          opacity: 1;
+        }
+
+        /* Card Header */
+        .card-header-v2 {
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
-          gap: 8px;
-          padding-bottom: 14px;
-          border-bottom: 1px solid rgba(245, 240, 232, 0.07);
+          gap: 10px;
+          padding-bottom: 18px;
+          border-bottom: 1px solid rgba(245, 240, 232, 0.06);
         }
 
-        /* B. Card Body: Dedicated Quote Area */
-        .card-body {
+        /* Card Body */
+        .card-body-v2 {
           flex: 1 1 auto;
           display: flex;
           align-items: flex-start;
-          padding-top: 22px;
-          padding-bottom: 22px;
+          padding-top: 24px;
+          padding-bottom: 24px;
         }
 
-        .card-quote {
+        .card-quote-v2 {
           font-family: var(--font-helvetica), 'Helvetica', sans-serif;
           font-size: 15px;
-          line-height: 1.65;
+          line-height: 1.7;
           color: #EDE8E1;
           font-weight: 400;
           letter-spacing: -0.01em;
           margin: 0;
         }
 
-        @media (min-width: 1024px) {
-          .card-quote {
+        @media (min-width: 768px) {
+          .card-quote-v2 {
             font-size: 15.5px;
           }
         }
 
-        /* C. Card Footer: Client Info & Case Study Link */
-        .card-footer {
+        @media (min-width: 1280px) {
+          .card-quote-v2 {
+            font-size: 16px;
+          }
+        }
+
+        /* Card Footer */
+        .card-footer-v2 {
           margin-top: auto;
-          padding-top: 16px;
-          border-top: 1px solid rgba(245, 240, 232, 0.07);
+          padding-top: 20px;
+          border-top: 1px solid rgba(245, 240, 232, 0.06);
           display: flex;
           justify-content: space-between;
           align-items: flex-end;
           flex-wrap: wrap;
-          gap: 12px;
+          gap: 14px;
         }
       `}</style>
 
@@ -289,7 +279,7 @@ export default function TestimonialsGrid() {
         aria-labelledby="testimonials-heading"
       >
         <div className="testimonials-container">
-          {/* Section Header */}
+          {/* Section Header with 2-word Punchy Title */}
           <div className="testimonials-header max-w-[820px]">
             {/* Eyebrow Label */}
             <div className="flex items-center gap-2.5 mb-3.5">
@@ -299,18 +289,18 @@ export default function TestimonialsGrid() {
               </span>
             </div>
 
-            {/* Main Heading */}
+            {/* 2-Word Main Heading */}
             <h2
               id="testimonials-heading"
               className="m-0 text-[#F5F0E8] font-bold tracking-tight"
               style={{
                 fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif",
-                fontSize: 'clamp(32px, 4.2vw, 54px)',
-                lineHeight: 1.1,
-                letterSpacing: '-0.025em',
+                fontSize: 'clamp(36px, 5.5vw, 68px)',
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
               }}
             >
-              Trusted by teams building what’s next.
+              Proven Impact.
             </h2>
 
             {/* Supporting Text */}
@@ -326,18 +316,26 @@ export default function TestimonialsGrid() {
             </p>
           </div>
 
-          {/* Testimonial Cards Grid */}
-          <div className="testimonials-grid w-full">
+          {/* 4-Card Showcase Grid */}
+          <div className="testimonials-grid-4 w-full">
             {clientReviews.map((item) => (
               <article
                 key={item.id}
-                className="testimonial-card"
+                className="testimonial-card-v2"
               >
-                {/* A. Header: Category & Rating */}
-                <div className="card-header">
-                  <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.16em] text-[#354BFF] font-medium">
-                    {item.category}
-                  </span>
+                {/* Subtle top hairline on hover */}
+                <div className="card-hairline-accent" aria-hidden="true" />
+
+                {/* A. Header: Number, Category Tag & 5-Star Rating */}
+                <div className="card-header-v2">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[10px] font-mono text-[#8E8982] tracking-wider">
+                      {item.number}
+                    </span>
+                    <span className="text-[9.5px] font-mono uppercase tracking-[0.16em] text-[#354BFF] bg-[#354BFF]/10 border border-[#354BFF]/20 px-2.5 py-1 rounded-sm font-medium">
+                      {item.category}
+                    </span>
+                  </div>
 
                   {/* Subtle 5-Star Rating */}
                   <div
@@ -347,7 +345,7 @@ export default function TestimonialsGrid() {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <svg
                         key={i}
-                        className="w-3 h-3 fill-current"
+                        className="w-3.5 h-3.5 fill-current"
                         viewBox="0 0 20 20"
                         aria-hidden="true"
                       >
@@ -358,31 +356,31 @@ export default function TestimonialsGrid() {
                 </div>
 
                 {/* B. Testimonial Body */}
-                <div className="card-body">
-                  <blockquote className="card-quote">
+                <div className="card-body-v2">
+                  <blockquote className="card-quote-v2">
                     &ldquo;{item.quote}&rdquo;
                   </blockquote>
                 </div>
 
                 {/* C. Attribution Footer */}
-                <div className="card-footer">
+                <div className="card-footer-v2">
                   <div className="flex flex-col min-w-0 pr-2">
                     <span
-                      className="text-[13.5px] sm:text-[14px] font-medium text-[#F5F0E8] tracking-tight truncate"
+                      className="text-[14px] sm:text-[15px] font-medium text-[#F5F0E8] tracking-tight truncate"
                       style={{ fontFamily: "var(--font-helvetica), 'Helvetica', sans-serif" }}
                     >
                       {item.client}
                     </span>
-                    <span className="text-[11px] font-mono text-[#8E8982] mt-0.5 tracking-wider">
+                    <span className="text-[11.5px] font-mono text-[#8E8982] mt-0.5 tracking-wider">
                       {item.location} · {item.year}
                     </span>
                   </div>
 
-                  {/* Case Study Link */}
+                  {/* Case Study Pill Link */}
                   {item.slug && (
                     <Link
                       href={`/work/${item.slug}`}
-                      className="inline-flex items-center gap-1 text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.14em] text-[#354BFF] hover:text-[#6579FF] transition-colors duration-200 py-1 shrink-0 focus:outline-none focus:ring-1 focus:ring-[#354BFF]"
+                      className="inline-flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-[0.14em] text-[#F5F0E8]/90 hover:text-white bg-[rgba(245,240,232,0.04)] hover:bg-[#354BFF] border border-[rgba(245,240,232,0.1)] hover:border-[#354BFF] px-3.5 py-1.5 rounded-full transition-all duration-200 shrink-0 focus:outline-none focus:ring-1 focus:ring-[#354BFF]"
                     >
                       <span>CASE STUDY</span>
                       <ArrowUpRight size={12} className="shrink-0" aria-hidden="true" />

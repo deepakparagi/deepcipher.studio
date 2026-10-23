@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
@@ -67,6 +68,11 @@ function getProjectImageFolder(slug: string): string {
 export default function CaseStudyClient({ project, nextProject }: { project: Project; nextProject: Project }) {
   const { setCursor, resetCursor } = useCursor();
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -477,51 +483,67 @@ export default function CaseStudyClient({ project, nextProject }: { project: Pro
       </div>
     </section>
 
-      {/* LIGHTBOX MODAL */}
-      <AnimatePresence>
-        {activeImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out p-6 md:p-12"
-            onClick={() => {
-              setActiveImage(null);
-              resetCursor();
-            }}
-          >
-            {/* Close Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveImage(null);
-                resetCursor();
-              }}
-              className="absolute top-6 right-8 text-[#9A9590] hover:text-[#F5F0E8] transition-colors duration-300 font-mono text-xs tracking-widest z-[10000] cursor-pointer"
-            >
-              [ CLOSE ]
-            </button>
-            
-            {/* Image Container with Animation */}
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full flex items-center justify-center"
-            >
-              <img
-                src={activeImage}
-                alt="Enlarged screenshot"
-                className="w-auto h-auto max-w-full max-h-full object-contain shadow-2xl rounded-sm border border-white/5"
-                onClick={(e) => e.stopPropagation()}
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* LIGHTBOX MODAL PORTAL */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {activeImage && (
+              <motion.div
+                key="case-study-lightbox"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl cursor-zoom-out p-4 sm:p-8 md:p-12"
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100vw',
+                  height: '100dvh',
+                }}
+                onClick={() => {
+                  setActiveImage(null);
+                  resetCursor();
+                }}
+              >
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveImage(null);
+                    resetCursor();
+                  }}
+                  className="absolute top-6 right-8 text-[#9A9590] hover:text-[#F5F0E8] transition-colors duration-200 font-mono text-xs tracking-widest z-[1000000] cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded bg-white/5 border border-white/10 hover:border-white/25"
+                >
+                  <span>CLOSE</span>
+                  <span className="text-[10px] opacity-60">(ESC)</span>
+                  <span>✕</span>
+                </button>
 
+                {/* Image Container with Animation */}
+                <motion.div
+                  initial={{ scale: 0.94, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.94, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative max-w-[92vw] max-h-[86vh] flex items-center justify-center cursor-default select-none"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    src={activeImage}
+                    alt="Enlarged screenshot"
+                    className="w-auto h-auto max-w-[92vw] max-h-[86vh] object-contain shadow-2xl rounded border border-white/10"
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
     </motion.main>
   );
 }

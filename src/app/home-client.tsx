@@ -5,12 +5,26 @@ import dynamic from 'next/dynamic';
 import HomeMarquee from '@/components/sections/HomeMarquee';
 import { motion } from 'framer-motion';
 
-const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false, loading: () => null });
-const SelectedProjects = dynamic(() => import('@/components/sections/SelectedProjects'), { loading: () => null });
-const ServicesV2 = dynamic(() => import('@/components/sections/ServicesV2'), { loading: () => null });
-const TestimonialsGrid = dynamic(() => import('@/components/sections/TestimonialsGrid'), { loading: () => null });
+import { HeroSkeleton, SectionSkeleton } from '@/components/ui/Skeletons';
 
-const CTAv2 = dynamic(() => import('@/components/sections/CTAv2'), { ssr: false, loading: () => null });
+const Hero = dynamic(() => import('@/components/sections/Hero'), {
+  ssr: false,
+  loading: () => <HeroSkeleton />,
+});
+const SelectedProjects = dynamic(() => import('@/components/sections/SelectedProjects'), {
+  loading: () => <SectionSkeleton height="800px" title="Selected Projects" />,
+});
+const ServicesV2 = dynamic(() => import('@/components/sections/ServicesV2'), {
+  loading: () => <SectionSkeleton height="600px" title="Studio Services" />,
+});
+const TestimonialsGrid = dynamic(() => import('@/components/sections/TestimonialsGrid'), {
+  loading: () => <SectionSkeleton height="500px" title="Client Testimonials" />,
+});
+
+const CTAv2 = dynamic(() => import('@/components/sections/CTAv2'), {
+  ssr: false,
+  loading: () => null,
+});
 
 /* ========================================
    Error Boundary — prevents blank page

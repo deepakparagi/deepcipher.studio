@@ -14,6 +14,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr: false });
 const GrainOverlay = dynamic(() => import('@/components/layout/GrainOverlay'), { ssr: false });
 const WebsiteLoader = dynamic(() => import('@/components/ui/WebsiteLoader'), { ssr: false });
+const RouteLoadingIndicator = dynamic(() => import('@/components/layout/RouteLoadingIndicator'), { ssr: false });
 
 /* ========================================
    Client Layout — wraps providers + chrome
@@ -57,6 +58,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         
         <CustomCursor />
         <GrainOverlay />
+        <RouteLoadingIndicator />
         <Navbar />
         {/* Page Transitions (Optimized for 120Hz) */}
         <motion.div

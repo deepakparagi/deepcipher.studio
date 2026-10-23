@@ -10,6 +10,7 @@ import NeuralBackground from '@/components/ui/flow-field-background';
 import AnimatedText from '@/components/ui/AnimatedText';
 import Image from 'next/image';
 import EditorialPageHero from '@/components/layout/EditorialPageHero';
+import LoadingStateView from '@/components/ui/LoadingStateView';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { setCursor, resetCursor } = useCursor();
@@ -227,11 +228,14 @@ export default function WorkClient() {
           </div>
 
           {filteredProjects.length === 0 && (
-            <div className="border border-[rgba(245,240,232,0.08)] bg-[#0C0C0C] py-48 text-center">
-              <span className="text-[11px] uppercase italic tracking-[0.4em] text-[#6B6560]">
-                No projects found in this category.
-              </span>
-            </div>
+            <LoadingStateView
+              state="empty"
+              inline
+              emptyTitle={`No ${activeCategory} Projects`}
+              emptyDescription="There are currently no published case studies indexed under this specific classification. You may view all studio projects or inquire directly."
+              emptyActionLabel="SHOW ALL PROJECTS"
+              onEmptyAction={() => setActiveCategory('ALL')}
+            />
           )}
         </div>
       </section>

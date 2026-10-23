@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursor } from '@/components/ui/CursorProvider';
 import Noise from '@/components/ui/Noise';
@@ -31,7 +31,10 @@ export default function ContactClient() {
   const { setCursor, resetCursor } = useCursor();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSlowSubmission, setIsSlowSubmission] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; phone?: string; brief?: string; general?: string }>({});
+  const submitAbortRef = useRef<AbortController | null>(null);
+  const slowTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [form, setForm] = useState({
     name: '',
@@ -62,11 +65,22 @@ export default function ContactClient() {
 
     setErrors({});
     setIsSubmitting(true);
+    setIsSlowSubmission(false);
+
+    if (submitAbortRef.current) submitAbortRef.current.abort();
+    const controller = new AbortController();
+    submitAbortRef.current = controller;
+
+    // State 5: Slow Loading threshold (3000ms)
+    slowTimerRef.current = setTimeout(() => {
+      setIsSlowSubmission(true);
+    }, 3000);
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           name: form.name,
           phone: form.phone,
@@ -77,17 +91,20 @@ export default function ContactClient() {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(result.error || 'Network response was not ok');
+        throw new Error(result.error || 'Server responded with an error');
       }
 
       setSubmitted(true);
     } catch (error: any) {
+      if (error?.name === 'AbortError') return;
       console.error('Submission failed:', error);
       setErrors({
-        general: error?.message || 'Transmission failed. Please try again or reach us at deepcipherstudio@gmail.com.',
+        general: error?.message || 'Transmission failed. You can safely retry without losing your input.',
       });
     } finally {
+      if (slowTimerRef.current) clearTimeout(slowTimerRef.current);
       setIsSubmitting(false);
+      setIsSlowSubmission(false);
     }
   };
 
@@ -590,14 +607,36 @@ export default function ContactClient() {
                     )}
                   </motion.div>
 
-                  {/* GENERAL ERROR BANNER */}
+                  {/* RECOVERABLE ERROR BANNER (STATE 6) */}
                   {errors.general && (
                     <motion.div
+                      role="alert"
+                      aria-live="assertive"
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mb-6 p-4 rounded bg-[#1A0B0B] border border-[#FF5449]/40 text-[#FF857C] text-[11px] font-mono tracking-wide leading-relaxed"
+                      className="mb-6 p-4 rounded bg-[#1A0B0B] border border-[#FF5449]/40 text-[#FF857C] text-[11px] font-mono tracking-wide leading-relaxed flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
                     >
-                      {errors.general}
+                      <span>{errors.general}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleSubmit()}
+                        className="px-3 py-1.5 bg-[#FF5449]/20 hover:bg-[#FF5449]/30 text-white rounded text-[10px] tracking-wider uppercase border border-[#FF5449]/40 cursor-pointer self-start sm:self-auto shrink-0 transition-colors"
+                      >
+                        RETRY TRANSMISSION
+                      </button>
+                    </motion.div>
+                  )}
+
+                  {/* SLOW LOADING REASSURANCE (STATE 5) */}
+                  {isSubmitting && isSlowSubmission && (
+                    <motion.div
+                      role="status"
+                      aria-live="polite"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="mb-4 text-[10px] font-mono text-[#D4A373] tracking-widest text-center uppercase"
+                    >
+                      Taking a little longer than usual… finalizing dispatch
                     </motion.div>
                   )}
 
@@ -611,7 +650,11 @@ export default function ContactClient() {
                     className="contact-submit-btn"
                     style={{ transformOrigin: 'center' }}
                   >
-                    {isSubmitting ? 'SENDING...' : 'SEND PROJECT BRIEF →'}
+                    {isSubmitting
+                      ? isSlowSubmission
+                        ? 'TRANSMITTING… (HOLD TIGHT)'
+                        : 'TRANSMITTING BRIEF…'
+                      : 'SEND PROJECT BRIEF →'}
                   </motion.button>
                 </motion.form>
               </div>

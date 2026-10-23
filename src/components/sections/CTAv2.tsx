@@ -157,26 +157,31 @@ export default function CTAv2() {
             {/* Vignette effect removed from here, added at the section level below instead of the sharp rectangle */}
 
             {/* Middle Line - Citadel Script Flourish */}
-            <div style={{ overflow: 'visible', paddingTop: '0.15em', paddingBottom: '0.25em' }}>
-              <AnimatedText
-                splitBy="word"
-                as="span"
-                className="block font-citadel relative z-10"
+            <div className="w-full flex justify-center" style={{ overflow: 'visible', paddingTop: '0.1em', paddingBottom: '0.15em' }}>
+              <motion.span
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="block font-citadel relative z-10 text-center"
                 style={{ 
                   fontFamily: "var(--font-citadel), 'Citadel Script', cursive",
                   fontWeight: 400,
                   fontStyle: 'normal',
                   fontSize: 'clamp(58px, 14vw, 210px)',
                   color: '#4B5DF5',
-                  letterSpacing: '0.02em',
-                  lineHeight: 1.1,
-                  marginTop: '-0.05em',
+                  letterSpacing: '0.01em',
+                  lineHeight: 1.2,
+                  marginTop: '-0.02em',
                   textShadow: '0 0 50px rgba(75, 93, 245, 0.4), 0 20px 80px rgba(44, 52, 128,0.2)',
                   overflow: 'visible',
+                  whiteSpace: 'nowrap',
+                  paddingLeft: '0.15em',
+                  paddingRight: '0.15em',
                 }}
               >
                 the unforgettable.
-              </AnimatedText>
+              </motion.span>
             </div>
           </div>
 
